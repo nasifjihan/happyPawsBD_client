@@ -7,7 +7,7 @@ import DataGrid from "./DataGrid";
 import Filters from "./Filters";
 import Pagination from "./Pagination";
 
-const FindVet = () => {
+const VetFinder = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,7 +58,7 @@ const FindVet = () => {
     <Container className="myContainer">
       <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="h4" gutterBottom>
-          <strong> Find Vet</strong>
+          <strong>Vet Finder</strong>
         </Typography>
       </Box>
       <Filters
@@ -77,4 +77,4 @@ const FindVet = () => {
     </Container>
   );
 };
-export default FindVet;
+export default VetFinder;

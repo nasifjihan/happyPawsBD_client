@@ -27,7 +27,7 @@ const LostPets = () => {
     const fetchData = async () => {
       try {
         let response = await getLostPets();
-        setLostPets(response.data);
+        setLostPets(response);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -63,7 +63,7 @@ const LostPets = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {/* {adoptableAnimals.slice(0, 6).map((item) => ( */}
-          {lostPets.map((pet) => (
+          {[...lostPets].reverse().map((pet) => (
             <Grid item xs={2} sm={4} md={4} key={pet._id}>
               <Card
                 sx={{

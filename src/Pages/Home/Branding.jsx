@@ -63,8 +63,8 @@ const Branding = () => {
             <Button href="/petcare" sx={{ flex: "1", fontWeight: "700" }}>
               Service
             </Button>
-            <Button href="/findvet" sx={{ flex: "1", fontWeight: "700" }}>
-              Find Vet
+            <Button href="/vet_finder" sx={{ flex: "1", fontWeight: "700" }}>
+              Vet Finder
             </Button>
           </ButtonGroup>
         </Stack>

@@ -37,7 +37,7 @@ import Cart from "./Pages/Shop/Cart/Cart";
 // Veterinary ----------------------------------
 import Online_Consultation from "./Pages/Veterinary/Online Consultation/Online_Consultation";
 import In_Person_Consultation from "./Pages/Veterinary/In Person Consultation/In_Person_Consultation";
-import FindVet from "./Pages/Veterinary/Find Vet/FindVet";
+import VetFinder from "./Pages/Veterinary/Vet Finder/VetFinder";
 import House_Calls from "./Pages/Veterinary/House Calls/House_Calls";
 import Health_Care_Blog from "./Pages/Veterinary/Health Care Blog/Health_Care_Blog";
 import Covid19_Info from "./Pages/Veterinary/Covid19 Info/Covid19_Info";
@@ -157,7 +157,7 @@ const App = () => {
               path="/in_person_consultation"
               element={<In_Person_Consultation />}
             />
-            <Route path="/findvet" element={<FindVet />} />
+            <Route path="/vet_finder" element={<VetFinder />} />
             <Route path="/house_calls" element={<House_Calls />} />
             <Route path="/health_care_blog" element={<Health_Care_Blog />} />
             <Route path="/covid19_info" element={<Covid19_Info />} />

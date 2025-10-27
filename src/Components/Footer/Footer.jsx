@@ -229,13 +229,13 @@ const Footer = () => {
 
               <br />
               <Link
-                href="/findvet"
+                href="/vet_finder"
                 target="_blank"
                 rel="noopener noreferrer"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
-                Find Vet
+                Vet Finder
               </Link>
 
               <br />

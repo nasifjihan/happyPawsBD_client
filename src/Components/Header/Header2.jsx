@@ -193,8 +193,8 @@ const Header2 = (props) => {
               <ListItemText primary="In-Person Consultation" />
             </ListItemButton>
 
-            <ListItemButton sx={{ pl: 4 }} component={Link} to="/findvet">
-              <ListItemText primary="Find Vet" />
+            <ListItemButton sx={{ pl: 4 }} component={Link} to="/vet_finder">
+              <ListItemText primary="Vet Finder" />
             </ListItemButton>
 
             <ListItemButton sx={{ pl: 4 }} component={Link} to="/house_calls">
@@ -599,9 +599,9 @@ const Header2 = (props) => {
                   color: "inherit",
                   fontWeight: "600",
                 }}
-                to="/findvet"
+                to="/vet_finder"
               >
-                FIND VET
+                VET FINDER
               </Link>
             </MenuItem>
 

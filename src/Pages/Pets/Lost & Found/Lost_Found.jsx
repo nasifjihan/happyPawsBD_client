@@ -28,10 +28,14 @@ const LostFoundRedesign = () => {
       try {
         const lostResponse = await getLostPets();
         const foundResponse = await getFoundPets();
-        setLostPets(lostResponse.data);
-        setFoundPets(foundResponse.data);
+        setLostPets(lostResponse);
+        setFoundPets(foundResponse);
       } catch (error) {
-        setError("Error fetching data. Please try again.");
+        console.error("Error fetching data:", error);
+        setError(
+          error.response?.data?.message ||
+            "Error fetching data. Please try again."
+        );
       } finally {
         setLoading(false);
       }
@@ -87,54 +91,58 @@ const LostFoundRedesign = () => {
 
           <Stack my={3}>
             <Grid container spacing={2}>
-              {lostPets.slice(0, 2).map((pet) => (
-                <Grid item xs={12} sm={6} key={pet._id}>
-                  <Card
-                    sx={{
-                      boxShadow: "none",
-                      backgroundColor: "#FBFBFB",
-                      "&:hover": {
-                        boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
-                      },
-                    }}
-                  >
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        image={pet.petPicture}
-                        height={187}
-                      />
-                      <CardContent>
-                        <Divider>PET INFO</Divider>
-                        <Typography gutterBottom fontWeight={700}>
-                          Pet Name: {pet.petName}
-                        </Typography>
-                        <Typography variant="body2">
-                          Type: {pet.animalType}
-                        </Typography>
-                        <Typography variant="body2">Age: {pet.age}</Typography>
-                        <Typography variant="body2">
-                          Color: {pet.colors}
-                        </Typography>
-                        <Typography variant="body2">
-                          Lost Location: {pet.lastSeenLocation}
-                        </Typography>
-                        <Typography variant="body2">
-                          Lost Date: {pet.lostDate}
-                        </Typography>
+              {lostPets &&
+                lostPets.slice(0, 2).map((pet) => (
+                  <Grid item xs={12} sm={6} key={pet._id}>
+                    <Card
+                      sx={{
+                        boxShadow: "none",
+                        backgroundColor: "#FBFBFB",
+                        "&:hover": {
+                          boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
+                        },
+                      }}
+                    >
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          image={pet.petPicture || "/placeholder.png"}
+                          height={187}
+                        />
 
-                        <Divider>OWNER INFO</Divider>
-                        <Typography variant="body2" fontWeight={700}>
-                          Owner Name: {pet.ownerName}
-                        </Typography>
-                        <Typography variant="body2">
-                          Contact: {pet.contactPhone}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              ))}
+                        <CardContent>
+                          <Divider>PET INFO</Divider>
+                          <Typography gutterBottom fontWeight={700}>
+                            Pet Name: {pet.petName}
+                          </Typography>
+                          <Typography variant="body2">
+                            Type: {pet.animalType}
+                          </Typography>
+                          <Typography variant="body2">
+                            Age: {pet.age}
+                          </Typography>
+                          <Typography variant="body2">
+                            Color: {pet.colors}
+                          </Typography>
+                          <Typography variant="body2">
+                            Lost Location: {pet.lastSeenLocation}
+                          </Typography>
+                          <Typography variant="body2">
+                            Lost Date: {pet.lostDate}
+                          </Typography>
+
+                          <Divider>OWNER INFO</Divider>
+                          <Typography variant="body2" fontWeight={700}>
+                            Owner Name: {pet.ownerName}
+                          </Typography>
+                          <Typography variant="body2">
+                            Contact: {pet.contactPhone}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                ))}
             </Grid>
           </Stack>
 
@@ -175,51 +183,54 @@ const LostFoundRedesign = () => {
 
           <Stack my={3}>
             <Grid container spacing={2}>
-              {foundPets.slice(0, 2).map((pet) => (
-                <Grid item xs={12} sm={6} key={pet._id}>
-                  <Card
-                    sx={{
-                      boxShadow: "none",
-                      backgroundColor: "#FBFBFB",
-                      "&:hover": {
-                        boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
-                      },
-                    }}
-                  >
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        image={pet.petPicture}
-                        height={206}
-                      />
-                      <CardContent>
-                        <Divider>PET INFO</Divider>
-                        <Typography gutterBottom fontWeight={700}>
-                          Pet Name: {pet.petName}
-                        </Typography>
-                        <Typography variant="body2">
-                          Type: {pet.animalType}
-                        </Typography>
-                        <Typography variant="body2">Age: {pet.age}</Typography>
-                        <Typography variant="body2">
-                          Color: {pet.colors}
-                        </Typography>
-                        <Typography variant="body2">
-                          Found Location: {pet.lastSeenLocation}
-                        </Typography>
+              {foundPets &&
+                foundPets.slice(0, 2).map((pet) => (
+                  <Grid item xs={12} sm={6} key={pet._id}>
+                    <Card
+                      sx={{
+                        boxShadow: "none",
+                        backgroundColor: "#FBFBFB",
+                        "&:hover": {
+                          boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
+                        },
+                      }}
+                    >
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          image={pet.petPicture}
+                          height={206}
+                        />
+                        <CardContent>
+                          <Divider>PET INFO</Divider>
+                          <Typography gutterBottom fontWeight={700}>
+                            Pet Name: {pet.petName}
+                          </Typography>
+                          <Typography variant="body2">
+                            Type: {pet.animalType}
+                          </Typography>
+                          <Typography variant="body2">
+                            Age: {pet.age}
+                          </Typography>
+                          <Typography variant="body2">
+                            Color: {pet.colors}
+                          </Typography>
+                          <Typography variant="body2">
+                            Found Location: {pet.lastSeenLocation}
+                          </Typography>
 
-                        <Divider>FINDER INFO</Divider>
-                        <Typography variant="body2" fontWeight={700}>
-                          Finder Name: {pet.ownerName}
-                        </Typography>
-                        <Typography variant="body2">
-                          Contact: {pet.contactPhone}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              ))}
+                          <Divider>FINDER INFO</Divider>
+                          <Typography variant="body2" fontWeight={700}>
+                            Finder Name: {pet.ownerName}
+                          </Typography>
+                          <Typography variant="body2">
+                            Contact: {pet.contactPhone}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                ))}
             </Grid>
           </Stack>
 

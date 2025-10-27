@@ -1,105 +1,87 @@
-import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
-const URL = "https://happypawsbd-server.onrender.com";
-// const URL = "http://localhost:5000";
-
-// Lost Pet From Data
-export const addLostPet = async (lostPetData) => {
-  try {
-    const response = await axios.post(
-      `${URL}/lost_found/lost_form`,
-      lostPetData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error("Error in addFoundPet:", error);
-    throw new Error("Failed to submit form");
-  }
+// Lost Pet Form
+export const addLostPet = async (data) => {
+  const response = await axiosInstance.post("/lost_found/lost_form", data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
 };
 
-// All Lost Pets
+// Get All Lost Pets
 export const getLostPets = async () => {
-  return await axios.get(`${URL}/lost_found/lost_pets`);
+  const response = await axiosInstance.get("/lost_found/lost_pets");
+  return response.data;
 };
 
-// Found Pet From Data
-export const addFoundPet = async (foundPetData) => {
-  try {
-    const response = await axios.post(
-      `${URL}/lost_found/found_form`,
-      foundPetData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error("Error in addFoundPet:", error);
-    throw new Error("Failed to submit form");
-  }
-};
-
-// Order
-export const orders = async (orderDetails) => {
-  return await axios.post(`${URL}/cart/orders`, orderDetails);
-};
-
-// Order Payment
-export const createPaymentSession = async (cartItems, deliveryInfo) => {
-  console.log(cartItems);
-  try {
-    const response = await axios.post(`${URL}/cart/orders/create-payment`, {
-      items: cartItems.map((item) => ({
-        id: item.id,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      deliveryInfo,
-    });
-    return response.data; // This should contain sessionId or other session details
-  } catch (error) {
-    console.error("Error creating checkout session:", error);
-    throw error;
-  }
+// Found Pet Form
+export const addFoundPet = async (data) => {
+  const response = await axiosInstance.post("/lost_found/found_form", data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
 };
 
 // All Found Pets
 export const getFoundPets = async () => {
-  return await axios.get(`${URL}/lost_found/found_pets`);
+  const response = await axiosInstance.get("/lost_found/found_pets");
+  return response.data;
 };
 
-// Adoption Application From Data
+// Orders
+export const orders = async (orderDetails) => {
+  const response = await axiosInstance.post("/cart/orders", orderDetails);
+  return response.data;
+};
+
+// Create Payment Session
+export const createPaymentSession = async (cartItems, deliveryInfo) => {
+  const response = await axiosInstance.post("/cart/orders/create-payment", {
+    items: cartItems.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      price: item.price,
+    })),
+    deliveryInfo,
+  });
+  return response.data;
+};
+
+// Adoption, Training, Grooming, Boarding
 export const adoptionApplication = async (adoption, code) => {
-  return await axios.post(`${URL}/adoption/adoptable_pets/${code}`, adoption);
+  const response = await axiosInstance.post(
+    `/adoption/adoptable_pets/${code}`,
+    adoption
+  );
+  return response.data;
 };
 
-// Training Application From Data
 export const trainingApplication = async (training, id) => {
-  return await axios.post(`${URL}/training/${id}`, training);
+  const response = await axiosInstance.post(`/training/${id}`, training);
+  return response.data;
 };
 
-// Grooming Application From Data
 export const groomingApplication = async (grooming, id) => {
-  return await axios.post(`${URL}/petcare/grooming/${id}`, grooming);
+  const response = await axiosInstance.post(
+    `/petcare/grooming/${id}`,
+    grooming
+  );
+  return response.data;
 };
 
-// Boarding Application From Data
 export const boardingApplication = async (boarding, id) => {
-  return await axios.post(`${URL}/petcare/boarding/${id}`, boarding);
+  const response = await axiosInstance.post(
+    `/petcare/boarding/${id}`,
+    boarding
+  );
+  return response.data;
 };
 
-// ------------------------- Pet Shop -------------------------
-// Function to send the cart update to the backend
-export const updateCartInBackend = async (productId, quantity) => {
-  const userId = "user_id_here"; // Get user ID dynamically (from context or state)
-  try {
-    await axios.post(`${URL}/cart/${userId}`, {
-      productId,
-      quantity,
-    });
-    alert("Product added to cart!");
-  } catch (error) {
-    console.error("Error adding product to cart:", error);
-  }
+// Update Cart
+export const updateCartInBackend = async (userId, productId, quantity) => {
+  const response = await axiosInstance.post(`/cart/${userId}`, {
+    productId,
+    quantity,
+  });
+  return response.data;
 };
