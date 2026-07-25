@@ -151,3 +151,11 @@ export const boardingApplication = async (boarding, id) => {
   );
   return response.data;
 };
+
+export const volunteerApplication = async (application) => {
+  const response = await axiosInstance.post(
+    "/api/v1/volunteers/applications",
+    application
+  );
+  return response.data;
+};
