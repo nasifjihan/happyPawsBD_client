@@ -3,7 +3,6 @@ import {
   Card,
   CardActionArea,
   CardActions,
-  CardMedia,
   CardContent,
   Typography,
   Button,
@@ -13,6 +12,7 @@ import {
 } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import ResilientProductImage from "./ResilientProductImage";
 
 const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
   const [bookmarked, setBookmarked] = useState(false);
@@ -26,11 +26,11 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
     <Card sx={{ position: "relative", height: "100%" }}>
       <Box sx={{ height: "280px" }}>
         <CardActionArea onClick={() => onViewDetails(product)}>
-          <CardMedia
-            component="img"
+          <ResilientProductImage
             height="160"
             image={product.image}
             alt={product.name}
+            sx={{ objectFit: "cover" }}
           />
 
           <Typography
@@ -122,6 +122,7 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
           color="success"
           fullWidth
           onClick={() => onViewDetails(product)}
+          sx={{ fontWeight: 700, fontSize: 10 }}
         >
           View Details
         </Button>
@@ -131,6 +132,8 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
           onClick={() => onAddToCart(product)}
           sx={{
             backgroundColor: "#f50057",
+            fontWeight: 700,
+            fontSize: 10,
             "&:hover": {
               backgroundColor: "#d4004c",
             },

@@ -77,6 +77,9 @@ const accountLinks = [
   { label: "Dashboard", to: "/dashboard" },
 ];
 
+const desktopNavRadius = 1.5;
+const mobileNavRadius = 1;
+
 const matchesPath = (pathname, paths) =>
   paths.some((path) =>
     path === "/"
@@ -87,7 +90,7 @@ const matchesPath = (pathname, paths) =>
 const navButtonSx = (active) => ({
   color: active ? "success.main" : "inherit",
   fontWeight: 600,
-  borderRadius: 999,
+  borderRadius: desktopNavRadius,
   px: 1.5,
   backgroundColor: active ? "rgba(122, 178, 89, 0.14)" : "transparent",
   "&:hover": {
@@ -196,7 +199,7 @@ const Header2 = (props) => {
                 to={link.to}
                 selected={isActive}
                 aria-current={isActive ? "page" : undefined}
-                sx={{ borderRadius: 2, mb: 0.5 }}
+                sx={{ borderRadius: mobileNavRadius, mb: 0.5 }}
               >
                 <ListItemText primary={link.label} />
               </ListItemButton>
@@ -218,7 +221,7 @@ const Header2 = (props) => {
                   selected={isSectionActive}
                   aria-expanded={Boolean(openMenus[section.key])}
                   aria-controls={`mobile-${section.key}-menu`}
-                  sx={{ borderRadius: 2, mb: 0.5 }}
+                  sx={{ borderRadius: mobileNavRadius, mb: 0.5 }}
                 >
                   <ListItemText primary={section.label} />
                   {openMenus[section.key] ? <ExpandLess /> : <ExpandMore />}
@@ -239,7 +242,12 @@ const Header2 = (props) => {
                     return (
                       <ListItemButton
                         key={item.to}
-                        sx={{ pl: 4, borderRadius: 2, mx: 0.5, mb: 0.5 }}
+                        sx={{
+                          pl: 4,
+                          borderRadius: mobileNavRadius,
+                          mx: 0.5,
+                          mb: 0.5,
+                        }}
                         component={Link}
                         to={item.to}
                         onClick={closeMobileDrawer}
@@ -281,7 +289,7 @@ const Header2 = (props) => {
                     to={link.to}
                     selected={isActive}
                     aria-current={isActive ? "page" : undefined}
-                    sx={{ borderRadius: 2, mb: 0.5 }}
+                    sx={{ borderRadius: mobileNavRadius, mb: 0.5 }}
                   >
                     <ListItemText primary={link.label} />
                   </ListItemButton>
@@ -290,7 +298,10 @@ const Header2 = (props) => {
             })}
 
             <ListItem disablePadding>
-              <ListItemButton onClick={handleLogout} sx={{ borderRadius: 2 }}>
+              <ListItemButton
+                onClick={handleLogout}
+                sx={{ borderRadius: mobileNavRadius }}
+              >
                 <ListItemText primary="Log Out" />
               </ListItemButton>
             </ListItem>
@@ -305,7 +316,7 @@ const Header2 = (props) => {
                 "/sign_up",
                 "/password_reset",
               ])}
-              sx={{ borderRadius: 2 }}
+              sx={{ borderRadius: mobileNavRadius }}
             >
               <ListItemText primary="Sign In" />
             </ListItemButton>

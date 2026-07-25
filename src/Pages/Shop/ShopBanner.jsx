@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import shopBannerImage from "../../images/optimized/banner2.webp";
 
 const ShopBanner = () => {
   return (
@@ -8,8 +9,7 @@ const ShopBanner = () => {
       my={3}
       sx={{
         height: "400px",
-        backgroundImage:
-          "url(https://i.ibb.co/RY2WrWx/Pet-Food-Trends-Main-Banner-png.webp)",
+        backgroundImage: `url(${shopBannerImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",

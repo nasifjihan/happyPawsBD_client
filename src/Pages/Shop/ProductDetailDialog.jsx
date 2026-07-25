@@ -8,7 +8,6 @@ import {
   Button,
   TextField,
   Box,
-  CardMedia,
   IconButton,
   Tooltip,
   Grid,
@@ -29,6 +28,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import CloseIcon from "@mui/icons-material/Close";
 import Rating from "@mui/material/Rating";
+import ResilientProductImage from "./ResilientProductImage";
 
 const ProductDetailDialog = ({
   product,
@@ -117,11 +117,10 @@ const ProductDetailDialog = ({
       <DialogContent sx={{ display: "flex", p: 1 }}>
         <Grid container>
           <Grid item xs={12} md={6} sx={{ p: 2 }}>
-            <CardMedia
-              component="img"
+            <ResilientProductImage
               image={product.image}
               alt={product.name}
-              sx={{ borderRadius: "16px" }}
+              sx={{ borderRadius: "16px", objectFit: "cover" }}
             />
 
             <Box

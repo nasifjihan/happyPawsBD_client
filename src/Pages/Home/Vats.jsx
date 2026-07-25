@@ -1,7 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Box, Card, Link, Stack, Typography } from "@mui/material";
+import { Box, Card, Chip, Link, Stack, Typography } from "@mui/material";
 import vets from "./../../API/vets.json";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
@@ -85,11 +85,18 @@ const CustomDot = ({ onClick, ...rest }) => {
 const Vats = () => {
   return (
     <Box className="myContainer" my={10} textAlign={"center"}>
+      <Chip
+        label="Trusted Pet Care Platform"
+        color="success"
+        variant="outlined"
+        sx={{ fontWeight: 700 }}
+      />
+
       <Typography
         variant="h4"
         color="primary.headline"
         p={4}
-        sx={{ lineHeight: 1.2, fontWeight: "900" }}
+        sx={{ lineHeight: 1, fontWeight: "900" }}
       >
         Meet Our Veterinary Authors
       </Typography>
