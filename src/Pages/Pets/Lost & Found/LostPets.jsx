@@ -3,7 +3,6 @@ import {
   Alert,
   Box,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   CircularProgress,
@@ -34,17 +33,17 @@ const LostPets = () => {
     <Box className="myContainer" my={5}>
       <Box
         color="white"
-        borderRadius={2}
-        p={2}
+        borderRadius={3}
+        p={{ xs: 3, md: 4 }}
         my={5}
         textAlign={"center"}
         backgroundColor={"primary.para"}
       >
-        <Typography variant="h4" fontWeight={900} pb={2}>
+        <Typography variant="h4" fontWeight={900} pb={1.5}>
           All Lost Pets
         </Typography>
 
-        <Typography variant="" fontWeight={500}>
+        <Typography variant="body1" fontWeight={500}>
           If you recognize or have found any pet below, contact the owner using
           the listing details.
         </Typography>
@@ -65,28 +64,32 @@ const LostPets = () => {
         >
           {/* {adoptableAnimals.slice(0, 6).map((item) => ( */}
           {lostPets.map((pet) => (
-            <Grid item xs={2} sm={4} md={4} key={pet._id}>
+            <Grid item xs={2} sm={4} md={4} key={pet._id} sx={{ display: "flex" }}>
               <Card
                 sx={{
-                  boxShadow: "none",
+                  width: "100%",
                   backgroundColor: "#FBFBFB",
+                  borderRadius: 3,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  boxShadow: "none",
+                  overflow: "hidden",
                   "&:hover": {
-                    boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
+                    boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
                   },
                 }}
               >
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    // image={LostPetPic}
-                    image={pet.petPicture}
-                    // alt={item.name}
-                    height={200}
-                  />
-                  <CardContent>
-                    <Divider>PET INFO</Divider>
-                    <Typography gutterBottom fontWeight={700}>
-                      Pet Name: {pet.petName}
+                <CardMedia
+                  component="img"
+                  image={pet.petPicture}
+                  alt={pet.petName || "Lost pet listing"}
+                  height={220}
+                />
+                <CardContent sx={{ p: 2.5 }}>
+                  <Stack spacing={1.5}>
+                    <Divider>Pet Info</Divider>
+                    <Typography gutterBottom fontWeight={700} sx={{ mb: 0 }}>
+                      {pet.petName ? `Pet Name: ${pet.petName}` : "Lost pet listing"}
                     </Typography>
 
                     <Typography variant="body2" color="primary.para">
@@ -110,7 +113,7 @@ const LostPets = () => {
                       <span className="span3">Lost Date:</span> {pet.lostDate}
                     </Typography>
 
-                    <Divider>OWNER INFO</Divider>
+                    <Divider>Owner Info</Divider>
 
                     <Typography variant="body2" fontWeight={700}>
                       Owner Name: {pet.ownerName}
@@ -120,16 +123,8 @@ const LostPets = () => {
                       <span className="span3"> Contact:</span>{" "}
                       {pet.contactPhone}
                     </Typography>
-
-                    {/* <Typography
-                      variant="body2"
-                      color="primary.green"
-                      textAlign={"right"}
-                    >
-                      - Read More
-                    </Typography> */}
-                  </CardContent>
-                </CardActionArea>
+                  </Stack>
+                </CardContent>
               </Card>
             </Grid>
           ))}

@@ -3,7 +3,6 @@ import {
   Alert,
   Box,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   CircularProgress,
@@ -34,17 +33,17 @@ const FoundPets = () => {
     <Box className="myContainer" my={5}>
       <Box
         color="white"
-        borderRadius={2}
-        p={2}
+        borderRadius={3}
+        p={{ xs: 3, md: 4 }}
         my={5}
         textAlign={"center"}
         backgroundColor={"primary.para"}
       >
-        <Typography variant="h4" fontWeight={900} pb={2}>
+        <Typography variant="h4" fontWeight={900} pb={1.5}>
           All Found Pets
         </Typography>
 
-        <Typography variant="" fontWeight={500}>
+        <Typography variant="body1" fontWeight={500}>
           If any pet below may be yours, contact the person who reported the
           found listing.
         </Typography>
@@ -65,25 +64,30 @@ const FoundPets = () => {
         >
           {/* {adoptableAnimals.slice(0, 6).map((item) => ( */}
           {foundPets.map((pet) => (
-            <Grid item xs={2} sm={4} md={4} key={pet._id}>
+            <Grid item xs={2} sm={4} md={4} key={pet._id} sx={{ display: "flex" }}>
               <Card
                 sx={{
-                  boxShadow: "none",
+                  width: "100%",
                   backgroundColor: "#FBFBFB",
+                  borderRadius: 3,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  boxShadow: "none",
+                  overflow: "hidden",
                   "&:hover": {
-                    boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
+                    boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
                   },
                 }}
               >
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    image={pet.petPicture}
-                    // alt={item.name}
-                    height={200}
-                  />
-                  <CardContent>
-                    <Divider>PET INFO</Divider>
+                <CardMedia
+                  component="img"
+                  image={pet.petPicture}
+                  alt={pet.breed || "Found pet listing"}
+                  height={220}
+                />
+                <CardContent sx={{ p: 2.5 }}>
+                  <Stack spacing={1.5}>
+                    <Divider>Pet Info</Divider>
 
                     <Typography variant="body2" color="primary.para">
                       <span className="span3">Type:</span> {pet.animalType}
@@ -106,26 +110,18 @@ const FoundPets = () => {
                       <span className="span3"> Lost Date:</span> {pet.foundDate}
                     </Typography>
 
-                    <Divider>FOUNDER INFO</Divider>
+                    <Divider>Reporter Info</Divider>
 
                     <Typography variant="body2" fontWeight={700}>
-                      Founder Name: {pet.founderName}
+                      Reporter Name: {pet.founderName}
                     </Typography>
 
                     <Typography variant="body2" color="primary.para">
                       <span className="span3"> Contact: </span>{" "}
                       {pet.contactPhone}
                     </Typography>
-
-                    {/* <Typography
-                    variant="body2"
-                    color="primary.green"
-                    textAlign={"right"}
-                  >
-                    - Read More
-                  </Typography> */}
-                  </CardContent>
-                </CardActionArea>
+                  </Stack>
+                </CardContent>
               </Card>
             </Grid>
           ))}

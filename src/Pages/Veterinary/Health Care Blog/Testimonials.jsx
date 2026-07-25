@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 
 const testimonials = [
   {
@@ -16,46 +16,59 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <div>
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{
-          textAlign: "center",
-          fontWeight: "bold",
-          color: "#ff6f61",
-          marginBottom: "1rem",
-        }}
-      >
-        What Our Readers Say
-      </Typography>
+    <Stack spacing={3}>
+      <Stack spacing={1} textAlign="center" alignItems="center">
+        <Typography
+          variant="overline"
+          color="success.main"
+          sx={{ fontWeight: 700, letterSpacing: 1 }}
+        >
+          Reader Feedback
+        </Typography>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            textAlign: "center",
+            fontWeight: 800,
+            color: "primary.headline",
+            marginBottom: 0,
+          }}
+        >
+          What Our Readers Say
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+          A few examples of how clear, practical pet health guidance can make day
+          to day care feel more manageable for families.
+        </Typography>
+      </Stack>
       <Grid container spacing={3}>
         {testimonials.map((testimonial, index) => (
           <Grid item xs={12} sm={6} key={index}>
             <Paper
+              variant="outlined"
               sx={{
                 padding: "1.5rem",
-                borderRadius: "10px",
-                backgroundColor: "#f5f5f5",
-                boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
-                transition: "0.3s",
+                borderRadius: 3,
+                backgroundColor: "#ffffff",
+                boxShadow: "none",
+                height: "100%",
                 "&:hover": {
-                  transform: "scale(1.05)",
-                  backgroundColor: "#ffecb3",
+                  boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
                 },
               }}
             >
               <Typography
                 variant="body1"
                 paragraph
-                sx={{ fontStyle: "italic", color: "#333" }}
+                sx={{ fontStyle: "italic", color: "text.primary", lineHeight: 1.7 }}
               >
                 "{testimonial.content}"
               </Typography>
               <Typography
                 variant="subtitle1"
                 align="right"
-                sx={{ fontWeight: "bold", color: "#ff6f61" }}
+                sx={{ fontWeight: 700, color: "success.main" }}
               >
                 - {testimonial.name}
               </Typography>
@@ -63,7 +76,7 @@ const Testimonials = () => {
           </Grid>
         ))}
       </Grid>
-    </div>
+    </Stack>
   );
 };
 

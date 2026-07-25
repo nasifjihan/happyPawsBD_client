@@ -1,50 +1,79 @@
 import styled from "@emotion/styled";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Stack, Typography } from "@mui/material";
 import VatCare from "./../../images/optimized/vat-care.webp";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 
-const Vat_Care = () => {
-  const BrandingWrapper = styled(Box)(({ theme }) => ({
-    // height: "70vh",
-    backgroundColor: "rgba(122, 178, 89, 0.15)",
-    padding: theme.spacing(4),
-    display: "flex",
-    justifyContent: "space-between",
-    borderRadius: ".6rem",
-    flexDirection: "column", // Flex direction column for mobile view
-    [theme.breakpoints.up("md")]: {
-      flexDirection: "row", // Change to row for larger screens
-    },
-  }));
+const BrandingWrapper = styled(Box)(({ theme }) => ({
+  backgroundColor: "rgba(122, 178, 89, 0.15)",
+  padding: theme.spacing(4),
+  display: "flex",
+  justifyContent: "space-between",
+  borderRadius: ".6rem",
+  flexDirection: "column",
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
+  },
+}));
 
+const Vat_Care = () => {
   return (
     <Box className="myContainer" my={10}>
       <BrandingWrapper>
         <Stack
-          spacing={5}
+          spacing={3}
           sx={{ p: 4 }}
           flex={1.4}
           alignItems={{ xs: "center", md: "flex-start" }}
           textAlign={{ xs: "center", md: "left" }}
         >
+          <Chip
+            label="Daily Pet Care Support"
+            color="success"
+            variant="outlined"
+            sx={{ fontWeight: 700 }}
+          />
+
           <Typography
             variant="h3"
             color="primary.headline"
             sx={{ lineHeight: 1.2, fontWeight: "900" }}
           >
-            Great Pet Care at your fingertips
+            Practical pet care help when routines, health, and comfort matter most
           </Typography>
 
           <Typography
             variant="body1"
-            color="primary.para"
-            sx={{ lineHeight: 1.5 }}
+            color="text.secondary"
+            sx={{ lineHeight: 1.7, maxWidth: 580 }}
           >
-            With vet-backed petcare products, guidance, and Rewards – <br />
-            we’re here to support your pet’s health in every way we can.
+            Explore grooming, boarding, and pet support services designed to make
+            day-to-day care easier. Whether your pet needs routine maintenance or
+            extra attention, we help you move from browsing to booking with clarity.
           </Typography>
+
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1}
+            justifyContent={{ xs: "center", md: "flex-start" }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              Grooming
+            </Typography>
+            <Typography variant="body2" color="success.main">
+              |
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Boarding
+            </Typography>
+            <Typography variant="body2" color="success.main">
+              |
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Trusted care guidance
+            </Typography>
+          </Stack>
 
           <Button
             variant="contained"
@@ -52,9 +81,9 @@ const Vat_Care = () => {
             size="large"
             component={RouterLink}
             to="/petcare"
-            sx={{ width: "50%" }}
+            sx={{ width: { xs: "100%", sm: "auto" }, px: 4, fontWeight: 700 }}
           >
-            Pet Care
+            Explore Pet Care
           </Button>
         </Stack>
 

@@ -8,8 +8,6 @@ import { CartContextProvider } from "./context/CartContext";
 import ProtectedRoute from "./Components/Authentication/ProtectedRoute";
 import RouteLoader from "./Components/Common/RouteLoader";
 import AppErrorBoundary from "./Components/Common/AppErrorBoundary";
-
-// import Header from "./Components/Header/Header";
 import Header2 from "./Components/Header/Header2";
 import Footer from "./Components/Footer/Footer";
 import ScrollToTop from "./context/ScrollToTop";
@@ -117,167 +115,118 @@ const withProtection = (Component) => (
   </ProtectedRoute>
 );
 
+const publicRoutes = [
+  { path: "/", component: Home },
+  { path: "/home", component: Home },
+  { path: "/pet_info", component: Pet_Info },
+  { path: "/petcare", component: PetCare },
+  { path: "/petcare/boarding", component: PetBoardingAll },
+  { path: "/petcare/grooming", component: PetGroomingAll },
+  { path: "/pet_training", component: Pet_Training },
+  { path: "/adoption", component: Adoption },
+  { path: "/adoption/adoptable_pets", component: AdoptablePets },
+  { path: "/rescue_alert", component: RescueAlert },
+  { path: "/lost_found", component: Lost_Found },
+  { path: "/lost_found/lost_pets", component: LostPets },
+  { path: "/lost_found/found_pets", component: FoundPets },
+  { path: "/shop", component: Shop },
+  { path: "/cart", component: Cart },
+  { path: "/online_consultation", component: Online_Consultation },
+  { path: "/in_person_consultation", component: In_Person_Consultation },
+  { path: "/vet_finder", component: VetFinder },
+  { path: "/house_calls", component: House_Calls },
+  { path: "/health_care_blog", component: Health_Care_Blog },
+  { path: "/covid19_info", component: Covid19_Info },
+  { path: "/volunteer", component: Volunteer },
+  { path: "/make_donation", component: Make_Donation },
+  { path: "/our_success_story", component: Our_Success_Story },
+  { path: "/share_your_story", component: Share_Your_Story },
+  { path: "/remembrance", component: Remembrance },
+  { path: "/reviews", component: Reviews },
+  { path: "/about_us", component: About_Us },
+  { path: "/contact_us", component: Contact_Us },
+  { path: "/sign_in", component: SignIn },
+  { path: "/sign_up", component: SignUp },
+  { path: "/password_reset", component: ResetPassword },
+];
+
+const protectedRoutes = [
+  { path: "/petcare/boarding/:id", component: PetBoardingDetails },
+  { path: "/petcare/grooming/:id", component: PetGroomingDetails },
+  { path: "/training/:id", component: TrainingDetail },
+  { path: "/adoption/adoptable_pets/:code", component: AdoptablePetDetails },
+  { path: "/lost_found/lost_form", component: LostForm },
+  { path: "/lost_found/found_form", component: FoundForm },
+  { path: "/profile", component: Profile },
+  { path: "/account", component: Account },
+  { path: "/dashboard", component: Dashboard },
+];
+
 const App = () => {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
 
-        <UserAuthContextProvider>
-          <CartContextProvider>
-            <Box
-              component="a"
-              href="#main-content"
-              sx={{
-                position: "absolute",
-                top: -48,
-                left: 16,
-                zIndex: 2000,
-                px: 2,
-                py: 1,
-                borderRadius: 1,
-                backgroundColor: "success.main",
-                color: "common.white",
-                textDecoration: "none",
-                fontWeight: 600,
-                "&:focus": {
-                  top: 16,
-                },
-              }}
-            >
-              Skip to main content
-            </Box>
+      <UserAuthContextProvider>
+        <CartContextProvider>
+          <Box
+            component="a"
+            href="#main-content"
+            sx={{
+              position: "absolute",
+              top: -48,
+              left: 16,
+              zIndex: 2000,
+              px: 2,
+              py: 1,
+              borderRadius: 1,
+              backgroundColor: "success.main",
+              color: "common.white",
+              textDecoration: "none",
+              fontWeight: 600,
+              "&:focus": {
+                top: 16,
+              },
+            }}
+          >
+            Skip to main content
+          </Box>
 
-            {/* <Header /> */}
-            <Header2 />
+          <Header2 />
 
-            <ScrollToTop />
+          <ScrollToTop />
 
-            <Box
-              component="main"
-              id="main-content"
-              tabIndex={-1}
-              sx={{ outline: "none" }}
-            >
-              <AppErrorBoundary>
-                <Suspense fallback={<RouteLoader />}>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/home" element={<Home />} />
+          <Box
+            component="main"
+            id="main-content"
+            tabIndex={-1}
+            sx={{ outline: "none" }}
+          >
+            <AppErrorBoundary>
+              <Suspense fallback={<RouteLoader />}>
+                <Routes>
+                  {publicRoutes.map(({ path, component: Component }) => (
+                    <Route key={path} path={path} element={<Component />} />
+                  ))}
 
-                  {/* Pets --------------------------------  */}
-                  <Route path="/pet_info" element={<Pet_Info />} />
-                  <Route path="/petcare" element={<PetCare />} />
-                  <Route
-                    path="/petcare/boarding"
-                    element={<PetBoardingAll />}
-                  />
-                  <Route
-                    path="/petcare/boarding/:id"
-                    element={withProtection(PetBoardingDetails)}
-                  />
-                  <Route
-                    path="/petcare/grooming"
-                    element={<PetGroomingAll />}
-                  />
-                  <Route
-                    path="/petcare/grooming/:id"
-                    element={withProtection(PetGroomingDetails)}
-                  />
-                  <Route path="/pet_training" element={<Pet_Training />} />
-                  <Route
-                    path="/training/:id"
-                    element={withProtection(TrainingDetail)}
-                  />
-                  <Route path="/adoption" element={<Adoption />} />
-                  <Route
-                    path="/adoption/adoptable_pets"
-                    element={<AdoptablePets />}
-                  />
-                  <Route
-                    path="/adoption/adoptable_pets/:code"
-                    element={withProtection(AdoptablePetDetails)}
-                  />
-                  <Route path="/rescue_alert" element={<RescueAlert />} />
-                  <Route path="/lost_found" element={<Lost_Found />} />
-                  <Route path="/lost_found/lost_pets" element={<LostPets />} />
-                  <Route
-                    path="/lost_found/found_pets"
-                    element={<FoundPets />}
-                  />
-                  <Route
-                    path="/lost_found/lost_form"
-                    element={withProtection(LostForm)}
-                  />
-                  <Route
-                    path="/lost_found/found_form"
-                    element={withProtection(FoundForm)}
-                  />
+                  {protectedRoutes.map(({ path, component: Component }) => (
+                    <Route
+                      key={path}
+                      path={path}
+                      element={withProtection(Component)}
+                    />
+                  ))}
 
-                  {/* Shop ---------------------------------------  */}
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="/cart" element={<Cart />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </AppErrorBoundary>
+          </Box>
 
-                  {/* Veterinary --------------------------------------  */}
-                  <Route
-                    path="/online_consultation"
-                    element={<Online_Consultation />}
-                  />
-                  <Route
-                    path="/in_person_consultation"
-                    element={<In_Person_Consultation />}
-                  />
-                  <Route path="/vet_finder" element={<VetFinder />} />
-                  <Route path="/house_calls" element={<House_Calls />} />
-                  <Route
-                    path="/health_care_blog"
-                    element={<Health_Care_Blog />}
-                  />
-                  <Route path="/covid19_info" element={<Covid19_Info />} />
-
-                  {/* Get Involve -----------------  */}
-                  <Route path="/volunteer" element={<Volunteer />} />
-                  <Route path="/make_donation" element={<Make_Donation />} />
-                  <Route
-                    path="/our_success_story"
-                    element={<Our_Success_Story />}
-                  />
-                  <Route
-                    path="/share_your_story"
-                    element={<Share_Your_Story />}
-                  />
-                  <Route path="/remembrance" element={<Remembrance />} />
-                  <Route path="/reviews" element={<Reviews />} />
-
-                  {/* Single Route -----------------  */}
-                  <Route path="/about_us" element={<About_Us />} />
-                  <Route path="/contact_us" element={<Contact_Us />} />
-
-                  {/* User Route -----------------  */}
-                  <Route path="/sign_in" element={<SignIn />} />
-                  <Route path="/sign_up" element={<SignUp />} />
-                  <Route
-                    path="/password_reset"
-                    element={<ResetPassword />}
-                  />
-                  <Route path="/profile" element={withProtection(Profile)} />
-                  <Route path="/account" element={withProtection(Account)} />
-                  <Route
-                    path="/dashboard"
-                    element={withProtection(Dashboard)}
-                  />
-
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
-              </AppErrorBoundary>
-            </Box>
-
-            <Footer />
-          </CartContextProvider>
-        </UserAuthContextProvider>
-      </ThemeProvider>
-    </>
+          <Footer />
+        </CartContextProvider>
+      </UserAuthContextProvider>
+    </ThemeProvider>
   );
 };
 

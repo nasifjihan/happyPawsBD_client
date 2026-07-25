@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   Card,
   CardContent,
   CardMedia,
@@ -11,62 +12,61 @@ const BlogCard = ({ title, excerpt, link, image }) => {
   return (
     <Card
       sx={{
-        padding: "10px",
-        borderRadius: "10px",
-        boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
-        transition: "0.3s",
+        height: "100%",
+        borderRadius: 3,
+        border: "1px solid",
+        borderColor: "divider",
+        boxShadow: "none",
+        overflow: "hidden",
         "&:hover": {
-          transform: "scale(1.05)",
-          boxShadow: "0px 8px 30px rgba(0, 0, 0, 0.3)",
+          boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
         },
       }}
     >
       <CardMedia
         component="img"
-        height="200"
+        height="220"
         image={image}
         alt={title}
         sx={{
-          borderTopLeftRadius: "10px",
-          borderTopRightRadius: "10px",
           objectFit: "cover",
         }}
       />
       <CardContent
         sx={{
           backgroundColor: "#f9f9f9",
-          borderBottomLeftRadius: "10px",
-          borderBottomRightRadius: "10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 1.5,
+          height: "100%",
+          p: 2.5,
         }}
       >
         <Typography
           variant="h6"
           gutterBottom
           sx={{
-            fontWeight: "bold",
-            color: "#ff6f61", // Eye-catching color for the title
+            fontWeight: 700,
+            color: "primary.headline",
+            mb: 0,
           }}
         >
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
           {excerpt}
         </Typography>
-        <Button
-          variant="contained"
-          href={link}
-          target="_blank"
-          sx={{
-            backgroundColor: "#3f51b5", // Blue color for the button
-            color: "#fff",
-            "&:hover": {
-              backgroundColor: "#5c6bc0", // Darker blue on hover
-            },
-            borderRadius: "20px",
-          }}
-        >
-          Read More
-        </Button>
+        <Box>
+          <Button
+            variant="outlined"
+            color="success"
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Article
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );

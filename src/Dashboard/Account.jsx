@@ -16,7 +16,7 @@ const Account = () => {
         <ContentState
           title="We could not load your account"
           description="Please sign in again to manage your account settings."
-          actionLabel="Go to Sign In"
+          actionLabel="Sign In"
           actionTo="/sign_in"
           severity="warning"
         />

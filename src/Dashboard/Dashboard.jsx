@@ -19,7 +19,7 @@ const Dashboard = () => {
         <ContentState
           title="We could not load your dashboard"
           description="Please sign in again to access your saved journeys."
-          actionLabel="Go to Sign In"
+          actionLabel="Sign In"
           actionTo="/sign_in"
           severity="warning"
         />

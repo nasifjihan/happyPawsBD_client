@@ -1,5 +1,12 @@
 import styled from "@emotion/styled";
-import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Chip,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Banner from "./../../images/optimized/banner2.webp";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -25,35 +32,73 @@ const Branding = () => {
     <Box className="myContainer">
       <BrandingWrapper>
         <Stack
-          spacing={6}
+          spacing={4}
           sx={{ p: { xs: 2, sm: 4 } }}
           flex={1.2}
           alignItems={{ xs: "center", md: "flex-start" }}
           textAlign={{ xs: "center", md: "left" }}
         >
+          <Chip
+            label="Trusted Pet Care Platform"
+            color="success"
+            variant="outlined"
+            sx={{ fontWeight: 700 }}
+          />
+
           <Typography
             variant="h3"
             color="primary.headline"
             sx={{ lineHeight: 1.2, fontWeight: "900" }}
           >
-            100% Committed to Your Pet's Health
+            Better care, adoption support, and trusted guidance for every pet family
           </Typography>
 
           <Typography
             variant="body1"
-            color="primary.para"
-            sx={{ lineHeight: 1.5 }}
+            color="text.secondary"
+            sx={{ lineHeight: 1.7, maxWidth: 620 }}
           >
-            With vet-backed petcare products, guidance, and Rewards – <br />
-            we’re here to support your pet’s health in every way we can
+            Happy Paws BD brings together pet care services, adoption pathways,
+            rescue support, and veterinary discovery so families can find the right
+            next step without jumping between disconnected resources.
           </Typography>
+
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1.5}
+            justifyContent={{ xs: "center", md: "flex-start" }}
+          >
+            <Box>
+              <Typography variant="h5" fontWeight={800} color="success.main">
+                Adoption
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Discover pets ready for loving homes
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h5" fontWeight={800} color="success.main">
+                Rescue
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Get help fast for urgent pet situations
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h5" fontWeight={800} color="success.main">
+                Care
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Access services and support in one place
+              </Typography>
+            </Box>
+          </Stack>
 
           <ButtonGroup
             variant="contained"
             color="success"
             size="large"
             aria-label="large button group"
-            // sx={{ width: "80%" }}
             sx={{ width: { xs: "100%", sm: "80%" } }}
           >
             <Button
@@ -68,7 +113,7 @@ const Branding = () => {
               to="/petcare"
               sx={{ flex: "1", fontWeight: "700" }}
             >
-              Service
+                  Pet Care
             </Button>
             <Button
               component={RouterLink}

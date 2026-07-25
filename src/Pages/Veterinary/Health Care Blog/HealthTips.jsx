@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Paper, Box } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 
 const tips = [
   {
@@ -23,35 +23,47 @@ const tips = [
 
 const HealthTips = () => {
   return (
-    <Box sx={{ paddingY: 5 }}>
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{
-          textAlign: "center",
-          fontWeight: "bold",
-          color: "white",
-          marginBottom: 4,
-          textTransform: "uppercase",
-        }}
-      >
-        Health Tips & Quick Guides
-      </Typography>
+    <Box sx={{ py: 1 }}>
+      <Stack spacing={1} textAlign="center" alignItems="center" sx={{ mb: 4 }}>
+        <Typography
+          variant="overline"
+          color="success.main"
+          sx={{ fontWeight: 700, letterSpacing: 1 }}
+        >
+          Quick Reference
+        </Typography>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{
+            textAlign: "center",
+            fontWeight: 800,
+            color: "primary.headline",
+            marginBottom: 0,
+          }}
+        >
+          Health Tips & Quick Guides
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+          Browse a few practical care topics that can help you respond faster to
+          common health questions and everyday pet needs.
+        </Typography>
+      </Stack>
 
       <Grid container spacing={3}>
         {tips.map((tip, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Paper
+              variant="outlined"
               sx={{
                 padding: 3,
-                textAlign: "center",
-                background: "linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)",
-                borderRadius: "16px",
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                textAlign: "left",
+                backgroundColor: "#ffffff",
+                borderRadius: 3,
+                boxShadow: "none",
+                height: "100%",
                 "&:hover": {
-                  transform: "translateY(-8px)",
-                  boxShadow: "0 6px 25px rgba(0, 0, 0, 0.15)",
+                  boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
                 },
               }}
             >
@@ -59,9 +71,8 @@ const HealthTips = () => {
                 variant="h6"
                 gutterBottom
                 sx={{
-                  color: "#333",
-                  fontWeight: "bold",
-                  textTransform: "uppercase",
+                  color: "primary.headline",
+                  fontWeight: 700,
                   mb: 1,
                 }}
               >
@@ -69,8 +80,8 @@ const HealthTips = () => {
               </Typography>
               <Typography
                 variant="body2"
-                color="textSecondary"
-                sx={{ color: "#555", lineHeight: 1.6 }}
+                color="text.secondary"
+                sx={{ lineHeight: 1.7 }}
               >
                 {tip.description}
               </Typography>

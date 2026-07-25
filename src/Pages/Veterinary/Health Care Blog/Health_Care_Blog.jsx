@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Typography, Button, Box } from "@mui/material";
+import { Grid, Typography, Button, Box, Paper, Stack } from "@mui/material";
 import FeaturedArticle from "./FeaturedArticle";
 import HealthTips from "./HealthTips";
 import Testimonials from "./Testimonials";
@@ -14,35 +14,38 @@ const Health_Care_Blog = () => {
         textAlign="center"
         py={8}
         sx={{
-          background: "linear-gradient(to right, #ff7e5f, #feb47b)",
-          borderRadius: 3,
-          color: "white",
-          boxShadow: 3,
+          backgroundColor: "rgba(122, 178, 89, 0.15)",
+          borderRadius: 4,
+          color: "text.primary",
+          border: "1px solid",
+          borderColor: "divider",
           mb: 6,
         }}
       >
-        <Typography variant="h2" gutterBottom sx={{ fontWeight: "bold" }}>
+        <Typography
+          variant="overline"
+          color="success.main"
+          sx={{ fontWeight: 700, letterSpacing: 1 }}
+        >
+          Health Care Blog
+        </Typography>
+        <Typography variant="h2" gutterBottom sx={{ fontWeight: 800 }}>
           Caring for Your Pets <br /> One Step at a Time
         </Typography>
-        <Typography variant="h6" gutterBottom sx={{ mb: 4 }}>
+        <Typography variant="h6" gutterBottom sx={{ mb: 4, color: "text.secondary" }}>
           Get expert advice, tips, and tricks to keep your furry friends healthy
           and happy.
         </Typography>
         <Button
-          variant="contained"
+          variant="outlined"
+          color="success"
           size="large"
           href="https://www.gopetfriendly.com/blog/"
           target="_blank"
-          sx={{
-            backgroundColor: "#fff",
-            color: "#ff7e5f",
-            "&:hover": {
-              backgroundColor: "#ff7e5f",
-              color: "#fff",
-            },
-          }}
+          rel="noopener noreferrer"
+          sx={{ fontWeight: 700 }}
         >
-          Read Our Latest Articles
+          View Latest Articles
         </Button>
       </Box>
 
@@ -51,7 +54,7 @@ const Health_Care_Blog = () => {
         <Typography
           variant="h4"
           gutterBottom
-          sx={{ fontWeight: "bold", color: "#333", mb: 4 }}
+          sx={{ fontWeight: 800, color: "primary.headline", mb: 4 }}
         >
           Recent Blog Posts
         </Typography>
@@ -89,39 +92,39 @@ const Health_Care_Blog = () => {
       </Box>
 
       {/* Health Tips */}
-      <Box
-        p={4}
+      <Paper
+        variant="outlined"
         sx={{
-          background: "#C0C78C",
-          borderRadius: 3,
-          boxShadow: 3,
+          p: 4,
+          borderRadius: 4,
           mb: 6,
+          backgroundColor: "#f9f9f9",
         }}
       >
         <HealthTips />
-      </Box>
+      </Paper>
 
       {/* Testimonials */}
-      <Box
-        py={6}
+      <Paper
+        variant="outlined"
         sx={{
-          backgroundColor: "#ffe082",
-          borderRadius: 3,
-          boxShadow: 3,
+          py: 6,
+          borderRadius: 4,
           mb: 6,
           p: 5,
+          backgroundColor: "#fffdf5",
         }}
       >
         <Testimonials />
-      </Box>
+      </Paper>
 
       {/* Newsletter */}
-      <Box
-        p={6}
-        sx={{ backgroundColor: "#e1bee7", borderRadius: 3, boxShadow: 3 }}
+      <Paper
+        variant="outlined"
+        sx={{ p: 6, borderRadius: 4, backgroundColor: "#faf7ff" }}
       >
         <Newsletter />
-      </Box>
+      </Paper>
     </Box>
   );
 };

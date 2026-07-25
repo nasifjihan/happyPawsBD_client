@@ -31,7 +31,7 @@ const Profile = () => {
         <ContentState
           title="We could not load your profile"
           description="Please sign in again to view your account information."
-          actionLabel="Go to Sign In"
+          actionLabel="Sign In"
           actionTo="/sign_in"
           severity="warning"
         />

@@ -275,7 +275,7 @@ const TrainingDetail = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting Enrollment..." : "Accept Training Program"}
+                  {isSubmitting ? "Submitting Request..." : "Request Training Enrollment"}
                 </Button>
               </Box>
             </Paper>

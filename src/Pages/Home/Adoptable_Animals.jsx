@@ -4,7 +4,9 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Chip,
   Grid,
+  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -19,19 +21,33 @@ const Adoptable_Animals = () => {
   const handleCardClick = (code) => {
     navigate(`/adoption/adoptable_pets/${code}`);
   };
+
   return (
     <Box className="myContainer" mb="20px" textAlign={"center"}>
-      <Stack>
-        <Typography
-          variant="h4"
-          color="primary.headline"
-          my={5}
-          sx={{ lineHeight: 1.2, fontWeight: "900" }}
-        >
-          Adoptable Animals
-        </Typography>
+      <Stack spacing={3}>
+        <Paper elevation={2} sx={{ p: { xs: 3, md: 4 }, borderRadius: 4 }}>
+          <Stack spacing={2} alignItems="center">
+            <Chip
+              label="Ready for Adoption"
+              color="success"
+              variant="outlined"
+              sx={{ fontWeight: 700 }}
+            />
+            <Typography
+              variant="h4"
+              color="primary.headline"
+              sx={{ lineHeight: 1.2, fontWeight: "900" }}
+            >
+              Adoptable Animals
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+              Meet a few of the pets currently looking for a safe, caring home.
+              Browse featured companions here or open the full adoption page to
+              explore more details and matches.
+            </Typography>
+          </Stack>
+        </Paper>
 
-        {/* Card Section Starts ----------------------------------------------------  */}
         <Stack my={3}>
           <Grid
             container
@@ -44,22 +60,43 @@ const Adoptable_Animals = () => {
                   sx={{
                     boxShadow: "none",
                     backgroundColor: "#FBFBFB",
+                    borderRadius: 3,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    height: "100%",
                     "&:hover": {
-                      boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
+                      boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
                     },
                   }}
                 >
-                  <CardActionArea onClick={() => handleCardClick(item.code)}>
+                  <CardActionArea
+                    onClick={() => handleCardClick(item.code)}
+                    sx={{ height: "100%", alignItems: "stretch" }}
+                  >
                     <OptimizedImage
                       src={item.photos}
                       alt={item.name}
                       style={{ width: "100%", height: 250, objectFit: "cover" }}
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h6" fontWeight={700}>
-                        {item.name}
-                      </Typography>
-                      <Typography variant="body2" fontSize={12}>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={1}
+                        mb={1}
+                      >
+                        <Typography gutterBottom variant="h6" fontWeight={700} sx={{ mb: 0 }}>
+                          {item.name}
+                        </Typography>
+                        <Chip
+                          label={item.species}
+                          size="small"
+                          color="success"
+                          variant="outlined"
+                        />
+                      </Stack>
+                      <Typography variant="body2" fontSize={12} color="text.secondary">
                         {item.breed} - {item.origin}
                       </Typography>
                       <Typography variant="body2" pt={2} color="primary.para">
@@ -70,9 +107,8 @@ const Adoptable_Animals = () => {
 
                       <Typography
                         variant="body2"
-                        color="primary.para"
-                        // p={2}
-                        maxHeight="140px"
+                        color="text.secondary"
+                        sx={{ mt: 1.5, minHeight: 48 }}
                         overflow="hidden"
                         textOverflow="ellipsis"
                         wordWrap="break-word"
@@ -98,8 +134,9 @@ const Adoptable_Animals = () => {
                           variant="body2"
                           color="primary.green"
                           textAlign={"right"}
+                          fontWeight={700}
                         >
-                          - Read More
+                              View Details
                         </Typography>
                       </Stack>
                     </CardContent>
@@ -110,7 +147,6 @@ const Adoptable_Animals = () => {
           </Grid>
         </Stack>
 
-        {/* All Animal Button --------------------------------------------------------------  */}
         <Button
           variant="outlined"
           color="success"

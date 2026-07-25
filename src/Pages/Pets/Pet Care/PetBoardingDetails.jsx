@@ -1,218 +1,283 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-  Grid,
-  Card,
-  CardContent,
-  Snackbar,
   Alert,
+  Box,
+  Button,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { useUserAuth } from "../../../context/UserAuthContext";
 import PetBoardingAPI from "./../../../API/petBoarding.json";
 import { boardingApplication } from "../../../API/api";
+import ContentState from "../../../Components/Common/ContentState";
 
 const PetBoardingDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useUserAuth();
-  const [item, setItem] = useState(null);
   const [boarding, setBoarding] = useState({
     name: "",
     contactEmail: "",
     contactPhone: "",
     address: "",
   });
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [feedback, setFeedback] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const item = useMemo(
+    () => PetBoardingAPI.find((program) => program.id === Number.parseInt(id, 10)),
+    [id]
+  );
 
   useEffect(() => {
-    // Find the selected program
-    const selectedProgram = PetBoardingAPI.find((p) => p.id === parseInt(id));
-    setItem(selectedProgram);
-
-    // Auto-fill name and email from the logged-in user
-    if (user) {
-      setBoarding((currentBoarding) => ({
-        ...currentBoarding,
-        name: user.displayName || "",
-        contactEmail: user.email || "",
-      }));
+    if (!user) {
+      return;
     }
-  }, [id, user]);
 
-  const handleChange = (e) => {
-    setBoarding({ ...boarding, [e.target.name]: e.target.value });
+    setBoarding((current) => ({
+      ...current,
+      name: user.displayName || current.name,
+      contactEmail: user.email || current.contactEmail,
+    }));
+  }, [user]);
+
+  const handleChange = (event) => {
+    setBoarding({ ...boarding, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // if (!user) {
-    //   navigate(`/login?redirect=/petcare/boarding/${id}`);
-    //   return;
-    // }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!user) {
+      navigate(`/sign_in?redirect=${encodeURIComponent(`/petcare/boarding/${id}`)}`);
+      return;
+    }
+
+    if (!item) {
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
-      const updatedBoarding = {
-        ...boarding,
-        programId: item.id,
-      };
+      await boardingApplication(
+        {
+          ...boarding,
+          programId: item.id,
+        },
+        item.id
+      );
 
-      await boardingApplication(updatedBoarding, item.id);
-
-      // Reset the form but keep name and email from user
       setBoarding({
         name: user.displayName || "",
         contactEmail: user.email || "",
         contactPhone: "",
         address: "",
       });
-      setShowSuccess(true);
+      setFeedback({
+        open: true,
+        severity: "success",
+        message: "Your boarding enrollment has been submitted successfully.",
+      });
     } catch (error) {
-      console.error("Error submitting form:", error);
+      setFeedback({
+        open: true,
+        severity: "error",
+        message: "Could not submit your boarding request right now. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   if (!item) {
-    return <Typography>Loading...</Typography>;
+    return (
+      <Box className="myContainer" sx={{ my: 5 }}>
+        <ContentState
+          title="Boarding program not found"
+          description="The boarding option you requested is unavailable or may have moved. Please return to the boarding page and choose another option."
+          actionLabel="Back to Boarding"
+          actionTo="/petcare/boarding"
+          severity="warning"
+        />
+      </Box>
+    );
   }
 
   return (
-    <Box className="myContainer">
-      <Typography
-        variant="h4"
-        fontWeight={900}
-        my={5}
-        gutterBottom
-        textAlign="center"
-        color="primary"
-      >
-        {item.title}
-      </Typography>
+    <Box className="myContainer" sx={{ my: 5 }}>
+      <Stack spacing={3}>
+        <Stack spacing={1} textAlign="center">
+          <Typography variant="h3" fontWeight={800} color="primary.headline">
+            {item.title}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Review what&apos;s included, then submit your request to reserve this
+            boarding service for your pet.
+          </Typography>
+        </Stack>
 
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Card
-            sx={{
-              borderRadius: "2% 2% 0",
-              boxShadow: "none",
-            }}
+        {feedback.open ? (
+          <Alert
+            severity={feedback.severity}
+            onClose={() => setFeedback((current) => ({ ...current, open: false }))}
           >
-            <img
-              src={item.picture}
-              alt={item.title}
-              style={{ width: "100%" }}
-            />
-            <CardContent>
-              <Typography variant="body1" color="primary.para" mb={2}>
-                {item.description}
+            {feedback.message}
+          </Alert>
+        ) : null}
+
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Paper variant="outlined" sx={{ overflow: "hidden", borderRadius: 3 }}>
+              <img
+                src={item.picture}
+                alt={item.title}
+                style={{ width: "100%", display: "block" }}
+              />
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+              <Stack spacing={2}>
+                <Typography variant="h5" color="success.main" fontWeight={700}>
+                  Service Overview
+                </Typography>
+
+                <Typography variant="body1" color="text.secondary">
+                  {item.description}
+                </Typography>
+
+                <Box>
+                  <Typography variant="body1" paragraph>
+                    <strong>Duration:</strong> {item.duration}
+                  </Typography>
+                  <Typography variant="body1" paragraph>
+                    <strong>Price:</strong> {item.price}
+                  </Typography>
+                  <Typography variant="body1" paragraph>
+                    <strong>Program Covers:</strong> {item.programCovers}
+                  </Typography>
+                </Box>
+
+                {item.additionalServices ? (
+                  <Box>
+                    <Typography variant="subtitle1" fontWeight={700} gutterBottom>
+                      Additional Services
+                    </Typography>
+                    <List disablePadding>
+                      {item.additionalServices.map((detail) => (
+                        <ListItem key={detail} sx={{ px: 0, alignItems: "flex-start" }}>
+                          <ListItemText primary={detail} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Box>
+                ) : null}
+
+                {item.specialFeatures ? (
+                  <Box>
+                    <Typography variant="subtitle1" fontWeight={700} gutterBottom>
+                      Special Features
+                    </Typography>
+                    <List disablePadding>
+                      {item.specialFeatures.map((detail) => (
+                        <ListItem key={detail} sx={{ px: 0, alignItems: "flex-start" }}>
+                          <ListItemText primary={detail} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Box>
+                ) : null}
+              </Stack>
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
+              <Typography variant="h5" gutterBottom color="primary.main" fontWeight={700}>
+                Request This Boarding Service
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Share your details and we&apos;ll follow up about availability,
+                scheduling, and any care instructions for your pet.
               </Typography>
 
-              <Typography variant="body1" paragraph>
-                <strong>Duration:</strong> {item.duration}
-              </Typography>
-              <Typography variant="body1" paragraph>
-                <strong>Price:</strong> {item.price}
-              </Typography>
-              <Typography variant="body1" paragraph>
-                <strong>Program Covers:</strong> {item.programCovers}
-              </Typography>
-              <Typography variant="body1" paragraph>
-                <strong>Additional Services:</strong> {item.additionalServices}
-              </Typography>
-              <Typography variant="body1" paragraph>
-                <strong>Special Features:</strong> {item.specialFeatures}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+              <Box component="form" onSubmit={handleSubmit} noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      fullWidth
+                      label="Full Name"
+                      required
+                      name="name"
+                      value={boarding.name}
+                      onChange={handleChange}
+                      autoComplete="name"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      type="email"
+                      required
+                      name="contactEmail"
+                      value={boarding.contactEmail}
+                      onChange={handleChange}
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      fullWidth
+                      label="Phone Number"
+                      type="tel"
+                      required
+                      name="contactPhone"
+                      value={boarding.contactPhone}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      fullWidth
+                      label="Address"
+                      required
+                      name="address"
+                      value={boarding.address}
+                      onChange={handleChange}
+                      autoComplete="street-address"
+                    />
+                  </Grid>
+                </Grid>
 
-        {/* Enroll Form */}
-        <Grid item xs={12} md={6}>
-          <Card
-            sx={{
-              boxShadow: "none",
-            }}
-          >
-            <CardContent>
-              <Typography
-                variant="h5"
-                fontWeight={700}
-                gutterBottom
-                color="primary.main"
-              >
-                Enroll in this Program
-              </Typography>
-
-              <Box component="form" mt={2} onSubmit={handleSubmit}>
-                <TextField
-                  fullWidth
-                  label="Full Name"
-                  margin="normal"
-                  required
-                  name="name"
-                  value={boarding.name}
-                  onChange={handleChange}
-                />
-                <TextField
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  margin="normal"
-                  required
-                  name="contactEmail"
-                  value={boarding.contactEmail}
-                  onChange={handleChange}
-                />
-                <TextField
-                  fullWidth
-                  label="Phone Number"
-                  type="tel"
-                  margin="normal"
-                  required
-                  name="contactPhone"
-                  value={boarding.contactPhone}
-                  onChange={handleChange}
-                />
-                <TextField
-                  fullWidth
-                  label="Address"
-                  margin="normal"
-                  required
-                  name="address"
-                  value={boarding.address}
-                  onChange={handleChange}
-                />
                 <Button
                   variant="contained"
                   color="success"
-                  sx={{ mt: 3, fontWeight: "700" }}
+                  sx={{ mt: 3, fontWeight: 700 }}
                   type="submit"
+                  disabled={isSubmitting}
                 >
-                  Accept Boarding Program
+                  {isSubmitting ? "Submitting Request..." : "Request Boarding Service"}
                 </Button>
-                {/* Snackbar for showing the success message */}
-                <Snackbar
-                  open={showSuccess}
-                  autoHideDuration={4000}
-                  onClose={() => setShowSuccess(false)}
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                >
-                  <Alert
-                    onClose={() => setShowSuccess(false)}
-                    severity="success"
-                    sx={{ width: "100%" }}
-                  >
-                    Your boarding enrollment has been successfully submitted!
-                  </Alert>
-                </Snackbar>
               </Box>
-            </CardContent>
-          </Card>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </Stack>
     </Box>
   );
 };

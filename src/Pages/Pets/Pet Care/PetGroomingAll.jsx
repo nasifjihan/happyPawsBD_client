@@ -1,63 +1,98 @@
 import React from "react";
 import {
   Box,
-  Typography,
-  Grid,
+  Button,
   Card,
+  CardActionArea,
   CardContent,
   CardMedia,
-  Divider,
-  CardActionArea,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
 } from "@mui/material";
-import PetGroomingAPI from "./../../../API/petGrooming.json";
 import { useNavigate } from "react-router-dom";
+import PetGroomingAPI from "./../../../API/petGrooming.json";
 
 const PetGroomingAll = () => {
   const navigate = useNavigate();
 
-  const handlegrooming= (id) => {
+  const handleGrooming = (id) => {
     navigate(`/petcare/grooming/${id}`);
   };
 
   return (
-    <Box className="myContainer" py={3}>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="h4" gutterBottom fontWeight={900} pt={2}>
-          Grooming
-        </Typography>
-      </Box>
+    <Box className="myContainer" sx={{ py: 4 }}>
+      <Stack spacing={3}>
+        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+          <Stack spacing={2} textAlign="center" alignItems="center">
+            <Typography variant="h3" fontWeight={800}>
+              Pet Grooming
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+              Explore grooming services that help pets stay clean, comfortable,
+              and healthy. Choose a focused treatment or a full grooming package
+              based on your pet&apos;s needs.
+            </Typography>
+          </Stack>
+        </Paper>
 
-      <Grid container spacing={4} pt={3}>
-        {/* Main Article */}
-        {PetGroomingAPI.map((item) => (
-          <Grid item xs={12} sm={6} md={4} key={item.id}>
-            <Card
-              sx={{
-                borderRadius: "2%",
-                boxShadow: "0px 0px 10px rgba(0,0,0,0.2)",
-              }}
-            >
-              <CardActionArea onClick={() => handlegrooming(item.id)}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={item.picture}
-                  alt="Main Article"
-                />
-                <CardContent>
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body1" color="primary.para">
-                    {item.dis1}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+        <Grid container spacing={3}>
+          {PetGroomingAPI.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+              <Card
+                sx={{
+                  height: "100%",
+                  borderRadius: 3,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  boxShadow: "none",
+                  "&:hover": {
+                    boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
+                  },
+                }}
+              >
+                <CardActionArea
+                  onClick={() => handleGrooming(item.id)}
+                  sx={{ height: "100%", alignItems: "stretch" }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="220"
+                    image={item.picture}
+                    alt={item.title}
+                  />
+                  <CardContent
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1.5,
+                    }}
+                  >
+                    <Typography variant="h6" fontWeight={700}>
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.dis1}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Duration: {item.Duration} | Price: {item.Price}
+                    </Typography>
+                    <Box sx={{ mt: "auto" }}>
+                      <Button variant="outlined" color="success" fullWidth>
+                        View Grooming Details
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Stack>
     </Box>
   );
 };
+
 export default PetGroomingAll;
