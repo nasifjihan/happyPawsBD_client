@@ -69,11 +69,26 @@ const LostForm = () => {
         <Box
           component="form"
           mx={"auto"}
+          noValidate
           onSubmit={handleSubmit(onSubmit)}
           sx={{
             p: 2,
           }}
         >
+          {Object.keys(errors).length > 0 && (
+            <Alert severity="error" sx={{ mb: 3, textAlign: "left" }}>
+              Please review the highlighted fields before submitting the lost
+              pet form.
+            </Alert>
+          )}
+
+          {createLostPetMutation.isError && (
+            <Alert severity="error" sx={{ mb: 3, textAlign: "left" }}>
+              {createLostPetMutation.error?.response?.data?.message ||
+                "Could not submit the lost pet form."}
+            </Alert>
+          )}
+
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -161,6 +176,7 @@ const LostForm = () => {
                 error={Boolean(errors.ownerName)}
                 helperText={errors.ownerName?.message}
                 focused
+                autoComplete="name"
                 {...register("ownerName")}
               />
             </Grid>
@@ -169,6 +185,7 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Contact Number"
+                type="tel"
                 size="small"
                 required
                 fullWidth
@@ -177,6 +194,7 @@ const LostForm = () => {
                 error={Boolean(errors.contactPhone)}
                 helperText={errors.contactPhone?.message}
                 focused
+                autoComplete="tel"
                 {...register("contactPhone")}
               />
             </Grid>
@@ -185,6 +203,7 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Email"
+                type="email"
                 size="small"
                 fullWidth
                 margin="normal"
@@ -192,6 +211,7 @@ const LostForm = () => {
                 error={Boolean(errors.contactEmail)}
                 helperText={errors.contactEmail?.message}
                 focused
+                autoComplete="email"
                 {...register("contactEmail")}
               />
             </Grid>
@@ -258,6 +278,7 @@ const LostForm = () => {
                 >
                   Upload Picture
                   <input
+                    aria-label="Upload lost pet picture"
                     type="file"
                     hidden
                     accept=".jpeg, .png, .jpg"
@@ -270,7 +291,11 @@ const LostForm = () => {
                 </Button>
 
                 {petPicture && (
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    aria-live="polite"
+                  >
                     Picture attached
                   </Typography>
                 )}
@@ -315,21 +340,6 @@ const LostForm = () => {
             </Alert>
           </Snackbar>
 
-          <Snackbar
-            open={createLostPetMutation.isError}
-            autoHideDuration={4000}
-            onClose={() => createLostPetMutation.reset()}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          >
-            <Alert
-              onClose={() => createLostPetMutation.reset()}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
-              {createLostPetMutation.error?.response?.data?.message ||
-                "Could not submit the lost pet form."}
-            </Alert>
-          </Snackbar>
         </Box>
       </Box>
     </Box>

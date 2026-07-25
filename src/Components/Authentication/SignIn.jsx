@@ -15,6 +15,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import { Alert } from "@mui/material";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { getAuthErrorMessage } from "./authErrors";
 
 const defaultTheme = createTheme();
 
@@ -23,30 +24,44 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
   const redirectPath =
     new URLSearchParams(location.search).get("redirect") || "/";
+  const authMessage = location.state?.authMessage;
+  const signUpLink = `/sign_up?redirect=${encodeURIComponent(redirectPath)}`;
+  const resetPasswordLink = `/password_reset?redirect=${encodeURIComponent(
+    redirectPath
+  )}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsSubmitting(true);
     try {
       await logIn(email, password);
-      navigate(redirectPath);
+      navigate(redirectPath, { replace: true });
     } catch (err) {
-      setError(err.message);
+      setError(getAuthErrorMessage(err, "Could not sign you in."));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
+    setError("");
+    setIsGoogleSubmitting(true);
     try {
       await googleSignIn();
-      navigate(redirectPath);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
-      setError(error.message);
+      setError(getAuthErrorMessage(error, "Could not sign you in with Google."));
+    } finally {
+      setIsGoogleSubmitting(false);
     }
   };
 
@@ -70,8 +85,18 @@ const SignIn = () => {
             Sign in
           </Typography>
 
+          {authMessage && (
+            <Alert severity="info" sx={{ width: "100%", mt: 2 }}>
+              {authMessage}
+            </Alert>
+          )}
+
           {/* Error Alert Msg */}
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
+              {error}
+            </Alert>
+          )}
 
           <Box
             component="form"
@@ -79,6 +104,10 @@ const SignIn = () => {
             noValidate
             sx={{ mt: 1 }}
           >
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Sign in to continue to your account and saved actions.
+            </Typography>
+
             <TextField
               margin="normal"
               required
@@ -86,8 +115,10 @@ const SignIn = () => {
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoComplete="email"
               autoFocus
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
@@ -100,6 +131,7 @@ const SignIn = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
 
@@ -113,8 +145,9 @@ const SignIn = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 1, mb: 2 }}
+              disabled={isSubmitting || isGoogleSubmitting}
             >
-              Sign In
+              {isSubmitting ? "Signing In..." : "Sign In"}
             </Button>
             <hr />
             <Box
@@ -131,13 +164,14 @@ const SignIn = () => {
                 className="g-btn"
                 type="dark"
                 onClick={handleGoogleSignIn}
+                disabled={isSubmitting || isGoogleSubmitting}
               />
             </Box>
 
             <Grid container mt={2}>
               <Grid item xs>
                 <Link
-                  to="/password_reset"
+                  to={resetPasswordLink}
                   style={{
                     margin: "0",
                     textDecoration: "underline",
@@ -155,7 +189,7 @@ const SignIn = () => {
 
               <Grid item>
                 <Link
-                  to="/sign_up"
+                  to={signUpLink}
                   style={{
                     margin: "0",
                     textDecoration: "underline",

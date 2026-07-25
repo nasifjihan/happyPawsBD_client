@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {
   Dialog,
+  DialogActions,
+  DialogTitle,
   DialogContent,
   Typography,
   Button,
@@ -13,6 +15,7 @@ import {
   Menu,
   MenuItem,
   Snackbar,
+  Alert,
 } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -24,6 +27,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
+import CloseIcon from "@mui/icons-material/Close";
 import Rating from "@mui/material/Rating";
 
 const ProductDetailDialog = ({
@@ -31,36 +35,20 @@ const ProductDetailDialog = ({
   open,
   onClose,
   onAddToCart,
-  handleQuantityChange,
   onBookmark,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const [bookmarked, setBookmarked] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  const handleAddToCart = () => {
-    // Retrieve existing cart items from localStorage
-    const existingCartItems =
-      JSON.parse(localStorage.getItem("cartItems")) || [];
-
-    // Add the new product with updated quantity
-    const updatedProduct = { ...product, quantity };
-    const newCartItems = [...existingCartItems, updatedProduct];
-
-    // Save updated cart items back to localStorage
-    localStorage.setItem("cartItems", JSON.stringify(newCartItems));
-
-    console.log("Updated Cart Items:", newCartItems);
-
-    // Reset the quantity and close the dialog
-    setQuantity(1);
-    onClose();
-  };
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const handleBookmarkClick = () => {
     setBookmarked(!bookmarked);
-    onBookmark(product);
+    onBookmark?.(product);
   };
 
   const handleShareClick = (event) => {
@@ -71,18 +59,61 @@ const ProductDetailDialog = ({
     setAnchorEl(null);
   };
 
-  const handleShareOptionClick = (platform) => {
+  const handleShareOptionClick = async (platform) => {
     setAnchorEl(null);
-    // Implement sharing logic here
-    setSnackbarOpen(true);
+    const shareText = `Check out ${product.name} on Happy Paws BD.`;
+    const shareUrl = `${window.location.origin}/shop`;
+
+    try {
+      if (platform === "email") {
+        window.open(
+          `mailto:?subject=${encodeURIComponent(
+            product.name
+          )}&body=${encodeURIComponent(`${shareText}\n${shareUrl}`)}`
+        );
+      } else if (navigator.share) {
+        await navigator.share({
+          title: product.name,
+          text: shareText,
+          url: shareUrl,
+        });
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+      }
+
+      setSnackbarState({
+        open: true,
+        message:
+          platform === "email"
+            ? "Your email app is ready with the product details."
+            : "Product details are ready to share.",
+        severity: "success",
+      });
+    } catch (error) {
+      setSnackbarState({
+        open: true,
+        message: "Could not share this product right now.",
+        severity: "error",
+      });
+    }
   };
 
   const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
+    setSnackbarState((current) => ({ ...current, open: false }));
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <DialogTitle sx={{ pb: 0 }}>
+        {product.name}
+        <IconButton
+          aria-label="Close product details"
+          onClick={onClose}
+          sx={{ position: "absolute", right: 12, top: 12 }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent sx={{ display: "flex", p: 1 }}>
         <Grid container>
           <Grid item xs={12} md={6} sx={{ p: 2 }}>
@@ -131,6 +162,11 @@ const ProductDetailDialog = ({
                       e.stopPropagation();
                       handleBookmarkClick();
                     }}
+                    aria-label={
+                      bookmarked
+                        ? `Remove ${product.name} from saved products`
+                        : `Save ${product.name} for later`
+                    }
                     sx={{
                       color: bookmarked ? "#f50057" : "textSecondary",
                     }}
@@ -147,7 +183,9 @@ const ProductDetailDialog = ({
               {product.name}
             </Typography>
 
-            <Typography variant="caption">{product.brand}</Typography>
+            <Typography variant="caption">
+              {product.brand} | Product code: {product.id}
+            </Typography>
 
             <Typography variant="body2" sx={{ my: 2 }}>
               {product.description}
@@ -186,8 +224,8 @@ const ProductDetailDialog = ({
             <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
               <LocalShippingIcon color="action" />
               <Typography variant="body2" sx={{ ml: 1 }}>
-                {product.deliveryTime} (Delivery Charge:{" "}
-                {product.deliveryCharge}৳ )
+                {product.deliveryTime} (Delivery charge: {product.deliveryCharge}
+                ৳)
               </Typography>
             </Box>
 
@@ -211,42 +249,60 @@ const ProductDetailDialog = ({
               type="number"
               label="Quantity"
               value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+              onChange={(e) =>
+                setQuantity(Math.max(1, Number(e.target.value) || 1))
+              }
               InputProps={{ inputProps: { min: 1 } }}
+              helperText="Choose how many units to add to your cart."
               sx={{ mb: 2 }}
             />
 
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{
-                borderRadius: "16px",
-                borderBottomLeftRadius: 0,
-                borderTopRightRadius: 0,
-                backgroundColor: "#f50057", // Custom color for the button
-                "&:hover": {
-                  backgroundColor: "#d4004c", // Darken on hover
-                },
-              }}
-              // onClick={handleAddToCart}
-              onClick={() => {
-                onAddToCart(product, quantity);
-                setQuantity(1);
-                onClose();
-              }}
-            >
-              Add to Cart
-            </Button>
+            <DialogActions sx={{ px: 0, pb: 0, pt: 1, gap: 1 }}>
+              <Button variant="outlined" color="success" onClick={onClose}>
+                Continue Browsing
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  borderRadius: "16px",
+                  borderBottomLeftRadius: 0,
+                  borderTopRightRadius: 0,
+                  backgroundColor: "#f50057",
+                  "&:hover": {
+                    backgroundColor: "#d4004c",
+                  },
+                }}
+                onClick={() => {
+                  onAddToCart(product, quantity);
+                  setQuantity(1);
+                  setSnackbarState({
+                    open: true,
+                    message: `${quantity} ${product.name} added to cart.`,
+                    severity: "success",
+                  });
+                  onClose();
+                }}
+              >
+                Add {quantity} to Cart
+              </Button>
+            </DialogActions>
           </Grid>
         </Grid>
       </DialogContent>
       <Snackbar
-        open={snackbarOpen}
+        open={snackbarState.open}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
-        message="Product shared successfully!"
-      />
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarState.severity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarState.message}
+        </Alert>
+      </Snackbar>
     </Dialog>
   );
 };

@@ -9,7 +9,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { getAuthErrorMessage } from "./authErrors";
 
 const defaultTheme = createTheme();
 
@@ -18,17 +20,25 @@ const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const location = useLocation();
+  const redirectPath =
+    new URLSearchParams(location.search).get("redirect") || "/";
+  const signInLink = `/sign_in?redirect=${encodeURIComponent(redirectPath)}`;
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError("");
     setMessage("");
+    setIsSubmitting(true);
 
     try {
       await resetPassword(email);
       setMessage("A reset link has been sent to your email.");
     } catch (err) {
-      setError(err.message || "Failed to send reset link.");
+      setError(getAuthErrorMessage(err, "Failed to send reset link."));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -51,9 +61,27 @@ const ResetPassword = () => {
             Reset Password
           </Typography>
 
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            textAlign="center"
+            sx={{ mt: 1 }}
+          >
+            Enter the email for your account and we&apos;ll send you a reset
+            link.
+          </Typography>
+
           {/* Success or Error Message */}
-          {message && <Alert severity="success">{message}</Alert>}
-          {error && <Alert severity="error">{error}</Alert>}
+          {message && (
+            <Alert severity="success" sx={{ width: "100%", mt: 2 }}>
+              {message}
+            </Alert>
+          )}
+          {error && (
+            <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
+              {error}
+            </Alert>
+          )}
 
           <Box
             component="form"
@@ -68,8 +96,10 @@ const ResetPassword = () => {
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoComplete="email"
               autoFocus
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Button
@@ -77,9 +107,26 @@ const ResetPassword = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isSubmitting}
             >
-              Send Reset Link
+              {isSubmitting ? "Sending Reset Link..." : "Send Reset Link"}
             </Button>
+
+            <Link
+              to={signInLink}
+              style={{
+                margin: "0",
+                textDecoration: "underline",
+                color: "#1976d2",
+                fontFamily: "Roboto",
+                fontWeight: "400",
+                fontSize: "0.875rem",
+                lineHeight: "1.43",
+                letterSpacing: "0.01071em",
+              }}
+            >
+              Back to sign in
+            </Link>
           </Box>
         </Box>
       </Container>

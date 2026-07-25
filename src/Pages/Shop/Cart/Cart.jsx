@@ -187,7 +187,7 @@ const Cart = () => {
 
   return (
     <Box className="myContainer" sx={{ padding: 3 }}>
-      {feedback.open && feedback.severity !== "success" ? (
+      {feedback.open ? (
         <Alert
           severity={feedback.severity}
           onClose={() =>
@@ -196,6 +196,16 @@ const Cart = () => {
           sx={{ mb: 3 }}
         >
           {feedback.message}
+        </Alert>
+      ) : null}
+
+      {showSuccess ? (
+        <Alert
+          severity="success"
+          onClose={() => setShowSuccess(false)}
+          sx={{ mb: 3 }}
+        >
+          Your order has been placed successfully.
         </Alert>
       ) : null}
 

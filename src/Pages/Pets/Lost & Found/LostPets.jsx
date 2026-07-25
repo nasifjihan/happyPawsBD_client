@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useLostPetsQuery } from "../../../features/lost-found/hooks";
+import ContentState from "../../../Components/Common/ContentState";
 
 const LostPets = () => {
   const { data = [], isLoading, isError, error } = useLostPetsQuery();
@@ -44,7 +45,8 @@ const LostPets = () => {
         </Typography>
 
         <Typography variant="" fontWeight={500}>
-          If You Found Any Pet Bellow <br /> Contact The Owner
+          If you recognize or have found any pet below, contact the owner using
+          the listing details.
         </Typography>
       </Box>
 
@@ -134,9 +136,13 @@ const LostPets = () => {
         </Grid>
 
         {!lostPets.length ? (
-          <Alert severity="info" sx={{ mt: 2 }}>
-            There are no lost pet listings to show right now.
-          </Alert>
+          <ContentState
+            title="No lost pet listings right now"
+            description="There are currently no active lost pet reports to review. You can come back later or submit a new report from the lost and found page."
+            actionLabel="Open Lost & Found"
+            actionTo="/lost_found"
+            severity="info"
+          />
         ) : null}
       </Stack>
     </Box>

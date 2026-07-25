@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import RouteLoader from "../Common/RouteLoader";
 import { Navigate, useLocation } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 
@@ -7,11 +7,7 @@ const ProtectedRoute = ({ children }) => {
   const location = useLocation();
 
   if (authLoading) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-        <CircularProgress color="success" />
-      </Box>
-    );
+    return <RouteLoader message="Checking your session..." />;
   }
 
   if (!user) {
@@ -19,6 +15,9 @@ const ProtectedRoute = ({ children }) => {
     return (
       <Navigate
         to={`/sign_in?redirect=${encodeURIComponent(redirectPath)}`}
+        state={{
+          authMessage: "Please sign in to continue.",
+        }}
         replace
       />
     );

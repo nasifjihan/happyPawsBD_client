@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import adoptableAnimals from "./../../../API/adoptableAnimals.json";
 import {
   Box,
@@ -32,6 +32,7 @@ import {
   AttachMoney,
 } from "@mui/icons-material";
 import AdoptionForm from "./AdoptionForm";
+import ContentState from "../../../Components/Common/ContentState";
 
 const AdoptablePetDetails = () => {
   const [open, setOpen] = useState(false);
@@ -40,9 +41,15 @@ const AdoptablePetDetails = () => {
 
   if (!pet) {
     return (
-      <Typography variant="h5" color="error" textAlign="center">
-        Pet not found!
-      </Typography>
+      <Box className="myContainer" sx={{ mt: 6 }}>
+        <ContentState
+          title="Pet not found"
+          description="We could not find an adoptable pet for this listing code. Browse the adoption page to see currently available pets."
+          actionLabel="Browse Adoptable Pets"
+          actionTo="/adoption/adoptable_pets"
+          severity="warning"
+        />
+      </Box>
     );
   }
 
@@ -57,6 +64,14 @@ const AdoptablePetDetails = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleScrollToForm = () => {
+    const formElement = document.getElementById("adoption-form");
+
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -239,14 +254,32 @@ const AdoptablePetDetails = () => {
                 </Stack>
 
                 <Box>
-                  {/* Button to view medical records */}
-                  <Button
-                    variant="contained"
-                    color="success"
-                    onClick={handleOpen} // Check and handle medical records on click
-                  >
-                    View Medical Records
-                  </Button>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={handleScrollToForm}
+                    >
+                      Start Adoption Form
+                    </Button>
+
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      onClick={handleOpen}
+                    >
+                      View Medical Records
+                    </Button>
+
+                    <Button
+                      variant="text"
+                      color="success"
+                      component={RouterLink}
+                      to="/adoption/adoptable_pets"
+                    >
+                      Back to Listings
+                    </Button>
+                  </Stack>
 
                   {/* Modal for 'No Medical Records Found' */}
                   <Dialog open={open} onClose={handleClose}>
@@ -279,6 +312,7 @@ const AdoptablePetDetails = () => {
 
       {/* Adoption Form Section */}
       <Box
+        id="adoption-form"
         mt={8}
 
         // sx={{ backgroundColor: "#e0f7fa", borderRadius: "15px" }}
@@ -291,6 +325,10 @@ const AdoptablePetDetails = () => {
           textAlign="center"
         >
           Ready to Adopt? Fill out the form below!
+        </Typography>
+        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">
+          Complete the application with your contact details and pet experience
+          so the rescue team can review your request.
         </Typography>
         <Divider />
         <AdoptionForm animalCode={pet.code} animalType={pet.species} />

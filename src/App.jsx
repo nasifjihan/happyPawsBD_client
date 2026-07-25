@@ -1,11 +1,12 @@
 import "./App.css";
 import { Suspense, lazy } from "react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./Theme/Theme";
 import { Route, Routes } from "react-router-dom";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoute from "./Components/Authentication/ProtectedRoute";
 import RouteLoader from "./Components/Common/RouteLoader";
+import AppErrorBoundary from "./Components/Common/AppErrorBoundary";
 
 // import Header from "./Components/Header/Header";
 import Header2 from "./Components/Header/Header2";
@@ -107,6 +108,7 @@ const ResetPassword = lazy(() =>
 const Profile = lazy(() => import("./Dashboard/Profile"));
 const Account = lazy(() => import("./Dashboard/Account"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
+const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 
 const withProtection = (Component) => (
   <ProtectedRoute>
@@ -121,98 +123,153 @@ const App = () => {
         <CssBaseline />
 
         <UserAuthContextProvider>
+          <Box
+            component="a"
+            href="#main-content"
+            sx={{
+              position: "absolute",
+              top: -48,
+              left: 16,
+              zIndex: 2000,
+              px: 2,
+              py: 1,
+              borderRadius: 1,
+              backgroundColor: "success.main",
+              color: "common.white",
+              textDecoration: "none",
+              fontWeight: 600,
+              "&:focus": {
+                top: 16,
+              },
+            }}
+          >
+            Skip to main content
+          </Box>
+
           {/* <Header /> */}
           <Header2 />
 
           <ScrollToTop />
 
-          <Suspense fallback={<RouteLoader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
+          <Box
+            component="main"
+            id="main-content"
+            tabIndex={-1}
+            sx={{ outline: "none" }}
+          >
+            <AppErrorBoundary>
+              <Suspense fallback={<RouteLoader />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
 
-              {/* Pets --------------------------------  */}
-              <Route path="/pet_info" element={<Pet_Info />} />
-              <Route path="/petcare" element={<PetCare />} />
-              <Route path="/petcare/boarding" element={<PetBoardingAll />} />
-              <Route
-                path="/petcare/boarding/:id"
-                element={withProtection(PetBoardingDetails)}
-              />
-              <Route path="/petcare/grooming" element={<PetGroomingAll />} />
-              <Route
-                path="/petcare/grooming/:id"
-                element={withProtection(PetGroomingDetails)}
-              />
-              <Route path="/pet_training" element={<Pet_Training />} />
-              <Route
-                path="/training/:id"
-                element={withProtection(TrainingDetail)}
-              />
-              <Route path="/adoption" element={<Adoption />} />
-              <Route
-                path="/adoption/adoptable_pets"
-                element={<AdoptablePets />}
-              />
-              <Route
-                path="/adoption/adoptable_pets/:code"
-                element={withProtection(AdoptablePetDetails)}
-              />
-              <Route path="/rescue_alert" element={<RescueAlert />} />
-              <Route path="/lost_found" element={<Lost_Found />} />
-              <Route path="/lost_found/lost_pets" element={<LostPets />} />
-              <Route path="/lost_found/found_pets" element={<FoundPets />} />
-              <Route
-                path="/lost_found/lost_form"
-                element={withProtection(LostForm)}
-              />
-              <Route
-                path="/lost_found/found_form"
-                element={withProtection(FoundForm)}
-              />
+                  {/* Pets --------------------------------  */}
+                  <Route path="/pet_info" element={<Pet_Info />} />
+                  <Route path="/petcare" element={<PetCare />} />
+                  <Route
+                    path="/petcare/boarding"
+                    element={<PetBoardingAll />}
+                  />
+                  <Route
+                    path="/petcare/boarding/:id"
+                    element={withProtection(PetBoardingDetails)}
+                  />
+                  <Route
+                    path="/petcare/grooming"
+                    element={<PetGroomingAll />}
+                  />
+                  <Route
+                    path="/petcare/grooming/:id"
+                    element={withProtection(PetGroomingDetails)}
+                  />
+                  <Route path="/pet_training" element={<Pet_Training />} />
+                  <Route
+                    path="/training/:id"
+                    element={withProtection(TrainingDetail)}
+                  />
+                  <Route path="/adoption" element={<Adoption />} />
+                  <Route
+                    path="/adoption/adoptable_pets"
+                    element={<AdoptablePets />}
+                  />
+                  <Route
+                    path="/adoption/adoptable_pets/:code"
+                    element={withProtection(AdoptablePetDetails)}
+                  />
+                  <Route path="/rescue_alert" element={<RescueAlert />} />
+                  <Route path="/lost_found" element={<Lost_Found />} />
+                  <Route path="/lost_found/lost_pets" element={<LostPets />} />
+                  <Route
+                    path="/lost_found/found_pets"
+                    element={<FoundPets />}
+                  />
+                  <Route
+                    path="/lost_found/lost_form"
+                    element={withProtection(LostForm)}
+                  />
+                  <Route
+                    path="/lost_found/found_form"
+                    element={withProtection(FoundForm)}
+                  />
 
-              {/* Shop ---------------------------------------  */}
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/cart" element={<Cart />} />
+                  {/* Shop ---------------------------------------  */}
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/cart" element={<Cart />} />
 
-              {/* Veterinary --------------------------------------  */}
-              <Route
-                path="/online_consultation"
-                element={<Online_Consultation />}
-              />
-              <Route
-                path="/in_person_consultation"
-                element={<In_Person_Consultation />}
-              />
-              <Route path="/vet_finder" element={<VetFinder />} />
-              <Route path="/house_calls" element={<House_Calls />} />
-              <Route path="/health_care_blog" element={<Health_Care_Blog />} />
-              <Route path="/covid19_info" element={<Covid19_Info />} />
+                  {/* Veterinary --------------------------------------  */}
+                  <Route
+                    path="/online_consultation"
+                    element={<Online_Consultation />}
+                  />
+                  <Route
+                    path="/in_person_consultation"
+                    element={<In_Person_Consultation />}
+                  />
+                  <Route path="/vet_finder" element={<VetFinder />} />
+                  <Route path="/house_calls" element={<House_Calls />} />
+                  <Route
+                    path="/health_care_blog"
+                    element={<Health_Care_Blog />}
+                  />
+                  <Route path="/covid19_info" element={<Covid19_Info />} />
 
-              {/* Get Involve -----------------  */}
-              <Route path="/volunteer" element={<Volunteer />} />
-              <Route path="/make_donation" element={<Make_Donation />} />
-              <Route
-                path="/our_success_story"
-                element={<Our_Success_Story />}
-              />
-              <Route path="/share_your_story" element={<Share_Your_Story />} />
-              <Route path="/remembrance" element={<Remembrance />} />
-              <Route path="/reviews" element={<Reviews />} />
+                  {/* Get Involve -----------------  */}
+                  <Route path="/volunteer" element={<Volunteer />} />
+                  <Route path="/make_donation" element={<Make_Donation />} />
+                  <Route
+                    path="/our_success_story"
+                    element={<Our_Success_Story />}
+                  />
+                  <Route
+                    path="/share_your_story"
+                    element={<Share_Your_Story />}
+                  />
+                  <Route path="/remembrance" element={<Remembrance />} />
+                  <Route path="/reviews" element={<Reviews />} />
 
-              {/* Single Route -----------------  */}
-              <Route path="/about_us" element={<About_Us />} />
-              <Route path="/contact_us" element={<Contact_Us />} />
+                  {/* Single Route -----------------  */}
+                  <Route path="/about_us" element={<About_Us />} />
+                  <Route path="/contact_us" element={<Contact_Us />} />
 
-              {/* User Route -----------------  */}
-              <Route path="/sign_in" element={<SignIn />} />
-              <Route path="/sign_up" element={<SignUp />} />
-              <Route path="/password_reset" element={<ResetPassword />} />
-              <Route path="/profile" element={withProtection(Profile)} />
-              <Route path="/account" element={withProtection(Account)} />
-              <Route path="/dashboard" element={withProtection(Dashboard)} />
-            </Routes>
-          </Suspense>
+                  {/* User Route -----------------  */}
+                  <Route path="/sign_in" element={<SignIn />} />
+                  <Route path="/sign_up" element={<SignUp />} />
+                  <Route
+                    path="/password_reset"
+                    element={<ResetPassword />}
+                  />
+                  <Route path="/profile" element={withProtection(Profile)} />
+                  <Route path="/account" element={withProtection(Account)} />
+                  <Route
+                    path="/dashboard"
+                    element={withProtection(Dashboard)}
+                  />
+
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </AppErrorBoundary>
+          </Box>
         </UserAuthContextProvider>
 
         <Footer />

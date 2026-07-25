@@ -65,11 +65,26 @@ const FoundForm = () => {
         <Box
           component="form"
           mx={"auto"}
+          noValidate
           onSubmit={handleSubmit(onSubmit)}
           sx={{
             p: 2,
           }}
         >
+          {Object.keys(errors).length > 0 && (
+            <Alert severity="error" sx={{ mb: 3, textAlign: "left" }}>
+              Please review the highlighted fields before submitting the found
+              pet form.
+            </Alert>
+          )}
+
+          {createFoundPetMutation.isError && (
+            <Alert severity="error" sx={{ mb: 3, textAlign: "left" }}>
+              {createFoundPetMutation.error?.response?.data?.message ||
+                "Could not submit the found pet form."}
+            </Alert>
+          )}
+
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <FormControl
@@ -192,6 +207,7 @@ const FoundForm = () => {
                 error={Boolean(errors.founderName)}
                 helperText={errors.founderName?.message}
                 focused
+                autoComplete="name"
                 {...register("founderName")}
               />
             </Grid>
@@ -200,6 +216,7 @@ const FoundForm = () => {
               <TextField
                 variant="outlined"
                 label="Contact Number"
+                type="tel"
                 size="small"
                 required
                 fullWidth
@@ -208,6 +225,7 @@ const FoundForm = () => {
                 error={Boolean(errors.contactPhone)}
                 helperText={errors.contactPhone?.message}
                 focused
+                autoComplete="tel"
                 {...register("contactPhone")}
               />
             </Grid>
@@ -273,6 +291,7 @@ const FoundForm = () => {
                 >
                   Upload Picture
                   <input
+                    aria-label="Upload found pet picture"
                     type="file"
                     hidden
                     accept=".jpeg, .png, .jpg"
@@ -285,7 +304,11 @@ const FoundForm = () => {
                 </Button>
 
                 {petPicture && (
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    aria-live="polite"
+                  >
                     Picture attached
                   </Typography>
                 )}
@@ -326,21 +349,6 @@ const FoundForm = () => {
             </Alert>
           </Snackbar>
 
-          <Snackbar
-            open={createFoundPetMutation.isError}
-            autoHideDuration={4000}
-            onClose={() => createFoundPetMutation.reset()}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          >
-            <Alert
-              onClose={() => createFoundPetMutation.reset()}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
-              {createFoundPetMutation.error?.response?.data?.message ||
-                "Could not submit the found pet form."}
-            </Alert>
-          </Snackbar>
         </Box>
       </Box>
     </Box>

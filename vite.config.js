@@ -55,4 +55,9 @@ export default defineConfig({
   optimizeDeps: {
     include: ['@mui/material', '@mui/x-date-pickers', '@emotion/react', '@emotion/styled'],
   },
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+    globals: true,
+  },
 })

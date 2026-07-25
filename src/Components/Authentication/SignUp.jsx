@@ -11,9 +11,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { Alert } from "@mui/material";
+import { getAuthErrorMessage } from "./authErrors";
 
 const defaultTheme = createTheme();
 
@@ -21,17 +22,25 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { signUp } = useUserAuth();
+  const location = useLocation();
   let navigate = useNavigate();
+  const redirectPath =
+    new URLSearchParams(location.search).get("redirect") || "/";
+  const signInLink = `/sign_in?redirect=${encodeURIComponent(redirectPath)}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsSubmitting(true);
     try {
       await signUp(email, password);
-      navigate("/sign_in");
+      navigate(redirectPath, { replace: true });
     } catch (err) {
-      setError(err.message);
+      setError(getAuthErrorMessage(err, "Could not create your account."));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -54,8 +63,22 @@ const SignUp = () => {
             Sign up
           </Typography>
 
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            textAlign="center"
+            sx={{ mt: 1 }}
+          >
+            Create your account to continue with adoption, rescue, and checkout
+            flows.
+          </Typography>
+
           {/* Error Alert Msg */}
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
+              {error}
+            </Alert>
+          )}
 
           <Box
             component="form"
@@ -96,7 +119,9 @@ const SignUp = () => {
                   id="email"
                   label="Email Address"
                   name="email"
+                  type="email"
                   autoComplete="email"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
@@ -110,6 +135,7 @@ const SignUp = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
@@ -129,14 +155,15 @@ const SignUp = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isSubmitting}
             >
-              Sign Up
+              {isSubmitting ? "Creating Account..." : "Sign Up"}
             </Button>
 
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link
-                  to="/sign_in"
+                  to={signInLink}
                   style={{
                     margin: "0",
                     textDecoration: "underline",

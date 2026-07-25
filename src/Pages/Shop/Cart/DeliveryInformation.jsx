@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { Box, Grid, TextField, Switch, Typography } from "@mui/material";
-// import { LocalizationProvider,DatePicker}"@mui/x-date-pickers/AdapterDateFns";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { useUserAuth } from "../../../context/UserAuthContext";
+import React from "react";
+import { Box, Grid, TextField, Typography } from "@mui/material";
 
 const DeliveryInformation = ({
   deliveryInfo,
@@ -10,9 +7,6 @@ const DeliveryInformation = ({
   errors,
   setErrors,
 }) => {
-  const { user } = useUserAuth();
-  const [scheduleDelivery, setScheduleDelivery] = useState(false);
-  const [deliveryDate, setDeliveryDate] = useState(new Date());
   // const name = user.displayName;
   // const email = user.email;
 
@@ -23,6 +17,8 @@ const DeliveryInformation = ({
   };
   return (
     <Box
+      component="section"
+      aria-labelledby="delivery-information-heading"
       sx={{
         padding: 2,
         border: "1px solid #ddd",
@@ -30,7 +26,7 @@ const DeliveryInformation = ({
         marginBottom: 2,
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography id="delivery-information-heading" variant="h6" gutterBottom>
         Delivery Information
       </Typography>
       <Grid container spacing={2}>
@@ -43,6 +39,7 @@ const DeliveryInformation = ({
             value={deliveryInfo.name}
             // defaultValue={name}
             required
+            autoComplete="name"
             error={Boolean(errors.name)}
             helperText={errors.name}
             onChange={handleChange}
@@ -55,7 +52,9 @@ const DeliveryInformation = ({
             variant="outlined"
             name="phone"
             value={deliveryInfo.phone}
+            type="tel"
             required
+            autoComplete="tel"
             error={Boolean(errors.phone)}
             helperText={errors.phone}
             onChange={handleChange}
@@ -67,9 +66,11 @@ const DeliveryInformation = ({
             label="Email"
             variant="outlined"
             name="email"
+            type="email"
             value={deliveryInfo.email}
             required
             // defaultValue={email}
+            autoComplete="email"
             error={Boolean(errors.email)}
             helperText={errors.email}
             onChange={handleChange}
@@ -82,6 +83,7 @@ const DeliveryInformation = ({
             variant="outlined"
             name="city"
             value={deliveryInfo.city}
+            autoComplete="address-level2"
             onChange={handleChange}
           />
         </Grid>
@@ -92,6 +94,7 @@ const DeliveryInformation = ({
             variant="outlined"
             name="state"
             value={deliveryInfo.state}
+            autoComplete="address-level1"
             onChange={handleChange}
           />
         </Grid>
@@ -101,7 +104,9 @@ const DeliveryInformation = ({
             label="ZIP"
             variant="outlined"
             name="zip"
+            inputProps={{ inputMode: "numeric" }}
             value={deliveryInfo.zip}
+            autoComplete="postal-code"
             onChange={handleChange}
           />
         </Grid>
@@ -113,6 +118,7 @@ const DeliveryInformation = ({
             name="address"
             value={deliveryInfo.address}
             required
+            autoComplete="street-address"
             error={Boolean(errors.address)}
             helperText={errors.address}
             onChange={handleChange}

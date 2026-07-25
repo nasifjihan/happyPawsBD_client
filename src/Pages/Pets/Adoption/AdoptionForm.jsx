@@ -2,17 +2,17 @@ import React, { useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Snackbar,
-  Alert,
-  Typography,
   Grid,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { useUserAuth } from "../../../context/UserAuthContext";
 import { useAdoptionMutation } from "../../../features/adoption/hooks";
@@ -86,177 +86,197 @@ const AdoptionForm = ({ animalCode, animalType }) => {
           Adoption Application Form
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+        {Object.keys(errors).length > 0 && (
+          <Alert severity="error" sx={{ mb: 3, textAlign: "left" }}>
+            Please review the highlighted fields before submitting the
+            application.
+          </Alert>
+        )}
+
+        {adoptionMutation.isError && (
+          <Alert severity="error" sx={{ mb: 3, textAlign: "left" }}>
+            {adoptionMutation.error?.response?.data?.message ||
+              "Could not submit the adoption application."}
+          </Alert>
+        )}
+
+        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              variant="outlined"
-              label="Animal Code"
-              size="medium"
-              required
-              fullWidth
-              margin="normal"
-              color="success"
-              error={Boolean(errors.animalCode)}
-              helperText={errors.animalCode?.message}
-              focused
-              {...register("animalCode")}
-              sx={{
-                borderRadius: "8px",
-                background: "#f8f9fa",
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={4}>
-            <FormControl
-              variant="outlined"
-              name="animalType"
-              size="medium"
-              required
-              fullWidth
-              margin="normal"
-              color="success"
-              focused
-              sx={{
-                background: "#f8f9fa",
-                borderRadius: "8px",
-              }}
-            >
-              <InputLabel id="animalType">Type of Animal</InputLabel>
-              <Controller
-                name="animalType"
-                control={control}
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    labelId="animalType"
-                    id="animalType"
-                    label="Type of Animal"
-                    sx={{
-                      textAlign: "left",
-                    }}
-                  >
-                    <MenuItem value="Cat">Cat</MenuItem>
-                    <MenuItem value="Dog">Dog</MenuItem>
-                    <MenuItem value="Bird">Bird</MenuItem>
-                    <MenuItem value="Rabbit">Rabbit</MenuItem>
-                    <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
-                    <MenuItem value="Horse">Horse</MenuItem>
-                    <MenuItem value="Turtle">Turtle</MenuItem>
-                    <MenuItem value="Hamster">Hamster</MenuItem>
-                    <MenuItem value="Hedgehog">Hedgehog</MenuItem>
-                  </Select>
-                )}
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Animal Code"
+                size="medium"
+                required
+                fullWidth
+                margin="normal"
+                color="success"
+                error={Boolean(errors.animalCode)}
+                helperText={errors.animalCode?.message}
+                focused
+                {...register("animalCode")}
+                sx={{
+                  borderRadius: "8px",
+                  background: "#f8f9fa",
+                }}
               />
-            </FormControl>
-            {errors.animalType && (
-              <Typography variant="caption" color="error">
-                {errors.animalType.message}
-              </Typography>
-            )}
-          </Grid>
+            </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField
-              variant="outlined"
-              label="Your Name"
-              size="medium"
-              required
-              fullWidth
-              margin="normal"
-              color="success"
-              error={Boolean(errors.adopterName)}
-              helperText={errors.adopterName?.message}
-              focused
-              {...register("adopterName")}
-              sx={{
-                borderRadius: "8px",
-                background: "#f8f9fa",
-              }}
-            />
-          </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl
+                variant="outlined"
+                name="animalType"
+                size="medium"
+                required
+                fullWidth
+                margin="normal"
+                color="success"
+                focused
+                sx={{
+                  background: "#f8f9fa",
+                  borderRadius: "8px",
+                }}
+              >
+                <InputLabel id="animalType">Type of Animal</InputLabel>
+                <Controller
+                  name="animalType"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      labelId="animalType"
+                      id="animalType"
+                      label="Type of Animal"
+                      sx={{
+                        textAlign: "left",
+                      }}
+                    >
+                      <MenuItem value="Cat">Cat</MenuItem>
+                      <MenuItem value="Dog">Dog</MenuItem>
+                      <MenuItem value="Bird">Bird</MenuItem>
+                      <MenuItem value="Rabbit">Rabbit</MenuItem>
+                      <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
+                      <MenuItem value="Horse">Horse</MenuItem>
+                      <MenuItem value="Turtle">Turtle</MenuItem>
+                      <MenuItem value="Hamster">Hamster</MenuItem>
+                      <MenuItem value="Hedgehog">Hedgehog</MenuItem>
+                    </Select>
+                  )}
+                />
+              </FormControl>
+              {errors.animalType && (
+                <Typography variant="caption" color="error">
+                  {errors.animalType.message}
+                </Typography>
+              )}
+            </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField
-              variant="outlined"
-              label="Email"
-              size="medium"
-              required
-              fullWidth
-              margin="normal"
-              color="success"
-              error={Boolean(errors.contactEmail)}
-              helperText={errors.contactEmail?.message}
-              focused
-              {...register("contactEmail")}
-              sx={{
-                borderRadius: "8px",
-                background: "#f8f9fa",
-              }}
-            />
-          </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Your Name"
+                size="medium"
+                required
+                fullWidth
+                margin="normal"
+                color="success"
+                error={Boolean(errors.adopterName)}
+                helperText={errors.adopterName?.message}
+                focused
+                autoComplete="name"
+                {...register("adopterName")}
+                sx={{
+                  borderRadius: "8px",
+                  background: "#f8f9fa",
+                }}
+              />
+            </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField
-              variant="outlined"
-              label="Contact Number"
-              size="medium"
-              required
-              fullWidth
-              margin="normal"
-              color="success"
-              error={Boolean(errors.contactPhone)}
-              helperText={errors.contactPhone?.message}
-              focused
-              {...register("contactPhone")}
-              sx={{
-                borderRadius: "8px",
-                background: "#f8f9fa",
-              }}
-            />
-          </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Email"
+                type="email"
+                size="medium"
+                required
+                fullWidth
+                margin="normal"
+                color="success"
+                error={Boolean(errors.contactEmail)}
+                helperText={errors.contactEmail?.message}
+                focused
+                autoComplete="email"
+                {...register("contactEmail")}
+                sx={{
+                  borderRadius: "8px",
+                  background: "#f8f9fa",
+                }}
+              />
+            </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField
-              variant="outlined"
-              label="Your Address"
-              size="medium"
-              required
-              fullWidth
-              margin="normal"
-              color="success"
-              error={Boolean(errors.address)}
-              helperText={errors.address?.message}
-              focused
-              {...register("address")}
-              sx={{
-                borderRadius: "8px",
-                background: "#f8f9fa",
-              }}
-            />
-          </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Contact Number"
+                type="tel"
+                size="medium"
+                required
+                fullWidth
+                margin="normal"
+                color="success"
+                error={Boolean(errors.contactPhone)}
+                helperText={errors.contactPhone?.message}
+                focused
+                autoComplete="tel"
+                {...register("contactPhone")}
+                sx={{
+                  borderRadius: "8px",
+                  background: "#f8f9fa",
+                }}
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Experience with Pets"
-              size="medium"
-              fullWidth
-              multiline
-              rows={2}
-              margin="normal"
-              color="success"
-              error={Boolean(errors.experience)}
-              helperText={errors.experience?.message}
-              focused
-              {...register("experience")}
-              sx={{
-                borderRadius: "8px",
-                background: "#f8f9fa",
-              }}
-            />
-          </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                variant="outlined"
+                label="Your Address"
+                size="medium"
+                required
+                fullWidth
+                margin="normal"
+                color="success"
+                error={Boolean(errors.address)}
+                helperText={errors.address?.message}
+                focused
+                autoComplete="street-address"
+                {...register("address")}
+                sx={{
+                  borderRadius: "8px",
+                  background: "#f8f9fa",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Experience with Pets"
+                size="medium"
+                fullWidth
+                multiline
+                rows={2}
+                margin="normal"
+                color="success"
+                error={Boolean(errors.experience)}
+                helperText={errors.experience?.message}
+                focused
+                {...register("experience")}
+                sx={{
+                  borderRadius: "8px",
+                  background: "#f8f9fa",
+                }}
+              />
+            </Grid>
           </Grid>
 
           <Button
@@ -293,21 +313,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
           </Alert>
         </Snackbar>
 
-        <Snackbar
-          open={adoptionMutation.isError}
-          autoHideDuration={4000}
-          onClose={() => adoptionMutation.reset()}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        >
-          <Alert
-            onClose={() => adoptionMutation.reset()}
-            severity="error"
-            sx={{ width: "100%" }}
-          >
-            {adoptionMutation.error?.response?.data?.message ||
-              "Could not submit the adoption application."}
-          </Alert>
-        </Snackbar>
       </Box>
     </Box>
   );

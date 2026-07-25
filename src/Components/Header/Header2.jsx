@@ -32,7 +32,6 @@ const Header2 = (props) => {
 
   // Copied
   const [menu1AnchorEl, setMenu1AnchorEl] = React.useState(null);
-  const [menu2AnchorEl, setMenu2AnchorEl] = React.useState(null);
   const [menu3AnchorEl, setMenu3AnchorEl] = React.useState(null);
   const [menu4AnchorEl, setMenu4AnchorEl] = React.useState(null);
 
@@ -70,13 +69,6 @@ const Header2 = (props) => {
     setMenu1AnchorEl(null);
   };
 
-  const handleMenu2Click = (event) => {
-    setMenu2AnchorEl(event.currentTarget);
-  };
-
-  const handleMenu2Close = () => {
-    setMenu2AnchorEl(null);
-  };
   const handleMenu3Click = (event) => {
     setMenu3AnchorEl(event.currentTarget);
   };
@@ -130,13 +122,22 @@ const Header2 = (props) => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => handleMenuToggle("pets")}>
+          <ListItemButton
+            onClick={() => handleMenuToggle("pets")}
+            aria-expanded={Boolean(openMenus.pets)}
+            aria-controls="mobile-pets-menu"
+          >
             <ListItemText primary="Pets" />
             {openMenus.pets ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openMenus.pets} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding onClick={handleDrawerToggle}>
+          <List
+            id="mobile-pets-menu"
+            component="div"
+            disablePadding
+            onClick={handleDrawerToggle}
+          >
             <ListItemButton sx={{ pl: 4 }} component={Link} to="/pet_info">
               <ListItemText primary="Pet Info" />
             </ListItemButton>
@@ -170,13 +171,22 @@ const Header2 = (props) => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => handleMenuToggle("veterinary")}>
+          <ListItemButton
+            onClick={() => handleMenuToggle("veterinary")}
+            aria-expanded={Boolean(openMenus.veterinary)}
+            aria-controls="mobile-veterinary-menu"
+          >
             <ListItemText primary="Veterinary" />
             {openMenus.veterinary ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openMenus.veterinary} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding onClick={handleDrawerToggle}>
+          <List
+            id="mobile-veterinary-menu"
+            component="div"
+            disablePadding
+            onClick={handleDrawerToggle}
+          >
             <ListItemButton
               sx={{ pl: 4 }}
               component={Link}
@@ -216,13 +226,22 @@ const Header2 = (props) => {
         </Collapse>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => handleMenuToggle("getInvolve")}>
+          <ListItemButton
+            onClick={() => handleMenuToggle("getInvolve")}
+            aria-expanded={Boolean(openMenus.getInvolve)}
+            aria-controls="mobile-get-involve-menu"
+          >
             <ListItemText primary="Get Involve" />
             {openMenus.getInvolve ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
         <Collapse in={openMenus.getInvolve} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding onClick={handleDrawerToggle}>
+          <List
+            id="mobile-get-involve-menu"
+            component="div"
+            disablePadding
+            onClick={handleDrawerToggle}
+          >
             <ListItemButton sx={{ pl: 4 }} component={Link} to="/volunteer">
               <ListItemText primary="Volunteer" />
             </ListItemButton>
@@ -279,7 +298,9 @@ const Header2 = (props) => {
           {/* Drawer Icon Button ----------------------------------- */}
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation-drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ display: { md: "none" } }}
@@ -318,21 +339,23 @@ const Header2 = (props) => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            <Button sx={{ "&:hover": { backgroundColor: "primary.back" } }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/"
-              >
-                Home
-              </Link>
+            <Button
+              component={Link}
+              to="/"
+              sx={{
+                color: "inherit",
+                fontWeight: "600",
+                "&:hover": { backgroundColor: "primary.back" },
+              }}
+            >
+              Home
             </Button>
 
             <Button
               onClick={handleMenu1Click}
+              aria-controls={menu1AnchorEl ? "pets-menu" : undefined}
+              aria-expanded={Boolean(menu1AnchorEl)}
+              aria-haspopup="menu"
               sx={{
                 color: "inherit",
                 fontWeight: "600",
@@ -343,21 +366,23 @@ const Header2 = (props) => {
               <KeyboardArrowDownIcon fontSize="12" />
             </Button>
 
-            <Button sx={{ "&:hover": { backgroundColor: "primary.back" } }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/shop"
-              >
-                Shop
-              </Link>
+            <Button
+              component={Link}
+              to="/shop"
+              sx={{
+                color: "inherit",
+                fontWeight: "600",
+                "&:hover": { backgroundColor: "primary.back" },
+              }}
+            >
+              Shop
             </Button>
 
             <Button
               onClick={handleMenu3Click}
+              aria-controls={menu3AnchorEl ? "veterinary-menu" : undefined}
+              aria-expanded={Boolean(menu3AnchorEl)}
+              aria-haspopup="menu"
               sx={{
                 color: "inherit",
                 fontWeight: "600",
@@ -370,6 +395,9 @@ const Header2 = (props) => {
 
             <Button
               onClick={handleMenu4Click}
+              aria-controls={menu4AnchorEl ? "get-involve-menu" : undefined}
+              aria-expanded={Boolean(menu4AnchorEl)}
+              aria-haspopup="menu"
               sx={{
                 color: "inherit",
                 fontWeight: "600",
@@ -380,35 +408,34 @@ const Header2 = (props) => {
               <KeyboardArrowDownIcon fontSize="12" />
             </Button>
 
-            <Button sx={{ "&:hover": { backgroundColor: "primary.back" } }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/about_us"
-              >
-                About Us
-              </Link>
+            <Button
+              component={Link}
+              to="/about_us"
+              sx={{
+                color: "inherit",
+                fontWeight: "600",
+                "&:hover": { backgroundColor: "primary.back" },
+              }}
+            >
+              About Us
             </Button>
 
-            <Button sx={{ "&:hover": { backgroundColor: "primary.back" } }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/contact_us"
-              >
-                Contact Us
-              </Link>
+            <Button
+              component={Link}
+              to="/contact_us"
+              sx={{
+                color: "inherit",
+                fontWeight: "600",
+                "&:hover": { backgroundColor: "primary.back" },
+              }}
+            >
+              Contact Us
             </Button>
           </Stack>
 
           {/* Main Sub Menu Items ----------------------------------------- */}
           <Menu
+            id="pets-menu"
             anchorEl={menu1AnchorEl}
             keepMounted
             open={Boolean(menu1AnchorEl)}
@@ -423,117 +450,88 @@ const Header2 = (props) => {
             }}
           >
             <MenuItem
+              component={Link}
+              to="/pet_info"
               onClick={handleMenu1Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/pet_info"
-              >
-                PET INFO
-              </Link>
+              PET INFO
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/petcare"
               onClick={handleMenu1Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/petcare"
-              >
-                Pet Care
-              </Link>
+              Pet Care
             </MenuItem>
             <MenuItem
+              component={Link}
+              to="/pet_training"
               onClick={handleMenu1Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/pet_training"
-              >
-                PET TRAINING
-              </Link>
+              PET TRAINING
             </MenuItem>
             <MenuItem
+              component={Link}
+              to="/adoption"
               onClick={handleMenu1Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/adoption"
-              >
-                ADOPTION
-              </Link>
+              ADOPTION
             </MenuItem>
             <MenuItem
+              component={Link}
+              to="/rescue_alert"
               onClick={handleMenu1Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/rescue_alert"
-              >
-                RESCUE ALERT
-              </Link>
+              RESCUE ALERT
             </MenuItem>
             <MenuItem
+              component={Link}
+              to="/lost_found"
               onClick={handleMenu1Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/lost_found"
-              >
-                LOST & FOUND
-              </Link>
+              LOST & FOUND
             </MenuItem>
           </Menu>
 
           <Menu
+            id="veterinary-menu"
             anchorEl={menu3AnchorEl}
             keepMounted
             open={Boolean(menu3AnchorEl)}
@@ -548,122 +546,92 @@ const Header2 = (props) => {
             }}
           >
             <MenuItem
+              component={Link}
+              to="/online_consultation"
               onClick={handleMenu3Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/online_consultation"
-              >
-                ONLINE CONSULTATION
-              </Link>
+              ONLINE CONSULTATION
             </MenuItem>
 
             <MenuItem
-              on
-              Click={handleMenu3Close}
+              component={Link}
+              to="/in_person_consultation"
+              onClick={handleMenu3Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/in_person_consultation"
-              >
-                IN-PERSON CONSULTATION
-              </Link>
+              IN-PERSON CONSULTATION
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/vet_finder"
               onClick={handleMenu3Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/vet_finder"
-              >
-                VET FINDER
-              </Link>
+              VET FINDER
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/house_calls"
               onClick={handleMenu3Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/house_calls"
-              >
-                HOUSE CALLS
-              </Link>
+              HOUSE CALLS
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/health_care_blog"
               onClick={handleMenu3Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/health_care_blog"
-              >
-                HEALTH CARE BLOG
-              </Link>
+              HEALTH CARE BLOG
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/covid19_info"
               onClick={handleMenu3Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/covid19_info"
-              >
-                COVID-19 INFO
-              </Link>
+              COVID-19 INFO
             </MenuItem>
           </Menu>
 
           <Menu
+            id="get-involve-menu"
             anchorEl={menu4AnchorEl}
             keepMounted
             open={Boolean(menu4AnchorEl)}
@@ -678,117 +646,87 @@ const Header2 = (props) => {
             }}
           >
             <MenuItem
+              component={Link}
+              to="/volunteer"
               onClick={handleMenu4Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/volunteer"
-              >
-                VOLUNTEER
-              </Link>
+              VOLUNTEER
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/make_donation"
               onClick={handleMenu4Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/make_donation"
-              >
-                MAKE DONATION
-              </Link>
+              MAKE DONATION
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/our_success_story"
               onClick={handleMenu4Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/our_success_story"
-              >
-                OUR SUCCESS STORY
-              </Link>
+              OUR SUCCESS STORY
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/share_your_story"
               onClick={handleMenu4Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/share_your_story"
-              >
-                SHARE YOUR STORY
-              </Link>
+              SHARE YOUR STORY
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/remembrance"
               onClick={handleMenu4Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/remembrance"
-              >
-                REMEMBRANCE
-              </Link>
+              REMEMBRANCE
             </MenuItem>
 
             <MenuItem
+              component={Link}
+              to="/reviews"
               onClick={handleMenu4Close}
               sx={{
-                fontSize: "",
+                textDecoration: "none",
+                color: "inherit",
+                fontWeight: "600",
                 "&:hover": { backgroundColor: "primary.back" },
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/reviews"
-              >
-                REVIEWS
-              </Link>
+              REVIEWS
             </MenuItem>
           </Menu>
 
@@ -796,13 +734,19 @@ const Header2 = (props) => {
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu}>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  aria-label="Open account menu"
+                  aria-controls={anchorElUser ? "user-menu" : undefined}
+                  aria-expanded={Boolean(anchorElUser)}
+                  aria-haspopup="menu"
+                >
                   <Avatar alt="Nasif Jihan" src={user.photoURL} />
                 </IconButton>
               </Tooltip>
               <Menu
+                id="user-menu"
                 sx={{ mt: "45px" }}
-                id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: "top",
@@ -816,52 +760,43 @@ const Header2 = (props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    style={{
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "inherit",
-                      fontWeight: "600",
-                    }}
-                    to="/profile"
-                  >
-                    Profile
-                  </Link>
+                <MenuItem
+                  component={Link}
+                  to="/profile"
+                  onClick={handleCloseUserMenu}
+                  sx={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    fontWeight: "600",
+                  }}
+                >
+                  Profile
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    fontWeight="bold"
-                    component={Link}
-                    to="/account"
-                    style={{
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "inherit",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Account
-                  </Typography>
+                <MenuItem
+                  component={Link}
+                  to="/account"
+                  onClick={handleCloseUserMenu}
+                  sx={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    fontWeight: "600",
+                  }}
+                >
+                  Account
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    fontWeight="bold"
-                    component={Link}
-                    to="/dashboard"
-                    style={{
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "inherit",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Dashboard
-                  </Typography>
+                <MenuItem
+                  component={Link}
+                  to="/dashboard"
+                  onClick={handleCloseUserMenu}
+                  sx={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    fontWeight: "600",
+                  }}
+                >
+                  Dashboard
                 </MenuItem>
 
                 <MenuItem onClick={handleCloseUserMenu}>
@@ -893,6 +828,7 @@ const Header2 = (props) => {
       {/* Drawer Nav Menu Item -------------------------------------- */}
       <Box component="nav">
         <Drawer
+          id="mobile-navigation-drawer"
           container={container}
           variant="temporary"
           open={mobileOpen}
