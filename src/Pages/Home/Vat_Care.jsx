@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import VatCare from "./../../images/vat-care.png";
+import VatCare from "./../../images/optimized/vat-care.webp";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import OptimizedImage from "../../Components/Common/OptimizedImage";
 
 const Vat_Care = () => {
   const BrandingWrapper = styled(Box)(({ theme }) => ({
@@ -48,8 +50,9 @@ const Vat_Care = () => {
             variant="contained"
             color="success"
             size="large"
+            component={RouterLink}
+            to="/petcare"
             sx={{ width: "50%" }}
-            href="/petcare"
           >
             Pet Care
           </Button>
@@ -61,7 +64,11 @@ const Vat_Care = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <img src={VatCare} alt="Vat care" style={{ width: "80%" }} />
+          <OptimizedImage
+            src={VatCare}
+            alt="Pet care illustration"
+            style={{ width: "80%" }}
+          />
         </Box>
       </BrandingWrapper>
     </Box>

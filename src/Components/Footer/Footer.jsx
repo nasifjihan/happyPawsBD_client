@@ -3,15 +3,15 @@ import {
   Box,
   Grid,
   Typography,
-  Link,
+  Link as MuiLink,
   Divider,
   Avatar,
   Stack,
-  Button,
 } from "@mui/material";
 import { green } from "@mui/material/colors";
+import { Link as RouterLink } from "react-router-dom";
 
-import NasifIcon from "./../../images/Nasif.png";
+import NasifIcon from "./../../images/optimized/nasif.webp";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -36,8 +36,8 @@ const Footer = () => {
             {/* Logo Full Screen ------------------------------------- */}
             <Typography
               variant="h6"
-              component="a"
-              href="../"
+              component={RouterLink}
+              to="/"
               sx={{ color: "inherit", textDecoration: "none", pt: 1 }}
             >
               <img src={HPBDLogo} alt="Happy Paws BD" width={150} />
@@ -119,69 +119,63 @@ const Footer = () => {
 
             {/* Multiple Links */}
             <Stack spacing={-2}>
-              <Link
-                href="/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Home
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/adoption"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/adoption"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Adoption
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/rescue_alert"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/rescue_alert"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Rescue
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/shop"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/shop"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Shop
-              </Link>
+              </MuiLink>
               <br />
-              <Link
-                href="/lost_found"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/lost_found"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Lost & Found
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/health_care_blog"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/health_care_blog"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Health Care Blog
-              </Link>
+              </MuiLink>
 
               <br />
             </Stack>
@@ -195,71 +189,65 @@ const Footer = () => {
 
             {/* Multiple Links */}
             <Stack spacing={-2}>
-              <Link
-                href="/about_us"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/about_us"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 About Us
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/contact_us"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/contact_us"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Contact Us
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/petcare"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/petcare"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Pet Care
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/vet_finder"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/vet_finder"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Vet Finder
-              </Link>
+              </MuiLink>
 
               <br />
 
-              <Link
-                href="/pet_training"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/pet_training"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Training
-              </Link>
+              </MuiLink>
 
               <br />
-              <Link
-                href="/profile"
-                target="_blank"
-                rel="noopener noreferrer"
+              <MuiLink
+                component={RouterLink}
+                to="/profile"
                 color={"primary.para"}
                 style={{ textDecoration: "none" }}
               >
                 Profile
-              </Link>
+              </MuiLink>
 
               <br />
             </Stack>

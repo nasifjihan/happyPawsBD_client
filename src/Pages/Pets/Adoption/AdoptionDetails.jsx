@@ -1,5 +1,6 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Divider, Link, Stack, Typography } from "@mui/material";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const AdoptionDetails = () => {
   return (
@@ -87,14 +88,24 @@ const AdoptionDetails = () => {
           <ul>
             <li>
               Visit{" "}
-              <a className="span1" href="/adoption/adoptable_pets">
+              <Link
+                className="span1"
+                component={RouterLink}
+                to="/adoption/adoptable_pets"
+                underline="none"
+              >
                 Adoptable Pets
-              </a>{" "}
+              </Link>{" "}
               and write down the animal ID you want to adopt before you fill up
               the{" "}
-              <a className="span1" href="/adoption/adoption_form">
+              <Link
+                className="span1"
+                component={RouterLink}
+                to="/adoption"
+                underline="none"
+              >
                 Adoption Application
-              </a>
+              </Link>
               .
             </li>
 

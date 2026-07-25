@@ -1,40 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import {
+  Alert,
   Box,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
+  CircularProgress,
   Divider,
   Grid,
   Stack,
   Typography,
 } from "@mui/material";
-import { getLostPets } from "../../../API/api";
+import { useLostPetsQuery } from "../../../features/lost-found/hooks";
 
 const LostPets = () => {
-  const [lostPets, setLostPets] = useState([]);
+  const { data = [], isLoading, isError, error } = useLostPetsQuery();
+  const lostPets = useMemo(() => [...data].reverse(), [data]);
+  const errorMessage =
+    error?.response?.data?.message ||
+    "Could not load lost pets right now.";
 
-  // useEffect(
-  //   () => async () => {
-  //     let response = await getLostPets();
-  //     setLostPets(response.data);
-  //   },
-  //   []
-  // );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response = await getLostPets();
-        setLostPets(response);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return (
+      <Box textAlign="center" py={6}>
+        <CircularProgress color="success" />
+      </Box>
+    );
+  }
 
   return (
     <Box className="myContainer" my={5}>
@@ -55,6 +48,12 @@ const LostPets = () => {
         </Typography>
       </Box>
 
+      {isError ? (
+        <Alert severity="warning" sx={{ mb: 3 }}>
+          {errorMessage}
+        </Alert>
+      ) : null}
+
       {/* Card Section Starts ----------------------------------------------------  */}
       <Stack my={3}>
         <Grid
@@ -63,7 +62,7 @@ const LostPets = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {/* {adoptableAnimals.slice(0, 6).map((item) => ( */}
-          {[...lostPets].reverse().map((pet) => (
+          {lostPets.map((pet) => (
             <Grid item xs={2} sm={4} md={4} key={pet._id}>
               <Card
                 sx={{
@@ -133,6 +132,12 @@ const LostPets = () => {
             </Grid>
           ))}
         </Grid>
+
+        {!lostPets.length ? (
+          <Alert severity="info" sx={{ mt: 2 }}>
+            There are no lost pet listings to show right now.
+          </Alert>
+        ) : null}
       </Stack>
     </Box>
   );

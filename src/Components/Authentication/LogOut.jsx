@@ -1,7 +1,10 @@
 import React from "react";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 const LogOut = () => {
-  const { logOut, user } = useUserAuth();
+  const { logOut } = useUserAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {

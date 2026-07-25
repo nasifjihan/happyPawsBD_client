@@ -1,9 +1,10 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Box, Card, CardMedia, Link, Stack, Typography } from "@mui/material";
+import { Box, Card, Link, Stack, Typography } from "@mui/material";
 import vets from "./../../API/vets.json";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import OptimizedImage from "../../Components/Common/OptimizedImage";
 
 // Custom Left Arrow
 const CustomLeftArrow = ({ onClick }) => (
@@ -167,17 +168,14 @@ const Vats = () => {
                 margin: "40px 0px",
               }}
             >
-              <CardMedia
-                component="img"
-                image={item.picture}
+              <OptimizedImage
+                src={item.picture}
                 alt={item.name}
-                sx={{
+                style={{
                   width: "100px",
                   height: "130px",
                   objectFit: "cover",
                   borderRadius: ".6rem",
-                  display: "flex",
-                  justifyContent: "center",
                   position: "absolute",
                   left: "-35px",
                   top: "10px",

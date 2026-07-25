@@ -23,11 +23,12 @@ import {
 } from "@mui/icons-material";
 
 import { green } from "@mui/material/colors";
-import contactImage from "./../../images/contactUs.png";
+import contactImage from "./../../images/optimized/contact-us.webp";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import OptimizedImage from "../../Components/Common/OptimizedImage";
 // import EmailIcon from "@mui/icons-material/Email";
 
 const Contact_Us = () => {
@@ -50,7 +51,7 @@ const Contact_Us = () => {
         >
           <Grid container spacing={5}>
             <Grid item xs={12} md={6}>
-              <img
+              <OptimizedImage
                 src={contactImage}
                 alt="Contact Us"
                 style={{

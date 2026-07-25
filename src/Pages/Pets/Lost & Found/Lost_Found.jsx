@@ -12,52 +12,27 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import { getLostPets, getFoundPets } from "../../../API/api";
+import { Link } from "react-router-dom";
 import FoundForm from "./FoundForm";
 import LostForm from "./LostForm";
+import { useLostFoundOverviewQuery } from "../../../features/lost-found/hooks";
 
 const LostFoundRedesign = () => {
-  const [lostPets, setLostPets] = useState([]);
-  const [foundPets, setFoundPets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, isLoading, isError, error } = useLostFoundOverviewQuery();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const lostResponse = await getLostPets();
-        const foundResponse = await getFoundPets();
-        setLostPets(lostResponse);
-        setFoundPets(foundResponse);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setError(
-          error.response?.data?.message ||
-            "Error fetching data. Please try again."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <Box textAlign="center" py={6}>
-        <CircularProgress />
+        <CircularProgress color="success" />
       </Box>
     );
   }
 
-  if (error) {
-    return (
-      <Box textAlign="center" py={6}>
-        <Alert severity="error">{error}</Alert>
-      </Box>
-    );
-  }
+  const lostPets = data?.lostPets || [];
+  const foundPets = data?.foundPets || [];
+  const errorMessage =
+    error?.response?.data?.message ||
+    "We could not load the latest lost and found listings right now.";
 
   return (
     <Box className="myContainer">
@@ -71,6 +46,12 @@ const LostFoundRedesign = () => {
           posting found ones.
         </Typography>
       </Box>
+
+      {isError ? (
+        <Alert severity="warning" sx={{ mt: 3 }}>
+          {errorMessage} You can still browse the page and submit a report.
+        </Alert>
+      ) : null}
 
       {/* First 2-Column Section */}
       <Grid container mt={2} bgcolor="primary.back">
@@ -144,11 +125,18 @@ const LostFoundRedesign = () => {
                   </Grid>
                 ))}
             </Grid>
+
+            {!lostPets.length ? (
+              <Alert severity="info" sx={{ mt: 2 }}>
+                No lost pet listings are available at the moment.
+              </Alert>
+            ) : null}
           </Stack>
 
           {/* View All Lost Pets Button */}
           <Button
-            href="/lost_found/lost_pets"
+            component={Link}
+            to="/lost_found/lost_pets"
             variant="contained"
             color="primary"
             fullWidth
@@ -232,11 +220,18 @@ const LostFoundRedesign = () => {
                   </Grid>
                 ))}
             </Grid>
+
+            {!foundPets.length ? (
+              <Alert severity="info" sx={{ mt: 2 }}>
+                No found pet listings are available at the moment.
+              </Alert>
+            ) : null}
           </Stack>
 
           {/* View All Found Pets Button */}
           <Button
-            href="/lost_found/found_pets"
+            component={Link}
+            to="/lost_found/found_pets"
             variant="contained"
             color="primary"
             fullWidth

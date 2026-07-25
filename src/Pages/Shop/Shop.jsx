@@ -8,9 +8,8 @@ import ProductDetailDialog from "./ProductDetailDialog";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ShopBanner from "./ShopBanner";
 import { Link } from "react-router-dom";
-import { updateCartInBackend } from "../../API/api";
 
-const Shop = ({ cartItemsCount }) => {
+const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [filters, setFilters] = useState({
@@ -31,46 +30,24 @@ const Shop = ({ cartItemsCount }) => {
   useEffect(() => {
     if (cartItems.length > 0) {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    } else {
+      localStorage.removeItem("cartItems");
     }
   }, [cartItems]);
 
-  // const handleAddToCart = (product) => {
-  //   setCartItems((prevItems) => {
-  //     const existingItem = prevItems.find((item) => item.id === product.id);
-  //     if (existingItem) {
-  //       return prevItems.map((item) =>
-  //         item.id === product.id
-  //           ? { ...item, quantity: item.quantity + 1 }
-  //           : item
-  //       );
-  //     }
-  //     return [...prevItems, { ...product, quantity: 1 }];
-  //   });
-  // };
-
-  const handleAddToCart = async (product) => {
-    // Update the local state first
+  const handleAddToCart = (product, quantity = 1) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
 
-      // If the product already exists in the cart, increment the quantity
       if (existingItem) {
-        const updatedItems = prevItems.map((item) =>
+        return prevItems.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + quantity }
             : item
         );
-
-        // Send the updated cart to the backend
-        updateCartInBackend(product._id, existingItem.quantity + 1);
-
-        return updatedItems;
       }
 
-      // If the product is new, add it to the cart
-      const newItem = { ...product, quantity: 1 };
-      updateCartInBackend(product._id, 1);
-
+      const newItem = { ...product, quantity };
       return [...prevItems, newItem];
     });
   };
@@ -82,13 +59,17 @@ const Shop = ({ cartItemsCount }) => {
   };
 
   const handleQuantityChange = (productId, quantity) => {
+    if (quantity < 1) {
+      handleRemoveItem(productId);
+      return;
+    }
+
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === productId ? { ...item, quantity: quantity } : item
+        item.id === productId ? { ...item, quantity } : item
       )
     );
   };
-  console.log(cartItems);
 
   const handleViewDetails = (product) => {
     setSelectedProduct(product);
@@ -108,7 +89,6 @@ const Shop = ({ cartItemsCount }) => {
       product.price <= filters.priceRange[1] &&
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  cartItems;
   return (
     <Box className="myContainer">
       <ShopBanner />

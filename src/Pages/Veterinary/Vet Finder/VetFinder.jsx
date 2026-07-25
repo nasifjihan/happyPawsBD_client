@@ -8,7 +8,6 @@ import Filters from "./Filters";
 import Pagination from "./Pagination";
 
 const VetFinder = () => {
-  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [division, setDivision] = useState("");
@@ -17,15 +16,10 @@ const VetFinder = () => {
   const itemsPerPage = 20;
 
   useEffect(() => {
-    setData(vetData);
     setFilteredData(vetData);
   }, []);
 
   useEffect(() => {
-    filterData();
-  }, [division, city]);
-
-  const filterData = () => {
     let filtered = vetData;
     if (division) {
       filtered = filtered.filter((item) => item.Division === division);
@@ -35,7 +29,7 @@ const VetFinder = () => {
     }
     setFilteredData(filtered);
     setCurrentPage(1);
-  };
+  }, [division, city]);
 
   const handleDivisionChange = (newDivision) => {
     setDivision(newDivision);

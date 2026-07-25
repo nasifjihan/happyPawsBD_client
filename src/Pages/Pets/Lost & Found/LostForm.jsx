@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { addLostPet } from "../../../API/api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
 
 import {
   Box,
@@ -15,54 +16,32 @@ import {
   Grid,
   CircularProgress,
 } from "@mui/material";
-
-const initialValue = {
-  petName: "",
-  animalType: "",
-  colors: "",
-  ownerName: "",
-  contactPhone: "",
-  contactEmail: "",
-  lastSeenLocation: "",
-  lostDate: "",
-  description: "",
-  petPicture: "",
-};
+import {
+  useCreateLostPetMutation,
+} from "../../../features/lost-found/hooks";
+import {
+  lostPetDefaultValues,
+  lostPetFormSchema,
+} from "../../../features/lost-found/schemas";
 
 const LostForm = () => {
-  const [lostPet, setLostPet] = useState(initialValue);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  const createLostPetMutation = useCreateLostPetMutation();
   const {
-    petName,
-    animalType,
-    colors,
-    ownerName,
-    contactPhone,
-    contactEmail,
-    lastSeenLocation,
-    lostDate,
-    description,
-    petPicture,
-  } = lostPet;
+    control,
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(lostPetFormSchema),
+    defaultValues: lostPetDefaultValues,
+  });
+  const petPicture = watch("petPicture");
 
-  const handleChange = (e) => {
-    setLostPet({ ...lostPet, [e.target.name]: e.target.value });
-  };
-
-  const handleAnimalType = (e) => {
-    setLostPet({ ...lostPet, animalType: e.target.value });
-  };
-
-  const handlePictureChange = (e) => {
-    const file = e.target.files[0];
-    setLostPet({ ...lostPet, petPicture: file });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const onSubmit = async (lostPet) => {
     const formData = new FormData();
 
     Object.entries(lostPet).forEach(([key, value]) => {
@@ -70,13 +49,11 @@ const LostForm = () => {
     });
 
     try {
-      await addLostPet(formData);
-      setLostPet(initialValue);
+      await createLostPetMutation.mutateAsync(formData);
+      reset(lostPetDefaultValues);
       setShowSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -92,6 +69,7 @@ const LostForm = () => {
         <Box
           component="form"
           mx={"auto"}
+          onSubmit={handleSubmit(onSubmit)}
           sx={{
             p: 2,
           }}
@@ -101,15 +79,15 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Pet's Name"
-                name="petName"
-                value={petName}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.petName)}
+                helperText={errors.petName?.message}
                 focused
+                {...register("petName")}
               />
             </Grid>
 
@@ -125,39 +103,49 @@ const LostForm = () => {
                 focused
               >
                 <InputLabel id="animalType">Type of Animal</InputLabel>
-                <Select
-                  labelId="animalType"
-                  id="animalType"
-                  value={animalType}
-                  label="animalType"
-                  onChange={handleAnimalType}
-                >
-                  <MenuItem value="Cat">Cat</MenuItem>
-                  <MenuItem value="Dog">Dog</MenuItem>
-                  <MenuItem value="Bird">Bird</MenuItem>
-                  <MenuItem value="Rabbits">Rabbits</MenuItem>
-                  <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
-                  <MenuItem value="Horse">Horse</MenuItem>
-                  <MenuItem value="Turtle">Turtle</MenuItem>
-                  <MenuItem value="Hamsters">Hamsters</MenuItem>
-                  <MenuItem value="Hedgehogs">Hedgehogs</MenuItem>
-                </Select>
+                <Controller
+                  name="animalType"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      labelId="animalType"
+                      id="animalType"
+                      label="animalType"
+                    >
+                      <MenuItem value="Cat">Cat</MenuItem>
+                      <MenuItem value="Dog">Dog</MenuItem>
+                      <MenuItem value="Bird">Bird</MenuItem>
+                      <MenuItem value="Rabbits">Rabbits</MenuItem>
+                      <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
+                      <MenuItem value="Horse">Horse</MenuItem>
+                      <MenuItem value="Turtle">Turtle</MenuItem>
+                      <MenuItem value="Hamsters">Hamsters</MenuItem>
+                      <MenuItem value="Hedgehogs">Hedgehogs</MenuItem>
+                    </Select>
+                  )}
+                />
               </FormControl>
+              {errors.animalType && (
+                <Typography variant="caption" color="error">
+                  {errors.animalType.message}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 label="Pet's Colors"
-                name="colors"
-                value={colors}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.colors)}
+                helperText={errors.colors?.message}
                 focused
+                {...register("colors")}
               />
             </Grid>
 
@@ -165,15 +153,15 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Owner Name"
-                name="ownerName"
-                value={ownerName}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.ownerName)}
+                helperText={errors.ownerName?.message}
                 focused
+                {...register("ownerName")}
               />
             </Grid>
 
@@ -181,15 +169,15 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Contact Number"
-                name="contactPhone"
-                value={contactPhone}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.contactPhone)}
+                helperText={errors.contactPhone?.message}
                 focused
+                {...register("contactPhone")}
               />
             </Grid>
 
@@ -197,14 +185,14 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Email"
-                name="contactEmail"
-                value={contactEmail}
                 size="small"
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.contactEmail)}
+                helperText={errors.contactEmail?.message}
                 focused
+                {...register("contactEmail")}
               />
             </Grid>
 
@@ -212,15 +200,15 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Last Seen Area"
-                name="lastSeenLocation"
-                value={lastSeenLocation}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.lastSeenLocation)}
+                helperText={errors.lastSeenLocation?.message}
                 focused
+                {...register("lastSeenLocation")}
               />
             </Grid>
 
@@ -228,15 +216,17 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Date of Lost"
-                name="lostDate"
-                value={lostDate}
+                type="date"
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.lostDate)}
+                helperText={errors.lostDate?.message}
                 focused
+                InputLabelProps={{ shrink: true }}
+                {...register("lostDate")}
               />
             </Grid>
 
@@ -244,16 +234,16 @@ const LostForm = () => {
               <TextField
                 variant="outlined"
                 label="Description of Circumstances"
-                name="description"
-                value={description}
                 size="small"
-                onChange={handleChange}
                 fullWidth
                 multiline
                 rows={2}
                 margin="normal"
                 color="success"
+                error={Boolean(errors.description)}
+                helperText={errors.description?.message}
                 focused
+                {...register("description")}
               />
             </Grid>
 
@@ -271,7 +261,11 @@ const LostForm = () => {
                     type="file"
                     hidden
                     accept=".jpeg, .png, .jpg"
-                    onChange={handlePictureChange}
+                    onChange={(event) => {
+                      setValue("petPicture", event.target.files?.[0], {
+                        shouldValidate: true,
+                      });
+                    }}
                   />
                 </Button>
 
@@ -281,6 +275,11 @@ const LostForm = () => {
                   </Typography>
                 )}
               </Box>
+              {errors.petPicture && (
+                <Typography variant="caption" color="error">
+                  {errors.petPicture.message}
+                </Typography>
+              )}
             </Grid>
           </Grid>
 
@@ -290,10 +289,10 @@ const LostForm = () => {
             color="success"
             sx={{ my: 3, fontWeight: "700" }}
             fullWidth
-            onClick={handleSubmit}
-            disabled={loading}
+            type="submit"
+            disabled={createLostPetMutation.isPending}
           >
-            {loading ? (
+            {createLostPetMutation.isPending ? (
               <CircularProgress size={24} color="inherit" />
             ) : (
               "Submit Lost Pet Application"
@@ -313,6 +312,22 @@ const LostForm = () => {
               sx={{ width: "100%" }}
             >
               Your form has been submitted successfully!
+            </Alert>
+          </Snackbar>
+
+          <Snackbar
+            open={createLostPetMutation.isError}
+            autoHideDuration={4000}
+            onClose={() => createLostPetMutation.reset()}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              onClose={() => createLostPetMutation.reset()}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              {createLostPetMutation.error?.response?.data?.message ||
+                "Could not submit the lost pet form."}
             </Alert>
           </Snackbar>
         </Box>

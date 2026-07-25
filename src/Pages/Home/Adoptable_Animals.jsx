@@ -4,14 +4,14 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Grid,
   Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
 import adoptableAnimals from "./../../API/adoptableAnimals.json";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import OptimizedImage from "../../Components/Common/OptimizedImage";
 
 const Adoptable_Animals = () => {
   const navigate = useNavigate();
@@ -50,11 +50,10 @@ const Adoptable_Animals = () => {
                   }}
                 >
                   <CardActionArea onClick={() => handleCardClick(item.code)}>
-                    <CardMedia
-                      component="img"
-                      image={item.photos}
+                    <OptimizedImage
+                      src={item.photos}
                       alt={item.name}
-                      height={250}
+                      style={{ width: "100%", height: 250, objectFit: "cover" }}
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h6" fontWeight={700}>
@@ -115,7 +114,8 @@ const Adoptable_Animals = () => {
         <Button
           variant="outlined"
           color="success"
-          href="/adoption/adoptable_pets"
+          component={RouterLink}
+          to="/adoption/adoptable_pets"
           sx={{
             ":hover": {
               backgroundColor: "success.main",

@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Typography, Paper, Grid } from "@mui/material";
-import aboutImage from "./../../images/aboutUs.png";
+import aboutImage from "./../../images/optimized/about-us.webp";
+import OptimizedImage from "../../Components/Common/OptimizedImage";
 
 const About_Us = () => {
   return (
@@ -60,7 +61,11 @@ const About_Us = () => {
             </Grid>
 
             <Grid item xs={12} md={4} textAlign={"center"} mt={4}>
-              <img src={aboutImage} alt="About Us" width="80%" />
+              <OptimizedImage
+                src={aboutImage}
+                alt="About Happy Paws BD"
+                style={{ width: "80%" }}
+              />
             </Grid>
           </Grid>
         </Paper>

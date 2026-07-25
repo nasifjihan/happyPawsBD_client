@@ -166,7 +166,6 @@ const ProductDetailDialog = ({
                 alignItems: "center",
                 mt: 1,
                 width: 200,
-                display: "flex",
               }}
             >
               <Rating
@@ -232,7 +231,8 @@ const ProductDetailDialog = ({
               }}
               // onClick={handleAddToCart}
               onClick={() => {
-                onAddToCart(product);
+                onAddToCart(product, quantity);
+                setQuantity(1);
                 onClose();
               }}
             >

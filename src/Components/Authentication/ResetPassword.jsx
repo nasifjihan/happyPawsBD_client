@@ -9,10 +9,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert } from "@mui/material";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 const defaultTheme = createTheme();
 
 const ResetPassword = () => {
+  const { resetPassword } = useUserAuth();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -23,23 +25,10 @@ const ResetPassword = () => {
     setMessage("");
 
     try {
-      // Call your backend API to initiate the password reset process
-      const response = await fetch("/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (response.ok) {
-        setMessage("A reset link has been sent to your email.");
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to send reset link.");
-      }
+      await resetPassword(email);
+      setMessage("A reset link has been sent to your email.");
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      setError(err.message || "Failed to send reset link.");
     }
   };
 

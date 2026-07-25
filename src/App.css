@@ -1,16 +1,14 @@
 /* CSS for Default Setting ----------------------------------------------------- */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-@import "react-multi-carousel/lib/styles.css";
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
   /* font-family: "Roboto"; */
 }
 
 body {
   margin: 0;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

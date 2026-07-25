@@ -1,32 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import {
+  Alert,
   Box,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
+  CircularProgress,
   Divider,
   Grid,
   Stack,
   Typography,
 } from "@mui/material";
-import { getFoundPets } from "../../../API/api";
+import { useFoundPetsQuery } from "../../../features/lost-found/hooks";
 
 const FoundPets = () => {
-  const [foundPets, setFoundPets] = useState([]);
+  const { data = [], isLoading, isError, error } = useFoundPetsQuery();
+  const foundPets = useMemo(() => [...data].reverse(), [data]);
+  const errorMessage =
+    error?.response?.data?.message ||
+    "Could not load found pets right now.";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response = await getFoundPets();
-        setFoundPets(response);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return (
+      <Box textAlign="center" py={6}>
+        <CircularProgress color="success" />
+      </Box>
+    );
+  }
 
   return (
     <Box className="myContainer" my={5}>
@@ -47,6 +48,12 @@ const FoundPets = () => {
         </Typography>
       </Box>
 
+      {isError ? (
+        <Alert severity="warning" sx={{ mb: 3 }}>
+          {errorMessage}
+        </Alert>
+      ) : null}
+
       {/* Card Section Starts ----------------------------------------------------  */}
       <Stack my={3}>
         <Grid
@@ -55,7 +62,7 @@ const FoundPets = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {/* {adoptableAnimals.slice(0, 6).map((item) => ( */}
-          {[...foundPets].reverse().map((pet) => (
+          {foundPets.map((pet) => (
             <Grid item xs={2} sm={4} md={4} key={pet._id}>
               <Card
                 sx={{
@@ -121,6 +128,12 @@ const FoundPets = () => {
             </Grid>
           ))}
         </Grid>
+
+        {!foundPets.length ? (
+          <Alert severity="info" sx={{ mt: 2 }}>
+            There are no found pet listings to show right now.
+          </Alert>
+        ) : null}
       </Stack>
     </Box>
   );

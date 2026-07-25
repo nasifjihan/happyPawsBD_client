@@ -33,11 +33,11 @@ const PetGroomingDetails = () => {
     setItem(selectedProgram);
 
     if (user) {
-      setGrooming({
-        ...grooming,
+      setGrooming((currentGrooming) => ({
+        ...currentGrooming,
         name: user.displayName || "",
         contactEmail: user.email || "",
-      });
+      }));
     }
   }, [id, user]);
 
@@ -48,7 +48,7 @@ const PetGroomingDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
-      navigate(`/login?redirect=/petcare/grooming/${id}`);
+      navigate(`/sign_in?redirect=${encodeURIComponent(`/petcare/grooming/${id}`)}`);
       return;
     }
 

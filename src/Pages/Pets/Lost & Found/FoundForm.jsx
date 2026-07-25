@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { addFoundPet } from "../../../API/api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
 import {
   Box,
   Button,
@@ -13,78 +14,39 @@ import {
   Typography,
   Grid,
 } from "@mui/material";
-
-const initialValue = {
-  animalType: "",
-  breed: "",
-  colors: "",
-  gender: "",
-  founderName: "",
-  contactPhone: "",
-  foundLocation: "",
-  foundDate: "",
-  description: "",
-  petPicture: "",
-};
+import { useCreateFoundPetMutation } from "../../../features/lost-found/hooks";
+import {
+  foundPetDefaultValues,
+  foundPetFormSchema,
+} from "../../../features/lost-found/schemas";
 
 const FoundForm = () => {
-  const [foundPet, setFoundPet] = useState(initialValue);
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const createFoundPetMutation = useCreateFoundPetMutation();
   const {
-    animalType,
-    breed,
-    colors,
-    gender,
-    founderName,
-    contactPhone,
-    foundLocation,
-    foundDate,
-    description,
-    petPicture,
-  } = foundPet;
+    control,
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(foundPetFormSchema),
+    defaultValues: foundPetDefaultValues,
+  });
+  const petPicture = watch("petPicture");
 
-  const handleChange = (e) => {
-    setFoundPet({ ...foundPet, [e.target.name]: e.target.value });
-  };
-
-  const handleAnimalType = (e) => {
-    setFoundPet({ ...foundPet, animalType: e.target.value });
-  };
-
-  const handleAnimalGender = (e) => {
-    setFoundPet({ ...foundPet, gender: e.target.value });
-  };
-
-  const handlePictureChange = (e) => {
-    const file = e.target.files[0];
-    setFoundPet({ ...foundPet, petPicture: file });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (foundPet) => {
     const formData = new FormData();
-
-    // Manually append each field to FormData
-    // formData.append("animalType", foundPet.animalType);
-    // formData.append("breed", foundPet.breed);
-    // formData.append("colors", foundPet.colors);
-    // formData.append("gender", foundPet.gender);
-    // formData.append("founderName", foundPet.founderName);
-    // formData.append("contactPhone", foundPet.contactPhone);
-    // formData.append("contactEmail", foundPet.contactEmail);
-    // formData.append("foundLocation", foundPet.foundLocation);
-    // formData.append("foundDate", foundPet.foundDate);
-    // formData.append("description", foundPet.description);
-    // formData.append("petPicture", foundPet.petPicture);
 
     Object.entries(foundPet).forEach(([key, value]) => {
       formData.append(key, value);
     });
 
     try {
-      await addFoundPet(formData);
-      setFoundPet(initialValue);
+      await createFoundPetMutation.mutateAsync(formData);
+      reset(foundPetDefaultValues);
       setShowSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -103,6 +65,7 @@ const FoundForm = () => {
         <Box
           component="form"
           mx={"auto"}
+          onSubmit={handleSubmit(onSubmit)}
           sx={{
             p: 2,
           }}
@@ -120,38 +83,48 @@ const FoundForm = () => {
                 focused
               >
                 <InputLabel id="animalType">Type of Animal</InputLabel>
-                <Select
-                  labelId="animalType"
-                  id="animalType"
-                  value={animalType}
-                  label="animalType"
-                  onChange={handleAnimalType}
-                >
-                  <MenuItem value="Cat">Cat</MenuItem>
-                  <MenuItem value="Dog">Dog</MenuItem>
-                  <MenuItem value="Bird">Bird</MenuItem>
-                  <MenuItem value="Rabbits">Rabbits</MenuItem>
-                  <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
-                  <MenuItem value="Horse">Horse</MenuItem>
-                  <MenuItem value="Turtle">Turtle</MenuItem>
-                  <MenuItem value="Hamsters">Hamsters</MenuItem>
-                  <MenuItem value="Hedgehogs">Hedgehogs</MenuItem>
-                </Select>
+                <Controller
+                  name="animalType"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      labelId="animalType"
+                      id="animalType"
+                      label="animalType"
+                    >
+                      <MenuItem value="Cat">Cat</MenuItem>
+                      <MenuItem value="Dog">Dog</MenuItem>
+                      <MenuItem value="Bird">Bird</MenuItem>
+                      <MenuItem value="Rabbits">Rabbits</MenuItem>
+                      <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
+                      <MenuItem value="Horse">Horse</MenuItem>
+                      <MenuItem value="Turtle">Turtle</MenuItem>
+                      <MenuItem value="Hamsters">Hamsters</MenuItem>
+                      <MenuItem value="Hedgehogs">Hedgehogs</MenuItem>
+                    </Select>
+                  )}
+                />
               </FormControl>
+              {errors.animalType && (
+                <Typography variant="caption" color="error">
+                  {errors.animalType.message}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 label="Breed Type"
-                name="breed"
-                value={breed}
                 size="small"
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.breed)}
+                helperText={errors.breed?.message}
                 focused
+                {...register("breed")}
               />
             </Grid>
 
@@ -159,15 +132,15 @@ const FoundForm = () => {
               <TextField
                 variant="outlined"
                 label="Pet's Colors"
-                name="colors"
-                value={colors}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.colors)}
+                helperText={errors.colors?.message}
                 focused
+                {...register("colors")}
               />
             </Grid>
 
@@ -183,33 +156,43 @@ const FoundForm = () => {
                 focused
               >
                 <InputLabel id="gender">Gender</InputLabel>
-                <Select
-                  labelId="gender"
-                  id="gender"
-                  value={gender}
-                  label="Gender"
-                  onChange={handleAnimalGender}
-                >
-                  <MenuItem value="Male">Male</MenuItem>
-                  <MenuItem value="Female">Female</MenuItem>
-                  <MenuItem value="Not Sure">Not Sure</MenuItem>
-                </Select>
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      labelId="gender"
+                      id="gender"
+                      label="Gender"
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Not Sure">Not Sure</MenuItem>
+                    </Select>
+                  )}
+                />
               </FormControl>
+              {errors.gender && (
+                <Typography variant="caption" color="error">
+                  {errors.gender.message}
+                </Typography>
+              )}
             </Grid>
 
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 label="Your Name"
-                name="founderName"
-                value={founderName}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.founderName)}
+                helperText={errors.founderName?.message}
                 focused
+                {...register("founderName")}
               />
             </Grid>
 
@@ -217,15 +200,15 @@ const FoundForm = () => {
               <TextField
                 variant="outlined"
                 label="Contact Number"
-                name="contactPhone"
-                value={contactPhone}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.contactPhone)}
+                helperText={errors.contactPhone?.message}
                 focused
+                {...register("contactPhone")}
               />
             </Grid>
 
@@ -233,15 +216,15 @@ const FoundForm = () => {
               <TextField
                 variant="outlined"
                 label="Found Location"
-                name="foundLocation"
-                value={foundLocation}
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.foundLocation)}
+                helperText={errors.foundLocation?.message}
                 focused
+                {...register("foundLocation")}
               />
             </Grid>
 
@@ -249,15 +232,17 @@ const FoundForm = () => {
               <TextField
                 variant="outlined"
                 label="Date of Found"
-                name="foundDate"
-                value={foundDate}
+                type="date"
                 size="small"
                 required
-                onChange={handleChange}
                 fullWidth
                 margin="normal"
                 color="success"
+                error={Boolean(errors.foundDate)}
+                helperText={errors.foundDate?.message}
                 focused
+                InputLabelProps={{ shrink: true }}
+                {...register("foundDate")}
               />
             </Grid>
 
@@ -265,16 +250,16 @@ const FoundForm = () => {
               <TextField
                 variant="outlined"
                 label="Description of Circumstances"
-                name="description"
-                value={description}
                 size="small"
-                onChange={handleChange}
                 fullWidth
                 multiline
                 rows={2}
                 margin="normal"
                 color="success"
+                error={Boolean(errors.description)}
+                helperText={errors.description?.message}
                 focused
+                {...register("description")}
               />
             </Grid>
 
@@ -291,7 +276,11 @@ const FoundForm = () => {
                     type="file"
                     hidden
                     accept=".jpeg, .png, .jpg"
-                    onChange={handlePictureChange}
+                    onChange={(event) => {
+                      setValue("petPicture", event.target.files?.[0], {
+                        shouldValidate: true,
+                      });
+                    }}
                   />
                 </Button>
 
@@ -301,6 +290,11 @@ const FoundForm = () => {
                   </Typography>
                 )}
               </Box>
+              {errors.petPicture && (
+                <Typography variant="caption" color="error">
+                  {errors.petPicture.message}
+                </Typography>
+              )}
             </Grid>
           </Grid>
 
@@ -309,9 +303,12 @@ const FoundForm = () => {
             color="success"
             sx={{ my: 3, fontWeight: "700" }}
             fullWidth
-            onClick={handleSubmit}
+            type="submit"
+            disabled={createFoundPetMutation.isPending}
           >
-            Submit Found Pet Application
+            {createFoundPetMutation.isPending
+              ? "Submitting..."
+              : "Submit Found Pet Application"}
           </Button>
 
           <Snackbar
@@ -326,6 +323,22 @@ const FoundForm = () => {
               sx={{ width: "100%" }}
             >
               Your form has been submitted successfully!
+            </Alert>
+          </Snackbar>
+
+          <Snackbar
+            open={createFoundPetMutation.isError}
+            autoHideDuration={4000}
+            onClose={() => createFoundPetMutation.reset()}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              onClose={() => createFoundPetMutation.reset()}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              {createFoundPetMutation.error?.response?.data?.message ||
+                "Could not submit the found pet form."}
             </Alert>
           </Snackbar>
         </Box>

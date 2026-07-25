@@ -35,11 +35,11 @@ const PetBoardingDetails = () => {
 
     // Auto-fill name and email from the logged-in user
     if (user) {
-      setBoarding({
-        ...boarding,
+      setBoarding((currentBoarding) => ({
+        ...currentBoarding,
         name: user.displayName || "",
         contactEmail: user.email || "",
-      });
+      }));
     }
   }, [id, user]);
 

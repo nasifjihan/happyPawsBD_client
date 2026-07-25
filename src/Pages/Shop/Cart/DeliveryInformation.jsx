@@ -7,7 +7,6 @@ import { useUserAuth } from "../../../context/UserAuthContext";
 const DeliveryInformation = ({
   deliveryInfo,
   setDeliveryInfo,
-  validateFields,
   errors,
   setErrors,
 }) => {
@@ -41,6 +40,7 @@ const DeliveryInformation = ({
             label="Name"
             variant="outlined"
             name="name"
+            value={deliveryInfo.name}
             // defaultValue={name}
             required
             error={Boolean(errors.name)}
@@ -54,6 +54,7 @@ const DeliveryInformation = ({
             label="Mobile Number"
             variant="outlined"
             name="phone"
+            value={deliveryInfo.phone}
             required
             error={Boolean(errors.phone)}
             helperText={errors.phone}
@@ -66,6 +67,7 @@ const DeliveryInformation = ({
             label="Email"
             variant="outlined"
             name="email"
+            value={deliveryInfo.email}
             required
             // defaultValue={email}
             error={Boolean(errors.email)}
@@ -79,6 +81,7 @@ const DeliveryInformation = ({
             label="City"
             variant="outlined"
             name="city"
+            value={deliveryInfo.city}
             onChange={handleChange}
           />
         </Grid>
@@ -88,6 +91,7 @@ const DeliveryInformation = ({
             label="State"
             variant="outlined"
             name="state"
+            value={deliveryInfo.state}
             onChange={handleChange}
           />
         </Grid>
@@ -97,6 +101,7 @@ const DeliveryInformation = ({
             label="ZIP"
             variant="outlined"
             name="zip"
+            value={deliveryInfo.zip}
             onChange={handleChange}
           />
         </Grid>
@@ -106,6 +111,7 @@ const DeliveryInformation = ({
             label="Address"
             variant="outlined"
             name="address"
+            value={deliveryInfo.address}
             required
             error={Boolean(errors.address)}
             helperText={errors.address}

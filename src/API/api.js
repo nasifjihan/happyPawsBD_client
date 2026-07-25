@@ -76,12 +76,3 @@ export const boardingApplication = async (boarding, id) => {
   );
   return response.data;
 };
-
-// Update Cart
-export const updateCartInBackend = async (userId, productId, quantity) => {
-  const response = await axiosInstance.post(`/cart/${userId}`, {
-    productId,
-    quantity,
-  });
-  return response.data;
-};

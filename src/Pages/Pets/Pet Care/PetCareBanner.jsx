@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import OurService from "./../../../images/optimized/our-service.webp";
 
 const PetCareBanner = () => {
   return (
@@ -8,8 +9,7 @@ const PetCareBanner = () => {
         position: "relative",
         width: "100%",
         height: "600px",
-        backgroundImage:
-          'url("https://pawcare.com.bd/wp-content/uploads/2021/02/Our-Service.jpg")',
+        backgroundImage: `url(${OurService})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         overflow: "hidden",

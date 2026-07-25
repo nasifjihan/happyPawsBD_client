@@ -20,25 +20,11 @@ const defaultTheme = createTheme();
 
 const SignIn = () => {
   const location = useLocation();
-  const { login } = useUserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
-
-
-  // const from = location.state?.from?.pathname || "/dashboard"; // Default to "/dashboard" after login
-
-  // const handleLogin = async () => {
-  //   try {
-  //     await login();  // Perform login
-  //     navigate(from); // Redirect to the original page or the default "/dashboard"
-  //   } catch (error) {
-  //     setError(error.message); // Handle error
-  //   }
-  // };
-
 
   const redirectPath =
     new URLSearchParams(location.search).get("redirect") || "/";
@@ -60,7 +46,7 @@ const SignIn = () => {
       await googleSignIn();
       navigate(redirectPath);
     } catch (error) {
-      console.log(error.message);
+      setError(error.message);
     }
   };
 

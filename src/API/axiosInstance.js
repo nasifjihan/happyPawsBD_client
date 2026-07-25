@@ -1,12 +1,9 @@
 import axios from "axios";
-
-// Set your backend base URL
-const BASE_URL =
-  import.meta.env.VITE_API_URL || "https://happypawsbd-server.onrender.com";
+import { appEnv } from "../config/env";
 
 // Create Axios instance
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: appEnv.apiBaseUrl,
   headers: {
     "Content-Type": "application/json",
   },

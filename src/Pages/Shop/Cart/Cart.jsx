@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Alert, Box, Grid, Snackbar } from "@mui/material";
 import DeliveryInformation from ".//DeliveryInformation";
 import OrderSummary from "./OrderSummary";
 import PaymentMethod from "./PaymentMethod";
-import axios from "axios";
 import { createPaymentSession, orders } from "../../../API/api";
 import { loadStripe } from "@stripe/stripe-js";
+import { useLocation, useNavigate } from "react-router-dom";
+import { appEnv } from "../../../config/env";
 
-const stripePromise = loadStripe(
-  "pk_test_51QJQ6YGXyE7DqlV8yCFisSMWfkn305hInVMZYrIH4wq0CINZHgBTnKojeSpj73UJzbe1WY00LHvU8rit3qgHA4rs00RJ081Eb3"
-);
+const stripePromise = loadStripe(appEnv.stripePublishableKey);
 
-const Cart = ({ handleQuantityChange }) => {
+const initialDeliveryInfo = {
+  name: "",
+  email: "",
+  phone: "",
+  city: "",
+  state: "",
+  zip: "",
+  address: "",
+};
+
+const Cart = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
-  const [deliveryInfo, setDeliveryInfo] = useState({
-    name: "",
-    email: "",
-    mobileNumber: "",
-    city: "",
-    state: "",
-    zip: "",
-    address: "",
-  });
+  const [deliveryInfo, setDeliveryInfo] = useState(initialDeliveryInfo);
   const [paymentMethod, setPaymentMethod] = useState("cash_on_delivery");
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [feedback, setFeedback] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
   const [showSuccess, setShowSuccess] = useState(false);
-
-  useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(savedCartItems);
-  }, []);
+  const paymentStatus = useMemo(
+    () => new URLSearchParams(location.search).get("payment"),
+    [location.search]
+  );
 
   const handleRemoveItem = (productId) => {
     const updatedCart = cartItems.filter((item) => item.id !== productId);
@@ -56,9 +61,53 @@ const Cart = ({ handleQuantityChange }) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  useEffect(() => {
+    const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartItems(savedCartItems);
+  }, []);
+
+  useEffect(() => {
+    if (!paymentStatus) {
+      return;
+    }
+
+    if (paymentStatus === "success") {
+      setDeliveryInfo(initialDeliveryInfo);
+      setCartItems([]);
+      localStorage.removeItem("cartItems");
+      setPaymentMethod("cash_on_delivery");
+      setShowSuccess(true);
+    } else if (paymentStatus === "cancelled") {
+      setFeedback({
+        open: true,
+        severity: "info",
+        message: "Payment was cancelled. Your cart is still saved.",
+      });
+    }
+
+    navigate("/cart", { replace: true });
+  }, [navigate, paymentStatus]);
+
+  const handleQuantityChange = (productId, quantity) => {
+    if (quantity < 1) {
+      handleRemoveItem(productId);
+      return;
+    }
+
+    const updatedCart = cartItems.map((item) =>
+      item.id === productId ? { ...item, quantity } : item
+    );
+    setCartItems(updatedCart);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
+
   const handleOrderConfirm = async () => {
     if (!validateFields()) {
-      alert("Please fill in all required delivery information.");
+      setFeedback({
+        open: true,
+        severity: "error",
+        message: "Please fill in all required delivery information.",
+      });
       return;
     }
 
@@ -75,62 +124,57 @@ const Cart = ({ handleQuantityChange }) => {
 
         await orders(orderDetails);
 
-        setSnackbarMessage("Order placed successfully!");
-        setSnackbarOpen(true);
+        setFeedback({
+          open: true,
+          severity: "success",
+          message: "Order placed successfully!",
+        });
 
         // Clear form and cart data after placing order
-        setDeliveryInfo({
-          name: "",
-          email: "",
-          phone: "",
-          city: "",
-          state: "",
-          zip: "",
-          address: "",
-        });
-        setCartItems([]); // Clear the cart from state
-        localStorage.removeItem("cartItems"); // Remove cart from localStorage
+        setDeliveryInfo(initialDeliveryInfo);
+        setCartItems([]);
+        localStorage.removeItem("cartItems");
         setPaymentMethod("cash_on_delivery");
-        setShowSuccess(true);
       } catch (error) {
-        console.error("Error:", error);
+        setFeedback({
+          open: true,
+          severity: "error",
+          message: "Could not place the order. Please try again.",
+        });
       }
     } else if (paymentMethod === "online_payment") {
-      const stripe = await stripePromise;
       try {
-        cartItems.forEach((item) => {
-          if (isNaN(item.price) || item.price <= 0) {
-            console.error(`Invalid price for item: ${item.id}`);
-            return; // Stop the process if the price is invalid
-          }
-        });
+        const stripe = await stripePromise;
+
+        if (!stripe) {
+          throw new Error("Stripe is not configured.");
+        }
+
+        const hasInvalidPrice = cartItems.some(
+          (item) => isNaN(item.price) || item.price <= 0
+        );
+
+        if (hasInvalidPrice) {
+          throw new Error("One or more cart items have an invalid price.");
+        }
 
         const { sessionId } = await createPaymentSession(
           cartItems,
           deliveryInfo
         );
 
-        setSnackbarMessage("Order placed successfully!");
-        setSnackbarOpen(true);
-
-        // Clear form and cart data after placing order
-        setDeliveryInfo({
-          name: "",
-          email: "",
-          phone: "",
-          city: "",
-          state: "",
-          zip: "",
-          address: "",
-        });
-        setCartItems([]); // Clear the cart from state
-        localStorage.removeItem("cartItems"); // Remove cart from localStorage
-        setPaymentMethod("cash_on_delivery");
-        setShowSuccess(true);
-
-        await stripe.redirectToCheckout({ sessionId });
+        const result = await stripe.redirectToCheckout({ sessionId });
+        if (result?.error) {
+          throw new Error(result.error.message);
+        }
       } catch (error) {
-        console.error("Error during online payment:", error);
+        setFeedback({
+          open: true,
+          severity: "error",
+          message:
+            error.message ||
+            "Could not start online payment. Please try again.",
+        });
       }
     }
   };
@@ -143,13 +187,25 @@ const Cart = ({ handleQuantityChange }) => {
 
   return (
     <Box className="myContainer" sx={{ padding: 3 }}>
+      {feedback.open && feedback.severity !== "success" ? (
+        <Alert
+          severity={feedback.severity}
+          onClose={() =>
+            setFeedback((current) => ({ ...current, open: false }))
+          }
+          sx={{ mb: 3 }}
+        >
+          {feedback.message}
+        </Alert>
+      ) : null}
+
       <Grid container spacing={2}>
         <Grid item xs={12} md={7}>
           <DeliveryInformation
             deliveryInfo={deliveryInfo}
             setDeliveryInfo={setDeliveryInfo}
-            validateFields={validateFields}
             errors={errors}
+            setErrors={setErrors}
           />
         </Grid>
         <Grid item xs={12} md={5}>
@@ -166,6 +222,21 @@ const Cart = ({ handleQuantityChange }) => {
         setPaymentMethod={setPaymentMethod}
         handleOrderConfirm={handleOrderConfirm}
       />
+
+      <Snackbar
+        open={feedback.open && feedback.severity === "success"}
+        autoHideDuration={4000}
+        onClose={() => setFeedback((current) => ({ ...current, open: false }))}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setFeedback((current) => ({ ...current, open: false }))}
+          severity={feedback.severity}
+          sx={{ width: "100%" }}
+        >
+          {feedback.message}
+        </Alert>
+      </Snackbar>
 
       <Snackbar
         open={showSuccess}

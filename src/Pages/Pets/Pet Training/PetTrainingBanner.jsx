@@ -1,7 +1,8 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import TrainingHero from "./../../../images/Training Hero.png";
+import TrainingHero from "./../../../images/optimized/training-hero.webp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import React from "react";
+import OptimizedImage from "../../../Components/Common/OptimizedImage";
 
 const PetTrainingBanner = () => {
   return (
@@ -25,7 +26,7 @@ const PetTrainingBanner = () => {
           // }}
         >
           <Box>
-            <img
+            <OptimizedImage
               src={TrainingHero}
               alt="Pet training Banner Picture"
               style={{ width: "90%", padding: "25px 0px" }}

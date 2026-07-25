@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import AdoptHeader from "./../../../images/AdoptHeader.png";
+import AdoptHeader from "./../../../images/optimized/adopt-header.webp";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import OptimizedImage from "../../../Components/Common/OptimizedImage";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({
   // height: "60vh",
@@ -46,8 +48,9 @@ const AdoptionBanner = () => {
               variant="contained"
               color="success"
               size="large"
+              component={RouterLink}
+              to="/adoption/adoptable_pets"
               sx={{ width: { sm: "80%", md: "60%", lg: "40%" } }}
-              href="/adoption/adoptable_pets"
             >
               Explore Adoptable Pets
             </Button>
@@ -60,7 +63,11 @@ const AdoptionBanner = () => {
             display: { xs: "none", md: "block" }, // Hide the image on small screens
           }}
         >
-          <img src={AdoptHeader} alt="" style={{ width: "100%" }} />
+          <OptimizedImage
+            src={AdoptHeader}
+            alt="Adoption banner"
+            style={{ width: "100%" }}
+          />
         </Box>
       </BrandingWrapper>
     </Box>

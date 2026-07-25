@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { adoptionApplication } from "../../../API/api";
+import React, { useEffect, useMemo, useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
 import {
   Box,
   Button,
@@ -11,44 +12,50 @@ import {
   Snackbar,
   Alert,
   Typography,
-  Divider,
   Grid,
 } from "@mui/material";
 import { useUserAuth } from "../../../context/UserAuthContext";
+import { useAdoptionMutation } from "../../../features/adoption/hooks";
+import {
+  adoptionFormSchema,
+  createAdoptionDefaultValues,
+} from "../../../features/adoption/schemas";
 
 const AdoptionForm = ({ animalCode, animalType }) => {
   const { user } = useUserAuth();
-
-  const initialValue = {
-    animalCode,
-    animalType,
-    adopterName: user.displayName || "",
-    contactEmail: user.email || "",
-    contactPhone: "",
-    address: "",
-    experience: "",
-  };
-
-  const [adoption, setAdoption] = useState(initialValue);
   const [showSuccess, setShowSuccess] = useState(false);
+  const adoptionMutation = useAdoptionMutation();
+  const defaultValues = useMemo(
+    () =>
+      createAdoptionDefaultValues({
+        animalCode,
+        animalType,
+        user,
+      }),
+    [animalCode, animalType, user]
+  );
+  const {
+    control,
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(adoptionFormSchema),
+    defaultValues,
+  });
 
-  const handleChange = (e) => {
-    setAdoption({ ...adoption, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
-  const handleAnimalType = (e) => {
-    setAdoption({ ...adoption, animalType: e.target.value });
-  };
-
-  const handleSubmit = async () => {
+  const onSubmit = async (adoption) => {
     try {
-      const updatedAdoption = {
-        ...adoption,
-      };
-
-      await adoptionApplication(updatedAdoption, adoption.animalCode);
-
-      setAdoption(initialValue);
+      await adoptionMutation.mutateAsync({
+        adoption,
+        code: adoption.animalCode,
+      });
+      reset(createAdoptionDefaultValues({ animalCode, animalType, user }));
       setShowSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -79,20 +86,21 @@ const AdoptionForm = ({ animalCode, animalType }) => {
           Adoption Application Form
         </Typography>
 
-        <Grid container spacing={2}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={2}>
           <Grid item xs={12} sm={4}>
             <TextField
               variant="outlined"
               label="Animal Code"
-              name="animalCode"
-              value={adoption.animalCode}
               size="medium"
               required
-              onChange={handleChange}
               fullWidth
               margin="normal"
               color="success"
+              error={Boolean(errors.animalCode)}
+              helperText={errors.animalCode?.message}
               focused
+              {...register("animalCode")}
               sx={{
                 borderRadius: "8px",
                 background: "#f8f9fa",
@@ -116,42 +124,52 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               }}
             >
               <InputLabel id="animalType">Type of Animal</InputLabel>
-              <Select
-                labelId="animalType"
-                id="animalType"
-                value={adoption.animalType}
-                label="Type of Animal"
-                onChange={handleAnimalType}
-                sx={{
-                  textAlign: "left",
-                }}
-              >
-                <MenuItem value="Cat">Cat</MenuItem>
-                <MenuItem value="Dog">Dog</MenuItem>
-                <MenuItem value="Bird">Bird</MenuItem>
-                <MenuItem value="Rabbit">Rabbit</MenuItem>
-                <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
-                <MenuItem value="Horse">Horse</MenuItem>
-                <MenuItem value="Turtle">Turtle</MenuItem>
-                <MenuItem value="Hamster">Hamster</MenuItem>
-                <MenuItem value="Hedgehog">Hedgehog</MenuItem>
-              </Select>
+              <Controller
+                name="animalType"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    labelId="animalType"
+                    id="animalType"
+                    label="Type of Animal"
+                    sx={{
+                      textAlign: "left",
+                    }}
+                  >
+                    <MenuItem value="Cat">Cat</MenuItem>
+                    <MenuItem value="Dog">Dog</MenuItem>
+                    <MenuItem value="Bird">Bird</MenuItem>
+                    <MenuItem value="Rabbit">Rabbit</MenuItem>
+                    <MenuItem value="GuineaPig">Guinea Pig</MenuItem>
+                    <MenuItem value="Horse">Horse</MenuItem>
+                    <MenuItem value="Turtle">Turtle</MenuItem>
+                    <MenuItem value="Hamster">Hamster</MenuItem>
+                    <MenuItem value="Hedgehog">Hedgehog</MenuItem>
+                  </Select>
+                )}
+              />
             </FormControl>
+            {errors.animalType && (
+              <Typography variant="caption" color="error">
+                {errors.animalType.message}
+              </Typography>
+            )}
           </Grid>
 
           <Grid item xs={12} sm={4}>
             <TextField
               variant="outlined"
               label="Your Name"
-              name="adopterName"
-              value={adoption.adopterName}
               size="medium"
               required
-              onChange={handleChange}
               fullWidth
               margin="normal"
               color="success"
+              error={Boolean(errors.adopterName)}
+              helperText={errors.adopterName?.message}
               focused
+              {...register("adopterName")}
               sx={{
                 borderRadius: "8px",
                 background: "#f8f9fa",
@@ -163,15 +181,15 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             <TextField
               variant="outlined"
               label="Email"
-              name="contactEmail"
-              value={adoption.contactEmail}
               size="medium"
               required
-              onChange={handleChange}
               fullWidth
               margin="normal"
               color="success"
+              error={Boolean(errors.contactEmail)}
+              helperText={errors.contactEmail?.message}
               focused
+              {...register("contactEmail")}
               sx={{
                 borderRadius: "8px",
                 background: "#f8f9fa",
@@ -183,15 +201,15 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             <TextField
               variant="outlined"
               label="Contact Number"
-              name="contactPhone"
-              value={adoption.contactPhone}
               size="medium"
               required
-              onChange={handleChange}
               fullWidth
               margin="normal"
               color="success"
+              error={Boolean(errors.contactPhone)}
+              helperText={errors.contactPhone?.message}
               focused
+              {...register("contactPhone")}
               sx={{
                 borderRadius: "8px",
                 background: "#f8f9fa",
@@ -203,15 +221,15 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             <TextField
               variant="outlined"
               label="Your Address"
-              name="address"
-              value={adoption.address}
               size="medium"
               required
-              onChange={handleChange}
               fullWidth
               margin="normal"
               color="success"
+              error={Boolean(errors.address)}
+              helperText={errors.address?.message}
               focused
+              {...register("address")}
               sx={{
                 borderRadius: "8px",
                 background: "#f8f9fa",
@@ -223,37 +241,41 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             <TextField
               variant="outlined"
               label="Experience with Pets"
-              name="experience"
-              value={adoption.experience}
               size="medium"
-              onChange={handleChange}
               fullWidth
               multiline
               rows={2}
               margin="normal"
               color="success"
+              error={Boolean(errors.experience)}
+              helperText={errors.experience?.message}
               focused
+              {...register("experience")}
               sx={{
                 borderRadius: "8px",
                 background: "#f8f9fa",
               }}
             />
           </Grid>
-        </Grid>
+          </Grid>
 
-        <Button
-          variant="contained"
-          color="success"
-          fullWidth
-          sx={{
-            fontWeight: "bold",
-            borderRadius: "8px",
-            my: 3,
-          }}
-          onClick={handleSubmit}
-        >
-          Submit Adoption Application
-        </Button>
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            type="submit"
+            sx={{
+              fontWeight: "bold",
+              borderRadius: "8px",
+              my: 3,
+            }}
+            disabled={adoptionMutation.isPending}
+          >
+            {adoptionMutation.isPending
+              ? "Submitting..."
+              : "Submit Adoption Application"}
+          </Button>
+        </Box>
 
         {/* Snackbar for showing the success message */}
         <Snackbar
@@ -268,6 +290,22 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             sx={{ width: "100%" }}
           >
             Your application has been submitted successfully!
+          </Alert>
+        </Snackbar>
+
+        <Snackbar
+          open={adoptionMutation.isError}
+          autoHideDuration={4000}
+          onClose={() => adoptionMutation.reset()}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        >
+          <Alert
+            onClose={() => adoptionMutation.reset()}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {adoptionMutation.error?.response?.data?.message ||
+              "Could not submit the adoption application."}
           </Alert>
         </Snackbar>
       </Box>

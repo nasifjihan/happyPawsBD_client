@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Box, Button, ButtonGroup, Stack, Typography } from "@mui/material";
-import Banner from "./../../images/banner2.png";
+import Banner from "./../../images/optimized/banner2.webp";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import OptimizedImage from "../../Components/Common/OptimizedImage";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({
   // height: "60vh",
@@ -55,15 +57,24 @@ const Branding = () => {
             sx={{ width: { xs: "100%", sm: "80%" } }}
           >
             <Button
-              href="/adoption/adoptable_pets"
+              component={RouterLink}
+              to="/adoption/adoptable_pets"
               sx={{ flex: "1", fontWeight: "700" }}
             >
               Adopt
             </Button>
-            <Button href="/petcare" sx={{ flex: "1", fontWeight: "700" }}>
+            <Button
+              component={RouterLink}
+              to="/petcare"
+              sx={{ flex: "1", fontWeight: "700" }}
+            >
               Service
             </Button>
-            <Button href="/vet_finder" sx={{ flex: "1", fontWeight: "700" }}>
+            <Button
+              component={RouterLink}
+              to="/vet_finder"
+              sx={{ flex: "1", fontWeight: "700" }}
+            >
               Vet Finder
             </Button>
           </ButtonGroup>
@@ -77,7 +88,13 @@ const Branding = () => {
             textAlign: { xs: "center", sm: "right" },
           }}
         >
-          <img src={Banner} alt="" style={{ width: "100%" }} />
+          <OptimizedImage
+            src={Banner}
+            alt="Happy Paws BD hero banner"
+            loading="eager"
+            fetchPriority="high"
+            style={{ width: "100%" }}
+          />
         </Box>
       </BrandingWrapper>
     </Box>

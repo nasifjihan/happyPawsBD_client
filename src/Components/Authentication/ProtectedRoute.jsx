@@ -1,16 +1,29 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { Box, CircularProgress } from "@mui/material";
+import { Navigate, useLocation } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useUserAuth();
+  const { user, authLoading } = useUserAuth();
+  const location = useLocation();
 
-  console.log("Check user in Private: ", user);
-  if (!user) {
-    // return <Navigate to="/sign_in" />;
-    return <Navigate to={`/sign_in?redirect=${location.pathname}`} />;
-
+  if (authLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+        <CircularProgress color="success" />
+      </Box>
+    );
   }
+
+  if (!user) {
+    const redirectPath = `${location.pathname}${location.search}`;
+    return (
+      <Navigate
+        to={`/sign_in?redirect=${encodeURIComponent(redirectPath)}`}
+        replace
+      />
+    );
+  }
+
   return children;
 };
 

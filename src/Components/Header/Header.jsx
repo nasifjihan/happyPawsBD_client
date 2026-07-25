@@ -747,7 +747,6 @@ const Header = (props) => {
                   <Link
                     style={{
                       textAlign: "center",
-                      fontWeight: "bold",
                       textDecoration: "none",
                       color: "inherit",
                       fontWeight: "600",
@@ -761,7 +760,6 @@ const Header = (props) => {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" fontWeight="bold" component={Link} to="/account" style={{
                       textAlign: "center",
-                      fontWeight: "bold",
                       textDecoration: "none",
                       color: "inherit",
                       fontWeight: "600",
@@ -773,7 +771,6 @@ const Header = (props) => {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" fontWeight="bold" component={Link} to="/dashboard" style={{
                       textAlign: "center",
-                      fontWeight: "bold",
                       textDecoration: "none",
                       color: "inherit",
                       fontWeight: "600",

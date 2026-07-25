@@ -820,7 +820,6 @@ const Header2 = (props) => {
                   <Link
                     style={{
                       textAlign: "center",
-                      fontWeight: "bold",
                       textDecoration: "none",
                       color: "inherit",
                       fontWeight: "600",
@@ -839,7 +838,6 @@ const Header2 = (props) => {
                     to="/account"
                     style={{
                       textAlign: "center",
-                      fontWeight: "bold",
                       textDecoration: "none",
                       color: "inherit",
                       fontWeight: "600",
@@ -857,7 +855,6 @@ const Header2 = (props) => {
                     to="/dashboard"
                     style={{
                       textAlign: "center",
-                      fontWeight: "bold",
                       textDecoration: "none",
                       color: "inherit",
                       fontWeight: "600",
