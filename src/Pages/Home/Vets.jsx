@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Box, Card, Chip, Link, Stack, Typography } from "@mui/material";
-import vets from "./../../API/vets.json";
+import vets from "../../API/vets.json";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 
@@ -82,7 +82,7 @@ const CustomDot = ({ onClick, ...rest }) => {
   );
 };
 
-const Vats = () => {
+const Vets = () => {
   return (
     <Box className="myContainer" my={10} textAlign={"center"}>
       <Chip
@@ -265,4 +265,4 @@ const Vats = () => {
   );
 };
 
-export default Vats;
+export default Vets;

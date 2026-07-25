@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ResilientProductImage from "./ResilientProductImage";
 
 const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
@@ -116,24 +118,36 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
         </Typography>
       </Box>
 
-      <CardActions sx={{ px: 2, pb: 2, pt: 1, gap: 1 }}>
+      <CardActions sx={{ px: 2, gap: 0, flexWrap: "nowrap" }}>
         <Button
           variant="outlined"
           color="success"
-          fullWidth
           onClick={() => onViewDetails(product)}
-          sx={{ fontWeight: 700, fontSize: 10 }}
+          aria-label={`View details for ${product.name}`}
+          sx={{
+            minWidth: 0,
+            p: 0.5,
+            flexShrink: 0,
+            borderRadius: 1.5,
+          }}
         >
-          View Details
+          <VisibilityOutlinedIcon fontSize="small" />
         </Button>
         <Button
           variant="contained"
           fullWidth
           onClick={() => onAddToCart(product)}
+          startIcon={<AddShoppingCartOutlinedIcon fontSize="inherit" />}
           sx={{
-            backgroundColor: "#f50057",
+            flex: 1,
+            justifyContent: "center",
             fontWeight: 700,
             fontSize: 10,
+            px: 1,
+            minWidth: 0,
+            whiteSpace: "nowrap",
+            textTransform: "none",
+            backgroundColor: "#f50057",
             "&:hover": {
               backgroundColor: "#d4004c",
             },

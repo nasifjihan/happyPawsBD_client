@@ -11,16 +11,23 @@ import {
 } from "../../API/api";
 import { lostFoundQueryKeys } from "./queryKeys";
 
+const lostFoundQueryOptions = {
+  retry: 2,
+  retryDelay: (attemptIndex) => Math.min(1500 * 2 ** attemptIndex, 6000),
+};
+
 export const useLostPetsQuery = () =>
   useQuery({
     queryKey: lostFoundQueryKeys.lostPets(),
     queryFn: getLostPets,
+    ...lostFoundQueryOptions,
   });
 
 export const useFoundPetsQuery = () =>
   useQuery({
     queryKey: lostFoundQueryKeys.foundPets(),
     queryFn: getFoundPets,
+    ...lostFoundQueryOptions,
   });
 
 export const useLostFoundOverviewQuery = () =>
@@ -34,6 +41,7 @@ export const useLostFoundOverviewQuery = () =>
 
       return { lostPets, foundPets };
     },
+    ...lostFoundQueryOptions,
   });
 
 export const useCreateLostPetMutation = () => {

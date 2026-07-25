@@ -1,6 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Alert, Box, Grid } from "@mui/material";
-import DeliveryInformation from ".//DeliveryInformation";
+import {
+  Alert,
+  Box,
+  Chip,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import DeliveryInformation from "./DeliveryInformation";
 import OrderSummary from "./OrderSummary";
 import PaymentMethod from "./PaymentMethod";
 import { createPaymentSession, orders } from "../../../API/api";
@@ -9,6 +18,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { appEnv } from "../../../config/env";
 import { useCart } from "../../../context/CartContext";
 import ContentState from "../../../Components/Common/ContentState";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 
 const stripePromise = loadStripe(appEnv.stripePublishableKey);
 
@@ -40,6 +51,20 @@ const Cart = () => {
     [location.search]
   );
   const hasCartItems = cartItems.length > 0;
+  const cartItemCount = useMemo(
+    () => cartItems.reduce((total, item) => total + Number(item.quantity || 0), 0),
+    [cartItems]
+  );
+  const cartTotal = useMemo(
+    () =>
+      cartItems
+        .reduce(
+          (total, item) => total + Number(item.price || 0) * Number(item.quantity || 0),
+          0
+        )
+        .toFixed(2),
+    [cartItems]
+  );
 
   const handleRemoveItem = (productId) => {
     removeFromCart(productId);
@@ -184,14 +209,80 @@ const Cart = () => {
   };
 
   return (
-    <Box className="myContainer" sx={{ padding: 3 }}>
+    <Box
+      className="myContainer"
+      sx={{
+        px: { xs: 2, md: 3 },
+        py: { xs: 2.5, md: 4 },
+        background:
+          "linear-gradient(180deg, rgba(122,178,89,0.05) 0%, rgba(255,255,255,1) 22%)",
+      }}
+    >
+      <Box
+        sx={{
+          mb: 3,
+          p: { xs: 2.5, md: 4 },
+          borderRadius: 6,
+          color: "text.primary",
+          border: "1px solid",
+          borderColor: "rgba(122, 178, 89, 0.14)",
+          background:
+            "linear-gradient(135deg, rgba(122,178,89,0.16) 0%, rgba(255,255,255,1) 52%, rgba(251,208,98,0.16) 100%)",
+          boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
+        }}
+      >
+        <Stack spacing={1.25}>
+          <Chip
+            icon={<VerifiedOutlinedIcon sx={{ color: "#7AB259 !important" }} />}
+            label="Trusted Pet Care Checkout"
+            sx={{
+              alignSelf: "flex-start",
+              color: "#4d7337",
+              borderColor: "rgba(122, 178, 89, 0.28)",
+              backgroundColor: "rgba(255, 255, 255, 0.56)",
+              borderRadius: 2,
+            }}
+            variant="outlined"
+          />
+          <Typography variant="h3" fontWeight={800} color="#333332">
+            Checkout
+          </Typography>
+          <Typography sx={{ maxWidth: 720, color: "text.secondary" }}>
+            A calmer, cleaner checkout flow built around your cart, delivery
+            details, and secure payment.
+          </Typography>
+
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25} sx={{ pt: 1 }}>
+            <Chip
+              icon={<ShoppingBagOutlinedIcon sx={{ color: "#7AB259 !important" }} />}
+              label={`${cartItemCount} item${cartItemCount === 1 ? "" : "s"} in cart`}
+              sx={{
+                color: "text.primary",
+                backgroundColor: "rgba(255, 255, 255, 0.6)",
+                border: "1px solid rgba(122, 178, 89, 0.18)",
+                borderRadius: 2,
+              }}
+            />
+            <Chip
+              label={`Total ৳${cartTotal}`}
+              sx={{
+                color: "text.primary",
+                backgroundColor: "rgba(255, 255, 255, 0.6)",
+                border: "1px solid rgba(122, 178, 89, 0.18)",
+                borderRadius: 2,
+              }}
+            />
+          </Stack>
+        </Stack>
+      </Box>
+
       {feedback.open ? (
         <Alert
           severity={feedback.severity}
           onClose={() =>
             setFeedback((current) => ({ ...current, open: false }))
           }
-          sx={{ mb: 3 }}
+          sx={{ mb: 3, borderRadius: 3 }}
         >
           {feedback.message}
         </Alert>
@@ -199,31 +290,68 @@ const Cart = () => {
 
       {hasCartItems ? (
         <>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={7}>
-              <DeliveryInformation
-                deliveryInfo={deliveryInfo}
-                setDeliveryInfo={setDeliveryInfo}
-                errors={errors}
-                setErrors={setErrors}
-              />
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={7}>
+              <Paper
+                elevation={0}
+                sx={{
+                  borderRadius: 6,
+                  overflow: "hidden",
+                  border: "1px solid rgba(122, 178, 89, 0.14)",
+                  boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <Box
+                  sx={{
+                    px: { xs: 2.25, md: 3 },
+                    py: { xs: 2, md: 2.5 },
+                    background:
+                      "linear-gradient(135deg, rgba(122,178,89,0.14) 0%, rgba(255,255,255,1) 100%)",
+                    borderBottom: "1px solid rgba(122, 178, 89, 0.12)",
+                  }}
+                >
+                  <Stack spacing={0.75}>
+                    <Typography variant="h5" fontWeight={800} color="#333332">
+                      Complete Your Order
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Fill in delivery details, choose how you want to pay, and
+                      confirm everything from one place.
+                    </Typography>
+                  </Stack>
+                </Box>
+
+                <Box sx={{ p: { xs: 2.25, md: 3 } }}>
+                  <DeliveryInformation
+                    deliveryInfo={deliveryInfo}
+                    setDeliveryInfo={setDeliveryInfo}
+                    errors={errors}
+                    setErrors={setErrors}
+                  />
+
+                  <Divider sx={{ my: 3, borderColor: "rgba(122, 178, 89, 0.12)" }} />
+
+                  <PaymentMethod
+                    paymentMethod={paymentMethod}
+                    setPaymentMethod={setPaymentMethod}
+                    handleOrderConfirm={handleOrderConfirm}
+                    disabled={!hasCartItems}
+                    isSubmitting={isSubmitting}
+                  />
+                </Box>
+              </Paper>
             </Grid>
-            <Grid item xs={12} md={5}>
-              <OrderSummary
-                cartItems={cartItems}
-                handleQuantityChange={handleQuantityChange}
-                handleRemoveItem={handleRemoveItem}
-              />
+            <Grid item xs={12} lg={5}>
+              <Box sx={{ position: { lg: "sticky" }, top: { lg: 24 } }}>
+                <OrderSummary
+                  cartItems={cartItems}
+                  handleQuantityChange={handleQuantityChange}
+                  handleRemoveItem={handleRemoveItem}
+                />
+              </Box>
             </Grid>
           </Grid>
-
-          <PaymentMethod
-            paymentMethod={paymentMethod}
-            setPaymentMethod={setPaymentMethod}
-            handleOrderConfirm={handleOrderConfirm}
-            disabled={!hasCartItems}
-            isSubmitting={isSubmitting}
-          />
         </>
       ) : (
         <ContentState

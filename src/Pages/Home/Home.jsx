@@ -3,8 +3,8 @@ import Branding from "./Branding";
 import { Box, CircularProgress } from "@mui/material";
 import LazySection from "../../Components/Common/LazySection";
 
-const Vat_Care = lazy(() => import("./Vat_Care"));
-const Vats = lazy(() => import("./Vats"));
+const VetCare = lazy(() => import("./VetCare"));
+const Vets = lazy(() => import("./Vets"));
 const Adoptable_Animals = lazy(() => import("./Adoptable_Animals"));
 const Adopted = lazy(() => import("./Adopted"));
 
@@ -18,21 +18,25 @@ const Home = () => {
   return (
     <div>
       <Branding />
+
       <LazySection fallback={<SectionLoader />} minHeight={420}>
         <Suspense fallback={<SectionLoader />}>
-          <Vat_Care />
+          <VetCare />
         </Suspense>
       </LazySection>
+
       <LazySection fallback={<SectionLoader />} minHeight={420}>
         <Suspense fallback={<SectionLoader />}>
-          <Vats />
+          <Vets />
         </Suspense>
       </LazySection>
+
       <LazySection fallback={<SectionLoader />} minHeight={420}>
         <Suspense fallback={<SectionLoader />}>
           <Adopted />
         </Suspense>
       </LazySection>
+
       <LazySection fallback={<SectionLoader />} minHeight={420}>
         <Suspense fallback={<SectionLoader />}>
           <Adoptable_Animals />

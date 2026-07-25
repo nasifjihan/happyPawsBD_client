@@ -42,7 +42,7 @@ const About_Us = () => {
           }}
         >
           <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={8}>
               <Stack spacing={2.5}>
                 <Typography variant="h3" fontWeight={800}>
                   About Happy Paws BD
@@ -87,7 +87,7 @@ const About_Us = () => {
               </Stack>
             </Grid>
 
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={4}>
               <OptimizedImage
                 src={aboutImage}
                 alt="Happy Paws BD supporting pets and pet families"

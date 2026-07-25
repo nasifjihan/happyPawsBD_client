@@ -1,22 +1,49 @@
 import React, { useState } from "react";
+import Alert from "@mui/material/Alert";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
+import { alpha, createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
-import { Alert } from "@mui/material";
 import { getAuthErrorMessage } from "./authErrors";
 
-const defaultTheme = createTheme();
+const authTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#2e7d32",
+      light: "#60ad5e",
+      dark: "#005005",
+    },
+    secondary: {
+      main: "#8bc34a",
+    },
+    background: {
+      default: "#f4f9f1",
+    },
+  },
+  shape: {
+    borderRadius: 18,
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  },
+});
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +52,7 @@ const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { signUp } = useUserAuth();
   const location = useLocation();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const redirectPath =
     new URLSearchParams(location.search).get("redirect") || "/";
   const signInLink = `/sign_in?redirect=${encodeURIComponent(redirectPath)}`;
@@ -45,143 +72,195 @@ const SignUp = () => {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            textAlign="center"
-            sx={{ mt: 1 }}
+    <ThemeProvider theme={authTheme}>
+      <CssBaseline />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          pt: 8,
+          background:
+            "radial-gradient(circle at top, rgba(139, 195, 74, 0.18), transparent 30%), linear-gradient(180deg, #f7fbf4 0%, #eef7ea 100%)",
+        }}
+      >
+        <Container component="main" maxWidth="sm">
+          <Paper
+            elevation={0}
+            sx={{
+              overflow: "hidden",
+              border: "1px solid",
+              borderColor: alpha(authTheme.palette.primary.main, 0.12),
+              boxShadow: "0 24px 60px rgba(46, 125, 50, 0.12)",
+            }}
           >
-            Create your account to continue with adoption, rescue, and checkout
-            flows.
-          </Typography>
-
-          {/* Error Alert Msg */}
-          {error && (
-            <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
-              {error}
-            </Alert>
-          )}
-
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid> */}
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={isSubmitting}
+            <Box
+              sx={{
+                px: { xs: 3, sm: 5 },
+                py: { xs: 4, sm: 5 },
+                background:
+                  "linear-gradient(180deg, rgba(46, 125, 50, 0.08) 0%, rgba(255, 255, 255, 0.98) 38%)",
+              }}
             >
-              {isSubmitting ? "Creating Account..." : "Sign Up"}
-            </Button>
+              <Stack spacing={3}>
+                <Stack spacing={1.5} alignItems="center" textAlign="center">
+                  <Chip
+                    icon={<PetsOutlinedIcon />}
+                    label="Join Happy Paws"
+                    color="primary"
+                    variant="outlined"
+                    sx={{
+                      borderRadius: 999,
+                      px: 0.75,
+                      bgcolor: alpha(authTheme.palette.primary.main, 0.06),
+                    }}
+                  />
 
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link
-                  to={signInLink}
-                  style={{
-                    margin: "0",
-                    textDecoration: "underline",
-                    color: "#1976d2",
-                    fontFamily: "Roboto",
-                    fontWeight: "400",
-                    fontSize: "0.875rem",
-                    lineHeight: "1.43",
-                    letterSpacing: "0.01071em",
+                  <Box>
+                    <Typography component="h1" variant="h4" fontWeight={700}>
+                      Create your account
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mt: 1, maxWidth: 460 }}
+                    >
+                      Get started with adoptions, rescue support, checkout, and
+                      personalized pet care updates in one place.
+                    </Typography>
+                  </Box>
+                </Stack>
+
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  flexWrap="wrap"
+                  justifyContent="center"
+                >
+                  <Chip
+                    size="small"
+                    icon={<CheckCircleOutlineIcon />}
+                    label="Faster checkout"
+                    sx={{
+                      bgcolor: alpha(authTheme.palette.primary.main, 0.06),
+                    }}
+                  />
+                  <Chip
+                    size="small"
+                    icon={<CheckCircleOutlineIcon />}
+                    label="Adoption-ready access"
+                    sx={{
+                      bgcolor: alpha(authTheme.palette.primary.main, 0.06),
+                    }}
+                  />
+                  <Chip
+                    size="small"
+                    icon={<CheckCircleOutlineIcon />}
+                    label="Rescue updates"
+                    sx={{
+                      bgcolor: alpha(authTheme.palette.primary.main, 0.06),
+                    }}
+                  />
+                </Stack>
+
+                {error && <Alert severity="error">{error}</Alert>}
+
+                <Box component="form" noValidate onSubmit={handleSubmit}>
+                  <Stack spacing={2.25}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <EmailOutlinedIcon color="action" />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <TextField
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="new-password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      helperText="Use a strong password with at least 6 characters."
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockOutlinedIcon color="action" />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      sx={{
+                        py: 1.4,
+                        fontWeight: 700,
+                        textTransform: "none",
+                        boxShadow: "0 14px 28px rgba(46, 125, 50, 0.24)",
+                        background:
+                          "linear-gradient(135deg, #2e7d32 0%, #43a047 100%)",
+                      }}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Creating Account..." : "Create Account"}
+                    </Button>
+
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      textAlign="center"
+                    >
+                      By continuing, you are setting up your Happy Paws account
+                      for secure pet care access.
+                    </Typography>
+                  </Stack>
+                </Box>
+
+                <Box
+                  sx={{
+                    pt: 1,
+                    borderTop: "1px solid",
+                    borderColor: "divider",
+                    textAlign: "center",
                   }}
                 >
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
+                  <Typography variant="body2" color="text.secondary">
+                    Already have an account?{" "}
+                    <Link
+                      component={RouterLink}
+                      to={signInLink}
+                      underline="hover"
+                      color="primary.main"
+                      fontWeight={700}
+                    >
+                      Sign in
+                    </Link>
+                  </Typography>
+                </Box>
+              </Stack>
+            </Box>
+          </Paper>
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 };

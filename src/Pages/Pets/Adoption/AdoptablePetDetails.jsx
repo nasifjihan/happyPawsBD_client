@@ -66,14 +66,6 @@ const AdoptablePetDetails = () => {
     setOpen(false);
   };
 
-  const handleScrollToForm = () => {
-    const formElement = document.getElementById("adoption-form");
-
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
   return (
     <Box className="myContainer" sx={{ margin: "auto", p: 2, mt: 4 }}>
       <Grid container spacing={4}>
@@ -258,26 +250,9 @@ const AdoptablePetDetails = () => {
                     <Button
                       variant="contained"
                       color="success"
-                      onClick={handleScrollToForm}
-                    >
-                      Start Adoption Form
-                    </Button>
-
-                    <Button
-                      variant="outlined"
-                      color="success"
                       onClick={handleOpen}
                     >
                       View Medical Records
-                    </Button>
-
-                    <Button
-                      variant="text"
-                      color="success"
-                      component={RouterLink}
-                      to="/adoption/adoptable_pets"
-                    >
-                      Back to Listings
                     </Button>
                   </Stack>
 
@@ -326,7 +301,12 @@ const AdoptablePetDetails = () => {
         >
           Ready to Adopt? Fill out the form below!
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={2} textAlign="center">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          mb={2}
+          textAlign="center"
+        >
           Complete the application with your contact details and pet experience
           so the rescue team can review your request.
         </Typography>

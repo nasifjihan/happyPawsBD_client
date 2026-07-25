@@ -68,8 +68,8 @@ const ProductDetailDialog = ({
       if (platform === "email") {
         window.open(
           `mailto:?subject=${encodeURIComponent(
-            product.name
-          )}&body=${encodeURIComponent(`${shareText}\n${shareUrl}`)}`
+            product.name,
+          )}&body=${encodeURIComponent(`${shareText}\n${shareUrl}`)}`,
         );
       } else if (navigator.share) {
         await navigator.share({
@@ -223,7 +223,8 @@ const ProductDetailDialog = ({
             <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
               <LocalShippingIcon color="action" />
               <Typography variant="body2" sx={{ ml: 1 }}>
-                {product.deliveryTime} (Delivery charge: {product.deliveryCharge}
+                {product.deliveryTime} (Delivery charge:{" "}
+                {product.deliveryCharge}
                 ৳)
               </Typography>
             </Box>
@@ -251,41 +252,36 @@ const ProductDetailDialog = ({
               onChange={(e) =>
                 setQuantity(Math.max(1, Number(e.target.value) || 1))
               }
+              size="small"
               InputProps={{ inputProps: { min: 1 } }}
-              helperText="Choose how many units to add to your cart."
-              sx={{ mb: 2 }}
+              sx={{ mr: 2 }}
             />
 
-            <DialogActions sx={{ px: 0, pb: 0, pt: 1, gap: 1 }}>
-              <Button variant="outlined" color="success" onClick={onClose}>
-                Continue Browsing
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                  borderRadius: "16px",
-                  borderBottomLeftRadius: 0,
-                  borderTopRightRadius: 0,
-                  backgroundColor: "#f50057",
-                  "&:hover": {
-                    backgroundColor: "#d4004c",
-                  },
-                }}
-                onClick={() => {
-                  onAddToCart(product, quantity);
-                  setQuantity(1);
-                  setSnackbarState({
-                    open: true,
-                    message: `${quantity} ${product.name} added to cart.`,
-                    severity: "success",
-                  });
-                  onClose();
-                }}
-              >
-                Add {quantity} to Cart
-              </Button>
-            </DialogActions>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                borderRadius: "16px",
+                borderBottomLeftRadius: 0,
+                borderTopRightRadius: 0,
+                backgroundColor: "#f50057",
+                "&:hover": {
+                  backgroundColor: "#d4004c",
+                },
+              }}
+              onClick={() => {
+                onAddToCart(product, quantity);
+                setQuantity(1);
+                setSnackbarState({
+                  open: true,
+                  message: `${quantity} ${product.name} added to cart.`,
+                  severity: "success",
+                });
+                onClose();
+              }}
+            >
+              Add {quantity} to Cart
+            </Button>
           </Grid>
         </Grid>
       </DialogContent>

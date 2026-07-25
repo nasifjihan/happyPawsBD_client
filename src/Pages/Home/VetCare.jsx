@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Box, Button, Chip, Stack, Typography } from "@mui/material";
-import VatCare from "./../../images/optimized/vat-care.webp";
+import VetCareImage from "./../../images/optimized/vet-care.webp";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
@@ -17,9 +17,9 @@ const BrandingWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Vat_Care = () => {
+const VetCare = () => {
   return (
-    <Box className="myContainer" my={10}>
+    <Box className="myContainer" my={6}>
       <BrandingWrapper>
         <Stack
           spacing={3}
@@ -36,7 +36,7 @@ const Vat_Care = () => {
           />
 
           <Typography
-            variant="h3"
+            variant="h4"
             color="primary.headline"
             sx={{ lineHeight: 1.2, fontWeight: "900" }}
           >
@@ -46,7 +46,7 @@ const Vat_Care = () => {
           <Typography
             variant="body1"
             color="text.secondary"
-            sx={{ lineHeight: 1.7, maxWidth: 580 }}
+            sx={{ lineHeight: 1.5, maxWidth: 580 }}
           >
             Explore grooming, boarding, and pet support services designed to make
             day-to-day care easier. Whether your pet needs routine maintenance or
@@ -94,7 +94,7 @@ const Vat_Care = () => {
           alignItems="center"
         >
           <OptimizedImage
-            src={VatCare}
+            src={VetCareImage}
             alt="Pet care illustration"
             style={{ width: "80%" }}
           />
@@ -104,4 +104,4 @@ const Vat_Care = () => {
   );
 };
 
-export default Vat_Care;
+export default VetCare;

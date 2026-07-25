@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Box, Button, Container, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import vetData from "../../../API/veterinary.json";
 import DataGrid from "./DataGrid";
 import Filters from "./Filters";
@@ -72,18 +79,28 @@ const VetFinder = () => {
         <Stack spacing={3}>
           <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
             <Stack spacing={2} textAlign="center" alignItems="center">
-              <Typography variant="h3" fontWeight={800}>
+              <Typography variant="h4" fontWeight={800}>
                 Vet Finder
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 780 }}>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ maxWidth: 780 }}
+              >
                 Search veterinary clinics, hospitals, and professionals across
-                Bangladesh. Use the filters below to narrow the list and open any
-                result for more details, contact information, and location links.
+                Bangladesh. Use the filters below to narrow the list and open
+                any result for more details, contact information, and location
+                links.
               </Typography>
             </Stack>
-          </Paper>
 
-          <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 3 }}>
+            <Filters
+              division={division}
+              city={city}
+              handleDivisionChange={handleDivisionChange}
+              handleCityChange={handleCityChange}
+            />
+
             <Stack
               direction={{ xs: "column", md: "row" }}
               spacing={2}
@@ -91,8 +108,9 @@ const VetFinder = () => {
               alignItems={{ xs: "flex-start", md: "center" }}
             >
               <Box>
-                <Typography variant="h6" fontWeight={700}>
-                  {filteredData.length} result{filteredData.length === 1 ? "" : "s"} found
+                <Typography variant="body1" fontWeight={500}>
+                  {filteredData.length} result
+                  {filteredData.length === 1 ? "" : "s"} found
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Currently showing providers in {locationSummary}.
@@ -108,13 +126,6 @@ const VetFinder = () => {
                 Reset Filters
               </Button>
             </Stack>
-
-            <Filters
-              division={division}
-              city={city}
-              handleDivisionChange={handleDivisionChange}
-              handleCityChange={handleCityChange}
-            />
           </Paper>
 
           {filteredData.length ? (

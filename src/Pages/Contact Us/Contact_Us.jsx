@@ -104,32 +104,14 @@ const Contact_Us = () => {
 
                 <Typography variant="body1" color="text.secondary">
                   Reach out if you need help with adoption, rescue support, lost
-                  and found guidance, or general questions about using the platform.
+                  and found guidance, or general questions about using the
+                  platform.
                 </Typography>
 
                 <Typography variant="body1" color="text.secondary">
-                  We aim to make it easy for pet families and animal lovers to find
-                  the right next step quickly.
+                  We aim to make it easy for pet families and animal lovers to
+                  find the right next step quickly.
                 </Typography>
-
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
-                  <Button
-                    component="a"
-                    href="mailto:contact@happypawsbd.com"
-                    variant="contained"
-                    color="success"
-                  >
-                    Email Us
-                  </Button>
-                  <Button
-                    component={RouterLink}
-                    to="/lost_found"
-                    variant="outlined"
-                    color="success"
-                  >
-                    Visit Lost & Found
-                  </Button>
-                </Stack>
 
                 <Divider />
 
@@ -151,16 +133,21 @@ const Contact_Us = () => {
                             : undefined
                         }
                         sx={{
-                          px: 0,
-                          alignItems: "flex-start",
+                          padding: 0,
+                          alignItems: "flex-center",
                           textDecoration: "none",
                           color: "inherit",
                         }}
                       >
-                        <ListItemIcon sx={{ minWidth: 40, color: "success.main" }}>
+                        <ListItemIcon
+                          sx={{ minWidth: 40, color: "success.main" }}
+                        >
                           {item.icon}
                         </ListItemIcon>
-                        <ListItemText primary={item.label} secondary={item.value} />
+                        <ListItemText
+                          primary={item.label}
+                          secondary={item.value}
+                        />
                       </ListItem>
                     ))}
                   </List>

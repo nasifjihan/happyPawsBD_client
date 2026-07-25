@@ -69,7 +69,7 @@ const Filters = ({
   handleCityChange,
 }) => {
   return (
-    <Box sx={{ my: 4, display: "flex", justifyContent: "center", gap: 2 }}>
+    <Box sx={{ my: 2, display: "flex", justifyContent: "center", gap: 2 }}>
       <FormControl sx={{ minWidth: 120 }}>
         <InputLabel id="division-select-label">Division</InputLabel>
         <Select

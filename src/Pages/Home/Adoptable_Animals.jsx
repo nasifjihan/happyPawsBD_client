@@ -23,30 +23,32 @@ const Adoptable_Animals = () => {
   };
 
   return (
-    <Box className="myContainer" mb="20px" textAlign={"center"}>
-      <Stack spacing={3}>
-        <Paper elevation={2} sx={{ p: { xs: 3, md: 4 }, borderRadius: 4 }}>
-          <Stack spacing={2} alignItems="center">
-            <Chip
-              label="Ready for Adoption"
-              color="success"
-              variant="outlined"
-              sx={{ fontWeight: 700 }}
-            />
-            <Typography
-              variant="h4"
-              color="primary.headline"
-              sx={{ lineHeight: 1.2, fontWeight: "900" }}
-            >
-              Adoptable Animals
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
-              Meet a few of the pets currently looking for a safe, caring home.
-              Browse featured companions here or open the full adoption page to
-              explore more details and matches.
-            </Typography>
-          </Stack>
-        </Paper>
+    <Box className="myContainer" my={10} textAlign={"center"}>
+      <Stack spacing={5}>
+        <Stack spacing={2} alignItems="center">
+          <Chip
+            label="Ready for Adoption"
+            color="success"
+            variant="outlined"
+            sx={{ fontWeight: 700 }}
+          />
+          <Typography
+            variant="h4"
+            color="primary.headline"
+            sx={{ lineHeight: 1.2, fontWeight: "900" }}
+          >
+            Adoptable Animals
+          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ maxWidth: 760 }}
+          >
+            Meet a few of the pets currently looking for a safe, caring home.
+            Browse featured companions here or open the full adoption page to
+            explore more details and matches.
+          </Typography>
+        </Stack>
 
         <Stack my={3}>
           <Grid
@@ -86,7 +88,12 @@ const Adoptable_Animals = () => {
                         spacing={1}
                         mb={1}
                       >
-                        <Typography gutterBottom variant="h6" fontWeight={700} sx={{ mb: 0 }}>
+                        <Typography
+                          gutterBottom
+                          variant="h6"
+                          fontWeight={700}
+                          sx={{ mb: 0 }}
+                        >
                           {item.name}
                         </Typography>
                         <Chip
@@ -96,7 +103,11 @@ const Adoptable_Animals = () => {
                           variant="outlined"
                         />
                       </Stack>
-                      <Typography variant="body2" fontSize={12} color="text.secondary">
+                      <Typography
+                        variant="body2"
+                        fontSize={12}
+                        color="text.secondary"
+                      >
                         {item.breed} - {item.origin}
                       </Typography>
                       <Typography variant="body2" pt={2} color="primary.para">
@@ -136,7 +147,7 @@ const Adoptable_Animals = () => {
                           textAlign={"right"}
                           fontWeight={700}
                         >
-                              View Details
+                          View Details
                         </Typography>
                       </Stack>
                     </CardContent>

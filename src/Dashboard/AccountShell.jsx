@@ -1,4 +1,11 @@
-import { Box, Button, Container, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 const navItems = [
@@ -9,7 +16,7 @@ const navItems = [
 
 const AccountShell = ({ activeSection, title, description, children }) => {
   return (
-    <Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
+    <Container maxWidth="lg" sx={{ pt: { xs: 3, md: 5 } }}>
       <Paper elevation={2} sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
         <Stack spacing={3}>
           <Box>

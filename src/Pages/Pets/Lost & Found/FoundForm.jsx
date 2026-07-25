@@ -20,7 +20,7 @@ import {
   foundPetFormSchema,
 } from "../../../features/lost-found/schemas";
 
-const FoundForm = () => {
+const FoundForm = ({ hideHeading = false }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const createFoundPetMutation = useCreateFoundPetMutation();
   const {
@@ -55,11 +55,13 @@ const FoundForm = () => {
 
   return (
     <Box>
-      <Box mx={"auto"} textAlign={"center"}>
-        <Typography variant="h5" fontWeight={700}>
-          FOUND PET REGISTRATION
-        </Typography>
-      </Box>
+      {!hideHeading ? (
+        <Box mx={"auto"} textAlign={"center"}>
+          <Typography variant="h5" fontWeight={700}>
+            FOUND PET REGISTRATION
+          </Typography>
+        </Box>
+      ) : null}
 
       <Box>
         <Box
@@ -68,7 +70,7 @@ const FoundForm = () => {
           noValidate
           onSubmit={handleSubmit(onSubmit)}
           sx={{
-            p: 2,
+            p: hideHeading ? 0 : 2,
           }}
         >
           {Object.keys(errors).length > 0 && (

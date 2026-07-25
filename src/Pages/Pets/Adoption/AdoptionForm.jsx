@@ -284,6 +284,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             color="success"
             fullWidth
             type="submit"
+            size="large"
             sx={{
               fontWeight: "bold",
               borderRadius: "8px",

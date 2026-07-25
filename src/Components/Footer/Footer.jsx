@@ -39,11 +39,7 @@ const Footer = () => {
     { label: "Vet Finder", to: "/vet_finder" },
     { label: "Training", to: "/pet_training" },
     ...(user
-      ? [
-          { label: "Profile", to: "/profile" },
-          { label: "Account", to: "/account" },
-          { label: "Dashboard", to: "/dashboard" },
-        ]
+      ? [{ label: "Profile", to: "/profile" }]
       : [{ label: "Sign In", to: "/sign_in" }]),
   ];
 
@@ -154,7 +150,7 @@ const Footer = () => {
               Sitemap
             </Typography>
 
-            <Stack spacing={1} alignItems="flex-start">
+            <Stack spacing={1} alignItems="flex-center">
               {sitemapLinks.map((link) => (
                 <MuiLink
                   key={link.to}
@@ -169,23 +165,19 @@ const Footer = () => {
             </Stack>
           </Grid>
 
-          <Grid item xs={6} md={2} component="nav" aria-label="Footer support links">
+          <Grid
+            item
+            xs={6}
+            md={2}
+            component="nav"
+            aria-label="Footer support links"
+          >
             {/* Contact Information */}
             <Typography variant="h5" fontWeight={700} mb={2} gutterBottom>
               Support
             </Typography>
 
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mb: 1.5 }}
-            >
-              {user
-                ? `Signed in as ${user.displayName || user.email || "Happy Paws Member"}`
-                : "Helpful site links and account access."}
-            </Typography>
-
-            <Stack spacing={1} alignItems="flex-start">
+            <Stack spacing={1} alignItems="flex-center">
               {supportLinks.map((link) => (
                 <MuiLink
                   key={link.to}

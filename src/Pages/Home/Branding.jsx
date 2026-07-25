@@ -46,7 +46,7 @@ const Branding = () => {
           />
 
           <Typography
-            variant="h3"
+            variant="h4"
             color="primary.headline"
             sx={{ lineHeight: 1.2, fontWeight: "900" }}
           >
@@ -56,43 +56,14 @@ const Branding = () => {
           <Typography
             variant="body1"
             color="text.secondary"
-            sx={{ lineHeight: 1.7, maxWidth: 620 }}
+            sx={{ lineHeight: 1.5, maxWidth: 620 }}
           >
             Happy Paws BD brings together pet care services, adoption pathways,
             rescue support, and veterinary discovery so families can find the right
             next step without jumping between disconnected resources.
           </Typography>
 
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={1.5}
-            justifyContent={{ xs: "center", md: "flex-start" }}
-          >
-            <Box>
-              <Typography variant="h5" fontWeight={800} color="success.main">
-                Adoption
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Discover pets ready for loving homes
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="h5" fontWeight={800} color="success.main">
-                Rescue
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Get help fast for urgent pet situations
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="h5" fontWeight={800} color="success.main">
-                Care
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Access services and support in one place
-              </Typography>
-            </Box>
-          </Stack>
+          
 
           <ButtonGroup
             variant="contained"

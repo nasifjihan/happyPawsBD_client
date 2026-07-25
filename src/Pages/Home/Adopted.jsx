@@ -44,7 +44,7 @@ const Adopted = () => {
         <Typography
           variant="h3"
           color="green"
-          fontWeight={700}
+          fontWeight={900}
           lineHeight={1.5}
         >
           1,040
@@ -53,7 +53,7 @@ const Adopted = () => {
         <Typography
           variant="h5"
           color="green"
-          fontWeight={500}
+          fontWeight={700}
           lineHeight={1.5}
         >
           Animals Adopted

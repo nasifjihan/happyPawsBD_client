@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 
 const DeliveryInformation = ({
   deliveryInfo,
@@ -15,20 +23,58 @@ const DeliveryInformation = ({
     setDeliveryInfo({ ...deliveryInfo, [name]: value });
     setErrors({ ...errors, [name]: "" }); // Clear error for this field
   };
+
+  const inputStyles = {
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#7AB259",
+    },
+    "& .MuiOutlinedInput-root": {
+      borderRadius: 3,
+      backgroundColor: "#fff",
+      "& fieldset": {
+        borderColor: "rgba(122, 178, 89, 0.22)",
+      },
+      "&:hover fieldset": {
+        borderColor: "rgba(122, 178, 89, 0.42)",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#7AB259",
+        borderWidth: 2,
+      },
+    },
+  };
+
   return (
     <Box
       component="section"
       aria-labelledby="delivery-information-heading"
-      sx={{
-        padding: 2,
-        border: "1px solid #ddd",
-        borderRadius: 1,
-        marginBottom: 2,
-      }}
     >
-      <Typography id="delivery-information-heading" variant="h6" gutterBottom>
-        Delivery Information
-      </Typography>
+      <Stack spacing={1.25} sx={{ mb: 3 }}>
+        <Chip
+          icon={<LocalShippingOutlinedIcon />}
+          label="Checkout Details"
+          variant="outlined"
+          sx={{
+            alignSelf: "flex-start",
+            borderRadius: 2,
+            color: "#7AB259",
+            borderColor: "rgba(122, 178, 89, 0.28)",
+            backgroundColor: "rgba(122, 178, 89, 0.08)",
+          }}
+        />
+        <Typography
+          id="delivery-information-heading"
+          variant="h5"
+          fontWeight={800}
+          color="#333332"
+        >
+          Delivery Information
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Add your contact and address details so we can deliver your order
+          smoothly.
+        </Typography>
+      </Stack>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -43,6 +89,7 @@ const DeliveryInformation = ({
             error={Boolean(errors.name)}
             helperText={errors.name}
             onChange={handleChange}
+            sx={inputStyles}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -58,6 +105,7 @@ const DeliveryInformation = ({
             error={Boolean(errors.phone)}
             helperText={errors.phone}
             onChange={handleChange}
+            sx={inputStyles}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -74,6 +122,7 @@ const DeliveryInformation = ({
             error={Boolean(errors.email)}
             helperText={errors.email}
             onChange={handleChange}
+            sx={inputStyles}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -85,6 +134,7 @@ const DeliveryInformation = ({
             value={deliveryInfo.city}
             autoComplete="address-level2"
             onChange={handleChange}
+            sx={inputStyles}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -96,6 +146,7 @@ const DeliveryInformation = ({
             value={deliveryInfo.state}
             autoComplete="address-level1"
             onChange={handleChange}
+            sx={inputStyles}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -108,6 +159,7 @@ const DeliveryInformation = ({
             value={deliveryInfo.zip}
             autoComplete="postal-code"
             onChange={handleChange}
+            sx={inputStyles}
           />
         </Grid>
         <Grid item xs={12}>
@@ -122,6 +174,9 @@ const DeliveryInformation = ({
             error={Boolean(errors.address)}
             helperText={errors.address}
             onChange={handleChange}
+            multiline
+            minRows={3}
+            sx={inputStyles}
           />
         </Grid>
       </Grid>

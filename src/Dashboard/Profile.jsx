@@ -40,7 +40,8 @@ const Profile = () => {
   }
 
   const displayName = user.displayName || "Happy Paws Member";
-  const providerLabel = user.providerData[0]?.providerId || "Email and password";
+  const providerLabel =
+    user.providerData[0]?.providerId || "Email and password";
 
   const handleLogout = async () => {
     try {
@@ -62,7 +63,7 @@ const Profile = () => {
 
       <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 }, borderRadius: 3 }}>
         <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <Stack alignItems={{ xs: "flex-start", md: "center" }} spacing={2}>
               <Avatar
                 sx={{ width: 120, height: 120, fontSize: 40 }}
@@ -71,29 +72,33 @@ const Profile = () => {
               >
                 {displayName.charAt(0)}
               </Avatar>
-              <Chip
-                label={user.emailVerified ? "Email Verified" : "Email Not Verified"}
-                color={user.emailVerified ? "success" : "warning"}
-              />
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={9}>
             <Typography variant="h5" fontWeight={800}>
               {displayName}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5 }}>
-              {user.email || "No email address available"}
+              {user.email || "No email address available"}{" "}
+              <Chip
+                label={
+                  user.emailVerified ? "Email Verified" : "Email Not Verified"
+                }
+                sx={{ ml: 2 }}
+                size="small"
+                color={user.emailVerified ? "success" : "warning"}
+              />
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
               UID: {user.uid}
             </Typography>
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 3 }} />
+        <Divider sx={{ my: 2 }} />
 
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
             <Box>
               <Typography variant="overline" color="text.secondary">
@@ -126,20 +131,22 @@ const Profile = () => {
                 Account Status
               </Typography>
               <Typography variant="body1">
-                {user.emailVerified ? "Ready to use protected features" : "Please verify your email when possible"}
+                {user.emailVerified
+                  ? "Ready to use protected features"
+                  : "Please verify your email when possible"}
               </Typography>
             </Box>
           </Grid>
         </Grid>
 
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ mt: 3 }}>
-          <Button variant="outlined" color="success" onClick={() => navigate("/account")}>
-            Manage Account
-          </Button>
-          <Button variant="contained" color="error" onClick={handleLogout}>
-            Log Out
-          </Button>
-        </Stack>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleLogout}
+          sx={{ mt: 3 }}
+        >
+          Log Out
+        </Button>
       </Paper>
     </AccountShell>
   );

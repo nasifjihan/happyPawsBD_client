@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import {
+  Avatar,
   Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  Chip,
   Dialog,
   DialogContent,
   DialogTitle,
+  Divider,
   Grid,
   IconButton,
   List,
@@ -17,11 +20,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LanguageIcon from "@mui/icons-material/Language";
 import CloseIcon from "@mui/icons-material/Close";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import MedicalServicesOutlinedIcon from "@mui/icons-material/MedicalServicesOutlined";
 
 const placeholderImage = "https://i.ibb.co/KwkX3N7/4809708.jpg";
+
+const getContactText = (contact) =>
+  Array.isArray(contact) ? contact.join(", ") : contact || "Not available";
 
 const DataGrid = ({ data }) => {
   const [selectedVet, setSelectedVet] = useState(null);
@@ -43,12 +53,18 @@ const DataGrid = ({ data }) => {
               sx={{
                 position: "relative",
                 height: "100%",
-                backgroundColor: "#FBFBFB",
-                borderRadius: 3,
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden",
+                background: "linear-gradient(180deg, #ffffff 0%, #f7fbf8 100%)",
+                borderRadius: 4,
                 border: "1px solid",
                 borderColor: "divider",
+                boxShadow: "0px 10px 24px rgba(15, 23, 42, 0.06)",
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
                 "&:hover": {
-                  boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
+                  transform: "translateY(-6px)",
+                  boxShadow: "0px 18px 36px rgba(15, 23, 42, 0.12)",
                   cursor: "pointer",
                 },
               }}
@@ -61,29 +77,145 @@ const DataGrid = ({ data }) => {
                 alt={item.title}
               />
 
-              <CardContent>
-                <Typography variant="h6" fontWeight={700} gutterBottom>
-                  {item.title}
-                </Typography>
+              <CardContent
+                sx={{
+                  p: 1.5,
+                  display: "flex",
+                  flexDirection: "column",
+                  flex: 1,
+                }}
+              >
+                <Stack spacing={1} sx={{ height: "100%" }}>
+                  <Box>
+                    <Typography
+                      variant="h6"
+                      fontWeight={700}
+                      gutterBottom
+                      sx={{ lineHeight: 1.3 }}
+                    >
+                      {item.title}
+                    </Typography>
 
-                {item.position ? (
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                    {item.position}
-                  </Typography>
-                ) : null}
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      flexWrap="wrap"
+                      useFlexGap
+                    >
+                      {item.position ? (
+                        <Chip
+                          label={item.position}
+                          size="small"
+                          sx={{
+                            fontWeight: 500,
+                            color: "#1b5e20",
+                            backgroundColor: "rgba(46, 125, 50, 0.12)",
+                          }}
+                        />
+                      ) : null}
+                      {/* {item.services ? (
+                        <Chip
+                          icon={<MedicalServicesOutlinedIcon />}
+                          label={
+                            Array.isArray(item.services)
+                              ? `${item.services.length} services`
+                              : "Services available"
+                          }
+                          size="small"
+                          variant="outlined"
+                          sx={{
+                            px: 1,
+                            fontWeight: 500,
+                            color: "success.dark",
+                            backgroundColor: "rgba(46, 125, 50, 0.12)",
+                          }}
+                        />
+                      ) : null} */}
+                    </Stack>
+                  </Box>
 
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  {item.location || "Location details unavailable"}
-                </Typography>
+                  <Stack spacing={1}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Avatar
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          bgcolor: "rgba(211, 47, 47, 0.08)",
+                          color: "error.main",
+                        }}
+                      >
+                        <LocationOnIcon fontSize="small" />
+                      </Avatar>
 
-                <Typography variant="body2">
-                  <strong>Contact:</strong>{" "}
-                  {Array.isArray(item.contact) ? item.contact.join(", ") : item.contact || "Not available"}
-                </Typography>
+                      <Box sx={{ minWidth: 0 }}>
+                        <Typography variant="caption" color="text.secondary">
+                          Location
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.primary"
+                          sx={{
+                            fontWeight: 500,
+                            display: "-webkit-box",
+                            fontSize: 12,
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >
+                          {item.location || "Location details unavailable"}
+                        </Typography>
+                      </Box>
+                    </Stack>
+
+                    <Box
+                      sx={{
+                        px: 1,
+                        py: 0.5,
+                        borderRadius: 1,
+                        backgroundColor: "rgba(46, 125, 50, 0.06)",
+                        border: "1px solid rgba(46, 125, 50, 0.12)",
+                      }}
+                    >
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <PhoneOutlinedIcon
+                          sx={{ fontSize: 20, color: "success.dark" }}
+                        />
+                        <Box sx={{ minWidth: 0 }}>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontWeight: 600,
+                              color: "text.primary",
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                              overflow: "hidden",
+                            }}
+                          >
+                            {getContactText(item.contact)}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    </Box>
+                  </Stack>
+                </Stack>
               </CardContent>
 
-              <CardActions sx={{ px: 2, pb: 2, pt: 0, gap: 1 }}>
-                <Button variant="outlined" color="success" fullWidth>
+              <CardActions
+                sx={{ px: 2.5, pb: 2.5, pt: 0, gap: 1, flexWrap: "nowrap" }}
+              >
+                <Button
+                  variant="contained"
+                  color="success"
+                  fullWidth
+                  sx={{
+                    fontWeight: 700,
+                    borderRadius: 2.5,
+                    textTransform: "none",
+                    boxShadow: "none",
+                  }}
+                >
                   View Details
                 </Button>
                 {item.map_link ? (
@@ -95,6 +227,12 @@ const DataGrid = ({ data }) => {
                     color="error"
                     startIcon={<LocationOnIcon />}
                     onClick={(event) => event.stopPropagation()}
+                    sx={{
+                      flexShrink: 0,
+                      borderRadius: 2.5,
+                      px: 1.5,
+                      textTransform: "none",
+                    }}
                   >
                     Map
                   </Button>
@@ -107,18 +245,19 @@ const DataGrid = ({ data }) => {
 
       {selectedVet ? (
         <Dialog open onClose={handleClose} fullWidth maxWidth="sm">
-          <DialogTitle sx={{ pr: 6 }}>
+          <DialogTitle>
             {selectedVet.title}
             <IconButton
               aria-label="Close vet details"
               onClick={handleClose}
-              sx={{ position: "absolute", top: 12, right: 12 }}
+              sx={{ position: "absolute", top: 8, right: 8 }}
             >
               <CloseIcon />
             </IconButton>
           </DialogTitle>
+
           <DialogContent>
-            <Stack spacing={2.5}>
+            <Stack>
               <CardMedia
                 component="img"
                 image={selectedVet.image || placeholderImage}
@@ -132,35 +271,48 @@ const DataGrid = ({ data }) => {
                 </Typography>
               ) : null}
 
-              <List disablePadding>
-                <ListItem sx={{ px: 0 }}>
+              <Divider />
+
+              <List disablePadding sx={{ px: 0 }}>
+                <ListItem sx={{ py: 0 }}>
                   <ListItemText
                     primary="Location"
                     secondary={selectedVet.location || "Not available"}
                   />
                 </ListItem>
-                <ListItem sx={{ px: 0 }}>
+                <ListItem sx={{ py: 0 }}>
                   <ListItemText
                     primary="Contact"
-                    secondary={
-                      Array.isArray(selectedVet.contact)
-                        ? selectedVet.contact.join(", ")
-                        : selectedVet.contact || "Not available"
-                    }
+                    secondary={getContactText(selectedVet.contact)}
                   />
                 </ListItem>
                 {selectedVet.email ? (
-                  <ListItem sx={{ px: 0 }}>
-                    <ListItemText primary="Email" secondary={selectedVet.email} />
+                  <ListItem sx={{ py: 0 }}>
+                    <EmailOutlinedIcon
+                      sx={{ mr: 1.5, color: "text.secondary" }}
+                    />
+                    <ListItemText
+                      primary="Email"
+                      secondary={selectedVet.email}
+                    />
                   </ListItem>
                 ) : null}
                 {selectedVet.hours ? (
-                  <ListItem sx={{ px: 0 }}>
-                    <ListItemText primary="Hours" secondary={selectedVet.hours} />
+                  <ListItem sx={{ py: 0 }}>
+                    <AccessTimeOutlinedIcon
+                      sx={{ mr: 1.5, color: "text.secondary" }}
+                    />
+                    <ListItemText
+                      primary="Hours"
+                      secondary={selectedVet.hours}
+                    />
                   </ListItem>
                 ) : null}
                 {selectedVet.services ? (
-                  <ListItem sx={{ px: 0 }}>
+                  <ListItem sx={{ py: 0 }}>
+                    <MedicalServicesOutlinedIcon
+                      sx={{ mr: 1.5, color: "text.secondary" }}
+                    />
                     <ListItemText
                       primary="Services"
                       secondary={

@@ -63,10 +63,12 @@ const Filters = ({ categories, productTypes, priceRange, setFilters }) => {
           {categories.map((category) => (
             <FormControlLabel
               key={category}
+              sx={{}}
               control={
                 <Checkbox
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryChange(category)}
+                  size="small"
                 />
               }
               label={category}
@@ -89,6 +91,7 @@ const Filters = ({ categories, productTypes, priceRange, setFilters }) => {
                 <Checkbox
                   checked={selectedProductTypes.includes(type)}
                   onChange={() => handleProductTypeChange(type)}
+                  size="small"
                 />
               }
               label={type}
