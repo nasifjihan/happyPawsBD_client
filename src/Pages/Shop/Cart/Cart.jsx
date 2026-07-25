@@ -153,7 +153,8 @@ const Cart = () => {
 
         const { sessionId } = await createPaymentSession(
           cartItems,
-          deliveryInfo
+          deliveryInfo,
+          paymentMethod
         );
 
         const result = await stripe.redirectToCheckout({ sessionId });

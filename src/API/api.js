@@ -35,14 +35,20 @@ export const orders = async (orderDetails) => {
 };
 
 // Create Payment Session
-export const createPaymentSession = async (cartItems, deliveryInfo) => {
+export const createPaymentSession = async (
+  cartItems,
+  deliveryInfo,
+  paymentMethod
+) => {
   const response = await axiosInstance.post("/cart/orders/create-payment", {
     items: cartItems.map((item) => ({
       id: item.id,
+      name: item.name,
       quantity: item.quantity,
       price: item.price,
     })),
     deliveryInfo,
+    paymentMethod,
   });
   return response.data;
 };
