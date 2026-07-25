@@ -1,72 +1,117 @@
-import React from "react";
-import { Box, Container, Typography, Paper, Grid } from "@mui/material";
-import aboutImage from "./../../images/optimized/about-us.webp";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
+import aboutImage from "./../../images/optimized/about-us.webp";
+
+const impactHighlights = [
+  {
+    title: "Rescue Support",
+    description:
+      "We help connect urgent rescue needs with people who care and want to act.",
+  },
+  {
+    title: "Adoption Pathways",
+    description:
+      "We make it easier for loving families to discover pets ready for a safe home.",
+  },
+  {
+    title: "Trusted Guidance",
+    description:
+      "We bring together pet care, training, and veterinary resources in one place.",
+  },
+];
 
 const About_Us = () => {
   return (
-    <Box
-      className="myContainer"
-      sx={{
-        my: 5,
-        backgroundColor: "#f9f9f9",
-      }}
-    >
+    <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Paper
-          elevation={3}
+          elevation={2}
           sx={{
-            p: 10,
-            backgroundColor: "#e5e5e5",
-            borderRadius: "10",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            p: { xs: 3, md: 5 },
+            borderRadius: 4,
+            backgroundColor: "#ffffff",
           }}
         >
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8}>
-              <Typography
-                variant="h4"
-                textAlign={"center"}
-                fontWeight={700}
-                gutterBottom
-              >
-                About Us
-              </Typography>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={7}>
+              <Stack spacing={2.5}>
+                <Typography variant="h3" fontWeight={800}>
+                  About Happy Paws BD
+                </Typography>
 
-              <Typography paragraph>
-                Welcome to Happy Paws BD! We are a passionate team of animal
-                lovers dedicated to making a positive impact on the lives of
-                pets in Bangladesh.
-              </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Happy Paws BD is a community-focused pet platform built to make
+                  rescue, adoption, and everyday pet care more accessible for families
+                  across Bangladesh.
+                </Typography>
 
-              <Typography paragraph>
-                Our mission is to rescue and provide shelter, care, and love to
-                animals in need. Whether they are lost, abandoned, or facing
-                mistreatment, we are here to help. We believe that every animal
-                deserves a loving home and a chance at a happy life.
-              </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  We want pet owners, rescuers, and animal lovers to find practical
+                  support in one place, whether that means helping a lost pet return
+                  home, exploring adoption, or getting trusted guidance for health and
+                  care.
+                </Typography>
 
-              <Typography paragraph>
-                At Happy Paws BD, we provide a platform for pet adoption,
-                connecting loving families with animals in need of forever
-                homes. We also offer resources and education to promote
-                responsible pet ownership and animal welfare.
-              </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Our goal is simple: reduce friction for good care and create a more
+                  compassionate journey for pets and the people looking after them.
+                </Typography>
 
-              <Typography paragraph>
-                Join us in our journey to create a world where every animal is
-                valued and cared for. Together, we can make a difference and
-                bring happiness to the lives of these wonderful creatures.
-              </Typography>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+                  <Button
+                    component={RouterLink}
+                    to="/adoption"
+                    variant="contained"
+                    color="success"
+                  >
+                    Explore Adoption
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/contact_us"
+                    variant="outlined"
+                    color="success"
+                  >
+                    Contact Us
+                  </Button>
+                </Stack>
+              </Stack>
             </Grid>
 
-            <Grid item xs={12} md={4} textAlign={"center"} mt={4}>
+            <Grid item xs={12} md={5}>
               <OptimizedImage
                 src={aboutImage}
-                alt="About Happy Paws BD"
-                style={{ width: "80%" }}
+                alt="Happy Paws BD supporting pets and pet families"
+                style={{ width: "100%", borderRadius: "24px" }}
               />
             </Grid>
+          </Grid>
+
+          <Grid container spacing={2} sx={{ mt: { xs: 3, md: 4 } }}>
+            {impactHighlights.map((item) => (
+              <Grid item xs={12} md={4} key={item.title}>
+                <Paper
+                  variant="outlined"
+                  sx={{ p: 3, borderRadius: 3, height: "100%" }}
+                >
+                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.description}
+                  </Typography>
+                </Paper>
+              </Grid>
+            ))}
           </Grid>
         </Paper>
       </Container>

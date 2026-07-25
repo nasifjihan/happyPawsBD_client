@@ -4,6 +4,7 @@ import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./Theme/Theme";
 import { Route, Routes } from "react-router-dom";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
+import { CartContextProvider } from "./context/CartContext";
 import ProtectedRoute from "./Components/Authentication/ProtectedRoute";
 import RouteLoader from "./Components/Common/RouteLoader";
 import AppErrorBoundary from "./Components/Common/AppErrorBoundary";
@@ -123,45 +124,46 @@ const App = () => {
         <CssBaseline />
 
         <UserAuthContextProvider>
-          <Box
-            component="a"
-            href="#main-content"
-            sx={{
-              position: "absolute",
-              top: -48,
-              left: 16,
-              zIndex: 2000,
-              px: 2,
-              py: 1,
-              borderRadius: 1,
-              backgroundColor: "success.main",
-              color: "common.white",
-              textDecoration: "none",
-              fontWeight: 600,
-              "&:focus": {
-                top: 16,
-              },
-            }}
-          >
-            Skip to main content
-          </Box>
+          <CartContextProvider>
+            <Box
+              component="a"
+              href="#main-content"
+              sx={{
+                position: "absolute",
+                top: -48,
+                left: 16,
+                zIndex: 2000,
+                px: 2,
+                py: 1,
+                borderRadius: 1,
+                backgroundColor: "success.main",
+                color: "common.white",
+                textDecoration: "none",
+                fontWeight: 600,
+                "&:focus": {
+                  top: 16,
+                },
+              }}
+            >
+              Skip to main content
+            </Box>
 
-          {/* <Header /> */}
-          <Header2 />
+            {/* <Header /> */}
+            <Header2 />
 
-          <ScrollToTop />
+            <ScrollToTop />
 
-          <Box
-            component="main"
-            id="main-content"
-            tabIndex={-1}
-            sx={{ outline: "none" }}
-          >
-            <AppErrorBoundary>
-              <Suspense fallback={<RouteLoader />}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/home" element={<Home />} />
+            <Box
+              component="main"
+              id="main-content"
+              tabIndex={-1}
+              sx={{ outline: "none" }}
+            >
+              <AppErrorBoundary>
+                <Suspense fallback={<RouteLoader />}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
 
                   {/* Pets --------------------------------  */}
                   <Route path="/pet_info" element={<Pet_Info />} />
@@ -265,14 +267,15 @@ const App = () => {
                     element={withProtection(Dashboard)}
                   />
 
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-            </AppErrorBoundary>
-          </Box>
-        </UserAuthContextProvider>
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+              </AppErrorBoundary>
+            </Box>
 
-        <Footer />
+            <Footer />
+          </CartContextProvider>
+        </UserAuthContextProvider>
       </ThemeProvider>
     </>
   );

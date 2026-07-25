@@ -29,7 +29,10 @@ describe("ProtectedRoute", () => {
     });
 
     render(
-      <MemoryRouter initialEntries={["/adoption/adoptable_pets/H001"]}>
+      <MemoryRouter
+        initialEntries={["/adoption/adoptable_pets/H001"]}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Routes>
           <Route
             path="/adoption/adoptable_pets/:code"
@@ -55,6 +58,7 @@ describe("ProtectedRoute", () => {
     render(
       <MemoryRouter
         initialEntries={["/adoption/adoptable_pets/H001?from=listing"]}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
       >
         <Routes>
           <Route
@@ -86,7 +90,10 @@ describe("ProtectedRoute", () => {
     });
 
     render(
-      <MemoryRouter initialEntries={["/adoption/adoptable_pets/H001"]}>
+      <MemoryRouter
+        initialEntries={["/adoption/adoptable_pets/H001"]}
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <Routes>
           <Route
             path="/adoption/adoptable_pets/:code"

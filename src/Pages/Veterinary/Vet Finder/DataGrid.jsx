@@ -1,16 +1,27 @@
 import React, { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
 import LanguageIcon from "@mui/icons-material/Language";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import { Box, Button, Dialog } from "@mui/material";
-import { Link } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+
+const placeholderImage = "https://i.ibb.co/KwkX3N7/4809708.jpg";
 
 const DataGrid = ({ data }) => {
   const [selectedVet, setSelectedVet] = useState(null);
@@ -24,205 +35,175 @@ const DataGrid = ({ data }) => {
   };
 
   return (
-    <Grid container spacing={4}>
-      {data.map((item) => (
-        <Grid item key={item.id} xs={12} sm={6} md={3}>
-          <Card
-            onClick={() => handleVetClick(item)}
-            sx={{
-              position: "relative",
-              height: 360,
-              // width: "100%", // Ensure full width within the grid item
-              // boxShadow: "none",
-              backgroundColor: "#FBFBFB",
-              "&:hover": {
-                boxShadow: "10px 10px 10px 0px rgba(82,82,82,0.2)",
-                cursor: "pointer", // Change cursor to pointer on hover
-              },
-            }}
-          >
-            {/* <CardActionArea onClick={() => handleCardClick(item.id)}> */}
-            <CardMedia
-              component="img"
-              height="140"
-              width="100%"
-              image={item.image || "https://i.ibb.co/KwkX3N7/4809708.jpg"}
-              alt={item.title}
-            />
+    <>
+      <Grid container spacing={3}>
+        {data.map((item) => (
+          <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+            <Card
+              sx={{
+                position: "relative",
+                height: "100%",
+                backgroundColor: "#FBFBFB",
+                borderRadius: 3,
+                border: "1px solid",
+                borderColor: "divider",
+                "&:hover": {
+                  boxShadow: "0px 12px 24px rgba(82,82,82,0.12)",
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => handleVetClick(item)}
+            >
+              <CardMedia
+                component="img"
+                height="180"
+                image={item.image || placeholderImage}
+                alt={item.title}
+              />
 
-            <CardContent sx={{ lineHeight: "1" }}>
-              <Typography variant="body1" component="div" fontWeight={700}>
-                {item.title}
-              </Typography>
-
-              {item.position && (
-                <Typography variant="caption" sx={{ lineHeight: "1" }}>
-                  {item.position}
+              <CardContent>
+                <Typography variant="h6" fontWeight={700} gutterBottom>
+                  {item.title}
                 </Typography>
-              )}
 
-              <Typography variant="body2" color="text.secondary" mt={1}>
-                {item.location}
-              </Typography>
+                {item.position ? (
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                    {item.position}
+                  </Typography>
+                ) : null}
 
-              <Typography variant="body2" sx={{ pt: 1 }}>
-                <strong>Contact:</strong>{" "}
-                {Array.isArray(item.contact)
-                  ? item.contact.join(", ")
-                  : item.contact}
-              </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  {item.location || "Location details unavailable"}
+                </Typography>
 
-              <Box display={"flex"} justifyContent={"space-between"}>
-                <Button
-                  // variant="outlined"
-                  color="error"
-                  href={item.map_link}
-                  target="_blank"
-                  startIcon={<LocationOnIcon />}
-                  sx={{
-                    position: "absolute",
-                    bottom: 10,
-                    left: 10,
-                    // color: "#555",
-                  }}
-                ></Button>
+                <Typography variant="body2">
+                  <strong>Contact:</strong>{" "}
+                  {Array.isArray(item.contact) ? item.contact.join(", ") : item.contact || "Not available"}
+                </Typography>
+              </CardContent>
 
-                <Button
-                  // variant="contained"
-                  color="info"
-                  href={item.website}
-                  target="_blank"
-                  startIcon={<LanguageIcon />}
-                  sx={{
-                    position: "absolute",
-                    bottom: 10,
-                    right: 10,
-                    // color: "#555",
-                  }}
-                ></Button>
-              </Box>
-            </CardContent>
-            {/* </CardActionArea> */}
-          </Card>
-        </Grid>
-      ))}
-
-      {/* Pop Up Box */}
-
-      {selectedVet && (
-        <Dialog open={true} onClose={handleClose}>
-          <Box p={2}>
-            <CardMedia
-              component="img"
-              // height="200"
-              // width="100%"
-              image={
-                selectedVet.image || "https://i.ibb.co/KwkX3N7/4809708.jpg"
-              }
-              alt={selectedVet.title}
-            />
-            <Box p={2}>
-              <Typography
-                variant="h5"
-                component="div"
-                gutterBottom
-                fontWeight={700}
-              >
-                {selectedVet.title}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
-                }}
-              >
-                <LocationOnIcon
-                  fontSize="small"
-                  style={{ marginRight: "8px" }}
-                />{" "}
-                {selectedVet.location}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
-                }}
-              >
-                <EmailIcon fontSize="small" style={{ marginRight: "8px" }} />
-                <Link
-                  href={`mailto:${selectedVet.email}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {selectedVet.email}
-                </Link>
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
-                }}
-              >
-                <PhoneIcon fontSize="small" style={{ marginRight: "8px" }} />
-                {Array.isArray(selectedVet.contact)
-                  ? selectedVet.contact.join(", ")
-                  : selectedVet.contact}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "4px",
-                }}
-              >
-                <ScheduleIcon fontSize="small" style={{ marginRight: "8px" }} />
-                {selectedVet.hours}
-              </Typography>
-
-              <Typography variant="body2" color="text.secondary">
-                <strong>Services:</strong> {selectedVet.services}
-              </Typography>
-
-              <Box mt={2}>
-                <Button
-                  variant="contained"
-                  color="info"
-                  href={selectedVet.website}
-                  target="_blank"
-                  startIcon={<LanguageIcon />}
-                >
-                  Visit Website
+              <CardActions sx={{ px: 2, pb: 2, pt: 0, gap: 1 }}>
+                <Button variant="outlined" color="success" fullWidth>
+                  View Details
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="error"
-                  href={selectedVet.map_link}
-                  target="_blank"
-                  startIcon={<LocationOnIcon />}
-                  sx={{ ml: 2 }}
-                >
-                  View on Map
-                </Button>
+                {item.map_link ? (
+                  <Button
+                    component="a"
+                    href={item.map_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    color="error"
+                    startIcon={<LocationOnIcon />}
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    Map
+                  </Button>
+                ) : null}
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      {selectedVet ? (
+        <Dialog open onClose={handleClose} fullWidth maxWidth="sm">
+          <DialogTitle sx={{ pr: 6 }}>
+            {selectedVet.title}
+            <IconButton
+              aria-label="Close vet details"
+              onClick={handleClose}
+              sx={{ position: "absolute", top: 12, right: 12 }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <Stack spacing={2.5}>
+              <CardMedia
+                component="img"
+                image={selectedVet.image || placeholderImage}
+                alt={selectedVet.title}
+                sx={{ borderRadius: 2 }}
+              />
+
+              {selectedVet.position ? (
+                <Typography variant="body1" color="text.secondary">
+                  {selectedVet.position}
+                </Typography>
+              ) : null}
+
+              <List disablePadding>
+                <ListItem sx={{ px: 0 }}>
+                  <ListItemText
+                    primary="Location"
+                    secondary={selectedVet.location || "Not available"}
+                  />
+                </ListItem>
+                <ListItem sx={{ px: 0 }}>
+                  <ListItemText
+                    primary="Contact"
+                    secondary={
+                      Array.isArray(selectedVet.contact)
+                        ? selectedVet.contact.join(", ")
+                        : selectedVet.contact || "Not available"
+                    }
+                  />
+                </ListItem>
+                {selectedVet.email ? (
+                  <ListItem sx={{ px: 0 }}>
+                    <ListItemText primary="Email" secondary={selectedVet.email} />
+                  </ListItem>
+                ) : null}
+                {selectedVet.hours ? (
+                  <ListItem sx={{ px: 0 }}>
+                    <ListItemText primary="Hours" secondary={selectedVet.hours} />
+                  </ListItem>
+                ) : null}
+                {selectedVet.services ? (
+                  <ListItem sx={{ px: 0 }}>
+                    <ListItemText
+                      primary="Services"
+                      secondary={
+                        Array.isArray(selectedVet.services)
+                          ? selectedVet.services.join(", ")
+                          : selectedVet.services
+                      }
+                    />
+                  </ListItem>
+                ) : null}
+              </List>
+
+              <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
+                {selectedVet.website ? (
+                  <Button
+                    variant="contained"
+                    color="info"
+                    href={selectedVet.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    startIcon={<LanguageIcon />}
+                  >
+                    Visit Website
+                  </Button>
+                ) : null}
+                {selectedVet.map_link ? (
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    href={selectedVet.map_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    startIcon={<LocationOnIcon />}
+                  >
+                    View on Map
+                  </Button>
+                ) : null}
               </Box>
-            </Box>
-          </Box>
+            </Stack>
+          </DialogContent>
         </Dialog>
-      )}
-    </Grid>
+      ) : null}
+    </>
   );
 };
 

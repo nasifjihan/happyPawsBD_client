@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { green } from "@mui/material/colors";
 import { Link as RouterLink } from "react-router-dom";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 import NasifIcon from "./../../images/optimized/nasif.webp";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
@@ -20,6 +21,32 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import EmailIcon from "@mui/icons-material/Email";
 
 const Footer = () => {
+  const { user } = useUserAuth();
+
+  const sitemapLinks = [
+    { label: "Home", to: "/" },
+    { label: "Adoption", to: "/adoption" },
+    { label: "Rescue", to: "/rescue_alert" },
+    { label: "Shop", to: "/shop" },
+    { label: "Lost & Found", to: "/lost_found" },
+    { label: "Health Care Blog", to: "/health_care_blog" },
+  ];
+
+  const supportLinks = [
+    { label: "About Us", to: "/about_us" },
+    { label: "Contact Us", to: "/contact_us" },
+    { label: "Pet Care", to: "/petcare" },
+    { label: "Vet Finder", to: "/vet_finder" },
+    { label: "Training", to: "/pet_training" },
+    ...(user
+      ? [
+          { label: "Profile", to: "/profile" },
+          { label: "Account", to: "/account" },
+          { label: "Dashboard", to: "/dashboard" },
+        ]
+      : [{ label: "Sign In", to: "/sign_in" }]),
+  ];
+
   return (
     <Box
       sx={{
@@ -127,67 +154,18 @@ const Footer = () => {
               Sitemap
             </Typography>
 
-            {/* Multiple Links */}
-            <Stack spacing={-2}>
-              <MuiLink
-                component={RouterLink}
-                to="/"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Home
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/adoption"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Adoption
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/rescue_alert"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Rescue
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/shop"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Shop
-              </MuiLink>
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/lost_found"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Lost & Found
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/health_care_blog"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Health Care Blog
-              </MuiLink>
-
-              <br />
+            <Stack spacing={1} alignItems="flex-start">
+              {sitemapLinks.map((link) => (
+                <MuiLink
+                  key={link.to}
+                  component={RouterLink}
+                  to={link.to}
+                  color={"primary.para"}
+                  underline="hover"
+                >
+                  {link.label}
+                </MuiLink>
+              ))}
             </Stack>
           </Grid>
 
@@ -197,69 +175,28 @@ const Footer = () => {
               Support
             </Typography>
 
-            {/* Multiple Links */}
-            <Stack spacing={-2}>
-              <MuiLink
-                component={RouterLink}
-                to="/about_us"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                About Us
-              </MuiLink>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mb: 1.5 }}
+            >
+              {user
+                ? `Signed in as ${user.displayName || user.email || "Happy Paws Member"}`
+                : "Helpful site links and account access."}
+            </Typography>
 
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/contact_us"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Contact Us
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/petcare"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Pet Care
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/vet_finder"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Vet Finder
-              </MuiLink>
-
-              <br />
-
-              <MuiLink
-                component={RouterLink}
-                to="/pet_training"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Training
-              </MuiLink>
-
-              <br />
-              <MuiLink
-                component={RouterLink}
-                to="/profile"
-                color={"primary.para"}
-                style={{ textDecoration: "none" }}
-              >
-                Profile
-              </MuiLink>
-
-              <br />
+            <Stack spacing={1} alignItems="flex-start">
+              {supportLinks.map((link) => (
+                <MuiLink
+                  key={link.to}
+                  component={RouterLink}
+                  to={link.to}
+                  color={"primary.para"}
+                  underline="hover"
+                >
+                  {link.label}
+                </MuiLink>
+              ))}
             </Stack>
           </Grid>
 

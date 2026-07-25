@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Badge, Box, Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import products from "./../../API/shopItems.json";
 import SearchBar from "./SearchBar";
@@ -9,10 +9,10 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ShopBanner from "./ShopBanner";
 import { Link } from "react-router-dom";
 import ContentState from "../../Components/Common/ContentState";
+import { useCart } from "../../context/CartContext";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartItems, setCartItems] = useState([]);
   const [filters, setFilters] = useState({
     categories: [],
     productTypes: [],
@@ -21,38 +21,7 @@ const Shop = () => {
   const [filtersKey, setFiltersKey] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
-
-  // Load cart items from Local Storage on initial render
-  useEffect(() => {
-    const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(savedCartItems);
-  }, []);
-
-  // Save cart items to Local Storage whenever they change
-  useEffect(() => {
-    if (cartItems.length > 0) {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    } else {
-      localStorage.removeItem("cartItems");
-    }
-  }, [cartItems]);
-
-  const handleAddToCart = (product, quantity = 1) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
-
-      if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-
-      const newItem = { ...product, quantity };
-      return [...prevItems, newItem];
-    });
-  };
+  const { addToCart, cartItemsCount } = useCart();
 
   const handleViewDetails = (product) => {
     setSelectedProduct(product);
@@ -95,7 +64,7 @@ const Shop = () => {
         </Box>
 
         <IconButton color="inherit" component={Link} to="/cart">
-          <Badge badgeContent={cartItems.length} color="secondary">
+          <Badge badgeContent={cartItemsCount} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -138,7 +107,7 @@ const Shop = () => {
           {filteredProducts.length ? (
             <ProductList
               products={filteredProducts}
-              onAddToCart={handleAddToCart}
+              onAddToCart={addToCart}
               onViewDetails={handleViewDetails}
             />
           ) : (
@@ -157,7 +126,7 @@ const Shop = () => {
           product={selectedProduct}
           open={detailDialogOpen}
           onClose={handleDetailDialogClose}
-          onAddToCart={handleAddToCart}
+          onAddToCart={addToCart}
         />
       )}
     </Box>

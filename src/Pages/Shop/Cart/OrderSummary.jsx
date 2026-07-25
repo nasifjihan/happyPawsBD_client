@@ -25,6 +25,10 @@ const OrderSummary = ({
       <Typography variant="h6" gutterBottom>
         Order Summary
       </Typography>
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        {cartItems.length} item{cartItems.length === 1 ? "" : "s"} ready for
+        checkout.
+      </Typography>
       <List>
         {cartItems.map((item) => (
           <ListItem
@@ -39,6 +43,7 @@ const OrderSummary = ({
               <IconButton
                 onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
                 disabled={item.quantity === 1}
+                aria-label={`Decrease quantity for ${item.name}`}
               >
                 <Remove />
               </IconButton>
@@ -47,10 +52,14 @@ const OrderSummary = ({
               </Typography>
               <IconButton
                 onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                aria-label={`Increase quantity for ${item.name}`}
               >
                 <Add />
               </IconButton>
-              <IconButton onClick={() => handleRemoveItem(item.id)}>
+              <IconButton
+                onClick={() => handleRemoveItem(item.id)}
+                aria-label={`Remove ${item.name} from cart`}
+              >
                 <Delete />
               </IconButton>
             </Box>

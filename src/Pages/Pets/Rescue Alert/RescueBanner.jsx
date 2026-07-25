@@ -1,68 +1,90 @@
 import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import RescueAlertBanner from "./../../../images/RescueAlertBanner.png";
 import React from "react";
-import { Link } from "react-router-dom";
-// import AdoptionForm from "./AdoptionForm";
+import { Link as RouterLink } from "react-router-dom";
+import RescueAlertBanner from "./../../../images/RescueAlertBanner.png";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({
-  // height: "50vh",
   backgroundColor: "rgba(122, 178, 89, 0.15)",
   padding: theme.spacing(4),
   margin: "1rem 0",
-  // clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
   display: "flex",
   justifyContent: "space-between",
+  flexDirection: "column",
+  gap: theme.spacing(3),
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 }));
 
 const RescueBanner = () => {
   return (
     <Box className="myContainer">
       <BrandingWrapper>
-        <Stack spacing={4} sx={{ p: 4 }} flex={1.2}>
+        <Stack
+          spacing={3}
+          sx={{ p: { xs: 2, md: 4 } }}
+          flex={1.1}
+          textAlign={{ xs: "center", md: "left" }}
+          alignItems={{ xs: "center", md: "flex-start" }}
+        >
           <Typography
-            variant="h4"
+            variant="h3"
             color="primary.headline"
-            sx={{ lineHeight: 1.4, fontWeight: "900" }}
+            sx={{ lineHeight: 1.2, fontWeight: 900 }}
           >
-            Be a Hero <br /> Be Their Voice <br /> Report an Animal in Distress
+            Be Their Voice When Every Minute Matters
           </Typography>
 
-          {/* <Typography>
-            Let US Know If You Find Any Animal That Need to be Rescued
-          </Typography> */}
+          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 620 }}>
+            If you see an injured, abandoned, or distressed animal, let Happy Paws
+            BD know as quickly as possible. Timely reports can help us guide rescue
+            action, connect local support, and increase the chance of a safe recovery.
+          </Typography>
 
-          <Box>
-            <Typography
-              variant="h6"
-              pb={2}
-              color="primary.para"
-              sx={{ fontWeight: "700" }}
+          <Typography
+            variant="subtitle1"
+            color="primary.para"
+            sx={{ fontWeight: 700 }}
+          >
+            Work with us. Report concerns early. Help rescue efforts move faster.
+          </Typography>
+
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+            <Button
+              component={RouterLink}
+              to="/contact_us"
+              variant="contained"
+              color="success"
+              size="large"
             >
-              Work With Us. Be a Rescuer
-            </Typography>
-
-            <Link to="/contact_us" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                color="success"
-                size="large"
-                sx={{ width: { sx: "60%", md: "40%" } }}
-              >
-                Contact Us
-              </Button>
-            </Link>
-          </Box>
+              Contact Rescue Support
+            </Button>
+            <Button
+              component="a"
+              href="tel:+8801983794542"
+              variant="outlined"
+              color="success"
+              size="large"
+            >
+              Call Emergency Line
+            </Button>
+          </Stack>
         </Stack>
 
         <Box
-          flex={1.2}
-          pt={4}
+          flex={1}
           sx={{
-            display: { xs: "none", md: "block" }, // Hide the image on small screens
+            display: { xs: "none", md: "block" },
+            textAlign: "right",
           }}
         >
-          <img src={RescueAlertBanner} alt="" style={{ width: "80%" }} />
+          <img
+            src={RescueAlertBanner}
+            alt="Rescue support illustration"
+            style={{ width: "100%", maxWidth: "460px" }}
+          />
         </Box>
       </BrandingWrapper>
     </Box>

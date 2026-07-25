@@ -1,200 +1,195 @@
-import React from "react";
 import {
+  Avatar,
   Box,
+  Button,
   Container,
-  Typography,
-  Paper,
-  Grid,
   Divider,
+  Grid,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Avatar,
+  Paper,
   Stack,
-  Button,
+  Typography,
 } from "@mui/material";
-
+import { green } from "@mui/material/colors";
 import {
   Email as EmailIcon,
   Phone as PhoneIcon,
   LocationOn as LocationIcon,
-  Margin,
 } from "@mui/icons-material";
-
-import { green } from "@mui/material/colors";
-import contactImage from "./../../images/optimized/contact-us.webp";
+import { Link as RouterLink } from "react-router-dom";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
-// import EmailIcon from "@mui/icons-material/Email";
+import contactImage from "./../../images/optimized/contact-us.webp";
+
+const contactItems = [
+  {
+    label: "Email",
+    value: "contact@happypawsbd.com",
+    href: "mailto:contact@happypawsbd.com",
+    icon: <EmailIcon />,
+  },
+  {
+    label: "Phone",
+    value: "+880 1983794542",
+    href: "tel:+8801983794542",
+    icon: <PhoneIcon />,
+  },
+  {
+    label: "Address",
+    value: "123 Happy Paws Street, Dhaka, Bangladesh",
+    href: "https://www.google.com/maps",
+    icon: <LocationIcon />,
+  },
+];
+
+const socialLinks = [
+  {
+    label: "Visit Happy Paws BD on Facebook",
+    href: "https://www.facebook.com",
+    icon: <FacebookOutlinedIcon />,
+  },
+  {
+    label: "Visit Happy Paws BD on Instagram",
+    href: "https://www.instagram.com",
+    icon: <InstagramIcon />,
+  },
+  {
+    label: "Visit Happy Paws BD on YouTube",
+    href: "https://www.youtube.com",
+    icon: <YouTubeIcon />,
+  },
+  {
+    label: "Open Happy Paws BD on Google Maps",
+    href: "https://www.google.com/maps",
+    icon: <FmdGoodIcon />,
+  },
+];
 
 const Contact_Us = () => {
   return (
-    <Box
-      style={{
-        backgroundColor: "#f9f9f9",
-      }}
-      my={5}
-    >
+    <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Paper
-          elevation={3}
-          style={{
-            padding: "2.5rem",
+          elevation={2}
+          sx={{
+            p: { xs: 3, md: 5 },
+            borderRadius: 4,
             backgroundColor: "#ffffff",
-            borderRadius: "10px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Grid container spacing={5}>
+          <Grid container spacing={5} alignItems="center">
             <Grid item xs={12} md={6}>
               <OptimizedImage
                 src={contactImage}
-                alt="Contact Us"
+                alt="Contact Happy Paws BD"
                 style={{
-                  paddingTop: "30px",
                   width: "100%",
-                  // maxHeight: "600px",
+                  borderRadius: "24px",
                   objectFit: "cover",
-                  // borderRadius: "10px",
                 }}
               />
             </Grid>
+
             <Grid item xs={12} md={6}>
-              <Typography
-                variant="h4"
-                textAlign={"center"}
-                fontWeight={700}
-                gutterBottom
-              >
-                Contact Us
-              </Typography>
-
-              <Typography paragraph>
-                Have any questions or inquiries? Feel free to reach out to us.
-                We are here to help and answer your queries.
-              </Typography>
-
-              <Divider />
-
-              <Box style={{ marginTop: "1.5rem" }}>
-                <Typography variant="h6" gutterBottom>
-                  Contact Information
+              <Stack spacing={2.5}>
+                <Typography variant="h3" fontWeight={800}>
+                  Contact Us
                 </Typography>
 
-                <List style={{ paddingLeft: 0 }}>
-                  <ListItem style={{ paddingTop: 0, paddingBottom: 0 }}>
-                    <ListItemIcon
-                      style={{
-                        minWidth: "auto",
-                        marginRight: "1rem",
-                        color: "green",
-                      }}
-                    >
-                      <EmailIcon />
-                    </ListItemIcon>
-
-                    <ListItemText
-                      primary="Email"
-                      secondary="contact@happypawsbd.com"
-                    />
-                  </ListItem>
-
-                  <ListItem style={{ paddingTop: 0, paddingBottom: 0 }}>
-                    <ListItemIcon
-                      style={{
-                        minWidth: "auto",
-                        marginRight: "1rem",
-                        color: "green",
-                      }}
-                    >
-                      <PhoneIcon />
-                    </ListItemIcon>
-
-                    <ListItemText primary="Phone" secondary="+880 1983794542" />
-                  </ListItem>
-
-                  <ListItem style={{ paddingTop: 0, paddingBottom: 0 }}>
-                    <ListItemIcon
-                      style={{
-                        minWidth: "auto",
-                        marginRight: "1rem",
-                        color: "green",
-                      }}
-                    >
-                      <LocationIcon />
-                    </ListItemIcon>
-
-                    <ListItemText
-                      primary="Address"
-                      secondary="123 Happy Paws Street, Dhaka, Bangladesh"
-                    />
-                  </ListItem>
-                </List>
-              </Box>
-
-              <Divider />
-
-              <Box style={{ marginTop: "1.5rem" }}>
-                <Typography variant="h6" gutterBottom>
-                  Connect with Us
+                <Typography variant="body1" color="text.secondary">
+                  Reach out if you need help with adoption, rescue support, lost
+                  and found guidance, or general questions about using the platform.
                 </Typography>
 
-                <Stack direction="row" spacing={2}>
-                  <a
-                    href="https://www.facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                      <FacebookOutlinedIcon />
-                    </Avatar>
-                  </a>
+                <Typography variant="body1" color="text.secondary">
+                  We aim to make it easy for pet families and animal lovers to find
+                  the right next step quickly.
+                </Typography>
 
-                  <a
-                    href="https://www.instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+                  <Button
+                    component="a"
+                    href="mailto:contact@happypawsbd.com"
+                    variant="contained"
+                    color="success"
                   >
-                    <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                      <InstagramIcon />
-                    </Avatar>
-                  </a>
-
-                  <a
-                    href="https://www.youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    Email Us
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/lost_found"
+                    variant="outlined"
+                    color="success"
                   >
-                    <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                      <YouTubeIcon />
-                    </Avatar>
-                  </a>
-
-                  <a
-                    href="https://www.google.com/maps"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                      <FmdGoodIcon />
-                    </Avatar>
-                  </a>
-
-                  <a
-                    href="https://mail.google.com/mail/u/0/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
-                      <EmailIcon />
-                    </Avatar>
-                  </a>
+                    Visit Lost & Found
+                  </Button>
                 </Stack>
-              </Box>
+
+                <Divider />
+
+                <Box>
+                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                    Contact Information
+                  </Typography>
+
+                  <List disablePadding>
+                    {contactItems.map((item) => (
+                      <ListItem
+                        key={item.label}
+                        component="a"
+                        href={item.href}
+                        target={item.label === "Address" ? "_blank" : undefined}
+                        rel={
+                          item.label === "Address"
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        sx={{
+                          px: 0,
+                          alignItems: "flex-start",
+                          textDecoration: "none",
+                          color: "inherit",
+                        }}
+                      >
+                        <ListItemIcon sx={{ minWidth: 40, color: "success.main" }}>
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={item.label} secondary={item.value} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+
+                <Divider />
+
+                <Box>
+                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                    Connect with Us
+                  </Typography>
+
+                  <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+                    {socialLinks.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={item.label}
+                      >
+                        <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
+                          {item.icon}
+                        </Avatar>
+                      </a>
+                    ))}
+                  </Stack>
+                </Box>
+              </Stack>
             </Grid>
           </Grid>
         </Paper>

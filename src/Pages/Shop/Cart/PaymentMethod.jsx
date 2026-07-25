@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Typography,
@@ -14,6 +14,8 @@ const PaymentMethod = ({
   paymentMethod,
   setPaymentMethod,
   handleOrderConfirm,
+  disabled = false,
+  isSubmitting = false,
 }) => {
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -31,7 +33,10 @@ const PaymentMethod = ({
       <Typography variant="h6" gutterBottom>
         Payment Method
       </Typography>
-      <FormControl component="fieldset">
+      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        Choose how you would like to complete this order.
+      </Typography>
+      <FormControl component="fieldset" disabled={disabled || isSubmitting}>
         <FormLabel component="legend">Select Payment Method</FormLabel>
         <RadioGroup value={paymentMethod} onChange={handleChange}>
           <FormControlLabel
@@ -56,9 +61,10 @@ const PaymentMethod = ({
         variant="contained"
         color="primary"
         onClick={handleOrderConfirm}
+        disabled={disabled || isSubmitting}
         sx={{ marginTop: 2 }}
       >
-        Confirm Order
+        {isSubmitting ? "Processing Order..." : "Confirm Order"}
       </Button>
     </Box>
   );

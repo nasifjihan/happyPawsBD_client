@@ -90,6 +90,8 @@ const Header2 = (props) => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
+      handleCloseUserMenu();
+      setMobileOpen(false);
       await logOut();
       navigate("/sign_in");
     } catch (error) {
@@ -282,6 +284,45 @@ const Header2 = (props) => {
             <ListItemText primary="Contact Us" />
           </ListItemButton>
         </ListItem>
+
+        <Divider sx={{ my: 1 }} />
+
+        {user ? (
+          <>
+            <ListItem>
+              <ListItemText
+                primary={user.displayName || "Happy Paws Member"}
+                secondary={user.email || "Signed in"}
+              />
+            </ListItem>
+            <ListItem disablePadding onClick={handleDrawerToggle}>
+              <ListItemButton component={Link} to="/profile">
+                <ListItemText primary="Profile" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={handleDrawerToggle}>
+              <ListItemButton component={Link} to="/account">
+                <ListItemText primary="Account" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={handleDrawerToggle}>
+              <ListItemButton component={Link} to="/dashboard">
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleLogout}>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <ListItem disablePadding onClick={handleDrawerToggle}>
+            <ListItemButton component={Link} to="/sign_in">
+              <ListItemText primary="Sign In" />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -733,7 +774,13 @@ const Header2 = (props) => {
           {/* Profile Setting Icon or Login ----------------------------- */}
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip
+                title={
+                  user.displayName
+                    ? `Open account menu for ${user.displayName}`
+                    : "Open account menu"
+                }
+              >
                 <IconButton
                   onClick={handleOpenUserMenu}
                   aria-label="Open account menu"
@@ -741,7 +788,12 @@ const Header2 = (props) => {
                   aria-expanded={Boolean(anchorElUser)}
                   aria-haspopup="menu"
                 >
-                  <Avatar alt="Nasif Jihan" src={user.photoURL} />
+                  <Avatar
+                    alt={user.displayName || user.email || "Account"}
+                    src={user.photoURL || undefined}
+                  >
+                    {(user.displayName || user.email || "A").charAt(0)}
+                  </Avatar>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -760,6 +812,25 @@ const Header2 = (props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                <MenuItem
+                  disabled
+                  sx={{
+                    opacity: 1,
+                    pointerEvents: "none",
+                    display: "block",
+                    maxWidth: 240,
+                  }}
+                >
+                  <Typography variant="subtitle2" fontWeight={700} noWrap>
+                    {user.displayName || "Happy Paws Member"}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" noWrap>
+                    {user.email || "Signed in"}
+                  </Typography>
+                </MenuItem>
+
+                <Divider />
+
                 <MenuItem
                   component={Link}
                   to="/profile"
@@ -799,28 +870,25 @@ const Header2 = (props) => {
                   Dashboard
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography
-                    onClick={handleLogout}
-                    textAlign="center"
-                    fontWeight="bold"
-                  >
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center" fontWeight="bold">
                     Logout
                   </Typography>
                 </MenuItem>
               </Menu>
             </Box>
           ) : (
-            <Link
-              style={{
-                textDecoration: "none",
+            <Button
+              component={Link}
+              to="/sign_in"
+              sx={{
                 color: "inherit",
                 fontWeight: "600",
+                "&:hover": { backgroundColor: "primary.back" },
               }}
-              to="/sign_in"
             >
-              Login
-            </Link>
+              Sign In
+            </Button>
           )}
         </Toolbar>
       </AppBar>

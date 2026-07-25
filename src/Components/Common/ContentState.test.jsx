@@ -6,7 +6,9 @@ import ContentState from "./ContentState";
 describe("ContentState", () => {
   it("renders content with a navigation action when a target route exists", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <ContentState
           title="No products match these filters"
           description="Try a broader search term or reset the active filters."
@@ -32,7 +34,9 @@ describe("ContentState", () => {
     const handleAction = vi.fn();
 
     render(
-      <MemoryRouter>
+      <MemoryRouter
+        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+      >
         <ContentState
           title="No lost pet listings right now"
           description="There are currently no active reports to review."
