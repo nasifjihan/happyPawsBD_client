@@ -48,14 +48,14 @@ const shouldRetryGetRequest = (error) => {
   );
 };
 
-const getWithWarmup = async (url) => {
+const getWithWarmup = async (url, config) => {
   await waitForApiReady();
 
   let lastError;
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      const response = await axiosInstance.get(url);
+      const response = await axiosInstance.get(url, config);
       return response.data;
     } catch (error) {
       lastError = error;
@@ -71,35 +71,45 @@ const getWithWarmup = async (url) => {
   throw lastError;
 };
 
+const createQueryConfig = (params = {}) => ({
+  params: Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined)
+  ),
+});
+
 // Lost Pet Form
 export const addLostPet = async (data) => {
-  const response = await axiosInstance.post("/lost_found/lost_form", data, {
+  const response = await axiosInstance.post("/api/v1/lost-found/lost-pets", data, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
 };
 
 // Get All Lost Pets
-export const getLostPets = async () => {
-  return getWithWarmup("/lost_found/lost_pets");
-};
+export const getLostPets = async (params) =>
+  getWithWarmup(
+    "/api/v1/lost-found/lost-pets",
+    createQueryConfig(params)
+  );
 
 // Found Pet Form
 export const addFoundPet = async (data) => {
-  const response = await axiosInstance.post("/lost_found/found_form", data, {
+  const response = await axiosInstance.post("/api/v1/lost-found/found-pets", data, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
 };
 
 // All Found Pets
-export const getFoundPets = async () => {
-  return getWithWarmup("/lost_found/found_pets");
-};
+export const getFoundPets = async (params) =>
+  getWithWarmup(
+    "/api/v1/lost-found/found-pets",
+    createQueryConfig(params)
+  );
 
 // Orders
 export const orders = async (orderDetails) => {
-  const response = await axiosInstance.post("/cart/orders", orderDetails);
+  const response = await axiosInstance.post("/api/v1/orders", orderDetails);
   return response.data;
 };
 
@@ -109,7 +119,7 @@ export const createPaymentSession = async (
   deliveryInfo,
   paymentMethod
 ) => {
-  const response = await axiosInstance.post("/cart/orders/create-payment", {
+  const response = await axiosInstance.post("/api/v1/payments/checkout-session", {
     items: cartItems.map((item) => ({
       id: item.id,
       name: item.name,
@@ -125,20 +135,23 @@ export const createPaymentSession = async (
 // Adoption, Training, Grooming, Boarding
 export const adoptionApplication = async (adoption, code) => {
   const response = await axiosInstance.post(
-    `/adoption/adoptable_pets/${code}`,
+    `/api/v1/adoption/applications/${code}`,
     adoption
   );
   return response.data;
 };
 
 export const trainingApplication = async (training, id) => {
-  const response = await axiosInstance.post(`/training/${id}`, training);
+  const response = await axiosInstance.post(
+    `/api/v1/enrollments/training/${id}`,
+    training
+  );
   return response.data;
 };
 
 export const groomingApplication = async (grooming, id) => {
   const response = await axiosInstance.post(
-    `/petcare/grooming/${id}`,
+    `/api/v1/enrollments/grooming/${id}`,
     grooming
   );
   return response.data;
@@ -146,7 +159,7 @@ export const groomingApplication = async (grooming, id) => {
 
 export const boardingApplication = async (boarding, id) => {
   const response = await axiosInstance.post(
-    `/petcare/boarding/${id}`,
+    `/api/v1/enrollments/boarding/${id}`,
     boarding
   );
   return response.data;
@@ -159,3 +172,12 @@ export const volunteerApplication = async (application) => {
   );
   return response.data;
 };
+
+export const getAdoptableAnimals = async () =>
+  getWithWarmup("/api/v1/adoption/animals");
+
+export const getAdoptableAnimal = async (code) =>
+  getWithWarmup(`/api/v1/adoption/animals/${code}`);
+
+export const getShopItems = async () =>
+  getWithWarmup("/api/v1/catalog/shop-items");

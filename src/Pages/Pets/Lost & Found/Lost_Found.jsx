@@ -32,10 +32,12 @@ const LostFoundRedesign = () => {
 
   const lostPets = data?.lostPets || [];
   const foundPets = data?.foundPets || [];
+  const lostPetsTotal = data?.lostPetsTotal || 0;
+  const foundPetsTotal = data?.foundPetsTotal || 0;
   const errorMessage =
     error?.response?.data?.message ||
     "We could not load the latest lost and found listings right now.";
-  const totalReports = lostPets.length + foundPets.length;
+  const totalReports = lostPetsTotal + foundPetsTotal;
 
   const jumpToReport = (tab) => {
     setActiveTab(tab);
@@ -86,7 +88,7 @@ const LostFoundRedesign = () => {
 
           <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25} sx={{ pt: 1 }}>
             <Chip
-              label={`${lostPets.length} lost reports`}
+              label={`${lostPetsTotal} lost reports`}
               sx={{
                 borderRadius: 2,
                 backgroundColor: "rgba(255,255,255,0.7)",
@@ -94,7 +96,7 @@ const LostFoundRedesign = () => {
               }}
             />
             <Chip
-              label={`${foundPets.length} found reports`}
+              label={`${foundPetsTotal} found reports`}
               sx={{
                 borderRadius: 2,
                 backgroundColor: "rgba(255,255,255,0.7)",

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
-import adoptableAnimals from "./../../../API/adoptableAnimals.json";
+import { useParams } from "react-router-dom";
 import {
+  Alert,
   Box,
   Typography,
   Card,
   CardContent,
   CardMedia,
+  CircularProgress,
   Grid,
   Stack,
   Divider,
@@ -33,11 +34,41 @@ import {
 } from "@mui/icons-material";
 import AdoptionForm from "./AdoptionForm";
 import ContentState from "../../../Components/Common/ContentState";
+import { useAdoptableAnimalQuery } from "../../../features/adoption/hooks";
 
 const AdoptablePetDetails = () => {
   const [open, setOpen] = useState(false);
   const { code } = useParams();
-  const pet = adoptableAnimals.find((item) => item.code === code);
+  const { data: pet, isLoading, isError, error } = useAdoptableAnimalQuery(code);
+
+  const errorMessage =
+    error?.response?.data?.message ||
+    "Could not load this adoptable animal right now.";
+
+  if (isLoading) {
+    return (
+      <Box textAlign="center" py={6}>
+        <CircularProgress color="success" />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box className="myContainer" sx={{ mt: 6 }}>
+        <Alert severity="warning" sx={{ mb: 3 }}>
+          {errorMessage}
+        </Alert>
+        <ContentState
+          title="We could not load this pet"
+          description="Please try again in a moment or return to the adoption page to browse other listings."
+          actionLabel="Browse Adoptable Pets"
+          actionTo="/adoption/adoptable_pets"
+          severity="warning"
+        />
+      </Box>
+    );
+  }
 
   if (!pet) {
     return (

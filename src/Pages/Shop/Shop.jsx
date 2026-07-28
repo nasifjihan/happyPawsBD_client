@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import { Badge, Box, Button, Grid, IconButton, Stack, Typography } from "@mui/material";
-import products from "./../../API/shopItems.json";
+import {
+  Alert,
+  Badge,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import SearchBar from "./SearchBar";
 import Filters from "./Filters";
 import ProductList from "./ProductList";
@@ -10,6 +19,7 @@ import ShopBanner from "./ShopBanner";
 import { Link } from "react-router-dom";
 import ContentState from "../../Components/Common/ContentState";
 import { useCart } from "../../context/CartContext";
+import { useShopItemsQuery } from "../../features/catalog/hooks";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,6 +32,7 @@ const Shop = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
   const { addToCart, cartItemsCount } = useCart();
+  const { data: products = [], isLoading, isError, error } = useShopItemsQuery();
 
   const handleViewDetails = (product) => {
     setSelectedProduct(product);
@@ -51,6 +62,10 @@ const Shop = () => {
       product.price <= filters.priceRange[1] &&
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const errorMessage =
+    error?.response?.data?.message || "Could not load shop items right now.";
+
   return (
     <Box className="myContainer">
       <ShopBanner />
@@ -81,6 +96,12 @@ const Shop = () => {
           />
         </Grid>
         <Grid item xs={12} sm={8} md={10}>
+          {isError ? (
+            <Alert severity="warning" sx={{ mb: 2.5 }}>
+              {errorMessage}
+            </Alert>
+          ) : null}
+
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
@@ -104,7 +125,11 @@ const Shop = () => {
             </Button>
           </Stack>
 
-          {filteredProducts.length ? (
+          {isLoading ? (
+            <Box textAlign="center" py={6}>
+              <CircularProgress color="success" />
+            </Box>
+          ) : filteredProducts.length ? (
             <ProductList
               products={filteredProducts}
               onAddToCart={addToCart}

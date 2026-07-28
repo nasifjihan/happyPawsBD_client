@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Alert,
   Box,
@@ -8,6 +8,7 @@ import {
   CircularProgress,
   Divider,
   Grid,
+  Pagination,
   Stack,
   Typography,
 } from "@mui/material";
@@ -15,8 +16,13 @@ import { useLostPetsQuery } from "../../../features/lost-found/hooks";
 import ContentState from "../../../Components/Common/ContentState";
 
 const LostPets = () => {
-  const { data = [], isLoading, isError, error } = useLostPetsQuery();
-  const lostPets = useMemo(() => [...data].reverse(), [data]);
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError, error } = useLostPetsQuery({
+    page,
+    limit: 12,
+  });
+  const lostPets = useMemo(() => data?.items ?? [], [data]);
+  const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message ||
     "Could not load lost pets right now.";
@@ -129,6 +135,17 @@ const LostPets = () => {
             </Grid>
           ))}
         </Grid>
+
+        {lostPets.length > 0 && totalPages > 1 ? (
+          <Box display="flex" justifyContent="center" mt={4}>
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={(_, nextPage) => setPage(nextPage)}
+              color="success"
+            />
+          </Box>
+        ) : null}
 
         {!lostPets.length ? (
           <ContentState

@@ -1,26 +1,45 @@
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardActionArea,
   CardContent,
   Chip,
+  CircularProgress,
   Grid,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
-import adoptableAnimals from "./../../API/adoptableAnimals.json";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
+import { useAdoptableAnimalsQuery } from "../../features/adoption/hooks";
 
 const Adoptable_Animals = () => {
   const navigate = useNavigate();
+  const {
+    data: adoptableAnimals = [],
+    isLoading,
+    isError,
+    error,
+  } = useAdoptableAnimalsQuery();
 
   const handleCardClick = (code) => {
     navigate(`/adoption/adoptable_pets/${code}`);
   };
+
+  const errorMessage =
+    error?.response?.data?.message ||
+    "Could not load adoptable animals right now.";
+
+  if (isLoading) {
+    return (
+      <Box textAlign="center" py={6}>
+        <CircularProgress color="success" />
+      </Box>
+    );
+  }
 
   return (
     <Box className="myContainer" my={10} textAlign={"center"}>
@@ -49,6 +68,12 @@ const Adoptable_Animals = () => {
             explore more details and matches.
           </Typography>
         </Stack>
+
+        {isError ? (
+          <Alert severity="warning" sx={{ textAlign: "left" }}>
+            {errorMessage}
+          </Alert>
+        ) : null}
 
         <Stack my={3}>
           <Grid

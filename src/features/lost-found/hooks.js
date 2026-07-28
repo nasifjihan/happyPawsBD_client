@@ -16,17 +16,17 @@ const lostFoundQueryOptions = {
   retryDelay: (attemptIndex) => Math.min(1500 * 2 ** attemptIndex, 6000),
 };
 
-export const useLostPetsQuery = () =>
+export const useLostPetsQuery = (params = {}) =>
   useQuery({
-    queryKey: lostFoundQueryKeys.lostPets(),
-    queryFn: getLostPets,
+    queryKey: [...lostFoundQueryKeys.lostPets(), params],
+    queryFn: () => getLostPets(params),
     ...lostFoundQueryOptions,
   });
 
-export const useFoundPetsQuery = () =>
+export const useFoundPetsQuery = (params = {}) =>
   useQuery({
-    queryKey: lostFoundQueryKeys.foundPets(),
-    queryFn: getFoundPets,
+    queryKey: [...lostFoundQueryKeys.foundPets(), params],
+    queryFn: () => getFoundPets(params),
     ...lostFoundQueryOptions,
   });
 
@@ -34,12 +34,17 @@ export const useLostFoundOverviewQuery = () =>
   useQuery({
     queryKey: lostFoundQueryKeys.overview(),
     queryFn: async () => {
-      const [lostPets, foundPets] = await Promise.all([
-        getLostPets(),
-        getFoundPets(),
+      const [lostPetsResponse, foundPetsResponse] = await Promise.all([
+        getLostPets({ page: 1, limit: 2 }),
+        getFoundPets({ page: 1, limit: 2 }),
       ]);
 
-      return { lostPets, foundPets };
+      return {
+        lostPets: lostPetsResponse.items,
+        foundPets: foundPetsResponse.items,
+        lostPetsTotal: lostPetsResponse.total,
+        foundPetsTotal: foundPetsResponse.total,
+      };
     },
     ...lostFoundQueryOptions,
   });

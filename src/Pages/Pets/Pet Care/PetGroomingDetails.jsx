@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -20,7 +20,6 @@ import ContentState from "../../../Components/Common/ContentState";
 
 const PetGroomingDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { user } = useUserAuth();
   const [grooming, setGrooming] = useState({
     name: "",
@@ -58,11 +57,6 @@ const PetGroomingDetails = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!user) {
-      navigate(`/sign_in?redirect=${encodeURIComponent(`/petcare/grooming/${id}`)}`);
-      return;
-    }
 
     if (!item) {
       return;

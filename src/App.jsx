@@ -2,7 +2,7 @@ import "./App.css";
 import { Suspense, lazy } from "react";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./Theme/Theme";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import { CartContextProvider } from "./context/CartContext";
 import ProtectedRoute from "./Components/Authentication/ProtectedRoute";
@@ -12,6 +12,8 @@ import Header2 from "./Components/Header/Header2";
 import Footer from "./Components/Footer/Footer";
 import ScrollToTop from "./context/ScrollToTop";
 const Home = lazy(() => import("./Pages/Home/Home"));
+const AdminShell = lazy(() => import("./Admin/AdminShell"));
+const AdminLogin = lazy(() => import("./Admin/pages/AdminLogin"));
 
 // Pets -----------------------------
 const Pet_Info = lazy(() => import("./Pages/Pets/Pet Info/Pet_Info"));
@@ -121,14 +123,20 @@ const publicRoutes = [
   { path: "/pet_info", component: Pet_Info },
   { path: "/petcare", component: PetCare },
   { path: "/petcare/boarding", component: PetBoardingAll },
+  { path: "/petcare/boarding/:id", component: PetBoardingDetails },
   { path: "/petcare/grooming", component: PetGroomingAll },
+  { path: "/petcare/grooming/:id", component: PetGroomingDetails },
   { path: "/pet_training", component: Pet_Training },
+  { path: "/training/:id", component: TrainingDetail },
   { path: "/adoption", component: Adoption },
   { path: "/adoption/adoptable_pets", component: AdoptablePets },
+  { path: "/adoption/adoptable_pets/:code", component: AdoptablePetDetails },
   { path: "/rescue_alert", component: RescueAlert },
   { path: "/lost_found", component: Lost_Found },
   { path: "/lost_found/lost_pets", component: LostPets },
   { path: "/lost_found/found_pets", component: FoundPets },
+  { path: "/lost_found/lost_form", component: LostForm },
+  { path: "/lost_found/found_form", component: FoundForm },
   { path: "/shop", component: Shop },
   { path: "/cart", component: Cart },
   { path: "/online_consultation", component: Online_Consultation },
@@ -148,21 +156,20 @@ const publicRoutes = [
   { path: "/sign_in", component: SignIn },
   { path: "/sign_up", component: SignUp },
   { path: "/password_reset", component: ResetPassword },
+  { path: "/admin/login", component: AdminLogin },
+  { path: "/admin/*", component: AdminShell },
 ];
 
 const protectedRoutes = [
-  { path: "/petcare/boarding/:id", component: PetBoardingDetails },
-  { path: "/petcare/grooming/:id", component: PetGroomingDetails },
-  { path: "/training/:id", component: TrainingDetail },
-  { path: "/adoption/adoptable_pets/:code", component: AdoptablePetDetails },
-  { path: "/lost_found/lost_form", component: LostForm },
-  { path: "/lost_found/found_form", component: FoundForm },
   { path: "/profile", component: Profile },
   { path: "/account", component: Account },
   { path: "/dashboard", component: Dashboard },
 ];
 
 const App = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -192,9 +199,9 @@ const App = () => {
             Skip to main content
           </Box>
 
-          <Header2 />
+          {isAdminRoute ? null : <Header2 />}
 
-          <ScrollToTop />
+          {isAdminRoute ? null : <ScrollToTop />}
 
           <Box
             component="main"
@@ -223,7 +230,7 @@ const App = () => {
             </AppErrorBoundary>
           </Box>
 
-          <Footer />
+          {isAdminRoute ? null : <Footer />}
         </CartContextProvider>
       </UserAuthContextProvider>
     </ThemeProvider>

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -20,7 +20,6 @@ import ContentState from "../../../Components/Common/ContentState";
 
 const PetBoardingDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { user } = useUserAuth();
   const [boarding, setBoarding] = useState({
     name: "",
@@ -58,11 +57,6 @@ const PetBoardingDetails = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!user) {
-      navigate(`/sign_in?redirect=${encodeURIComponent(`/petcare/boarding/${id}`)}`);
-      return;
-    }
 
     if (!item) {
       return;
