@@ -5,10 +5,13 @@ import AdminLayout from "./components/AdminLayout";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdoptableAnimalsAdmin from "./pages/AdoptableAnimalsAdmin";
+import AdminAdoptionRequestDetails from "./pages/AdminAdoptionRequestDetails";
 import AdminEnrollments from "./pages/AdminEnrollments";
 import AdminLostFound from "./pages/AdminLostFound";
+import AdminOrderDetails from "./pages/AdminOrderDetails";
 import AdminOrders from "./pages/AdminOrders";
 import AdminSettings from "./pages/AdminSettings";
+import AdminVolunteerRequestDetails from "./pages/AdminVolunteerRequestDetails";
 import AdminVolunteerRequests from "./pages/AdminVolunteerRequests";
 import AdoptionRequestsAdmin from "./pages/AdoptionRequestsAdmin";
 import ShopItemsAdmin from "./pages/ShopItemsAdmin";
@@ -27,8 +30,17 @@ const AdminShell = () => (
         <Route path="catalog/shop-items" element={<ShopItemsAdmin />} />
         <Route path="adoption/animals" element={<AdoptableAnimalsAdmin />} />
         <Route path="requests/orders" element={<AdminOrders />} />
+        <Route path="requests/orders/:id" element={<AdminOrderDetails />} />
         <Route path="requests/volunteers" element={<AdminVolunteerRequests />} />
+        <Route
+          path="requests/volunteers/:id"
+          element={<AdminVolunteerRequestDetails />}
+        />
         <Route path="requests/adoptions" element={<AdoptionRequestsAdmin />} />
+        <Route
+          path="requests/adoptions/:id"
+          element={<AdminAdoptionRequestDetails />}
+        />
         <Route path="requests/enrollments" element={<AdminEnrollments />} />
         <Route path="requests/lost-found" element={<AdminLostFound />} />
         <Route path="settings" element={<AdminSettings />} />
@@ -38,4 +50,3 @@ const AdminShell = () => (
 );
 
 export default AdminShell;
-

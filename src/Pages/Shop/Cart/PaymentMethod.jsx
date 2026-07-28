@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   Button,
   Box,
   Chip,
@@ -13,7 +14,6 @@ import {
 import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import PointOfSaleOutlinedIcon from "@mui/icons-material/PointOfSaleOutlined";
 
 const PaymentMethod = ({
   paymentMethod,
@@ -121,34 +121,17 @@ const PaymentMethod = ({
               </Box>
             }
           />
-          <FormControlLabel
-            value="pos_on_delivery"
-            control={<Radio disabled />}
-            disabled
-            sx={{
-              m: 0,
-              alignItems: "flex-start",
-              border: "1px dashed",
-              borderColor: "rgba(122, 178, 89, 0.2)",
-              borderRadius: 3,
-              px: 1.5,
-              py: 1.25,
-              opacity: 0.7,
-            }}
-            label={
-              <Box sx={{ py: 0.25 }}>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
-                  <PointOfSaleOutlinedIcon fontSize="small" color="disabled" />
-                  <Typography fontWeight={700}>POS on Delivery</Typography>
-                </Stack>
-                <Typography variant="body2" color="text.secondary">
-                  Coming soon for card payments at delivery.
-                </Typography>
-              </Box>
-            }
-          />
         </RadioGroup>
       </FormControl>
+
+      <Alert
+        severity={paymentMethod === "online_payment" ? "info" : "success"}
+        sx={{ mt: 2.5, borderRadius: 3 }}
+      >
+        {paymentMethod === "online_payment"
+          ? "You will be redirected to Stripe to finish payment securely."
+          : "We will confirm your order first and collect payment at delivery."}
+      </Alert>
 
       <Button
         variant="contained"
@@ -168,7 +151,11 @@ const PaymentMethod = ({
           },
         }}
       >
-        {isSubmitting ? "Processing Order..." : "Confirm Order"}
+        {isSubmitting
+          ? "Processing Order..."
+          : paymentMethod === "online_payment"
+            ? "Continue to Secure Payment"
+            : "Place Cash on Delivery Order"}
       </Button>
     </Box>
   );

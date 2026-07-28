@@ -142,6 +142,15 @@ export const adminListOrders = async ({ page, limit }) => {
   return response.data;
 };
 
+export const adminGetOrder = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/orders/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
 export const adminUpdateOrder = async ({ id, orderStatus, paymentStatus }) => {
   const response = await axiosInstance.put(
     `/api/v1/admin/orders/${id}`,
@@ -161,6 +170,15 @@ export const adminListVolunteerApplications = async ({ page, limit }) => {
   return response.data;
 };
 
+export const adminGetVolunteerApplication = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/requests/volunteers/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
 export const adminUpdateVolunteerApplication = async ({ id, status }) => {
   const response = await axiosInstance.put(
     `/api/v1/admin/requests/volunteers/${id}`,
@@ -176,6 +194,15 @@ export const adminListAdoptionApplications = async ({ page, limit }) => {
     ...adminRequestConfig(),
     params: { page, limit },
   });
+
+  return response.data;
+};
+
+export const adminGetAdoptionApplication = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/requests/adoptions/${id}`,
+    adminRequestConfig()
+  );
 
   return response.data;
 };
@@ -233,4 +260,3 @@ export const adminUpdateLostFoundReport = async ({ type, id, status }) => {
 
   return response.data;
 };
-

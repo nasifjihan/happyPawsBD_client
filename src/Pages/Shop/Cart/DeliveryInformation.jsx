@@ -79,7 +79,7 @@ const DeliveryInformation = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Name"
+            label="Full Name"
             variant="outlined"
             name="name"
             value={deliveryInfo.name}
@@ -111,7 +111,7 @@ const DeliveryInformation = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="Email"
+            label="Email Address"
             variant="outlined"
             name="email"
             type="email"
@@ -128,11 +128,14 @@ const DeliveryInformation = ({
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            label="City"
+            label="City or Area"
             variant="outlined"
             name="city"
             value={deliveryInfo.city}
+            required
             autoComplete="address-level2"
+            error={Boolean(errors.city)}
+            helperText={errors.city}
             onChange={handleChange}
             sx={inputStyles}
           />

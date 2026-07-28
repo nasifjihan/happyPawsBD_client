@@ -12,6 +12,7 @@ const navItems = [
   { label: "Profile", to: "/profile", key: "profile" },
   { label: "Account", to: "/account", key: "account" },
   { label: "Dashboard", to: "/dashboard", key: "dashboard" },
+  { label: "Orders", to: "/orders", key: "orders" },
 ];
 
 const AccountShell = ({ activeSection, title, description, children }) => {

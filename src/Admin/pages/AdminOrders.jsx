@@ -11,6 +11,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import { Link as RouterLink } from "react-router-dom";
 
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import AdminStatusChip from "../components/AdminStatusChip";
@@ -143,13 +145,13 @@ const AdminOrders = () => {
                       </Typography>
                     </Box>
                     <Button
-                      variant="contained"
-                      color="success"
-                      onClick={() => handleUpdate(order)}
-                      disabled={updateMutation.isPending}
+                      variant="outlined"
+                      component={RouterLink}
+                      to={`/admin/requests/orders/${order._id}`}
+                      endIcon={<ArrowForwardOutlinedIcon />}
                       sx={{ borderRadius: 3, fontWeight: 800 }}
                     >
-                      Save
+                      View Details
                     </Button>
                   </Stack>
 
@@ -218,6 +220,16 @@ const AdminOrders = () => {
                         </MenuItem>
                       ))}
                     </TextField>
+
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={() => handleUpdate(order)}
+                      disabled={updateMutation.isPending}
+                      sx={{ borderRadius: 3, fontWeight: 800, alignSelf: "center" }}
+                    >
+                      Save Inline
+                    </Button>
                   </Stack>
                 </Stack>
               </Paper>

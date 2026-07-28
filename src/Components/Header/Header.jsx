@@ -58,7 +58,7 @@ const navSections = [
       { label: "Online Consultation", to: "/online_consultation" },
       { label: "In-Person Consultation", to: "/in_person_consultation" },
       { label: "Vet Finder", to: "/vet_finder" },
-      { label: "Nearest Clinic", to: "/vet_finder" },
+      { label: "Nearest Clinic", to: "/vet_finder?mode=nearest" },
       { label: "House Calls", to: "/house_calls" },
       { label: "Health Care Blog", to: "/health_care_blog" },
       { label: "COVID-19 Info", to: "/covid19_info" },

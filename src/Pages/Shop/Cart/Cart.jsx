@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Box,
+  Button,
   Chip,
   Divider,
   Grid,
@@ -14,12 +15,23 @@ import OrderSummary from "./OrderSummary";
 import PaymentMethod from "./PaymentMethod";
 import { createPaymentSession, orders } from "../../../API/api";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { appEnv } from "../../../config/env";
 import { useCart } from "../../../context/CartContext";
 import ContentState from "../../../Components/Common/ContentState";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import { useUserAuth } from "../../../context/UserAuthContext";
+import {
+  clearStoredCheckoutDeliveryInfo,
+  getStoredCheckoutDeliveryInfo,
+  saveStoredCheckoutDeliveryInfo,
+} from "../../../lib/checkoutStorage";
+import {
+  addOrderHistoryToken,
+  getLastOrderToken,
+} from "../../../lib/orderHistoryStorage";
 
 const stripePromise = loadStripe(appEnv.stripePublishableKey);
 
@@ -33,12 +45,46 @@ const initialDeliveryInfo = {
   address: "",
 };
 
+const mergeDeliveryInfo = (...sources) =>
+  sources.reduce(
+    (accumulator, source) => ({
+      ...accumulator,
+      ...Object.fromEntries(
+        Object.entries(source || {}).map(([key, value]) => [key, value ?? ""])
+      ),
+    }),
+    { ...initialDeliveryInfo }
+  );
+
+const trimDeliveryInfo = (deliveryInfo) =>
+  Object.fromEntries(
+    Object.entries(mergeDeliveryInfo(deliveryInfo)).map(([key, value]) => [
+      key,
+      String(value || "").trim(),
+    ])
+  );
+
+const createUserDeliveryInfo = (user) => ({
+  name: user?.displayName || "",
+  email: user?.email || "",
+});
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phonePattern = /^(?:\+?88)?01[3-9]\d{8}$/;
+
 const Cart = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useUserAuth();
   const { cartItems, clearCart, removeFromCart, updateCartItemQuantity } =
     useCart();
-  const [deliveryInfo, setDeliveryInfo] = useState(initialDeliveryInfo);
+  const [deliveryInfo, setDeliveryInfo] = useState(() =>
+    mergeDeliveryInfo(
+      initialDeliveryInfo,
+      getStoredCheckoutDeliveryInfo(),
+      createUserDeliveryInfo(null)
+    )
+  );
   const [paymentMethod, setPaymentMethod] = useState("cash_on_delivery");
   const [feedback, setFeedback] = useState({
     open: false,
@@ -46,6 +92,7 @@ const Cart = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [completedOrder, setCompletedOrder] = useState(null);
   const paymentStatus = useMemo(
     () => new URLSearchParams(location.search).get("payment"),
     [location.search]
@@ -65,6 +112,13 @@ const Cart = () => {
         .toFixed(2),
     [cartItems]
   );
+  const orderSummary = useMemo(
+    () => ({
+      items: cartItems,
+      total: Number(cartTotal),
+    }),
+    [cartItems, cartTotal]
+  );
 
   const handleRemoveItem = (productId) => {
     removeFromCart(productId);
@@ -74,19 +128,58 @@ const Cart = () => {
     name: "",
     phone: "",
     email: "",
+    city: "",
     address: "",
   });
 
   const validateFields = () => {
-    let newErrors = {};
-    if (!deliveryInfo.name) newErrors.name = "Name is required.";
-    if (!deliveryInfo.phone) newErrors.phone = "Mobile number is required.";
-    if (!deliveryInfo.email) newErrors.email = "Email is required.";
-    if (!deliveryInfo.address) newErrors.address = "Address is required.";
+    const normalizedDeliveryInfo = trimDeliveryInfo(deliveryInfo);
+    const newErrors = {};
 
+    if (!normalizedDeliveryInfo.name) {
+      newErrors.name = "Full name is required.";
+    }
+
+    if (!normalizedDeliveryInfo.phone) {
+      newErrors.phone = "Mobile number is required.";
+    } else if (!phonePattern.test(normalizedDeliveryInfo.phone)) {
+      newErrors.phone = "Enter a valid Bangladesh mobile number.";
+    }
+
+    if (!normalizedDeliveryInfo.email) {
+      newErrors.email = "Email is required.";
+    } else if (!emailPattern.test(normalizedDeliveryInfo.email)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    if (!normalizedDeliveryInfo.city) {
+      newErrors.city = "City or area is required.";
+    }
+
+    if (!normalizedDeliveryInfo.address) {
+      newErrors.address = "Address is required.";
+    }
+
+    setDeliveryInfo(normalizedDeliveryInfo);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  useEffect(() => {
+    const userDeliveryInfo = createUserDeliveryInfo(user);
+
+    setDeliveryInfo((current) =>
+      mergeDeliveryInfo({
+        ...current,
+        name: current.name || userDeliveryInfo.name,
+        email: current.email || userDeliveryInfo.email,
+      })
+    );
+  }, [user]);
+
+  useEffect(() => {
+    saveStoredCheckoutDeliveryInfo(deliveryInfo);
+  }, [deliveryInfo]);
 
   useEffect(() => {
     if (!paymentStatus) {
@@ -94,24 +187,34 @@ const Cart = () => {
     }
 
     if (paymentStatus === "success") {
-      setDeliveryInfo(initialDeliveryInfo);
+      const lastOrderToken = getLastOrderToken();
+      setCompletedOrder({
+        paymentMethod: "online_payment",
+        itemCount: cartItemCount,
+        total: cartTotal,
+        token: lastOrderToken,
+      });
+      setDeliveryInfo(mergeDeliveryInfo(initialDeliveryInfo, createUserDeliveryInfo(user)));
+      clearStoredCheckoutDeliveryInfo();
       clearCart();
       setPaymentMethod("cash_on_delivery");
       setFeedback({
         open: true,
         severity: "success",
-        message: "Your order has been placed successfully.",
+        message: "Payment completed successfully. Your order is confirmed.",
       });
     } else if (paymentStatus === "cancelled") {
+      setCompletedOrder(null);
       setFeedback({
         open: true,
         severity: "info",
-        message: "Payment was cancelled. Your cart is still saved.",
+        message:
+          "Payment was cancelled. Your cart and delivery details are still saved.",
       });
     }
 
     navigate("/cart", { replace: true });
-  }, [clearCart, navigate, paymentStatus]);
+  }, [cartItemCount, cartTotal, clearCart, navigate, paymentStatus, user]);
 
   const handleQuantityChange = (productId, quantity) => {
     updateCartItemQuantity(productId, quantity);
@@ -136,29 +239,38 @@ const Cart = () => {
       return;
     }
 
+    const normalizedDeliveryInfo = trimDeliveryInfo(deliveryInfo);
+    setDeliveryInfo(normalizedDeliveryInfo);
     setIsSubmitting(true);
 
     try {
       if (paymentMethod === "cash_on_delivery") {
         const orderDetails = {
-          deliveryInfo,
-          orderSummary: {
-            items: cartItems,
-            total: calculateTotal(),
-          },
+          deliveryInfo: normalizedDeliveryInfo,
+          orderSummary,
           paymentMethod,
         };
 
-        await orders(orderDetails);
+        const created = await orders(orderDetails);
+        const publicToken = created?.order?.publicToken;
+        if (publicToken) {
+          addOrderHistoryToken(publicToken);
+        }
 
+        setCompletedOrder({
+          paymentMethod,
+          itemCount: cartItemCount,
+          total: cartTotal,
+          token: publicToken || null,
+        });
         setFeedback({
           open: true,
           severity: "success",
           message: "Order placed successfully! We will contact you soon.",
         });
 
-        // Clear form and cart data after placing order
-        setDeliveryInfo(initialDeliveryInfo);
+        setDeliveryInfo(mergeDeliveryInfo(initialDeliveryInfo, createUserDeliveryInfo(user)));
+        clearStoredCheckoutDeliveryInfo();
         clearCart();
         setPaymentMethod("cash_on_delivery");
       } else if (paymentMethod === "online_payment") {
@@ -176,11 +288,21 @@ const Cart = () => {
           throw new Error("One or more cart items have an invalid price.");
         }
 
-        const { sessionId } = await createPaymentSession(
+        const session = await createPaymentSession(
           cartItems,
-          deliveryInfo,
+          normalizedDeliveryInfo,
           paymentMethod
         );
+        const sessionId = session?.sessionId;
+        const publicToken = session?.publicToken;
+
+        if (!sessionId) {
+          throw new Error("Could not start online payment. Please try again.");
+        }
+
+        if (publicToken) {
+          addOrderHistoryToken(publicToken);
+        }
 
         const result = await stripe.redirectToCheckout({ sessionId });
         if (result?.error) {
@@ -200,12 +322,6 @@ const Cart = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const calculateTotal = () => {
-    return cartItems
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
   };
 
   return (
@@ -288,7 +404,75 @@ const Cart = () => {
         </Alert>
       ) : null}
 
-      {hasCartItems ? (
+      {completedOrder && !hasCartItems ? (
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 3, md: 4 },
+            borderRadius: 6,
+            border: "1px solid rgba(122, 178, 89, 0.16)",
+            boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
+            background:
+              "linear-gradient(135deg, rgba(122,178,89,0.12) 0%, rgba(255,255,255,1) 62%)",
+          }}
+        >
+          <Stack spacing={2}>
+            <Chip
+              icon={<CheckCircleOutlineOutlinedIcon />}
+              label="Order Confirmed"
+              sx={{
+                alignSelf: "flex-start",
+                color: "#4d7337",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                border: "1px solid rgba(122, 178, 89, 0.2)",
+                borderRadius: 2,
+              }}
+            />
+            <Typography variant="h4" fontWeight={800} color="#333332">
+              Thanks, your checkout is complete
+            </Typography>
+            <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
+              We have saved your order for {completedOrder.itemCount} item
+              {completedOrder.itemCount === 1 ? "" : "s"} totaling ৳
+              {completedOrder.total}.{" "}
+              {completedOrder.paymentMethod === "online_payment"
+                ? "Your online payment was completed successfully."
+                : "Your cash on delivery request has been received."}
+            </Typography>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ pt: 1 }}>
+              <Button
+                variant="contained"
+                component={RouterLink}
+                to="/shop"
+                sx={{
+                  borderRadius: 3,
+                  textTransform: "none",
+                  fontWeight: 700,
+                  backgroundColor: "#7AB259",
+                }}
+              >
+                Continue Shopping
+              </Button>
+              <Button
+                variant="outlined"
+                component={RouterLink}
+                to="/orders"
+                sx={{ borderRadius: 3, textTransform: "none", fontWeight: 700 }}
+              >
+                View Orders
+              </Button>
+              <Button
+                variant="text"
+                component={RouterLink}
+                to="/dashboard"
+                sx={{ borderRadius: 3, textTransform: "none", fontWeight: 700 }}
+              >
+                Open Dashboard
+              </Button>
+            </Stack>
+          </Stack>
+        </Paper>
+      ) : hasCartItems ? (
         <>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={7}>

@@ -113,6 +113,11 @@ export const orders = async (orderDetails) => {
   return response.data;
 };
 
+export const getPublicOrder = async (token) => {
+  const response = await axiosInstance.get(`/api/v1/orders/public/${token}`);
+  return response.data;
+};
+
 // Create Payment Session
 export const createPaymentSession = async (
   cartItems,

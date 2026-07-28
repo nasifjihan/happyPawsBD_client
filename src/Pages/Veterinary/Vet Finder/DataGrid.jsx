@@ -33,6 +33,13 @@ const placeholderImage = "https://i.ibb.co/KwkX3N7/4809708.jpg";
 const getContactText = (contact) =>
   Array.isArray(contact) ? contact.join(", ") : contact || "Not available";
 
+const getPhoneNumber = (contact) => {
+  const text = Array.isArray(contact) ? contact.join(" ") : contact || "";
+  const match = text.match(/(\+?\d[\d\s-]{7,}\d)/);
+  if (!match) return null;
+  return match[1].replace(/[^\d+]/g, "");
+};
+
 const DataGrid = ({ data }) => {
   const [selectedVet, setSelectedVet] = useState(null);
 
@@ -49,6 +56,10 @@ const DataGrid = ({ data }) => {
       <Grid container spacing={3}>
         {data.map((item) => (
           <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+            {(() => {
+              const phoneNumber = getPhoneNumber(item.contact);
+
+              return (
             <Card
               sx={{
                 position: "relative",
@@ -203,47 +214,70 @@ const DataGrid = ({ data }) => {
               </CardContent>
 
               <CardActions
-                sx={{ px: 2.5, pb: 2.5, pt: 0, gap: 1, flexWrap: "nowrap" }}
+                sx={{ px: 2.5, pb: 2.5, pt: 0 }}    
               >
-                <Button
-                  variant="contained"
-                  color="success"
-                  fullWidth
-                  sx={{
-                    fontWeight: 700,
-                    borderRadius: 2.5,
-                    textTransform: "none",
-                    boxShadow: "none",
-                  }}
-                >
-                  View Details
-                </Button>
-                {item.map_link ? (
+                <Stack direction="row" spacing={1} sx={{ width: "100%" }}>
                   <Button
-                    component="a"
-                    href={item.map_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    color="error"
-                    startIcon={<LocationOnIcon />}
-                    onClick={(event) => event.stopPropagation()}
+                    variant="contained"
+                    color="success"
+                    fullWidth
                     sx={{
-                      flexShrink: 0,
+                      fontWeight: 700,
                       borderRadius: 2.5,
-                      px: 1.5,
                       textTransform: "none",
+                      boxShadow: "none",
                     }}
                   >
-                    Map
+                    View Details
                   </Button>
-                ) : null}
+                  {phoneNumber ? (
+                    <IconButton
+                      component="a"
+                      href={`tel:${phoneNumber}`}
+                      aria-label={`Call ${item.title}`}
+                      color="success"
+                      onClick={(event) => event.stopPropagation()}
+                      sx={{
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 2.5,
+                      }}
+                    >
+                      <PhoneOutlinedIcon />
+                    </IconButton>
+                  ) : null}
+                  {item.map_link ? (
+                    <IconButton
+                      component="a"
+                      href={item.map_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open map for ${item.title}`}
+                      color="error"
+                      onClick={(event) => event.stopPropagation()}
+                      sx={{
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 2.5,
+                      }}
+                    >
+                      <LocationOnIcon />
+                    </IconButton>
+                  ) : null}
+                </Stack>
               </CardActions>
             </Card>
+              );
+            })()}
           </Grid>
         ))}
       </Grid>
 
       {selectedVet ? (
+        (() => {
+          const phoneNumber = getPhoneNumber(selectedVet.contact);
+
+          return (
         <Dialog open onClose={handleClose} fullWidth maxWidth="sm">
           <DialogTitle>
             {selectedVet.title}
@@ -326,6 +360,16 @@ const DataGrid = ({ data }) => {
               </List>
 
               <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
+                {phoneNumber ? (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    href={`tel:${phoneNumber}`}
+                    startIcon={<PhoneOutlinedIcon />}
+                  >
+                    Call
+                  </Button>
+                ) : null}
                 {selectedVet.website ? (
                   <Button
                     variant="contained"
@@ -354,6 +398,8 @@ const DataGrid = ({ data }) => {
             </Stack>
           </DialogContent>
         </Dialog>
+          );
+        })()
       ) : null}
     </>
   );

@@ -109,6 +109,8 @@ const ResetPassword = lazy(() =>
 const Profile = lazy(() => import("./Dashboard/Profile"));
 const Account = lazy(() => import("./Dashboard/Account"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
+const Orders = lazy(() => import("./Dashboard/Orders"));
+const OrderDetails = lazy(() => import("./Dashboard/OrderDetails"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 
 const withProtection = (Component) => (
@@ -164,6 +166,8 @@ const protectedRoutes = [
   { path: "/profile", component: Profile },
   { path: "/account", component: Account },
   { path: "/dashboard", component: Dashboard },
+  { path: "/orders", component: Orders },
+  { path: "/orders/:token", component: OrderDetails },
 ];
 
 const App = () => {

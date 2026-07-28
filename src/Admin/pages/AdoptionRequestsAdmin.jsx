@@ -11,6 +11,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import { Link as RouterLink } from "react-router-dom";
 
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import AdminStatusChip from "../components/AdminStatusChip";
@@ -126,6 +128,15 @@ const AdoptionRequestsAdmin = () => {
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
                     <AdminStatusChip status={edits[item._id] || item.status} />
+                    <Button
+                      variant="outlined"
+                      component={RouterLink}
+                      to={`/admin/requests/adoptions/${item._id}`}
+                      endIcon={<ArrowForwardOutlinedIcon />}
+                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                    >
+                      View Details
+                    </Button>
                     <TextField
                       select
                       label="Status"

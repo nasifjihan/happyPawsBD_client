@@ -47,6 +47,12 @@ const Dashboard = () => {
       actionTo: "/lost_found",
     },
     {
+      title: "Orders",
+      description: "Review your recent checkout statuses and delivery details.",
+      actionLabel: "View Orders",
+      actionTo: "/orders",
+    },
+    {
       title: "Shopping Cart",
       description: `${cartItemsCount} item${cartItemsCount === 1 ? "" : "s"} currently in your cart.`,
       actionLabel: cartItemsCount ? "Go to Cart" : "Browse Shop",
