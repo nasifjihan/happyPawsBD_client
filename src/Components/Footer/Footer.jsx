@@ -27,7 +27,10 @@ const Footer = () => {
     { label: "Home", to: "/" },
     { label: "Adoption", to: "/adoption" },
     { label: "Rescue", to: "/rescue_alert" },
-    { label: "Shop", to: "/shop" },
+    { label: "Shop (All)", to: "/shop" },
+    { label: "Shop: Food", to: "/shop?category=Food" },
+    { label: "Shop: Medicine", to: "/shop?category=Medicine" },
+    { label: "Shop: Accessories", to: "/shop?category=Accessories" },
     { label: "Lost & Found", to: "/lost_found" },
     { label: "Health Care Blog", to: "/health_care_blog" },
   ];
@@ -87,7 +90,7 @@ const Footer = () => {
                 justifyContent="space-evenly"
               >
                 <a
-                  href="https://www.facebook.com"
+                  href="https://www.facebook.com/happypawsbd"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit Happy Paws BD on Facebook"
@@ -98,7 +101,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://www.instagram.com"
+                  href="https://www.instagram.com/happypawsbd"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit Happy Paws BD on Instagram"
@@ -109,7 +112,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://www.youtube.com"
+                  href="https://www.youtube.com/@happypawsbd"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit Happy Paws BD on YouTube"
@@ -120,7 +123,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://www.google.com/maps"
+                  href="https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open Happy Paws BD location on Google Maps"
@@ -131,7 +134,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://mail.google.com/mail/u/0/"
+                  href="mailto:contact@happypawsbd.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open email contact for Happy Paws BD"
@@ -150,10 +153,10 @@ const Footer = () => {
               Sitemap
             </Typography>
 
-            <Stack spacing={1} alignItems="flex-center">
+            <Stack spacing={1} alignItems="center">
               {sitemapLinks.map((link) => (
                 <MuiLink
-                  key={link.to}
+                  key={`${link.to}-${link.label}`}
                   component={RouterLink}
                   to={link.to}
                   color={"primary.para"}
@@ -177,10 +180,10 @@ const Footer = () => {
               Support
             </Typography>
 
-            <Stack spacing={1} alignItems="flex-center">
+            <Stack spacing={1} alignItems="center">
               {supportLinks.map((link) => (
                 <MuiLink
-                  key={link.to}
+                  key={`${link.to}-${link.label}`}
                   component={RouterLink}
                   to={link.to}
                   color={"primary.para"}

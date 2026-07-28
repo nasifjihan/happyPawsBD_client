@@ -11,6 +11,9 @@ export const volunteerFormSchema = z.object({
   city: z.string().trim().min(1, "City or area is required."),
   preferredRole: z.string().trim().min(1, "Select a volunteer role."),
   availability: z.string().trim().min(1, "Select your availability."),
+  timeCommitment: z.string().trim().optional(),
+  preferredContactMethod: z.string().trim().optional(),
+  preferredContactTime: z.string().trim().optional(),
   experience: z.string().trim().optional(),
   motivation: z
     .string()
@@ -34,6 +37,22 @@ export const volunteerAvailabilityOptions = [
   "Flexible",
 ];
 
+export const volunteerTimeCommitmentOptions = [
+  "1–2 hours/week",
+  "3–5 hours/week",
+  "6–10 hours/week",
+  "Flexible/As needed",
+];
+
+export const volunteerContactMethodOptions = ["Email", "Phone", "WhatsApp"];
+
+export const volunteerContactTimeOptions = [
+  "Morning",
+  "Afternoon",
+  "Evening",
+  "Any time",
+];
+
 export const createVolunteerDefaultValues = (user) => ({
   fullName: user?.displayName || "",
   contactEmail: user?.email || "",
@@ -41,6 +60,9 @@ export const createVolunteerDefaultValues = (user) => ({
   city: "",
   preferredRole: "",
   availability: "",
+  timeCommitment: "",
+  preferredContactMethod: "",
+  preferredContactTime: "",
   experience: "",
   motivation: "",
 });

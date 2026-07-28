@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -10,10 +10,22 @@ import {
   Divider,
 } from "@mui/material";
 
-const Filters = ({ categories, productTypes, priceRange, setFilters }) => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
+const Filters = ({
+  categories,
+  productTypes,
+  priceRange,
+  setFilters,
+  initialSelectedCategories = [],
+}) => {
+  const [selectedCategories, setSelectedCategories] = useState(
+    initialSelectedCategories
+  );
   const [selectedProductTypes, setSelectedProductTypes] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState(priceRange);
+
+  useEffect(() => {
+    setSelectedCategories(initialSelectedCategories);
+  }, [initialSelectedCategories]);
 
   const handleCategoryChange = (category) => {
     const newSelectedCategories = selectedCategories.includes(category)

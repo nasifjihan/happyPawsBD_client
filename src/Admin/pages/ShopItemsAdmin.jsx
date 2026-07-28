@@ -13,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import AdminFilterToolbar from "../components/AdminFilterToolbar";
+import AdminStatusChip from "../components/AdminStatusChip";
 import {
   adminDeleteShopItem,
   adminListShopItems,
@@ -40,6 +42,7 @@ const normalizeNumber = (value) => (value === "" ? "" : Number(value));
 
 const ShopItemsAdmin = () => {
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState(emptyItem);
   const queryClient = useQueryClient();
 
@@ -72,6 +75,21 @@ const ShopItemsAdmin = () => {
     () => (data?.items ?? []).map((item) => ({ ...item, key: item._id || item.id })),
     [data?.items]
   );
+  const filteredRows = useMemo(() => {
+    const normalizedQuery = searchTerm.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return rows;
+    }
+
+    return rows.filter((item) =>
+      [item.name, item.category, item.brand, item.type, item.status, item.id]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(normalizedQuery)
+        )
+    );
+  }, [rows, searchTerm]);
 
   const handleSelect = (item) => {
     setSelected({
@@ -141,14 +159,22 @@ const ShopItemsAdmin = () => {
         </Alert>
       ) : null}
 
+      <AdminFilterToolbar
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search by item name, brand, category, type, or id"
+        resultCount={filteredRows.length}
+        helperText="Catalog records on the current page"
+      />
+
       <Grid container spacing={3}>
         <Grid item xs={12} lg={7}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography color="text.secondary">Loading...</Typography>
-              ) : rows.length ? (
-                rows.map((item) => (
+              ) : filteredRows.length ? (
+                filteredRows.map((item) => (
                   <Paper
                     key={item.key}
                     variant="outlined"
@@ -178,15 +204,13 @@ const ShopItemsAdmin = () => {
                           {item.price ?? 0}
                         </Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary">
-                        {item.status || ""}
-                      </Typography>
+                      {item.status ? <AdminStatusChip status={item.status} /> : null}
                     </Stack>
                   </Paper>
                 ))
               ) : (
                 <Typography color="text.secondary">
-                  No shop items found.
+                  No shop items matched your search.
                 </Typography>
               )}
 

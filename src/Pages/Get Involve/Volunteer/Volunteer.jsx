@@ -33,8 +33,11 @@ import { useVolunteerMutation } from "../../../features/volunteer/hooks";
 import {
   createVolunteerDefaultValues,
   volunteerAvailabilityOptions,
+  volunteerContactMethodOptions,
+  volunteerContactTimeOptions,
   volunteerFormSchema,
   volunteerRoleOptions,
+  volunteerTimeCommitmentOptions,
 } from "../../../features/volunteer/schemas";
 
 const volunteerRoles = [
@@ -75,6 +78,24 @@ const volunteerExpectations = [
   "Reliable communication and follow-through",
   "Availability that matches the role you choose",
   "Willingness to support safely and responsibly",
+];
+
+const faqItems = [
+  {
+    question: "Do I need experience?",
+    answer:
+      "No. Many roles are beginner-friendly. If you have experience, share it in the form so we can match you faster.",
+  },
+  {
+    question: "How long does review take?",
+    answer:
+      "We review requests in order and contact you when we have a suitable task or role available.",
+  },
+  {
+    question: "Can I volunteer remotely?",
+    answer:
+      "Yes. Some work (social media support, community outreach planning, coordination) can be done remotely depending on needs.",
+  },
 ];
 
 const Volunteer = () => {
@@ -341,6 +362,88 @@ const Volunteer = () => {
               </Paper>
             </Grid>
           </Grid>
+
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={7}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: { xs: 3, md: 4 },
+                  borderRadius: 4,
+                  height: "100%",
+                  border: "1px solid",
+                  borderColor: alpha("#2e7d32", 0.1),
+                }}
+              >
+                <Stack spacing={2}>
+                  <Typography variant="h5" fontWeight={800}>
+                    Volunteer FAQ
+                  </Typography>
+                  {faqItems.map((item) => (
+                    <Box key={item.question}>
+                      <Typography fontWeight={800}>{item.question}</Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item.answer}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Stack>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} md={5}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: { xs: 3, md: 4 },
+                  borderRadius: 4,
+                  height: "100%",
+                  border: "1px solid",
+                  borderColor: alpha("#2e7d32", 0.1),
+                }}
+              >
+                <Stack spacing={2}>
+                  <Typography variant="h5" fontWeight={800}>
+                    Other ways to help
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    If volunteering is not possible right now, you can still
+                    support pets through donations, stories, and community
+                    reviews.
+                  </Typography>
+                  <Stack spacing={1.5}>
+                    <Button
+                      component={RouterLink}
+                      to="/make_donation"
+                      variant="contained"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Donate
+                    </Button>
+                    <Button
+                      component={RouterLink}
+                      to="/share_your_story"
+                      variant="outlined"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Share Your Story
+                    </Button>
+                    <Button
+                      component={RouterLink}
+                      to="/reviews"
+                      variant="outlined"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Leave a Review
+                    </Button>
+                  </Stack>
+                </Stack>
+              </Paper>
+            </Grid>
+          </Grid>
         </Stack>
       </Box>
 
@@ -469,6 +572,75 @@ const Volunteer = () => {
                       helperText={errors.availability?.message}
                     >
                       {volunteerAvailabilityOptions.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="timeCommitment"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      label="Time Commitment (Optional)"
+                      fullWidth
+                      error={Boolean(errors.timeCommitment)}
+                      helperText={errors.timeCommitment?.message}
+                    >
+                      {volunteerTimeCommitmentOptions.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="preferredContactMethod"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      label="Preferred Contact Method (Optional)"
+                      fullWidth
+                      error={Boolean(errors.preferredContactMethod)}
+                      helperText={errors.preferredContactMethod?.message}
+                    >
+                      {volunteerContactMethodOptions.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="preferredContactTime"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      select
+                      label="Preferred Contact Time (Optional)"
+                      fullWidth
+                      error={Boolean(errors.preferredContactTime)}
+                      helperText={errors.preferredContactTime?.message}
+                    >
+                      {volunteerContactTimeOptions.map((option) => (
                         <MenuItem key={option} value={option}>
                           {option}
                         </MenuItem>

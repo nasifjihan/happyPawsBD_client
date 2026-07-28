@@ -11,7 +11,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { useAdminAuth } from "../context/AdminAuthContext";
 
@@ -31,6 +31,7 @@ const navItems = [
 
 const AdminLayout = () => {
   const auth = useAdminAuth();
+  const location = useLocation();
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", backgroundColor: "#f7fafc" }}>
@@ -63,7 +64,19 @@ const AdminLayout = () => {
               key={item.to}
               component={Link}
               to={item.to}
-              sx={{ borderRadius: 2, my: 0.5 }}
+              selected={
+                item.to === "/admin"
+                  ? location.pathname === "/admin"
+                  : location.pathname.startsWith(item.to)
+              }
+              sx={{
+                borderRadius: 2,
+                my: 0.5,
+                "&.Mui-selected": {
+                  backgroundColor: "rgba(46, 125, 50, 0.12)",
+                  color: "success.dark",
+                },
+              }}
             >
               <ListItemText primary={item.label} />
             </ListItemButton>
@@ -97,7 +110,13 @@ const AdminLayout = () => {
         >
           <Toolbar>
             <Typography variant="h6" fontWeight={800}>
-              Admin Panel
+              {
+                navItems.find((item) =>
+                  item.to === "/admin"
+                    ? location.pathname === "/admin"
+                    : location.pathname.startsWith(item.to)
+                )?.label || "Admin Panel"
+              }
             </Typography>
           </Toolbar>
         </AppBar>
@@ -111,4 +130,3 @@ const AdminLayout = () => {
 };
 
 export default AdminLayout;
-

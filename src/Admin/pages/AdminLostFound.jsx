@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import AdminFilterToolbar from "../components/AdminFilterToolbar";
+import AdminStatusChip from "../components/AdminStatusChip";
 import {
   adminListLostFoundReports,
   adminUpdateLostFoundReport,
@@ -29,6 +31,8 @@ const statuses = ["new", "reviewed", "resolved", "closed"];
 const AdminLostFound = () => {
   const [type, setType] = useState("lost-pets");
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
 
@@ -49,6 +53,25 @@ const AdminLostFound = () => {
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message || "Could not load lost & found reports.";
+  const filteredItems = items.filter((item) => {
+    const normalizedQuery = searchTerm.trim().toLowerCase();
+    const effectiveStatus = edits[item._id] || item.status || "new";
+    const matchesQuery =
+      !normalizedQuery ||
+      [
+        item.petName,
+        item.animalType,
+        item.ownerName,
+        item.founderName,
+        item.contactPhone,
+        item.lastSeenLocation,
+        item.foundLocation,
+      ]
+        .filter(Boolean)
+        .some((value) => String(value).toLowerCase().includes(normalizedQuery));
+
+    return matchesQuery && (statusFilter === "all" || effectiveStatus === statusFilter);
+  });
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -90,12 +113,23 @@ const AdminLostFound = () => {
         </Alert>
       ) : null}
 
+      <AdminFilterToolbar
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search by pet name, report owner/finder, phone, type, or location"
+        statusValue={statusFilter}
+        onStatusChange={setStatusFilter}
+        statusOptions={statuses}
+        resultCount={filteredItems.length}
+        helperText={`${type} reports on the current page`}
+      />
+
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography color="text.secondary">Loading...</Typography>
-          ) : items.length ? (
-            items.map((item) => (
+          ) : filteredItems.length ? (
+            filteredItems.map((item) => (
               <Paper
                 key={item._id}
                 variant="outlined"
@@ -119,9 +153,14 @@ const AdminLostFound = () => {
                         ? `${item.ownerName || ""} • ${item.contactPhone || ""}`
                         : `${item.founderName || ""} • ${item.contactPhone || ""}`}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.lastSeenLocation || item.foundLocation || ""} •{" "}
+                      {item.lostDate || item.foundDate || ""}
+                    </Typography>
                   </Box>
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+                    <AdminStatusChip status={edits[item._id] || item.status} />
                     <TextField
                       select
                       label="Status"
@@ -155,7 +194,9 @@ const AdminLostFound = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">No reports found.</Typography>
+            <Typography color="text.secondary">
+              No reports matched your filters.
+            </Typography>
           )}
 
           {totalPages > 1 ? (
@@ -175,4 +216,3 @@ const AdminLostFound = () => {
 };
 
 export default AdminLostFound;
-

@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import {
   adminDeleteAdoptableAnimal,
   adminListAdoptableAnimals,
@@ -40,6 +41,7 @@ const normalizeNumber = (value) => (value === "" ? "" : Number(value));
 
 const AdoptableAnimalsAdmin = () => {
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState(emptyAnimal);
   const queryClient = useQueryClient();
 
@@ -76,6 +78,28 @@ const AdoptableAnimalsAdmin = () => {
       })),
     [data?.items]
   );
+  const filteredRows = useMemo(() => {
+    const normalizedQuery = searchTerm.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return rows;
+    }
+
+    return rows.filter((animal) =>
+      [
+        animal.code,
+        animal.name,
+        animal.species,
+        animal.breed,
+        animal.location,
+        animal.gender,
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(normalizedQuery)
+        )
+    );
+  }, [rows, searchTerm]);
 
   const handleSelect = (animal) => {
     setSelected({
@@ -144,14 +168,22 @@ const AdoptableAnimalsAdmin = () => {
         </Alert>
       ) : null}
 
+      <AdminFilterToolbar
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search by code, animal name, species, breed, or location"
+        resultCount={filteredRows.length}
+        helperText="Adoption listings on the current page"
+      />
+
       <Grid container spacing={3}>
         <Grid item xs={12} lg={7}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography color="text.secondary">Loading...</Typography>
-              ) : rows.length ? (
-                rows.map((animal) => (
+              ) : filteredRows.length ? (
+                filteredRows.map((animal) => (
                   <Paper
                     key={animal.key}
                     variant="outlined"
@@ -189,7 +221,7 @@ const AdoptableAnimalsAdmin = () => {
                 ))
               ) : (
                 <Typography color="text.secondary">
-                  No adoptable animals found.
+                  No adoptable animals matched your search.
                 </Typography>
               )}
 

@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import AdminFilterToolbar from "../components/AdminFilterToolbar";
+import AdminStatusChip from "../components/AdminStatusChip";
 import { adminListEnrollments, adminUpdateEnrollment } from "../lib/adminApi";
 
 const enrollmentTypes = [
@@ -27,6 +29,8 @@ const statuses = ["new", "reviewed", "contacted", "scheduled", "closed"];
 const AdminEnrollments = () => {
   const [type, setType] = useState("training");
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
 
@@ -47,6 +51,17 @@ const AdminEnrollments = () => {
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message || "Could not load enrollments.";
+  const filteredItems = items.filter((item) => {
+    const normalizedQuery = searchTerm.trim().toLowerCase();
+    const effectiveStatus = edits[item._id] || item.status || "new";
+    const matchesQuery =
+      !normalizedQuery ||
+      [item.name, item.contactEmail, item.contactPhone, item.address, item.programId]
+        .filter(Boolean)
+        .some((value) => String(value).toLowerCase().includes(normalizedQuery));
+
+    return matchesQuery && (statusFilter === "all" || effectiveStatus === statusFilter);
+  });
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -88,12 +103,23 @@ const AdminEnrollments = () => {
         </Alert>
       ) : null}
 
+      <AdminFilterToolbar
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search by applicant, email, phone, address, or program id"
+        statusValue={statusFilter}
+        onStatusChange={setStatusFilter}
+        statusOptions={statuses}
+        resultCount={filteredItems.length}
+        helperText={`${type} enrollments on the current page`}
+      />
+
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography color="text.secondary">Loading...</Typography>
-          ) : items.length ? (
-            items.map((item) => (
+          ) : filteredItems.length ? (
+            filteredItems.map((item) => (
               <Paper
                 key={item._id}
                 variant="outlined"
@@ -116,6 +142,7 @@ const AdminEnrollments = () => {
                   </Box>
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+                    <AdminStatusChip status={edits[item._id] || item.status} />
                     <TextField
                       select
                       label="Status"
@@ -149,7 +176,9 @@ const AdminEnrollments = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">No enrollments found.</Typography>
+            <Typography color="text.secondary">
+              No enrollments matched your filters.
+            </Typography>
           )}
 
           {totalPages > 1 ? (
@@ -169,4 +198,3 @@ const AdminEnrollments = () => {
 };
 
 export default AdminEnrollments;
-

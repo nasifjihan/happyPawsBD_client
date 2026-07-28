@@ -227,7 +227,7 @@ const Make_Donation = () => {
                     <Divider />
 
                     <Typography variant="body2" color="text.secondary">
-                      `bKash` is the fastest option right now. `Nagad`, bank
+                      bKash is the fastest option right now. Nagad, bank
                       transfer, and in-kind donations are also available by
                       contacting the team directly.
                     </Typography>
@@ -368,9 +368,9 @@ const Make_Donation = () => {
                   ))}
 
                   <Typography variant="body2" color="text.secondary">
-                    For `Nagad`, bank transfer, sponsorship, or supply
-                    donations, please contact Happy Paws BD directly so the team
-                    can guide you with the right next step.
+                    For Nagad, bank transfer, sponsorship, or supply donations,
+                    please contact Happy Paws BD directly so the team can guide
+                    you with the right next step.
                   </Typography>
                 </Stack>
               </Paper>

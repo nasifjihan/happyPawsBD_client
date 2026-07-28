@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Chip,
   Container,
   Divider,
   Grid,
@@ -13,7 +14,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { green } from "@mui/material/colors";
 import {
   Email as EmailIcon,
   Phone as PhoneIcon,
@@ -42,8 +42,8 @@ const contactItems = [
   },
   {
     label: "Address",
-    value: "123 Happy Paws Street, Dhaka, Bangladesh",
-    href: "https://www.google.com/maps",
+    value: "Dhaka, Bangladesh",
+    href: "https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh",
     icon: <LocationIcon />,
   },
 ];
@@ -51,36 +51,36 @@ const contactItems = [
 const socialLinks = [
   {
     label: "Visit Happy Paws BD on Facebook",
-    href: "https://www.facebook.com",
+    href: "https://www.facebook.com/happypawsbd",
     icon: <FacebookOutlinedIcon />,
   },
   {
     label: "Visit Happy Paws BD on Instagram",
-    href: "https://www.instagram.com",
+    href: "https://www.instagram.com/happypawsbd",
     icon: <InstagramIcon />,
   },
   {
     label: "Visit Happy Paws BD on YouTube",
-    href: "https://www.youtube.com",
+    href: "https://www.youtube.com/@happypawsbd",
     icon: <YouTubeIcon />,
   },
   {
     label: "Open Happy Paws BD on Google Maps",
-    href: "https://www.google.com/maps",
+    href: "https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh",
     icon: <FmdGoodIcon />,
   },
 ];
 
 const Contact_Us = () => {
   return (
-    <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
+    <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Paper
           elevation={2}
           sx={{
             p: { xs: 3, md: 5 },
             borderRadius: 4,
-            backgroundColor: "#ffffff",
+            bgcolor: "background.paper",
           }}
         >
           <Grid container spacing={5} alignItems="center">
@@ -134,7 +134,7 @@ const Contact_Us = () => {
                         }
                         sx={{
                           padding: 0,
-                          alignItems: "flex-center",
+                          alignItems: "center",
                           textDecoration: "none",
                           color: "inherit",
                         }}
@@ -157,6 +157,80 @@ const Contact_Us = () => {
 
                 <Box>
                   <Typography variant="h6" fontWeight={700} gutterBottom>
+                    What do you need help with?
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                    Use these quick links to reach the right page faster.
+                  </Typography>
+                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                    <Button
+                      component={RouterLink}
+                      to="/adoption"
+                      variant="contained"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Adoption
+                    </Button>
+                    <Button
+                      component={RouterLink}
+                      to="/lost_found"
+                      variant="outlined"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Lost & Found
+                    </Button>
+                    <Button
+                      component={RouterLink}
+                      to="/volunteer"
+                      variant="outlined"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Volunteer
+                    </Button>
+                    <Button
+                      component={RouterLink}
+                      to="/make_donation"
+                      variant="outlined"
+                      color="success"
+                      sx={{ textTransform: "none", fontWeight: 700 }}
+                    >
+                      Donate
+                    </Button>
+                  </Stack>
+                </Box>
+
+                <Divider />
+
+                <Box>
+                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                    Response expectations
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                    If your message is urgent, please call directly.
+                  </Typography>
+                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                    <Chip
+                      label="Replies: 24–48 hours"
+                      color="success"
+                      variant="outlined"
+                      sx={{ fontWeight: 700 }}
+                    />
+                    <Chip
+                      label="Urgent: Phone call"
+                      color="success"
+                      variant="outlined"
+                      sx={{ fontWeight: 700 }}
+                    />
+                  </Stack>
+                </Box>
+
+                <Divider />
+
+                <Box>
+                  <Typography variant="h6" fontWeight={700} gutterBottom>
                     Connect with Us
                   </Typography>
 
@@ -169,7 +243,7 @@ const Contact_Us = () => {
                         rel="noopener noreferrer"
                         aria-label={item.label}
                       >
-                        <Avatar sx={{ bgcolor: green[500] }} variant="rounded">
+                        <Avatar sx={{ bgcolor: "success.main" }} variant="rounded">
                           {item.icon}
                         </Avatar>
                       </a>

@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import AdminFilterToolbar from "../components/AdminFilterToolbar";
+import AdminStatusChip from "../components/AdminStatusChip";
 import {
   adminListVolunteerApplications,
   adminUpdateVolunteerApplication,
@@ -21,6 +23,8 @@ const statuses = ["new", "reviewed", "contacted", "closed"];
 
 const AdminVolunteerRequests = () => {
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
 
@@ -41,6 +45,26 @@ const AdminVolunteerRequests = () => {
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message || "Could not load volunteer applications.";
+  const filteredItems = items.filter((item) => {
+    const normalizedQuery = searchTerm.trim().toLowerCase();
+    const effectiveStatus = edits[item._id] || item.status || "new";
+    const matchesQuery =
+      !normalizedQuery ||
+      [
+        item.fullName,
+        item.preferredRole,
+        item.contactEmail,
+        item.contactPhone,
+        item.city,
+        item.timeCommitment,
+        item.preferredContactMethod,
+        item.preferredContactTime,
+      ]
+        .filter(Boolean)
+        .some((value) => String(value).toLowerCase().includes(normalizedQuery));
+
+    return matchesQuery && (statusFilter === "all" || effectiveStatus === statusFilter);
+  });
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -62,12 +86,23 @@ const AdminVolunteerRequests = () => {
         </Alert>
       ) : null}
 
+      <AdminFilterToolbar
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search by volunteer name, role, email, phone, or city"
+        statusValue={statusFilter}
+        onStatusChange={setStatusFilter}
+        statusOptions={statuses}
+        resultCount={filteredItems.length}
+        helperText="Volunteer requests on the current page"
+      />
+
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography color="text.secondary">Loading...</Typography>
-          ) : items.length ? (
-            items.map((item) => (
+          ) : filteredItems.length ? (
+            filteredItems.map((item) => (
               <Paper
                 key={item._id}
                 variant="outlined"
@@ -87,9 +122,22 @@ const AdminVolunteerRequests = () => {
                       {item.contactEmail || ""} • {item.contactPhone || ""} •{" "}
                       {item.city || ""}
                     </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.availability || ""} • {item.experience || "No experience added"}
+                    </Typography>
+                    {item.timeCommitment ||
+                    item.preferredContactMethod ||
+                    item.preferredContactTime ? (
+                      <Typography variant="body2" color="text.secondary">
+                        {[item.timeCommitment, item.preferredContactMethod, item.preferredContactTime]
+                          .filter(Boolean)
+                          .join(" • ")}
+                      </Typography>
+                    ) : null}
                   </Box>
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+                    <AdminStatusChip status={edits[item._id] || item.status} />
                     <TextField
                       select
                       label="Status"
@@ -124,7 +172,7 @@ const AdminVolunteerRequests = () => {
             ))
           ) : (
             <Typography color="text.secondary">
-              No volunteer applications found.
+              No volunteer applications matched your filters.
             </Typography>
           )}
 
@@ -145,4 +193,3 @@ const AdminVolunteerRequests = () => {
 };
 
 export default AdminVolunteerRequests;
-

@@ -12,6 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import AdminFilterToolbar from "../components/AdminFilterToolbar";
+import AdminStatusChip from "../components/AdminStatusChip";
 import { adminListOrders, adminUpdateOrder } from "../lib/adminApi";
 
 const orderStatuses = [
@@ -28,6 +30,8 @@ const paymentStatuses = ["unpaid", "paid", "failed", "cancelled"];
 
 const AdminOrders = () => {
   const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
 
@@ -48,6 +52,27 @@ const AdminOrders = () => {
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message || "Could not load orders.";
+  const filteredItems = items.filter((order) => {
+    const normalizedQuery = searchTerm.trim().toLowerCase();
+    const matchesQuery =
+      !normalizedQuery ||
+      [
+        order._id?.slice(-6),
+        order.deliveryInfo?.name,
+        order.deliveryInfo?.email,
+        order.deliveryInfo?.phone,
+        order.paymentMethod,
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(normalizedQuery)
+        );
+
+    const effectiveStatus =
+      edits[order._id]?.orderStatus || order.orderStatus || "created";
+
+    return matchesQuery && (statusFilter === "all" || effectiveStatus === statusFilter);
+  });
 
   const handleUpdate = async (order) => {
     const edit = edits[order._id] || {};
@@ -74,12 +99,23 @@ const AdminOrders = () => {
         </Alert>
       ) : null}
 
+      <AdminFilterToolbar
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Search by order id, customer, email, phone, or payment method"
+        statusValue={statusFilter}
+        onStatusChange={setStatusFilter}
+        statusOptions={orderStatuses}
+        resultCount={filteredItems.length}
+        helperText="Orders on the current page"
+      />
+
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography color="text.secondary">Loading...</Typography>
-          ) : items.length ? (
-            items.map((order) => (
+          ) : filteredItems.length ? (
+            filteredItems.map((order) => (
               <Paper
                 key={order._id}
                 variant="outlined"
@@ -101,6 +137,10 @@ const AdminOrders = () => {
                         {order.orderSummary?.total ?? 0} •{" "}
                         {order.paymentMethod || ""}
                       </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {order.deliveryInfo?.email || ""} •{" "}
+                        {order.deliveryInfo?.phone || ""}
+                      </Typography>
                     </Box>
                     <Button
                       variant="contained"
@@ -111,6 +151,19 @@ const AdminOrders = () => {
                     >
                       Save
                     </Button>
+                  </Stack>
+
+                  <Stack direction="row" spacing={1} flexWrap="wrap">
+                    <AdminStatusChip
+                      status={edits[order._id]?.orderStatus || order.orderStatus}
+                      labelPrefix="Order"
+                    />
+                    <AdminStatusChip
+                      status={
+                        edits[order._id]?.paymentStatus || order.paymentStatus
+                      }
+                      labelPrefix="Payment"
+                    />
                   </Stack>
 
                   <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
@@ -170,7 +223,9 @@ const AdminOrders = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">No orders found.</Typography>
+            <Typography color="text.secondary">
+              No orders matched your current filters.
+            </Typography>
           )}
 
           {totalPages > 1 ? (

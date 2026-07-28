@@ -1,6 +1,9 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -8,87 +11,331 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Stack } from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Link, useNavigate } from "react-router-dom";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Stack } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
-import HPBDLogo from "./../../images/HPBD-Logo.png"
+import HPBDLogo from "./../../images/HPBD-Logo.png";
+
+const navSections = [
+  {
+    key: "pets",
+    label: "Pets",
+    items: [
+      { label: "Pet Info", to: "/pet_info" },
+      { label: "Pet Care", to: "/petcare" },
+      { label: "Daycare", to: "/petcare" },
+      { label: "Boarding", to: "/petcare/boarding" },
+      { label: "Pet Training", to: "/pet_training" },
+      { label: "Adoption", to: "/adoption" },
+      { label: "Rescue Alert", to: "/rescue_alert" },
+      { label: "Lost & Found", to: "/lost_found" },
+    ],
+  },
+  {
+    key: "shop",
+    label: "Shop",
+    matchPaths: ["/shop", "/cart"],
+    items: [
+      { label: "All Items", to: "/shop" },
+      { label: "Food", to: "/shop?category=Food" },
+      { label: "Medicine", to: "/shop?category=Medicine" },
+      { label: "Accessories", to: "/shop?category=Accessories" },
+    ],
+  },
+  {
+    key: "veterinary",
+    label: "Veterinary",
+    items: [
+      { label: "Online Consultation", to: "/online_consultation" },
+      { label: "In-Person Consultation", to: "/in_person_consultation" },
+      { label: "Vet Finder", to: "/vet_finder" },
+      { label: "Nearest Clinic", to: "/vet_finder" },
+      { label: "House Calls", to: "/house_calls" },
+      { label: "Health Care Blog", to: "/health_care_blog" },
+      { label: "COVID-19 Info", to: "/covid19_info" },
+    ],
+  },
+  {
+    key: "getInvolved",
+    label: "Get Involved",
+    items: [
+      { label: "Volunteer", to: "/volunteer" },
+      { label: "Make Donation", to: "/make_donation" },
+      { label: "Our Success Story", to: "/our_success_story" },
+      { label: "Share Your Story", to: "/share_your_story" },
+      { label: "Remembrance", to: "/remembrance" },
+      { label: "Reviews", to: "/reviews" },
+    ],
+  },
+];
+
+const primaryLinks = [
+  { label: "Home", to: "/", matchPaths: ["/", "/home"] },
+  { label: "About Us", to: "/about_us", matchPaths: ["/about_us"] },
+  { label: "Contact Us", to: "/contact_us", matchPaths: ["/contact_us"] },
+];
+
+const accountLinks = [
+  { label: "Profile", to: "/profile" },
+  { label: "Account", to: "/account" },
+  { label: "Dashboard", to: "/dashboard" },
+];
+
+const desktopNavRadius = 1.5;
+const mobileNavRadius = 1;
+
+const matchesPath = (pathname, paths) =>
+  paths.some((path) =>
+    path === "/"
+      ? pathname === "/" || pathname === "/home"
+      : pathname === path || pathname.startsWith(`${path}/`)
+  );
+
+const navButtonSx = (active) => ({
+  color: active ? "success.main" : "inherit",
+  fontWeight: 600,
+  borderRadius: desktopNavRadius,
+  px: 1.5,
+  backgroundColor: active ? "rgba(122, 178, 89, 0.14)" : "transparent",
+  "&:hover": {
+    backgroundColor: "primary.back",
+  },
+});
+
+const menuItemSx = {
+  textDecoration: "none",
+  color: "inherit",
+  fontWeight: 600,
+  minWidth: 220,
+  "&:hover": { backgroundColor: "primary.back" },
+};
 
 const Header = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [openMenus, setOpenMenus] = React.useState({});
+  const [menuAnchors, setMenuAnchors] = React.useState(
+    Object.fromEntries(navSections.map((section) => [section.key, null]))
+  );
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [menu1AnchorEl, setMenu1AnchorEl] = React.useState(null);
-  const [menu2AnchorEl, setMenu2AnchorEl] = React.useState(null);
-  const [menu3AnchorEl, setMenu3AnchorEl] = React.useState(null);
-  const [menu4AnchorEl, setMenu4AnchorEl] = React.useState(null);
 
-  const drawerWidth = 200;
-
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const drawerWidth = 280;
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  // Full View Menu Nested Item Controller ----------------------------
-  const handleMenu1Click = (event) => {
-    setMenu1AnchorEl(event.currentTarget);
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
   };
 
-  const handleMenu1Close = () => {
-    setMenu1AnchorEl(null);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleMenu2Click = (event) => {
-    setMenu2AnchorEl(event.currentTarget);
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
-  const handleMenu2Close = () => {
-    setMenu2AnchorEl(null);
-  };
-  const handleMenu3Click = (event) => {
-    setMenu3AnchorEl(event.currentTarget);
-  };
-
-  const handleMenu3Close = () => {
-    setMenu3AnchorEl(null);
+  const handleMenuToggle = (menuKey) => {
+    setOpenMenus((prevOpenMenus) => ({
+      ...prevOpenMenus,
+      [menuKey]: !prevOpenMenus[menuKey],
+    }));
   };
 
-  const handleMenu4Click = (event) => {
-    setMenu4AnchorEl(event.currentTarget);
+  const handleDesktopMenuOpen = (menuKey, event) => {
+    setMenuAnchors((prevState) => ({
+      ...prevState,
+      [menuKey]: event.currentTarget,
+    }));
   };
 
-  const handleMenu4Close = () => {
-    setMenu4AnchorEl(null);
+  const handleDesktopMenuClose = (menuKey) => {
+    setMenuAnchors((prevState) => ({
+      ...prevState,
+      [menuKey]: null,
+    }));
   };
 
-  // LogOut
-  const { logOut, user } = useUserAuth();
-  const navigate = useNavigate();
+  const closeMobileDrawer = () => {
+    setMobileOpen(false);
+  };
+
   const handleLogout = async () => {
     try {
+      handleCloseUserMenu();
+      closeMobileDrawer();
       await logOut();
       navigate("/sign_in");
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  const drawer = (
+    <Box sx={{ textAlign: "center" }}>
+      <Typography variant="h6" sx={{ my: 1 }}>
+        <Link to="/" onClick={closeMobileDrawer}>
+          <img
+            src={HPBDLogo}
+            alt="Happy Paws BD"
+            width={100}
+            style={{ cursor: "pointer" }}
+          />
+        </Link>
+      </Typography>
+
+      <Divider />
+
+      <List sx={{ px: 1, py: 1.5 }}>
+        {primaryLinks.map((link) => {
+          const isActive = matchesPath(location.pathname, link.matchPaths);
+
+          return (
+            <ListItem disablePadding key={link.label} onClick={closeMobileDrawer}>
+              <ListItemButton
+                component={Link}
+                to={link.to}
+                selected={isActive}
+                aria-current={isActive ? "page" : undefined}
+                sx={{ borderRadius: mobileNavRadius, mb: 0.5 }}
+              >
+                <ListItemText primary={link.label} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+
+        {navSections.map((section) => {
+          const isSectionActive = matchesPath(
+            location.pathname,
+            section.matchPaths || section.items.map((item) => item.to)
+          );
+
+          return (
+            <Box key={section.key}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => handleMenuToggle(section.key)}
+                  selected={isSectionActive}
+                  aria-expanded={Boolean(openMenus[section.key])}
+                  aria-controls={`mobile-${section.key}-menu`}
+                  sx={{ borderRadius: mobileNavRadius, mb: 0.5 }}
+                >
+                  <ListItemText primary={section.label} />
+                  {openMenus[section.key] ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+              </ListItem>
+
+              <Collapse
+                in={openMenus[section.key]}
+                timeout="auto"
+                unmountOnExit
+              >
+                <List id={`mobile-${section.key}-menu`} component="div" disablePadding>
+                  {section.items.map((item) => {
+                    const isActive =
+                      location.pathname === item.to ||
+                      location.pathname.startsWith(`${item.to}/`);
+
+                    return (
+                      <ListItemButton
+                        key={item.to}
+                        sx={{
+                          pl: 4,
+                          borderRadius: mobileNavRadius,
+                          mx: 0.5,
+                          mb: 0.5,
+                        }}
+                        component={Link}
+                        to={item.to}
+                        onClick={closeMobileDrawer}
+                        selected={isActive}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        <ListItemText primary={item.label} />
+                      </ListItemButton>
+                    );
+                  })}
+                </List>
+              </Collapse>
+            </Box>
+          );
+        })}
+
+        <Divider sx={{ my: 1.5 }} />
+
+        {user ? (
+          <>
+            <ListItem sx={{ textAlign: "left", px: 2, py: 1 }}>
+              <ListItemText
+                primary={user.displayName || "Happy Paws Member"}
+                secondary={user.email || "Signed in"}
+              />
+            </ListItem>
+
+            {accountLinks.map((link) => {
+              const isActive = matchesPath(location.pathname, [link.to]);
+
+              return (
+                <ListItem
+                  disablePadding
+                  key={link.to}
+                  onClick={closeMobileDrawer}
+                >
+                  <ListItemButton
+                    component={Link}
+                    to={link.to}
+                    selected={isActive}
+                    aria-current={isActive ? "page" : undefined}
+                    sx={{ borderRadius: mobileNavRadius, mb: 0.5 }}
+                  >
+                    <ListItemText primary={link.label} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={handleLogout}
+                sx={{ borderRadius: mobileNavRadius }}
+              >
+                <ListItemText primary="Log Out" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <ListItem disablePadding onClick={closeMobileDrawer}>
+            <ListItemButton
+              component={Link}
+              to="/sign_in"
+              selected={matchesPath(location.pathname, [
+                "/sign_in",
+                "/sign_up",
+                "/password_reset",
+              ])}
+              sx={{ borderRadius: mobileNavRadius }}
+            >
+              <ListItemText primary="Sign In" />
+            </ListItemButton>
+          </ListItem>
+        )}
+      </List>
+    </Box>
+  );
 
   return (
     <Box className="myContainer" sx={{ display: "flex" }}>
@@ -98,11 +345,12 @@ const Header = (props) => {
         position="sticky"
         sx={{ backgroundColor: "transparent", boxShadow: "none" }}
       >
-        <Toolbar>
-          {/* Drawer Icon Button ----------------------------------- */}
+        <Toolbar sx={{ gap: 1.5 }}>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation-drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ display: { md: "none" } }}
@@ -110,626 +358,161 @@ const Header = (props) => {
             <MenuIcon />
           </IconButton>
 
-          {/* Logo Full Screen ------------------------------------- */}
           <Typography
             variant="h6"
-            component="a"
-            href="../"
+            component={Link}
+            to="/"
             textAlign={{ xs: "center", md: "inherit" }}
             flexGrow={{ xs: "1", md: "0" }}
-            sx={{ color: "inherit", textDecoration: "none", pt: 1 }}
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              pt: 1,
+              display: "inline-block",
+            }}
           >
             <img
               src={HPBDLogo}
               alt="Happy Paws BD"
               width={100}
+              style={{ cursor: "pointer" }}
             />
           </Typography>
 
           <Stack
             direction="row"
-            spacing={2}
+            spacing={1}
             sx={{
-              mx: 4,
+              mx: 3,
               flexGrow: 1,
+              alignItems: "center",
               display: { xs: "none", md: "flex" },
+              flexWrap: "wrap",
             }}
           >
-            <Button
-              // href="/"
-              sx={{
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/home"
-              >
-                Home
-              </Link>
-            </Button>
+            {primaryLinks.slice(0, 1).map((link) => {
+              const isActive = matchesPath(location.pathname, link.matchPaths);
 
-            <Button
-              // endIcon={<KeyboardArrowDownIcon />}
-              onClick={handleMenu1Click}
-              sx={{
-                color: "inherit",
-                fontWeight: "600",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              Pets
-              <KeyboardArrowDownIcon fontSize="12" />
-            </Button>
+              return (
+                <Button
+                  key={link.to}
+                  component={Link}
+                  to={link.to}
+                  aria-current={isActive ? "page" : undefined}
+                  sx={navButtonSx(isActive)}
+                >
+                  {link.label}
+                </Button>
+              );
+            })}
 
-            <Button
-              // endIcon={<KeyboardArrowDownIcon />}
-              onClick={handleMenu2Click}
-              sx={{
-                color: "inherit",
-                fontWeight: "600",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              Shop
-              <KeyboardArrowDownIcon fontSize="12" />
-            </Button>
+            {navSections.map((section) => {
+              const isSectionActive = matchesPath(
+                location.pathname,
+                section.matchPaths || section.items.map((item) => item.to)
+              );
 
-            <Button
-              // endIcon={<KeyboardArrowDownIcon />}
-              onClick={handleMenu3Click}
-              sx={{
-                color: "inherit",
-                fontWeight: "600",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              Veterinary
-              <KeyboardArrowDownIcon fontSize="12" />
-            </Button>
+              return (
+                <Button
+                  key={section.key}
+                  onClick={(event) => handleDesktopMenuOpen(section.key, event)}
+                  aria-controls={
+                    menuAnchors[section.key] ? `${section.key}-menu` : undefined
+                  }
+                  aria-expanded={Boolean(menuAnchors[section.key])}
+                  aria-haspopup="menu"
+                  sx={navButtonSx(isSectionActive)}
+                >
+                  {section.label}
+                  <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
+                </Button>
+              );
+            })}
 
-            <Button
-              // endIcon={<KeyboardArrowDownIcon />}
-              onClick={handleMenu4Click}
-              sx={{
-                color: "inherit",
-                fontWeight: "600",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              Get Involve
-              <KeyboardArrowDownIcon fontSize="12" />
-            </Button>
+            {primaryLinks.slice(1).map((link) => {
+              const isActive = matchesPath(location.pathname, link.matchPaths);
 
-            <Button
-              sx={{
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/about_us"
-              >
-                About Us
-              </Link>
-            </Button>
-
-            <Button
-              sx={{
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/contact_us"
-              >
-                Contact Us
-              </Link>
-            </Button>
+              return (
+                <Button
+                  key={link.to}
+                  component={Link}
+                  to={link.to}
+                  aria-current={isActive ? "page" : undefined}
+                  sx={navButtonSx(isActive)}
+                >
+                  {link.label}
+                </Button>
+              );
+            })}
           </Stack>
 
-          {/* Nasted Menu Items ----------------------------------------- */}
-          <Menu
-            anchorEl={menu1AnchorEl}
-            keepMounted
-            open={Boolean(menu1AnchorEl)}
-            onClose={handleMenu1Close}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
+          {navSections.map((section) => (
+            <Menu
+              key={section.key}
+              id={`${section.key}-menu`}
+              anchorEl={menuAnchors[section.key]}
+              keepMounted
+              open={Boolean(menuAnchors[section.key])}
+              onClose={() => handleDesktopMenuClose(section.key)}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
               }}
             >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/pet_info"
-              >
-                PET INFO
-              </Link>
-            </MenuItem>
+              {section.items.map((item) => {
+                const isActive =
+                  location.pathname === item.to ||
+                  location.pathname.startsWith(`${item.to}/`);
 
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/daycare"
-              >
-                DAYCARE
-              </Link>
-            </MenuItem>
+                return (
+                  <MenuItem
+                    key={item.to}
+                    component={Link}
+                    to={item.to}
+                    onClick={() => handleDesktopMenuClose(section.key)}
+                    selected={isActive}
+                    aria-current={isActive ? "page" : undefined}
+                    sx={menuItemSx}
+                  >
+                    {item.label}
+                  </MenuItem>
+                );
+              })}
+            </Menu>
+          ))}
 
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/boarding"
-              >
-                BOARDING
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/pet_training"
-              >
-                PET TRAINING
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/adoption"
-              >
-                ADOPTION
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/rescue_alert"
-              >
-                RESCUE ALERT
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu1Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/lost_found"
-              >
-                LOST & FOUND
-              </Link>
-            </MenuItem>
-          </Menu>
-
-          <Menu
-            anchorEl={menu2AnchorEl}
-            keepMounted
-            open={Boolean(menu2AnchorEl)}
-            onClose={handleMenu2Close}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            <MenuItem
-              onClick={handleMenu2Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/food"
-              >
-                FOOD
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu2Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/medicine"
-              >
-                MEDICINE
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu2Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/accessories"
-              >
-                ACCESSORIES
-              </Link>
-            </MenuItem>
-          </Menu>
-
-          <Menu
-            anchorEl={menu3AnchorEl}
-            keepMounted
-            open={Boolean(menu3AnchorEl)}
-            onClose={handleMenu3Close}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            <MenuItem
-              onClick={handleMenu3Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/online_consultation"
-              >
-                ONLINE CONSULTATION
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu3Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/in_person_consultation"
-              >
-                IN-PERSON CONSULTATION
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu3Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/nearest_clinic"
-              >
-                NEAREST CLINIC
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu3Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/house_calls"
-              >
-                HOUSE CALLS
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu3Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/health_care_blog"
-              >
-                HEALTH CARE BLOG
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu3Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/covid19_info"
-              >
-                COVID-19 INFO
-              </Link>
-            </MenuItem>
-          </Menu>
-
-          <Menu
-            anchorEl={menu4AnchorEl}
-            keepMounted
-            open={Boolean(menu4AnchorEl)}
-            onClose={handleMenu4Close}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            <MenuItem
-              onClick={handleMenu4Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/volunteer"
-              >
-                VOLUNTEER
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu4Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/make_donation"
-              >
-                MAKE DONATION
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu4Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/our_success_story"
-              >
-                OUR SUCCESS STORY
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu4Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/share_your_story"
-              >
-                SHARE YOUR STORY
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu4Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/remembrance"
-              >
-                REMEMBRANCE
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              onClick={handleMenu4Close}
-              sx={{
-                fontSize: "",
-                "&:hover": { backgroundColor: "primary.back" },
-              }}
-            >
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  fontWeight: "600",
-                }}
-                to="/reviews"
-              >
-                REVIEWS
-              </Link>
-            </MenuItem>
-          </Menu>
-
-          {/* Profile Setting Icon or Login ----------------------------- */}
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu}>
-                  <Avatar alt="Nasif Jihan" src={user.photoURL} />
+              <Tooltip
+                title={
+                  user.displayName
+                    ? `Open account menu for ${user.displayName}`
+                    : "Open account menu"
+                }
+              >
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  aria-label="Open account menu"
+                  aria-controls={anchorElUser ? "user-menu" : undefined}
+                  aria-expanded={Boolean(anchorElUser)}
+                  aria-haspopup="menu"
+                >
+                  <Avatar
+                    alt={user.displayName || user.email || "Account"}
+                    src={user.photoURL || undefined}
+                  >
+                    {(user.displayName || user.email || "A").charAt(0)}
+                  </Avatar>
                 </IconButton>
               </Tooltip>
+
               <Menu
+                id="user-menu"
                 sx={{ mt: "45px" }}
-                id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: "top",
@@ -743,77 +526,84 @@ const Header = (props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    style={{
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "inherit",
-                      fontWeight: "600",
-                    }}
-                    to="/profile"
-                  >
-                    Profile
-                  </Link>
-                </MenuItem>
-
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" fontWeight="bold" component={Link} to="/account" style={{
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "inherit",
-                      fontWeight: "600",
-                    }}>
-                    Account
+                <MenuItem
+                  disabled
+                  sx={{
+                    opacity: 1,
+                    pointerEvents: "none",
+                    display: "block",
+                    maxWidth: 240,
+                  }}
+                >
+                  <Typography variant="subtitle2" fontWeight={700} noWrap>
+                    {user.displayName || "Happy Paws Member"}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" noWrap>
+                    {user.email || "Signed in"}
                   </Typography>
                 </MenuItem>
 
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" fontWeight="bold" component={Link} to="/dashboard" style={{
-                      textAlign: "center",
-                      textDecoration: "none",
-                      color: "inherit",
-                      fontWeight: "600",
-                    }}>
-                    Dashboard
-                  </Typography>
-                </MenuItem>
+                <Divider />
 
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography
-                    onClick={handleLogout}
-                    textAlign="center"
-                    fontWeight="bold"
-                  >
-                    Logout
-                  </Typography>
+                {accountLinks.map((link) => {
+                  const isActive = matchesPath(location.pathname, [link.to]);
+
+                  return (
+                    <MenuItem
+                      key={link.to}
+                      component={Link}
+                      to={link.to}
+                      onClick={handleCloseUserMenu}
+                      selected={isActive}
+                      aria-current={isActive ? "page" : undefined}
+                      sx={menuItemSx}
+                    >
+                      {link.label}
+                    </MenuItem>
+                  );
+                })}
+
+                <MenuItem onClick={handleLogout} sx={menuItemSx}>
+                  Log Out
                 </MenuItem>
               </Menu>
             </Box>
           ) : (
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-                fontWeight: "600",
-              }}
+            <Button
+              component={Link}
               to="/sign_in"
+              aria-current={
+                matchesPath(location.pathname, [
+                  "/sign_in",
+                  "/sign_up",
+                  "/password_reset",
+                ])
+                  ? "page"
+                  : undefined
+              }
+              sx={navButtonSx(
+                matchesPath(location.pathname, [
+                  "/sign_in",
+                  "/sign_up",
+                  "/password_reset",
+                ])
+              )}
             >
-              Login
-            </Link>
+              Sign In
+            </Button>
           )}
         </Toolbar>
       </AppBar>
 
-      {/* Drawer Nav Menu Item -------------------------------------- */}
       <Box component="nav">
         <Drawer
+          id="mobile-navigation-drawer"
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", md: "none" },
@@ -823,88 +613,7 @@ const Header = (props) => {
             },
           }}
         >
-          <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-            <Typography variant="h6" sx={{ my: 1 }}>
-              <img
-                src={HPBDLogo}
-                alt="Happy Paws BD"
-                width={100}
-              />
-            </Typography>
-            <Divider />
-            <List>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="Home" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="Pets" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="Shop" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="Veterinary Services" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="Get Involved" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="About Us" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton
-                  sx={{
-                    textAlign: "center",
-                    "&:hover": { backgroundColor: "#D3D3D3" },
-                  }}
-                >
-                  <ListItemText primary="Contact Us" />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Box>
+          {drawer}
         </Drawer>
       </Box>
     </Box>

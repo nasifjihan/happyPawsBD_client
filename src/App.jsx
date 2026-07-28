@@ -8,7 +8,7 @@ import { CartContextProvider } from "./context/CartContext";
 import ProtectedRoute from "./Components/Authentication/ProtectedRoute";
 import RouteLoader from "./Components/Common/RouteLoader";
 import AppErrorBoundary from "./Components/Common/AppErrorBoundary";
-import Header2 from "./Components/Header/Header2";
+import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import ScrollToTop from "./context/ScrollToTop";
 const Home = lazy(() => import("./Pages/Home/Home"));
@@ -199,7 +199,7 @@ const App = () => {
             Skip to main content
           </Box>
 
-          {isAdminRoute ? null : <Header2 />}
+          {isAdminRoute ? null : <Header />}
 
           {isAdminRoute ? null : <ScrollToTop />}
 
