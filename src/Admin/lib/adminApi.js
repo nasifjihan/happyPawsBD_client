@@ -8,7 +8,7 @@ const adminRequestConfig = () => {
   return token
     ? {
         headers: {
-          "x-admin-token": token,
+          Authorization: `Bearer ${token}`,
         },
       }
     : {};
