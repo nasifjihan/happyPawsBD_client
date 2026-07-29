@@ -14,6 +14,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import {
   Email as EmailIcon,
   Phone as PhoneIcon,
@@ -25,53 +26,73 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
+import { getSiteSettings } from "../../API/api";
 import contactImage from "./../../images/optimized/contact-us.webp";
 
-const contactItems = [
-  {
-    label: "Email",
-    value: "contact@happypawsbd.com",
-    href: "mailto:contact@happypawsbd.com",
-    icon: <EmailIcon />,
-  },
-  {
-    label: "Phone",
-    value: "+880 1983794542",
-    href: "tel:+8801983794542",
-    icon: <PhoneIcon />,
-  },
-  {
-    label: "Address",
-    value: "Dhaka, Bangladesh",
-    href: "https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh",
-    icon: <LocationIcon />,
-  },
-];
-
-const socialLinks = [
-  {
-    label: "Visit Happy Paws BD on Facebook",
-    href: "https://www.facebook.com/happypawsbd",
-    icon: <FacebookOutlinedIcon />,
-  },
-  {
-    label: "Visit Happy Paws BD on Instagram",
-    href: "https://www.instagram.com/happypawsbd",
-    icon: <InstagramIcon />,
-  },
-  {
-    label: "Visit Happy Paws BD on YouTube",
-    href: "https://www.youtube.com/@happypawsbd",
-    icon: <YouTubeIcon />,
-  },
-  {
-    label: "Open Happy Paws BD on Google Maps",
-    href: "https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh",
-    icon: <FmdGoodIcon />,
-  },
-];
-
 const Contact_Us = () => {
+  const { data: siteSettings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: getSiteSettings,
+    staleTime: 300_000,
+  });
+
+  const contactEmail = siteSettings?.contactEmail || "contact@happypawsbd.com";
+  const contactPhone = siteSettings?.contactPhone || "+880 1983794542";
+  const address = siteSettings?.address || "Dhaka, Bangladesh";
+  const mapUrl =
+    siteSettings?.mapUrl ||
+    "https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh";
+  const facebookUrl =
+    siteSettings?.facebookUrl || "https://www.facebook.com/happypawsbd";
+  const instagramUrl =
+    siteSettings?.instagramUrl || "https://www.instagram.com/happypawsbd";
+  const youtubeUrl =
+    siteSettings?.youtubeUrl || "https://www.youtube.com/@happypawsbd";
+
+  const contactItems = [
+    {
+      label: "Email",
+      value: contactEmail,
+      href: `mailto:${contactEmail}`,
+      icon: <EmailIcon />,
+    },
+    {
+      label: "Phone",
+      value: contactPhone,
+      href: `tel:${contactPhone.replace(/\s+/g, "")}`,
+      icon: <PhoneIcon />,
+    },
+    {
+      label: "Address",
+      value: address,
+      href: mapUrl,
+      icon: <LocationIcon />,
+    },
+  ];
+
+  const socialLinks = [
+    {
+      label: "Visit Happy Paws BD on Facebook",
+      href: facebookUrl,
+      icon: <FacebookOutlinedIcon />,
+    },
+    {
+      label: "Visit Happy Paws BD on Instagram",
+      href: instagramUrl,
+      icon: <InstagramIcon />,
+    },
+    {
+      label: "Visit Happy Paws BD on YouTube",
+      href: youtubeUrl,
+      icon: <YouTubeIcon />,
+    },
+    {
+      label: "Open Happy Paws BD on Google Maps",
+      href: mapUrl,
+      icon: <FmdGoodIcon />,
+    },
+  ];
+
   return (
     <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">

@@ -1,8 +1,12 @@
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import {
+  Alert,
   Box,
   Button,
   Chip,
   Grid,
+  MenuItem,
   Paper,
   Stack,
   TextField,
@@ -14,6 +18,7 @@ import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { alpha } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
+import { submitStory } from "../../../API/api";
 
 const storyTips = [
   "Tell us who the pet is and how you met.",
@@ -44,6 +49,57 @@ const storyThemes = [
 ];
 
 const Share_Your_Story = () => {
+  const [category, setCategory] = useState("community");
+  const [authorName, setAuthorName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [petName, setPetName] = useState("");
+  const [title, setTitle] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [story, setStory] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const submissionMutation = useMutation({
+    mutationFn: submitStory,
+    onSuccess: (result) => {
+      setSuccessMessage(
+        result?.message ||
+          "Thanks for sharing. Your story has been received for review."
+      );
+      setErrorMessage("");
+      setAuthorName("");
+      setContactEmail("");
+      setContactPhone("");
+      setPetName("");
+      setTitle("");
+      setExcerpt("");
+      setStory("");
+    },
+    onError: (error) => {
+      setSuccessMessage("");
+      setErrorMessage(
+        error?.response?.data?.message || "Could not submit your story."
+      );
+    },
+  });
+
+  const handleSubmit = async () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    await submissionMutation.mutateAsync({
+      category,
+      authorName,
+      contactEmail,
+      contactPhone,
+      petName,
+      title,
+      excerpt,
+      story,
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -94,13 +150,13 @@ const Share_Your_Story = () => {
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
                     <Button
                       component="a"
-                      href="mailto:contact@happypawsbd.com?subject=Share%20My%20Happy%20Paws%20BD%20Story"
+                      href="#story-form"
                       variant="contained"
                       color="success"
                       endIcon={<ArrowForwardOutlinedIcon />}
                       sx={{ textTransform: "none", fontWeight: 700 }}
                     >
-                      Send Your Story
+                      Submit Your Story
                     </Button>
                     <Button
                       component={RouterLink}
@@ -180,6 +236,7 @@ const Share_Your_Story = () => {
             <Grid item xs={12} lg={7}>
               <Paper
                 elevation={0}
+                id="story-form"
                 sx={{
                   p: { xs: 3, md: 4 },
                   borderRadius: 4,
@@ -193,35 +250,91 @@ const Share_Your_Story = () => {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     This first version gives visitors a strong place to begin.
-                    You can send the story by email now, and we can later
-                    connect this page to an admin-managed submission workflow.
+                    Your submission is reviewed by the admin team before it is
+                    published on the site.
                   </Typography>
 
-                  <TextField label="Your name" placeholder="Enter your name" />
+                  {successMessage ? (
+                    <Alert severity="success">{successMessage}</Alert>
+                  ) : null}
+
+                  {errorMessage ? (
+                    <Alert severity="warning">{errorMessage}</Alert>
+                  ) : null}
+
+                  <TextField
+                    select
+                    label="Submission type"
+                    value={category}
+                    onChange={(event) => setCategory(event.target.value)}
+                  >
+                    <MenuItem value="community">Community story</MenuItem>
+                    <MenuItem value="success">Success story</MenuItem>
+                    <MenuItem value="remembrance">Remembrance tribute</MenuItem>
+                  </TextField>
+
+                  <TextField
+                    label="Your name"
+                    placeholder="Enter your name"
+                    value={authorName}
+                    onChange={(event) => setAuthorName(event.target.value)}
+                    required
+                  />
+                  <TextField
+                    label="Contact email (optional)"
+                    placeholder="Enter your email"
+                    value={contactEmail}
+                    onChange={(event) => setContactEmail(event.target.value)}
+                  />
+                  <TextField
+                    label="Contact phone (optional)"
+                    placeholder="Enter your phone"
+                    value={contactPhone}
+                    onChange={(event) => setContactPhone(event.target.value)}
+                  />
+                  <TextField
+                    label="Pet name (optional)"
+                    placeholder="Enter pet name"
+                    value={petName}
+                    onChange={(event) => setPetName(event.target.value)}
+                  />
                   <TextField
                     label="Pet or story title"
                     placeholder="Example: Luna's second chance"
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
+                    required
                   />
                   <TextField
                     label="Short summary"
                     placeholder="A one or two sentence summary"
+                    value={excerpt}
+                    onChange={(event) => setExcerpt(event.target.value)}
                   />
                   <TextField
                     label="Your story"
                     placeholder="Write the story you want to share"
                     multiline
                     minRows={6}
+                    value={story}
+                    onChange={(event) => setStory(event.target.value)}
+                    required
                   />
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
                     <Button
-                      component="a"
-                      href="mailto:contact@happypawsbd.com?subject=Share%20My%20Happy%20Paws%20BD%20Story"
                       variant="contained"
                       color="success"
+                      onClick={handleSubmit}
+                      disabled={
+                        submissionMutation.isPending ||
+                        !authorName.trim() ||
+                        !title.trim() ||
+                        !story.trim()
+                      }
                       sx={{ textTransform: "none", fontWeight: 700 }}
                     >
-                      Send by Email
+                      {submissionMutation.isPending ? "Submitting..." : "Submit"}
                     </Button>
                     <Button
                       component={RouterLink}

@@ -1,9 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import PetsIcon from "@mui/icons-material/Pets";
 import BGImage from "./../../../src/images/BackgroundCurve.png";
+import { getSiteSettings } from "../../API/api";
 
 const Adopted = () => {
+  const { data: siteSettings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: getSiteSettings,
+    staleTime: 300_000,
+  });
+
+  const adoptedCount = siteSettings?.homeAdoptedCount || "1,040";
+  const adoptedLabel = siteSettings?.homeAdoptedLabel || "Animals Adopted";
+
   return (
     <Box
       className="myContainer"
@@ -47,7 +58,7 @@ const Adopted = () => {
           fontWeight={900}
           lineHeight={1.5}
         >
-          1,040
+          {adoptedCount}
         </Typography>
 
         <Typography
@@ -56,7 +67,7 @@ const Adopted = () => {
           fontWeight={700}
           lineHeight={1.5}
         >
-          Animals Adopted
+          {adoptedLabel}
         </Typography>
       </Box>
     </Box>

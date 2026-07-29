@@ -33,6 +33,25 @@ export const adminUpdateCredentials = async ({ username, password }) => {
   return response.data;
 };
 
+export const adminGetSiteSettings = async () => {
+  const response = await axiosInstance.get(
+    "/api/v1/admin/settings/site",
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminUpdateSiteSettings = async (payload) => {
+  const response = await axiosInstance.put(
+    "/api/v1/admin/settings/site",
+    payload,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
 export const adminGetDashboardCounts = async () => {
   const config = {
     ...adminRequestConfig(),
@@ -46,6 +65,7 @@ export const adminGetDashboardCounts = async () => {
     trainingPrograms,
     groomingPrograms,
     boardingPrograms,
+    stories,
     orders,
     consultations,
     volunteers,
@@ -63,6 +83,7 @@ export const adminGetDashboardCounts = async () => {
     axiosInstance.get("/api/v1/admin/catalog/programs/training", config),
     axiosInstance.get("/api/v1/admin/catalog/programs/grooming", config),
     axiosInstance.get("/api/v1/admin/catalog/programs/boarding", config),
+    axiosInstance.get("/api/v1/admin/content/stories", config),
     axiosInstance.get("/api/v1/admin/orders", config),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", config),
     axiosInstance.get("/api/v1/admin/requests/volunteers", config),
@@ -82,6 +103,7 @@ export const adminGetDashboardCounts = async () => {
     trainingPrograms: trainingPrograms.data.total,
     groomingPrograms: groomingPrograms.data.total,
     boardingPrograms: boardingPrograms.data.total,
+    stories: stories.data.total,
     orders: orders.data.total,
     onlineConsultations: consultations.data.total,
     volunteerApplications: volunteers.data.total,
@@ -104,6 +126,7 @@ export const adminGetRecentRequests = async () => {
   const [
     orders,
     consultations,
+    stories,
     volunteers,
     adoptions,
     training,
@@ -114,6 +137,7 @@ export const adminGetRecentRequests = async () => {
   ] = await Promise.all([
     axiosInstance.get("/api/v1/admin/orders", config),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", config),
+    axiosInstance.get("/api/v1/admin/content/stories", config),
     axiosInstance.get("/api/v1/admin/requests/volunteers", config),
     axiosInstance.get("/api/v1/admin/requests/adoptions", config),
     axiosInstance.get("/api/v1/admin/requests/enrollments/training", config),
@@ -126,6 +150,7 @@ export const adminGetRecentRequests = async () => {
   return {
     orders: orders.data.items ?? [],
     consultations: consultations.data.items ?? [],
+    stories: stories.data.items ?? [],
     volunteers: volunteers.data.items ?? [],
     adoptions: adoptions.data.items ?? [],
     enrollments: {
@@ -147,6 +172,7 @@ export const adminGetNewRequestCounts = async () => {
     volunteers,
     adoptions,
     reviews,
+    stories,
     training,
     grooming,
     boarding,
@@ -170,6 +196,10 @@ export const adminGetNewRequestCounts = async () => {
       params: { page: 1, limit: 1, status: "new" },
     }),
     axiosInstance.get("/api/v1/admin/requests/reviews", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 1, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/content/stories", {
       ...adminRequestConfig(),
       params: { page: 1, limit: 1, status: "new" },
     }),
@@ -201,6 +231,7 @@ export const adminGetNewRequestCounts = async () => {
     volunteers: volunteers.data.total ?? 0,
     adoptions: adoptions.data.total ?? 0,
     reviews: reviews.data.total ?? 0,
+    stories: stories.data.total ?? 0,
     enrollments:
       (training.data.total ?? 0) +
       (grooming.data.total ?? 0) +
@@ -311,6 +342,43 @@ export const adminUpsertProgram = async ({ type, payload }) => {
 export const adminDeleteProgram = async ({ type, id }) => {
   const response = await axiosInstance.delete(
     `/api/v1/admin/catalog/programs/${type}/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminListStories = async ({ page, limit, q, status, category }) => {
+  const response = await axiosInstance.get("/api/v1/admin/content/stories", {
+    ...adminRequestConfig(),
+    params: { page, limit, q, status, category },
+  });
+
+  return response.data;
+};
+
+export const adminGetStory = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/content/stories/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminUpsertStory = async (payload) => {
+  const response = await axiosInstance.post(
+    "/api/v1/admin/content/stories",
+    payload,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminDeleteStory = async (id) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/admin/content/stories/${id}`,
     adminRequestConfig()
   );
 
@@ -558,6 +626,7 @@ export const adminGetNewRequestsFeed = async () => {
     volunteers,
     adoptions,
     reviews,
+    stories,
     training,
     grooming,
     boarding,
@@ -581,6 +650,10 @@ export const adminGetNewRequestsFeed = async () => {
       params: { page: 1, limit: 3, status: "new" },
     }),
     axiosInstance.get("/api/v1/admin/requests/reviews", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 3, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/content/stories", {
       ...adminRequestConfig(),
       params: { page: 1, limit: 3, status: "new" },
     }),
@@ -612,6 +685,7 @@ export const adminGetNewRequestsFeed = async () => {
     volunteers: volunteers.data.items ?? [],
     adoptions: adoptions.data.items ?? [],
     reviews: reviews.data.items ?? [],
+    stories: stories.data.items ?? [],
     enrollments: {
       training: training.data.items ?? [],
       grooming: grooming.data.items ?? [],

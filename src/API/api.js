@@ -199,6 +199,16 @@ export const getPrograms = async (type, params) =>
 export const getProgram = async (type, id) =>
   getWithWarmup(`/api/v1/programs/${type}/${id}`);
 
+export const getStories = async (params) =>
+  getWithWarmup("/api/v1/stories", createQueryConfig(params));
+
+export const submitStory = async (payload) => {
+  const response = await axiosInstance.post("/api/v1/stories", payload);
+  return response.data;
+};
+
+export const getSiteSettings = async () => getWithWarmup("/api/v1/site-settings");
+
 export const requestOnlineConsultation = async (payload) => {
   await waitForApiReady();
   const response = await axiosInstance.post("/api/v1/consultations/online", payload);

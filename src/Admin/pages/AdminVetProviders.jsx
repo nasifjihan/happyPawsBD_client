@@ -395,6 +395,7 @@ const AdminVetProviders = () => {
         searchPlaceholder="Search by name, location, division, city, or email"
         resultCount={data?.total ?? 0}
         helperText="Matched providers across all pages"
+        onReset={handleResetFilters}
       >
         <TextField
           select
@@ -442,14 +443,6 @@ const AdminVetProviders = () => {
             </MenuItem>
           ))}
         </TextField>
-
-        <Button
-          variant="outlined"
-          onClick={handleResetFilters}
-          sx={{ borderRadius: 3, fontWeight: 800, minWidth: { xs: "100%", md: 120 } }}
-        >
-          Reset
-        </Button>
       </AdminFilterToolbar>
 
       <Grid container spacing={3}>

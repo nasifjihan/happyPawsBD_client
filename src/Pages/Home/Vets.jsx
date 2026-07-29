@@ -2,9 +2,11 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Box, Card, Chip, Link, Stack, Typography } from "@mui/material";
-import vets from "../../API/vets.json";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
+import { getVetProviders } from "../../API/api";
+import { sanitizeImageUrl } from "../../lib/media";
 
 // Custom Left Arrow
 const CustomLeftArrow = ({ onClick }) => (
@@ -83,6 +85,14 @@ const CustomDot = ({ onClick, ...rest }) => {
 };
 
 const Vets = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["home", "vet-providers", { page: 1, limit: 12 }],
+    queryFn: () => getVetProviders({ page: 1, limit: 12 }),
+    staleTime: 300_000,
+  });
+
+  const vets = data?.items ?? [];
+
   return (
     <Box className="myContainer" my={10} textAlign={"center"}>
       <Chip
@@ -109,6 +119,16 @@ const Vets = () => {
       </Typography>
 
       <Box sx={{ position: "relative" }}>
+        {isLoading ? (
+          <Typography color="primary.para" sx={{ mt: 3 }}>
+            Loading...
+          </Typography>
+        ) : isError ? (
+          <Typography color="primary.para" sx={{ mt: 3 }}>
+            Could not load veterinary authors.
+          </Typography>
+        ) : null}
+
         <Carousel
           customLeftArrow={<CustomLeftArrow />}
           customRightArrow={<CustomRightArrow />}
@@ -167,7 +187,7 @@ const Vets = () => {
         >
           {vets.map((item) => (
             <Box
-              key={item.id}
+              key={item._id || item.id}
               position="relative"
               sx={{
                 width: 250,
@@ -176,8 +196,8 @@ const Vets = () => {
               }}
             >
               <OptimizedImage
-                src={item.picture}
-                alt={item.name}
+                src={sanitizeImageUrl(item.image)}
+                alt={item.title || "Veterinary author"}
                 style={{
                   width: "100px",
                   height: "130px",
@@ -206,7 +226,7 @@ const Vets = () => {
                     fontWeight={700}
                     component="div"
                   >
-                    {item.name}
+                    {item.title || "Veterinary Author"}
                   </Typography>
 
                   <Typography
@@ -216,7 +236,7 @@ const Vets = () => {
                     fontWeight={700}
                     component="div"
                   >
-                    {item.specialization}
+                    {item.position || "Vet Partner"}
                   </Typography>
 
                   <Typography
@@ -226,7 +246,7 @@ const Vets = () => {
                     fontWeight={500}
                     component="div"
                   >
-                    {item.location}
+                    {item.City || item.location || "Bangladesh"}
                   </Typography>
 
                   <Typography
@@ -236,7 +256,9 @@ const Vets = () => {
                     fontWeight={500}
                     component="div"
                   >
-                    {item.contact}
+                    {Array.isArray(item.contact)
+                      ? item.contact[0]
+                      : item.contact || ""}
                   </Typography>
 
                   <Box
@@ -251,7 +273,17 @@ const Vets = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <Link href={item.details} underline="none" color="inherit">
+                    <Link
+                      href={item.map_link || item.website || "/vet_finder"}
+                      underline="none"
+                      color="inherit"
+                      target={item.map_link || item.website ? "_blank" : undefined}
+                      rel={
+                        item.map_link || item.website
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                    >
                       - Learn More
                     </Link>
                   </Box>

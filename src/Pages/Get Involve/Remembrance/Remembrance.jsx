@@ -1,7 +1,13 @@
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Button,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Grid,
   Paper,
   Stack,
@@ -14,6 +20,7 @@ import CandlestickChartOutlinedIcon from "@mui/icons-material/CandlestickChartOu
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { alpha } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
+import { getStories } from "../../../API/api";
 
 const remembranceIdeas = [
   {
@@ -44,6 +51,19 @@ const tributePrompts = [
 ];
 
 const Remembrance = () => {
+  const [selectedTribute, setSelectedTribute] = useState(null);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["stories", "remembrance", "featured"],
+    queryFn: () =>
+      getStories({
+        category: "remembrance",
+        featured: true,
+        page: 1,
+        limit: 6,
+      }),
+  });
+
+  const tributes = useMemo(() => data?.items ?? [], [data?.items]);
   return (
     <Box
       sx={{
@@ -188,6 +208,73 @@ const Remembrance = () => {
           >
             <Stack spacing={2}>
               <Typography variant="h5" fontWeight={800}>
+                Community tributes
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Tributes are reviewed and published by the admin team to keep this
+                space respectful and supportive.
+              </Typography>
+
+              {isLoading ? (
+                <Typography color="text.secondary">Loading tributes...</Typography>
+              ) : isError ? (
+                <Typography color="text.secondary">
+                  Tributes are unavailable right now.
+                </Typography>
+              ) : tributes.length ? (
+                <Grid container spacing={2}>
+                  {tributes.map((entry) => (
+                    <Grid item xs={12} md={6} key={entry._id || entry.id}>
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 2.5,
+                          borderRadius: 3,
+                          height: "100%",
+                          borderColor: alpha("#2e7d32", 0.12),
+                        }}
+                      >
+                        <Stack spacing={1}>
+                          <Typography fontWeight={800}>
+                            {entry.title || "Tribute"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {entry.excerpt ||
+                              String(entry.story || "").slice(0, 140) + "..."}
+                          </Typography>
+                          <Box pt={0.5}>
+                            <Button
+                              size="small"
+                              color="success"
+                              onClick={() => setSelectedTribute(entry)}
+                            >
+                              Read tribute
+                            </Button>
+                          </Box>
+                        </Stack>
+                      </Paper>
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : (
+                <Typography color="text.secondary">
+                  No tributes have been published yet.
+                </Typography>
+              )}
+            </Stack>
+          </Paper>
+
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 3, md: 4 },
+              borderRadius: 4,
+              border: "1px solid",
+              borderColor: alpha("#2e7d32", 0.1),
+            }}
+          >
+            <Stack spacing={2}>
+              <Typography variant="h5" fontWeight={800}>
                 Why this page matters
               </Typography>
               <Typography variant="body1" color="text.secondary">
@@ -205,6 +292,42 @@ const Remembrance = () => {
           </Paper>
         </Stack>
       </Box>
+
+      <Dialog
+        open={Boolean(selectedTribute)}
+        onClose={() => setSelectedTribute(null)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle sx={{ fontWeight: 900 }}>
+          {selectedTribute?.title || "Tribute"}
+        </DialogTitle>
+        <DialogContent dividers>
+          <Stack spacing={1.5}>
+            {selectedTribute?.petName ? (
+              <Typography variant="body2" color="text.secondary">
+                Pet: {selectedTribute.petName}
+              </Typography>
+            ) : null}
+            {selectedTribute?.authorName ? (
+              <Typography variant="body2" color="text.secondary">
+                By {selectedTribute.authorName}
+              </Typography>
+            ) : null}
+            <Typography
+              variant="body1"
+              sx={{ whiteSpace: "pre-line", color: "text.primary" }}
+            >
+              {selectedTribute?.story || ""}
+            </Typography>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setSelectedTribute(null)} color="success">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

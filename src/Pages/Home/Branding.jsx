@@ -7,10 +7,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import Banner from "./../../images/optimized/banner2.webp";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
+import { getSiteSettings } from "../../API/api";
+import { sanitizeImageUrl } from "../../lib/media";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({
   // height: "60vh",
@@ -28,6 +31,22 @@ const BrandingWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const Branding = () => {
+  const { data: siteSettings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: getSiteSettings,
+    staleTime: 300_000,
+  });
+
+  const heroBadge = siteSettings?.homeHeroBadge || "Trusted Pet Care Platform";
+  const heroTitle =
+    siteSettings?.homeHeroTitle ||
+    "Better care, adoption support, and trusted guidance for every pet family";
+  const heroSubtitle =
+    siteSettings?.homeHeroSubtitle ||
+    "Happy Paws BD brings together pet care services, adoption pathways, rescue support, and veterinary discovery so families can find the right next step without jumping between disconnected resources.";
+  const heroImageUrl = sanitizeImageUrl(siteSettings?.homeHeroImageUrl);
+  const heroImageAlt = siteSettings?.homeHeroImageAlt || "Happy Paws BD hero banner";
+
   return (
     <Box className="myContainer">
       <BrandingWrapper>
@@ -39,7 +58,7 @@ const Branding = () => {
           textAlign={{ xs: "center", md: "left" }}
         >
           <Chip
-            label="Trusted Pet Care Platform"
+            label={heroBadge}
             color="success"
             variant="outlined"
             sx={{ fontWeight: 700 }}
@@ -50,7 +69,7 @@ const Branding = () => {
             color="primary.headline"
             sx={{ lineHeight: 1.2, fontWeight: "900" }}
           >
-            Better care, adoption support, and trusted guidance for every pet family
+            {heroTitle}
           </Typography>
 
           <Typography
@@ -58,12 +77,8 @@ const Branding = () => {
             color="text.secondary"
             sx={{ lineHeight: 1.5, maxWidth: 620 }}
           >
-            Happy Paws BD brings together pet care services, adoption pathways,
-            rescue support, and veterinary discovery so families can find the right
-            next step without jumping between disconnected resources.
+            {heroSubtitle}
           </Typography>
-
-          
 
           <ButtonGroup
             variant="contained"
@@ -84,7 +99,7 @@ const Branding = () => {
               to="/petcare"
               sx={{ flex: "1", fontWeight: "700" }}
             >
-                  Pet Care
+              Pet Care
             </Button>
             <Button
               component={RouterLink}
@@ -105,8 +120,8 @@ const Branding = () => {
           }}
         >
           <OptimizedImage
-            src={Banner}
-            alt="Happy Paws BD hero banner"
+            src={heroImageUrl || Banner}
+            alt={heroImageAlt}
             loading="eager"
             fetchPriority="high"
             style={{ width: "100%" }}

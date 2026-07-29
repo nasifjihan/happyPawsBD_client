@@ -9,8 +9,10 @@ import {
   Stack,
 } from "@mui/material";
 import { green } from "@mui/material/colors";
+import { useQuery } from "@tanstack/react-query";
 import { Link as RouterLink } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { getSiteSettings } from "../../API/api";
 
 import NasifIcon from "./../../images/optimized/nasif.webp";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
@@ -22,6 +24,26 @@ import EmailIcon from "@mui/icons-material/Email";
 
 const Footer = () => {
   const { user } = useUserAuth();
+  const { data: siteSettings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: getSiteSettings,
+    staleTime: 300_000,
+  });
+
+  const brandName = siteSettings?.brandName || "Happy Paws BD";
+  const facebookUrl =
+    siteSettings?.facebookUrl || "https://www.facebook.com/happypawsbd";
+  const instagramUrl =
+    siteSettings?.instagramUrl || "https://www.instagram.com/happypawsbd";
+  const youtubeUrl =
+    siteSettings?.youtubeUrl || "https://www.youtube.com/@happypawsbd";
+  const mapUrl =
+    siteSettings?.mapUrl ||
+    "https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh";
+  const contactEmail = siteSettings?.contactEmail || "contact@happypawsbd.com";
+  const mapEmbedUrl =
+    siteSettings?.mapEmbedUrl ||
+    "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3651.815358466866!2d90.43777407440786!3d23.753962888641347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjPCsDQ1JzE0LjMiTiA5MMKwMjYnMjUuMyJF!5e0!3m2!1sen!2sbd!4v1692904836509!5m2!1sen!2sbd";
 
   const sitemapLinks = [
     { label: "Home", to: "/" },
@@ -64,7 +86,7 @@ const Footer = () => {
               <img src={HPBDLogo} alt="Happy Paws BD" width={150} />
             </Typography>
             <Typography fontWeight={900} variant="h5" gutterBottom>
-              Happy Paws BD{" "}
+              {brandName}{" "}
             </Typography>
 
             <Typography
@@ -85,7 +107,7 @@ const Footer = () => {
                 justifyContent="space-evenly"
               >
                 <a
-                  href="https://www.facebook.com/happypawsbd"
+                  href={facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit Happy Paws BD on Facebook"
@@ -96,7 +118,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://www.instagram.com/happypawsbd"
+                  href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit Happy Paws BD on Instagram"
@@ -107,7 +129,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://www.youtube.com/@happypawsbd"
+                  href={youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Visit Happy Paws BD on YouTube"
@@ -118,7 +140,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=Happy%20Paws%20BD%20Dhaka%20Bangladesh"
+                  href={mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open Happy Paws BD location on Google Maps"
@@ -129,7 +151,7 @@ const Footer = () => {
                 </a>
 
                 <a
-                  href="mailto:contact@happypawsbd.com"
+                  href={`mailto:${contactEmail}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open email contact for Happy Paws BD"
@@ -194,7 +216,7 @@ const Footer = () => {
             {/* Google Map Embed */}
             <iframe
               title="Happy Paws BD location map"
-              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3651.815358466866!2d90.43777407440786!3d23.753962888641347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjPCsDQ1JzE0LjMiTiA5MMKwMjYnMjUuMyJF!5e0!3m2!1sen!2sbd!4v1692904836509!5m2!1sen!2sbd"
+              src={mapEmbedUrl}
               style={{
                 border: 1,
                 borderColor: "black",

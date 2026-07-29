@@ -1,7 +1,13 @@
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Button,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Grid,
   Paper,
   Stack,
@@ -14,6 +20,7 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import { alpha } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
+import { getStories } from "../../../API/api";
 
 const milestones = [
   {
@@ -56,6 +63,19 @@ const progressSteps = [
 ];
 
 const Our_Success_Story = () => {
+  const [selectedStory, setSelectedStory] = useState(null);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["stories", "success", "featured"],
+    queryFn: () =>
+      getStories({
+        category: "success",
+        featured: true,
+        page: 1,
+        limit: 6,
+      }),
+  });
+
+  const stories = useMemo(() => data?.items ?? [], [data?.items]);
   return (
     <Box
       sx={{
@@ -224,6 +244,73 @@ const Our_Success_Story = () => {
               borderColor: alpha("#2e7d32", 0.1),
             }}
           >
+            <Stack spacing={2}>
+              <Typography variant="h5" fontWeight={800}>
+                Featured success stories
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                These stories are managed from the admin panel so they stay up to
+                date as new rescues, recoveries, and adoptions happen.
+              </Typography>
+
+              {isLoading ? (
+                <Typography color="text.secondary">Loading stories...</Typography>
+              ) : isError ? (
+                <Typography color="text.secondary">
+                  Stories are unavailable right now.
+                </Typography>
+              ) : stories.length ? (
+                <Grid container spacing={2}>
+                  {stories.map((entry) => (
+                    <Grid item xs={12} md={6} key={entry._id || entry.id}>
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 2.5,
+                          borderRadius: 3,
+                          height: "100%",
+                          borderColor: alpha("#2e7d32", 0.12),
+                        }}
+                      >
+                        <Stack spacing={1}>
+                          <Typography fontWeight={800}>
+                            {entry.title || "Story"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {entry.excerpt ||
+                              String(entry.story || "").slice(0, 140) + "..."}
+                          </Typography>
+                          <Box pt={0.5}>
+                            <Button
+                              size="small"
+                              color="success"
+                              onClick={() => setSelectedStory(entry)}
+                            >
+                              Read full story
+                            </Button>
+                          </Box>
+                        </Stack>
+                      </Paper>
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : (
+                <Typography color="text.secondary">
+                  No stories have been published yet.
+                </Typography>
+              )}
+            </Stack>
+          </Paper>
+
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 3, md: 4 },
+              borderRadius: 4,
+              border: "1px solid",
+              borderColor: alpha("#2e7d32", 0.1),
+            }}
+          >
             <Grid container spacing={3} alignItems="center">
               <Grid item xs={12} md={8}>
                 <Stack spacing={1.25}>
@@ -267,6 +354,42 @@ const Our_Success_Story = () => {
           </Paper>
         </Stack>
       </Box>
+
+      <Dialog
+        open={Boolean(selectedStory)}
+        onClose={() => setSelectedStory(null)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle sx={{ fontWeight: 900 }}>
+          {selectedStory?.title || "Story"}
+        </DialogTitle>
+        <DialogContent dividers>
+          <Stack spacing={1.5}>
+            {selectedStory?.petName ? (
+              <Typography variant="body2" color="text.secondary">
+                Pet: {selectedStory.petName}
+              </Typography>
+            ) : null}
+            {selectedStory?.authorName ? (
+              <Typography variant="body2" color="text.secondary">
+                By {selectedStory.authorName}
+              </Typography>
+            ) : null}
+            <Typography
+              variant="body1"
+              sx={{ whiteSpace: "pre-line", color: "text.primary" }}
+            >
+              {selectedStory?.story || ""}
+            </Typography>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setSelectedStory(null)} color="success">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

@@ -230,6 +230,15 @@ const AdminDashboard = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
+            label="Stories"
+            value={data?.stories ?? 0}
+            helper={
+              (newCounts?.stories ?? 0) > 0 ? `New: ${newCounts.stories}` : ""
+            }
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
             label="Orders"
             value={data?.orders ?? 0}
             helper={
@@ -564,6 +573,26 @@ const AdminDashboard = () => {
 
                 <Grid item xs={12} md={6} lg={4}>
                   <Stack spacing={1.5}>
+                    <Typography fontWeight={900}>Stories</Typography>
+                    {(newRequestsFeed?.stories ?? []).slice(0, 3).map((story) => (
+                      <RecentRow
+                        key={story._id || story.id}
+                        title={story.title || "Story"}
+                        subtitle={`${story.authorName || "Community"} • ${formatDateTime(story.createdAt)}`}
+                        status={story.status || "new"}
+                        to={`/admin/content/stories?category=${story.category || "community"}&status=new`}
+                      />
+                    ))}
+                    {(newRequestsFeed?.stories ?? []).length ? null : (
+                      <Typography variant="body2" color="text.secondary">
+                        No new story submissions.
+                      </Typography>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={4}>
+                  <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Enrollments</Typography>
                     {(newRequestsFeed?.enrollments?.training ?? []).slice(0, 1).map((item) => (
                       <RecentRow
@@ -650,7 +679,7 @@ const AdminDashboard = () => {
                     Recent Requests
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Latest items across orders and requests.
+                    Latest items across orders, requests, and stories.
                   </Typography>
                 </Box>
                 <Stack direction="row" spacing={1.25}>
@@ -676,7 +705,7 @@ const AdminDashboard = () => {
               </Stack>
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} alignItems="center">
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -708,7 +737,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} alignItems="center">
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -735,6 +764,38 @@ const AdminDashboard = () => {
                     {(recentRequests?.consultations ?? []).length ? null : (
                       <Typography variant="body2" color="text.secondary">
                         No consultation requests yet.
+                      </Typography>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <Stack spacing={1.5}>
+                    <Stack direction="row" spacing={1.25} alignItems="center">
+                      <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
+                        <Typography fontWeight={900} color="common.white">
+                          S
+                        </Typography>
+                      </Avatar>
+                      <Box>
+                        <Typography fontWeight={900}>Stories</Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Latest submissions and updates
+                        </Typography>
+                      </Box>
+                    </Stack>
+                    {(recentRequests?.stories ?? []).slice(0, 3).map((story) => (
+                      <RecentRow
+                        key={story._id || story.id}
+                        title={story.title || "Story"}
+                        subtitle={`${story.authorName || "Community"} • ${formatDateTime(story.createdAt)}`}
+                        status={story.status || "draft"}
+                        to={`/admin/content/stories?category=${story.category || "community"}`}
+                      />
+                    ))}
+                    {(recentRequests?.stories ?? []).length ? null : (
+                      <Typography variant="body2" color="text.secondary">
+                        No stories yet.
                       </Typography>
                     )}
                   </Stack>

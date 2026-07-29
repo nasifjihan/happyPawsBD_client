@@ -26,6 +26,7 @@ const navItems = [
   { label: "Shop Items", to: "/admin/catalog/shop-items" },
   { label: "Vet Providers", to: "/admin/catalog/vets" },
   { label: "Programs", to: "/admin/catalog/programs" },
+  { label: "Stories", to: "/admin/content/stories" },
   { label: "Adoptable Animals", to: "/admin/adoption/animals" },
   { label: "Orders", to: "/admin/requests/orders" },
   { label: "Online Consultations", to: "/admin/requests/consultations/online" },
@@ -75,6 +76,10 @@ const AdminLayout = () => {
 
     if (to === "/admin/requests/reviews") {
       return newCounts.reviews ?? 0;
+    }
+
+    if (to === "/admin/content/stories") {
+      return newCounts.stories ?? 0;
     }
 
     if (to === "/admin/requests/enrollments") {

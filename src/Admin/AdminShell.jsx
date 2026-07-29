@@ -17,6 +17,7 @@ import AdminOrders from "./pages/AdminOrders";
 import AdminReviewDetails from "./pages/AdminReviewDetails";
 import AdminReviews from "./pages/AdminReviews";
 import AdminSettings from "./pages/AdminSettings";
+import AdminStories from "./pages/AdminStories";
 import AdminVolunteerRequestDetails from "./pages/AdminVolunteerRequestDetails";
 import AdminVolunteerRequests from "./pages/AdminVolunteerRequests";
 import AdoptionRequestsAdmin from "./pages/AdoptionRequestsAdmin";
@@ -36,6 +37,7 @@ const AdminShell = () => (
         <Route path="catalog/shop-items" element={<ShopItemsAdmin />} />
         <Route path="catalog/vets" element={<AdminVetProviders />} />
         <Route path="catalog/programs" element={<AdminPrograms />} />
+        <Route path="content/stories" element={<AdminStories />} />
         <Route path="adoption/animals" element={<AdoptableAnimalsAdmin />} />
         <Route path="requests/orders" element={<AdminOrders />} />
         <Route path="requests/orders/:id" element={<AdminOrderDetails />} />

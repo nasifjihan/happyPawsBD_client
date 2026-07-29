@@ -10,6 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
@@ -25,6 +26,7 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import { alpha } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
+import { getSiteSettings } from "../../../API/api";
 
 const donationMethods = [
   {
@@ -97,10 +99,15 @@ const supportOptions = [
   "Corporate or group donations",
 ];
 
-const bkashNumber = "+880 1983794542";
-const supportEmail = "contact@happypawsbd.com";
-
 const Make_Donation = () => {
+  const { data: siteSettings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: getSiteSettings,
+    staleTime: 300_000,
+  });
+
+  const bkashNumber = siteSettings?.donationBkashNumber || "+880 1983794542";
+  const supportEmail = siteSettings?.donationEmail || siteSettings?.contactEmail || "contact@happypawsbd.com";
   return (
     <Box
       sx={{
