@@ -20,19 +20,31 @@ import {
   adminListVolunteerApplications,
   adminUpdateVolunteerApplication,
 } from "../lib/adminApi";
+import { useAdminListQueryState } from "../lib/useAdminListQueryState";
 
 const statuses = ["new", "reviewed", "contacted", "closed"];
 
 const AdminVolunteerRequests = () => {
-  const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const {
+    page,
+    setPage,
+    q: searchTerm,
+    setQ: setSearchTerm,
+    status: statusFilter,
+    setStatus: setStatusFilter,
+  } = useAdminListQueryState({ statusOptions: statuses });
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["admin", "volunteers", page],
-    queryFn: () => adminListVolunteerApplications({ page, limit: 20 }),
+    queryKey: ["admin", "volunteers", { page, q: searchTerm, status: statusFilter }],
+    queryFn: () =>
+      adminListVolunteerApplications({
+        page,
+        limit: 20,
+        status: statusFilter === "all" ? undefined : statusFilter,
+        q: searchTerm.trim() || undefined,
+      }),
     keepPreviousData: true,
   });
 
@@ -47,26 +59,6 @@ const AdminVolunteerRequests = () => {
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message || "Could not load volunteer applications.";
-  const filteredItems = items.filter((item) => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
-    const effectiveStatus = edits[item._id] || item.status || "new";
-    const matchesQuery =
-      !normalizedQuery ||
-      [
-        item.fullName,
-        item.preferredRole,
-        item.contactEmail,
-        item.contactPhone,
-        item.city,
-        item.timeCommitment,
-        item.preferredContactMethod,
-        item.preferredContactTime,
-      ]
-        .filter(Boolean)
-        .some((value) => String(value).toLowerCase().includes(normalizedQuery));
-
-    return matchesQuery && (statusFilter === "all" || effectiveStatus === statusFilter);
-  });
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -90,21 +82,32 @@ const AdminVolunteerRequests = () => {
 
       <AdminFilterToolbar
         searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
+        onSearchChange={(value) => {
+          setSearchTerm(value);
+          setPage(1);
+        }}
         searchPlaceholder="Search by volunteer name, role, email, phone, or city"
         statusValue={statusFilter}
-        onStatusChange={setStatusFilter}
+        onStatusChange={(value) => {
+          setStatusFilter(value);
+          setPage(1);
+        }}
         statusOptions={statuses}
-        resultCount={filteredItems.length}
-        helperText="Volunteer requests on the current page"
+        resultCount={data?.total ?? 0}
+        helperText="Matched volunteer requests across all pages"
+        onReset={() => {
+          setSearchTerm("");
+          setStatusFilter("all");
+          setPage(1);
+        }}
       />
 
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography color="text.secondary">Loading...</Typography>
-          ) : filteredItems.length ? (
-            filteredItems.map((item) => (
+          ) : items.length ? (
+            items.map((item) => (
               <Paper
                 key={item._id}
                 variant="outlined"

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -12,14 +13,51 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import PetBoardingAPI from "./../../../API/petBoarding.json";
+import { getPrograms } from "../../../API/api";
 
 const PetBoardingAll = () => {
   const navigate = useNavigate();
+  const [programs, setPrograms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
   const handleBoarding = (id) => {
     navigate(`/petcare/boarding/${id}`);
   };
+
+  useEffect(() => {
+    let isActive = true;
+
+    (async () => {
+      try {
+        setIsLoading(true);
+        const response = await getPrograms("boarding", { page: 1, limit: 200 });
+
+        if (!isActive) {
+          return;
+        }
+
+        setPrograms(response?.items ?? []);
+        setLoadError("");
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        setLoadError(
+          error?.response?.data?.message || "Could not load boarding programs."
+        );
+      } finally {
+        if (isActive) {
+          setIsLoading(false);
+        }
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   return (
     <Box className="myContainer" sx={{ py: 4 }}>
@@ -38,7 +76,20 @@ const PetBoardingAll = () => {
         </Paper>
 
         <Grid container spacing={3}>
-          {PetBoardingAPI.map((item) => (
+          {isLoading ? (
+            <Grid item xs={12}>
+              <Paper sx={{ p: 3, borderRadius: 4 }}>
+                <Typography color="text.secondary">
+                  Loading boarding services...
+                </Typography>
+              </Paper>
+            </Grid>
+          ) : loadError ? (
+            <Grid item xs={12}>
+              <Alert severity="warning">{loadError}</Alert>
+            </Grid>
+          ) : programs.length ? (
+            programs.map((item) => (
             <Grid item xs={12} sm={6} md={4} key={item.id}>
               <Card
                 sx={{
@@ -88,7 +139,12 @@ const PetBoardingAll = () => {
                 </CardActionArea>
               </Card>
             </Grid>
-          ))}
+            ))
+          ) : (
+            <Grid item xs={12}>
+              <Alert severity="info">No boarding programs available yet.</Alert>
+            </Grid>
+          )}
         </Grid>
       </Stack>
     </Box>

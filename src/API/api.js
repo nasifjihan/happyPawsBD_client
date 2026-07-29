@@ -186,3 +186,30 @@ export const getAdoptableAnimal = async (code) =>
 
 export const getShopItems = async () =>
   getWithWarmup("/api/v1/catalog/shop-items");
+
+export const getVetProviders = async (params) =>
+  getWithWarmup("/api/v1/vets", createQueryConfig(params));
+
+export const getVetDirectoryMeta = async (params) =>
+  getWithWarmup("/api/v1/vets/meta", createQueryConfig(params));
+
+export const getPrograms = async (type, params) =>
+  getWithWarmup(`/api/v1/programs/${type}`, createQueryConfig(params));
+
+export const getProgram = async (type, id) =>
+  getWithWarmup(`/api/v1/programs/${type}/${id}`);
+
+export const requestOnlineConsultation = async (payload) => {
+  await waitForApiReady();
+  const response = await axiosInstance.post("/api/v1/consultations/online", payload);
+  return response.data;
+};
+
+export const submitReview = async (payload) => {
+  await waitForApiReady();
+  const response = await axiosInstance.post("/api/v1/reviews", payload);
+  return response.data;
+};
+
+export const getApprovedReviews = async (params) =>
+  getWithWarmup("/api/v1/reviews", createQueryConfig(params));

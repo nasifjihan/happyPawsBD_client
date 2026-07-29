@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Box,
@@ -18,60 +18,93 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { alpha } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
 
-const sampleReviews = [
-  {
-    name: "Happy Paws Supporter",
-    rating: 5,
-    title: "Quick rescue help and kind guidance",
-    message:
-      "The team responded fast and gave clear instructions. The follow-up support made a difficult situation much easier.",
-  },
-  {
-    name: "Adoption Family",
-    rating: 5,
-    title: "A thoughtful adoption experience",
-    message:
-      "We felt supported from the first message to the final adoption step. Our pet settled in beautifully and we got great care tips.",
-  },
-  {
-    name: "Volunteer",
-    rating: 4,
-    title: "Meaningful work with real impact",
-    message:
-      "The tasks are practical and the team communicates well. It’s rewarding to help in transport and community outreach.",
-  },
-];
-
-const reviewEmail = "contact@happypawsbd.com";
+import { getApprovedReviews, submitReview } from "../../../API/api";
 
 const Reviews = () => {
   const [rating, setRating] = useState(5);
   const [name, setName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [publishedReviews, setPublishedReviews] = useState([]);
+  const [isLoadingPublished, setIsLoadingPublished] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
-  const mailtoHref = useMemo(() => {
-    const subject = encodeURIComponent("Happy Paws BD Review");
-    const body = encodeURIComponent(
-      `Name: ${name}\nRating: ${rating}/5\nTitle: ${title}\n\nReview:\n${message}\n`
-    );
+  useEffect(() => {
+    let isActive = true;
 
-    return `mailto:${reviewEmail}?subject=${subject}&body=${body}`;
-  }, [message, name, rating, title]);
+    (async () => {
+      try {
+        setIsLoadingPublished(true);
+        const response = await getApprovedReviews({ page: 1, limit: 6 });
 
-  const canSubmit = Boolean(message.trim()) && Boolean(title.trim());
+        if (!isActive) {
+          return;
+        }
 
-  const handleSend = () => {
-    if (!canSubmit) {
+        setPublishedReviews(response?.items ?? []);
+        setLoadError("");
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        setLoadError(
+          error?.response?.data?.message || "Could not load community reviews."
+        );
+      } finally {
+        if (isActive) {
+          setIsLoadingPublished(false);
+        }
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const canSubmit = useMemo(
+    () =>
+      Boolean(name.trim()) &&
+      Boolean(title.trim()) &&
+      Boolean(message.trim()) &&
+      Number(rating) > 0,
+    [message, name, rating, title]
+  );
+
+  const handleSend = async () => {
+    if (!canSubmit || isSubmitting) {
       return;
     }
 
-    setShowSuccess(true);
-    setName("");
-    setTitle("");
-    setMessage("");
-    setRating(5);
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      await submitReview({
+        fullName: name.trim(),
+        contactEmail: contactEmail.trim() ? contactEmail.trim() : undefined,
+        rating,
+        title: title.trim(),
+        message: message.trim(),
+      });
+      setShowSuccess(true);
+      setName("");
+      setContactEmail("");
+      setTitle("");
+      setMessage("");
+      setRating(5);
+    } catch (error) {
+      setSubmitError(
+        error?.response?.data?.message || "Could not submit your review."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -199,14 +232,20 @@ const Reviews = () => {
                     Leave a review
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Reviews are collected via email for now. Later we can
-                    connect this page to an admin-managed review workflow.
+                    Reviews are moderated before publishing. Submissions help us
+                    improve and build trust with the community.
                   </Typography>
 
                   <TextField
-                    label="Your name (optional)"
+                    label="Your name"
+                    required
                     value={name}
                     onChange={(event) => setName(event.target.value)}
+                  />
+                  <TextField
+                    label="Email (optional)"
+                    value={contactEmail}
+                    onChange={(event) => setContactEmail(event.target.value)}
                   />
                   <TextField
                     label="Review title"
@@ -236,23 +275,25 @@ const Reviews = () => {
                     onChange={(event) => setMessage(event.target.value)}
                   />
 
+                  {submitError ? (
+                    <Alert severity="warning">{submitError}</Alert>
+                  ) : null}
+
                   {!canSubmit ? (
                     <Alert severity="info">
-                      Add a title and a review message to enable sending.
+                      Add your name, title, and review message to submit.
                     </Alert>
                   ) : null}
 
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
                     <Button
-                      component="a"
-                      href={mailtoHref}
                       onClick={handleSend}
                       variant="contained"
                       color="success"
-                      disabled={!canSubmit}
+                      disabled={!canSubmit || isSubmitting}
                       sx={{ textTransform: "none", fontWeight: 700 }}
                     >
-                      Send Review by Email
+                      {isSubmitting ? "Submitting..." : "Submit Review"}
                     </Button>
                     <Button
                       component={RouterLink}
@@ -284,16 +325,29 @@ const Reviews = () => {
                       Recent community notes
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      These are sample reviews until we publish verified
-                      community submissions.
+                      Verified reviews are published after moderation.
                     </Typography>
                   </Stack>
                 </Paper>
 
                 <Stack spacing={2} sx={{ flex: 1 }}>
-                  {sampleReviews.map((review) => (
+                  {loadError ? (
+                    <Alert severity="warning">{loadError}</Alert>
+                  ) : null}
+
+                  {isLoadingPublished ? (
+                    <Typography color="text.secondary">Loading reviews...</Typography>
+                  ) : null}
+
+                  {!isLoadingPublished && !publishedReviews.length ? (
+                    <Typography color="text.secondary">
+                      No verified reviews published yet.
+                    </Typography>
+                  ) : null}
+
+                  {publishedReviews.map((review) => (
                     <Paper
-                      key={review.title}
+                      key={review._id || review.title}
                       elevation={0}
                       sx={{
                         p: 3,
@@ -303,19 +357,19 @@ const Reviews = () => {
                       }}
                     >
                       <Stack spacing={1}>
-                        <Typography fontWeight={800}>{review.title}</Typography>
+                        <Typography fontWeight={800}>{review.title || "Review"}</Typography>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Rating
-                            value={review.rating}
+                            value={Number(review.rating || 0)}
                             readOnly
                             size="small"
                           />
                           <Typography variant="body2" color="text.secondary">
-                            {review.name}
+                            {review.fullName || "Community member"}
                           </Typography>
                         </Stack>
                         <Typography variant="body2" color="text.secondary">
-                          {review.message}
+                          {review.message || ""}
                         </Typography>
                       </Stack>
                     </Paper>
@@ -338,7 +392,7 @@ const Reviews = () => {
           onClose={() => setShowSuccess(false)}
           sx={{ width: "100%" }}
         >
-          Review draft prepared. Your email app will send it to Happy Paws BD.
+          Review submitted. We’ll publish it after admin approval.
         </Alert>
       </Snackbar>
     </Box>

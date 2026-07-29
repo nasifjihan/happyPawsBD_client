@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Alert,
@@ -14,13 +14,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useUserAuth } from "../../../context/UserAuthContext";
-import PetBoardingAPI from "./../../../API/petBoarding.json";
-import { boardingApplication } from "../../../API/api";
+import { boardingApplication, getProgram } from "../../../API/api";
 import ContentState from "../../../Components/Common/ContentState";
 
 const PetBoardingDetails = () => {
   const { id } = useParams();
   const { user } = useUserAuth();
+  const [item, setItem] = useState(null);
+  const [isLoadingItem, setIsLoadingItem] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const [boarding, setBoarding] = useState({
     name: "",
     contactEmail: "",
@@ -34,11 +36,6 @@ const PetBoardingDetails = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const item = useMemo(
-    () => PetBoardingAPI.find((program) => program.id === Number.parseInt(id, 10)),
-    [id]
-  );
-
   useEffect(() => {
     if (!user) {
       return;
@@ -50,6 +47,41 @@ const PetBoardingDetails = () => {
       contactEmail: user.email || current.contactEmail,
     }));
   }, [user]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    (async () => {
+      try {
+        setIsLoadingItem(true);
+        const response = await getProgram("boarding", id);
+
+        if (!isActive) {
+          return;
+        }
+
+        setItem(response || null);
+        setLoadError("");
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        setItem(null);
+        setLoadError(
+          error?.response?.data?.message || "Could not load this boarding program."
+        );
+      } finally {
+        if (isActive) {
+          setIsLoadingItem(false);
+        }
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, [id]);
 
   const handleChange = (event) => {
     setBoarding({ ...boarding, [event.target.name]: event.target.value });
@@ -95,12 +127,27 @@ const PetBoardingDetails = () => {
     }
   };
 
+  if (isLoadingItem) {
+    return (
+      <Box className="myContainer" sx={{ my: 5 }}>
+        <Paper sx={{ p: 3, borderRadius: 4 }}>
+          <Typography color="text.secondary">
+            Loading boarding program...
+          </Typography>
+        </Paper>
+      </Box>
+    );
+  }
+
   if (!item) {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
         <ContentState
           title="Boarding program not found"
-          description="The boarding option you requested is unavailable or may have moved. Please return to the boarding page and choose another option."
+          description={
+            loadError ||
+            "The boarding option you requested is unavailable or may have moved. Please return to the boarding page and choose another option."
+          }
           actionLabel="Back to Boarding"
           actionTo="/petcare/boarding"
           severity="warning"

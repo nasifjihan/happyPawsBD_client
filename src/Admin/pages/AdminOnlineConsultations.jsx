@@ -17,14 +17,14 @@ import { Link as RouterLink } from "react-router-dom";
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import AdminStatusChip from "../components/AdminStatusChip";
 import {
-  adminListAdoptionApplications,
-  adminUpdateAdoptionApplication,
+  adminListOnlineConsultations,
+  adminUpdateOnlineConsultation,
 } from "../lib/adminApi";
 import { useAdminListQueryState } from "../lib/useAdminListQueryState";
 
-const statuses = ["new", "reviewed", "contacted", "approved", "rejected", "closed"];
+const statuses = ["new", "reviewed", "confirmed", "completed", "cancelled"];
 
-const AdoptionRequestsAdmin = () => {
+const AdminOnlineConsultations = () => {
   const {
     page,
     setPage,
@@ -37,9 +37,9 @@ const AdoptionRequestsAdmin = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["admin", "adoptions", { page, q: searchTerm, status: statusFilter }],
+    queryKey: ["admin", "online-consultations", { page, q: searchTerm, status: statusFilter }],
     queryFn: () =>
-      adminListAdoptionApplications({
+      adminListOnlineConsultations({
         page,
         limit: 20,
         status: statusFilter === "all" ? undefined : statusFilter,
@@ -49,16 +49,16 @@ const AdoptionRequestsAdmin = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: adminUpdateAdoptionApplication,
+    mutationFn: adminUpdateOnlineConsultation,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "adoptions"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "online-consultations"] });
     },
   });
 
   const items = data?.items ?? [];
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
-    error?.response?.data?.message || "Could not load adoption applications.";
+    error?.response?.data?.message || "Could not load online consultations.";
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -68,10 +68,10 @@ const AdoptionRequestsAdmin = () => {
   return (
     <Box>
       <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
-        Adoption Requests
+        Online Consultations
       </Typography>
       <Typography color="text.secondary" sx={{ mb: 3 }}>
-        Review adoption applications and update status.
+        Review appointment requests and confirm the schedule.
       </Typography>
 
       {isError ? (
@@ -86,7 +86,7 @@ const AdoptionRequestsAdmin = () => {
           setSearchTerm(value);
           setPage(1);
         }}
-        searchPlaceholder="Search by applicant, animal code, email, phone, or animal type"
+        searchPlaceholder="Search by name, phone, pet type, doctor, or concern"
         statusValue={statusFilter}
         onStatusChange={(value) => {
           setStatusFilter(value);
@@ -94,7 +94,7 @@ const AdoptionRequestsAdmin = () => {
         }}
         statusOptions={statuses}
         resultCount={data?.total ?? 0}
-        helperText="Matched adoption requests across all pages"
+        helperText="Matched online consultation requests across all pages"
         onReset={() => {
           setSearchTerm("");
           setStatusFilter("all");
@@ -108,11 +108,7 @@ const AdoptionRequestsAdmin = () => {
             <Typography color="text.secondary">Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
-              <Paper
-                key={item._id}
-                variant="outlined"
-                sx={{ p: 2, borderRadius: 3 }}
-              >
+              <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   justifyContent="space-between"
@@ -121,14 +117,21 @@ const AdoptionRequestsAdmin = () => {
                 >
                   <Box>
                     <Typography fontWeight={900}>
-                      {item.adopterName || "Applicant"} • {item.animalCode || ""}
+                      {item.fullName || "Client"} • {item.petType || "Pet"}
+                      {item.petName ? ` (${item.petName})` : ""}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {item.contactEmail || ""} • {item.contactPhone || ""} •{" "}
-                      {item.animalType || ""}
+                      {item.contactPhone || ""}{" "}
+                      {item.contactEmail ? `• ${item.contactEmail}` : ""}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {item.address || ""} • {item.experience || "No adoption experience added"}
+                      {[
+                        item.consultationMode ? `Mode: ${item.consultationMode}` : null,
+                        item.preferredDoctor ? `Doctor: ${item.preferredDoctor}` : null,
+                        item.preferredSlot ? `Slot: ${item.preferredSlot}` : null,
+                      ]
+                        .filter(Boolean)
+                        .join(" • ")}
                     </Typography>
                   </Box>
 
@@ -137,7 +140,7 @@ const AdoptionRequestsAdmin = () => {
                     <Button
                       variant="outlined"
                       component={RouterLink}
-                      to={`/admin/requests/adoptions/${item._id}`}
+                      to={`/admin/requests/consultations/online/${item._id}`}
                       endIcon={<ArrowForwardOutlinedIcon />}
                       sx={{ borderRadius: 3, fontWeight: 800 }}
                     >
@@ -161,7 +164,6 @@ const AdoptionRequestsAdmin = () => {
                         </MenuItem>
                       ))}
                     </TextField>
-
                     <Button
                       variant="contained"
                       color="success"
@@ -177,7 +179,7 @@ const AdoptionRequestsAdmin = () => {
             ))
           ) : (
             <Typography color="text.secondary">
-              No adoption applications matched your filters.
+              No online consultations matched your filters.
             </Typography>
           )}
 
@@ -197,4 +199,4 @@ const AdoptionRequestsAdmin = () => {
   );
 };
 
-export default AdoptionRequestsAdmin;
+export default AdminOnlineConsultations;

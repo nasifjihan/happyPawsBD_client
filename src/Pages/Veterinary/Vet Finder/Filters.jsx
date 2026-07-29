@@ -5,68 +5,19 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-const divisions = [
-  "Dhaka",
-  "Barishal",
-  "Chattogram",
-  "Khulna",
-  "Rajshahi",
-  "Rangpur",
-  "Mymensingh",
-  "Sylhet",
-];
-const cities = [
-  // "Panthopath",
-  // "Azimpur",
-  // "Nilkhet",
-  // "Lalbagh",
-  "Gulistan",
-  // "Paltan",
-  // "Shantinagar",
-  "Shahbag",
-  "Khilgaon",
-  "Bashabo",
-  "Elephant Road",
-  // "Farmgate",
-  // "Motijheel",
-  // "Shymoli",
-  "Mohammadpur",
-  "Gazipur",
-  "Bashundhara R/A",
-  // "Kuril",
-  // "Banani",
-  "Khilkhet",
-  // "Natun Bazar",
-  "Badda",
-  "Banglamotor",
-  // "Tongi",
-  "Khilgaon",
-  // "Rampura",
-  // "Niketon",
-  // "Tejgaon",
-  "Mohakhali",
-  "Puran Dhaka",
-  // "Malibag",
-  // "Jatrabari",
-  "Banasree",
-  "Dhanmondi",
-  "Uttara",
-  "Demra",
-  // "Keraniganj",
-  "Mohammadpur",
-  "Mirpur",
-  // "Nikunja",
-  "Baridhara",
-  "Lalmatia",
-  // "Gulshan-1",
-  "Gulshan-2",
-];
-
 const Filters = ({
+  divisions,
+  cities,
+  districts,
   division,
   city,
+  district,
+  isLoadingDivisions,
+  isLoadingCities,
+  isLoadingDistricts,
   handleDivisionChange,
   handleCityChange,
+  handleDistrictChange,
 }) => {
   return (
     <Box sx={{ my: 2, display: "flex", justifyContent: "center", gap: 2 }}>
@@ -97,14 +48,19 @@ const Filters = ({
           <MenuItem value="">
             <strong>None</strong>
           </MenuItem>
-          {divisions.map((div) => (
+          {isLoadingDivisions ? (
+            <MenuItem value="" disabled>
+              Loading...
+            </MenuItem>
+          ) : null}
+          {(divisions ?? []).map((div) => (
             <MenuItem key={div} value={div}>
               {div}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      <FormControl sx={{ minWidth: 120 }} disabled={division !== "Dhaka"}>
+      <FormControl sx={{ minWidth: 120 }} disabled={!division || !(cities ?? []).length}>
         <InputLabel id="city-select-label">City</InputLabel>
         <Select
           labelId="city-select-label"
@@ -131,9 +87,53 @@ const Filters = ({
           <MenuItem value="">
             <strong>None</strong>
           </MenuItem>
-          {cities.map((cty) => (
+          {isLoadingCities ? (
+            <MenuItem value="" disabled>
+              Loading...
+            </MenuItem>
+          ) : null}
+          {(cities ?? []).map((cty) => (
             <MenuItem key={cty} value={cty}>
               {cty}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl sx={{ minWidth: 140 }} disabled={!division || !city || !(districts ?? []).length}>
+        <InputLabel id="district-select-label">District</InputLabel>
+        <Select
+          labelId="district-select-label"
+          id="district-select"
+          value={district}
+          label="District"
+          onChange={(e) => handleDistrictChange(e.target.value)}
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: 400,
+              },
+            },
+            anchorOrigin: {
+              vertical: "bottom",
+              horizontal: "left",
+            },
+            transformOrigin: {
+              vertical: "top",
+              horizontal: "left",
+            },
+          }}
+        >
+          <MenuItem value="">
+            <strong>None</strong>
+          </MenuItem>
+          {isLoadingDistricts ? (
+            <MenuItem value="" disabled>
+              Loading...
+            </MenuItem>
+          ) : null}
+          {(districts ?? []).map((entry) => (
+            <MenuItem key={entry} value={entry}>
+              {entry}
             </MenuItem>
           ))}
         </Select>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Box,
   Typography,
   Grid,
@@ -8,12 +9,16 @@ import {
   CardMedia,
   Divider,
   CardActionArea,
+  Paper,
 } from "@mui/material";
-import PetBoardingAPI from "./../../../API/petBoarding.json";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getPrograms } from "../../../API/api";
 
 const PetBoarding = () => {
   const navigate = useNavigate();
+  const [programs, setPrograms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
   const handleViewAll = () => {
     window.scrollTo(0, 0); // Scroll to top
@@ -23,6 +28,40 @@ const PetBoarding = () => {
   const handledaycare = (id) => {
     navigate(`/petcare/boarding/${id}`);
   };
+
+  useEffect(() => {
+    let isActive = true;
+
+    (async () => {
+      try {
+        setIsLoading(true);
+        const response = await getPrograms("boarding", { page: 1, limit: 50 });
+
+        if (!isActive) {
+          return;
+        }
+
+        setPrograms(response?.items ?? []);
+        setLoadError("");
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        setLoadError(
+          error?.response?.data?.message || "Could not load boarding programs."
+        );
+      } finally {
+        if (isActive) {
+          setIsLoading(false);
+        }
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   return (
     <Box my={6}>
@@ -62,8 +101,22 @@ const PetBoarding = () => {
       <Divider />
 
       <Grid container spacing={4} pt={3}>
+        {isLoading ? (
+          <Grid item xs={12}>
+            <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Typography color="text.secondary">
+                Loading boarding programs...
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : loadError ? (
+          <Grid item xs={12}>
+            <Alert severity="warning">{loadError}</Alert>
+          </Grid>
+        ) : programs.length ? (
+          <>
         {/* Main Article */}
-        {PetBoardingAPI.slice(0, 1).map((item) => (
+        {programs.slice(0, 1).map((item) => (
           <Grid item xs={12} md={6} key={item.id}>
             <Card
               sx={{
@@ -94,7 +147,7 @@ const PetBoarding = () => {
         {/* Side Articles */}
         <Grid item xs={12} md={6}>
           <Grid container spacing={4}>
-            {PetBoardingAPI.slice(1, 5).map((item) => (
+            {programs.slice(1, 5).map((item) => (
               <Grid item xs={6} key={item.id}>
                 <Card
                   sx={{
@@ -131,6 +184,12 @@ const PetBoarding = () => {
             ))}
           </Grid>
         </Grid>
+          </>
+        ) : (
+          <Grid item xs={12}>
+            <Alert severity="info">No boarding programs available yet.</Alert>
+          </Grid>
+        )}
       </Grid>
     </Box>
   );

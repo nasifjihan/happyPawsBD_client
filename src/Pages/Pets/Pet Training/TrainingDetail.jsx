@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Alert,
@@ -14,46 +14,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useUserAuth } from "../../../context/UserAuthContext";
-import Training from "./../../../API/training.json";
-import { trainingApplication } from "../../../API/api";
+import { getProgram, trainingApplication } from "../../../API/api";
 import ContentState from "../../../Components/Common/ContentState";
-
-const programMeta = {
-  1: {
-    duration: "6 weeks",
-    price: "BDT 4,500",
-    covers: "Sit, stay, recall, leash manners, and owner communication basics.",
-  },
-  2: {
-    duration: "4 weeks",
-    price: "BDT 3,000",
-    covers: "Routine building, potty cues, crate support, and home consistency tips.",
-  },
-  3: {
-    duration: "5 weeks",
-    price: "BDT 3,800",
-    covers: "Loose-leash walking, outdoor focus, and calmer public walks.",
-  },
-  4: {
-    duration: "5 weeks",
-    price: "BDT 4,000",
-    covers: "Confidence building, healthy introductions, and positive exposure work.",
-  },
-  5: {
-    duration: "8 weeks",
-    price: "BDT 6,000",
-    covers: "Behavior assessment, redirection plans, and ongoing owner guidance.",
-  },
-  6: {
-    duration: "Custom schedule",
-    price: "Consultation required",
-    covers: "Trainer assessment, suitability review, and closely supervised guidance.",
-  },
-};
 
 const TrainingDetail = () => {
   const { id } = useParams();
   const { user } = useUserAuth();
+  const [item, setItem] = useState(null);
+  const [isLoadingItem, setIsLoadingItem] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const [training, setTraining] = useState({
     name: "",
     contactEmail: "",
@@ -67,13 +36,6 @@ const TrainingDetail = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const item = useMemo(
-    () => Training.find((program) => program.id === Number.parseInt(id, 10)),
-    [id]
-  );
-
-  const itemMeta = item ? programMeta[item.id] : null;
-
   useEffect(() => {
     if (!user) {
       return;
@@ -85,6 +47,41 @@ const TrainingDetail = () => {
       contactEmail: user.email || current.contactEmail,
     }));
   }, [user]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    (async () => {
+      try {
+        setIsLoadingItem(true);
+        const response = await getProgram("training", id);
+
+        if (!isActive) {
+          return;
+        }
+
+        setItem(response || null);
+        setLoadError("");
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        setItem(null);
+        setLoadError(
+          error?.response?.data?.message || "Could not load this training program."
+        );
+      } finally {
+        if (isActive) {
+          setIsLoadingItem(false);
+        }
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, [id]);
 
   const handleChange = (event) => {
     setTraining({ ...training, [event.target.name]: event.target.value });
@@ -130,12 +127,25 @@ const TrainingDetail = () => {
     }
   };
 
+  if (isLoadingItem) {
+    return (
+      <Box className="myContainer" sx={{ my: 5 }}>
+        <Paper sx={{ p: 3, borderRadius: 4 }}>
+          <Typography color="text.secondary">Loading training program...</Typography>
+        </Paper>
+      </Box>
+    );
+  }
+
   if (!item) {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
         <ContentState
           title="Training program not found"
-          description="The program you requested is unavailable or may have moved. Please return to the training page and choose another option."
+          description={
+            loadError ||
+            "The program you requested is unavailable or may have moved. Please return to the training page and choose another option."
+          }
           actionLabel="Back to Training"
           actionTo="/pet_training"
           severity="warning"
@@ -194,14 +204,15 @@ const TrainingDetail = () => {
 
                 <Box>
                   <Typography variant="body1" paragraph>
-                    <strong>Duration:</strong> {itemMeta?.duration || "To be confirmed"}
+                    <strong>Duration:</strong> {item.duration || "To be confirmed"}
                   </Typography>
                   <Typography variant="body1" paragraph>
-                    <strong>Price:</strong> {itemMeta?.price || "To be confirmed"}
+                    <strong>Price:</strong> {item.price || "To be confirmed"}
                   </Typography>
                   <Typography variant="body1">
                     <strong>Program Covers:</strong>{" "}
-                    {itemMeta?.covers || "Training details will be shared after enrollment."}
+                    {item.programCovers ||
+                      "Training details will be shared after enrollment."}
                   </Typography>
                 </Box>
               </Stack>

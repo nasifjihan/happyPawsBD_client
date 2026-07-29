@@ -1,0 +1,338 @@
+[
+  {
+    "type": "Dog",
+    "summary": "Dogs are social companion animals that usually need regular exercise, training, and human interaction.",
+    "idealFor": "Families, active owners, and people who want a highly interactive pet",
+    "commonNeeds": ["Daily walks", "Basic training", "Social time", "Routine grooming"],
+    "breeds": [
+      {
+        "name": "Golden Retriever",
+        "origin": "Scotland",
+        "size": "Large",
+        "lifespan": "10-12 years",
+        "temperament": ["Friendly", "Intelligent", "Gentle"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "High",
+        "groomingNeeds": "Moderate",
+        "goodFor": "Families with children and owners who can provide daily activity",
+        "highlights": "Golden Retrievers are known for their trainability, calm nature, and reliable family temperament."
+      },
+      {
+        "name": "German Shepherd",
+        "origin": "Germany",
+        "size": "Large",
+        "lifespan": "9-13 years",
+        "temperament": ["Loyal", "Alert", "Confident"],
+        "careLevel": "High",
+        "exerciseNeeds": "High",
+        "groomingNeeds": "Moderate",
+        "goodFor": "Experienced owners who want a smart, active, and protective dog",
+        "highlights": "German Shepherds are highly trainable and thrive with structure, exercise, and mental engagement."
+      },
+      {
+        "name": "Beagle",
+        "origin": "England",
+        "size": "Medium",
+        "lifespan": "12-15 years",
+        "temperament": ["Curious", "Friendly", "Energetic"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Homes that enjoy playful dogs and can manage scent-driven curiosity",
+        "highlights": "Beagles are cheerful, compact hounds that usually do best with regular walks and enrichment."
+      },
+      {
+        "name": "Poodle",
+        "origin": "Germany/France",
+        "size": "Small to Large",
+        "lifespan": "12-15 years",
+        "temperament": ["Smart", "Responsive", "Active"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "High",
+        "goodFor": "Owners who want a bright, trainable dog and can maintain coat care",
+        "highlights": "Poodles are intelligent and adaptable, but their coat needs regular brushing and grooming."
+      }
+    ]
+  },
+  {
+    "type": "Cat",
+    "summary": "Cats are independent but affectionate companions that need stable routines, safe spaces, and environmental enrichment.",
+    "idealFor": "Apartment homes, quieter households, and people who prefer a lower-maintenance companion",
+    "commonNeeds": ["Clean litter box", "Scratching outlets", "Interactive toys", "Routine health checks"],
+    "breeds": [
+      {
+        "name": "Persian",
+        "origin": "Persia",
+        "size": "Medium",
+        "lifespan": "12-17 years",
+        "temperament": ["Calm", "Quiet", "Affectionate"],
+        "careLevel": "High",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "High",
+        "goodFor": "Calm homes that can handle frequent coat and eye care",
+        "highlights": "Persian cats are gentle indoor companions, but they need consistent grooming and a clean environment."
+      },
+      {
+        "name": "Maine Coon",
+        "origin": "United States",
+        "size": "Large",
+        "lifespan": "12-15 years",
+        "temperament": ["Friendly", "Playful", "Adaptable"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Moderate",
+        "goodFor": "Families wanting a social cat with a larger build and playful nature",
+        "highlights": "Maine Coons are often easygoing and social, with long coats that benefit from regular brushing."
+      },
+      {
+        "name": "British Shorthair",
+        "origin": "United Kingdom",
+        "size": "Medium",
+        "lifespan": "12-20 years",
+        "temperament": ["Calm", "Independent", "Steady"],
+        "careLevel": "Low",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners looking for a balanced indoor cat with a calm routine",
+        "highlights": "British Shorthairs are sturdy, calm cats that are usually easy to manage in indoor homes."
+      },
+      {
+        "name": "Siamese",
+        "origin": "Thailand",
+        "size": "Medium",
+        "lifespan": "12-18 years",
+        "temperament": ["Vocal", "Social", "Intelligent"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Homes that want an interactive cat and can give regular attention",
+        "highlights": "Siamese cats are expressive, people-oriented, and often prefer regular companionship."
+      }
+    ]
+  },
+  {
+    "type": "Bird",
+    "summary": "Pet birds need clean cages, mental stimulation, safe handling, and species-appropriate social interaction.",
+    "idealFor": "Owners who enjoy observation, daily cage care, and vocal or social companion pets",
+    "commonNeeds": ["Fresh seed/pellet plan", "Clean cage", "Perches and toys", "Quiet sleep routine"],
+    "breeds": [
+      {
+        "name": "Budgerigar",
+        "origin": "Australia",
+        "size": "Small",
+        "lifespan": "7-15 years",
+        "temperament": ["Social", "Curious", "Active"],
+        "careLevel": "Low",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Beginners who want a smaller companion bird with daily interaction",
+        "highlights": "Budgies are popular starter birds and benefit from social contact, toys, and gentle handling."
+      },
+      {
+        "name": "Cockatiel",
+        "origin": "Australia",
+        "size": "Small to Medium",
+        "lifespan": "15-20 years",
+        "temperament": ["Gentle", "Affectionate", "Responsive"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Homes wanting a friendly bird that bonds with human caretakers",
+        "highlights": "Cockatiels are affectionate birds that often enjoy routine interaction and quiet training."
+      },
+      {
+        "name": "Lovebird",
+        "origin": "Africa",
+        "size": "Small",
+        "lifespan": "10-15 years",
+        "temperament": ["Playful", "Energetic", "Attached"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners who can provide regular social attention and enrichment",
+        "highlights": "Lovebirds are active and engaging, but they can become stressed without enough stimulation."
+      },
+      {
+        "name": "African Grey Parrot",
+        "origin": "Central Africa",
+        "size": "Medium",
+        "lifespan": "40-60 years",
+        "temperament": ["Highly intelligent", "Sensitive", "Observant"],
+        "careLevel": "High",
+        "exerciseNeeds": "High",
+        "groomingNeeds": "Low",
+        "goodFor": "Experienced bird owners ready for a long-term, mentally demanding companion",
+        "highlights": "African Greys are brilliant parrots that need extensive mental stimulation and stable care routines."
+      }
+    ]
+  },
+  {
+    "type": "Rabbit",
+    "summary": "Rabbits are sensitive prey animals that need gentle handling, hay-based diets, and safe indoor spaces.",
+    "idealFor": "Quiet homes that can provide safe enclosure space and patient handling",
+    "commonNeeds": ["Unlimited hay", "Safe enclosure", "Chew-safe environment", "Gentle daily checks"],
+    "breeds": [
+      {
+        "name": "Holland Lop",
+        "origin": "Netherlands",
+        "size": "Small",
+        "lifespan": "7-12 years",
+        "temperament": ["Sweet", "Gentle", "Playful"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Families wanting a small indoor rabbit with daily gentle interaction",
+        "highlights": "Holland Lops are compact and friendly, but still need space to move and a proper hay-based diet."
+      },
+      {
+        "name": "Mini Rex",
+        "origin": "United States",
+        "size": "Small to Medium",
+        "lifespan": "8-12 years",
+        "temperament": ["Calm", "Curious", "Friendly"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Homes that want a rabbit with a shorter coat and steady temperament",
+        "highlights": "Mini Rex rabbits are known for their soft coat and manageable grooming needs."
+      },
+      {
+        "name": "Lionhead",
+        "origin": "Belgium",
+        "size": "Small",
+        "lifespan": "8-10 years",
+        "temperament": ["Lively", "Bright", "Friendly"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Moderate",
+        "goodFor": "Owners who like an expressive rabbit and can maintain coat care",
+        "highlights": "Lionheads have a distinctive mane and benefit from regular brushing around the face and neck."
+      },
+      {
+        "name": "Flemish Giant",
+        "origin": "Belgium",
+        "size": "Large",
+        "lifespan": "8-10 years",
+        "temperament": ["Docile", "Calm", "Gentle"],
+        "careLevel": "High",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners with enough space for a large rabbit and careful handling routines",
+        "highlights": "Flemish Giants are impressive in size and need larger housing, larger litter setups, and careful lifting."
+      }
+    ]
+  },
+  {
+    "type": "Fish",
+    "summary": "Aquarium pets need stable water conditions, species-compatible tank mates, and consistent maintenance.",
+    "idealFor": "People who enjoy low-handling pets and can maintain a clean, stable tank system",
+    "commonNeeds": ["Filtered tank", "Water testing", "Compatible tank mates", "Consistent feeding"],
+    "breeds": [
+      {
+        "name": "Betta",
+        "origin": "Southeast Asia",
+        "size": "Small",
+        "lifespan": "3-5 years",
+        "temperament": ["Territorial", "Active", "Showy"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "Low",
+        "goodFor": "Smaller aquariums with proper heating and owners who want a single-feature fish",
+        "highlights": "Bettas are beautiful but still need heated, filtered water and should not be treated as bowl pets."
+      },
+      {
+        "name": "Goldfish",
+        "origin": "China",
+        "size": "Small to Large",
+        "lifespan": "10-15 years",
+        "temperament": ["Calm", "Hardy", "Messy"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners willing to provide larger tanks and regular water maintenance",
+        "highlights": "Goldfish create significant waste, so they need more tank space and filtration than many people expect."
+      },
+      {
+        "name": "Guppy",
+        "origin": "South America",
+        "size": "Small",
+        "lifespan": "2-3 years",
+        "temperament": ["Active", "Colorful", "Community-friendly"],
+        "careLevel": "Low",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "Low",
+        "goodFor": "Beginners building peaceful community tanks",
+        "highlights": "Guppies are colorful and adaptable, but they reproduce quickly and need stable water quality."
+      },
+      {
+        "name": "Angelfish",
+        "origin": "Amazon Basin",
+        "size": "Medium",
+        "lifespan": "8-10 years",
+        "temperament": ["Graceful", "Semi-aggressive", "Observant"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners with taller tanks and a little experience with community compatibility",
+        "highlights": "Angelfish need calm tank conditions and enough room due to their body shape and fin size."
+      }
+    ]
+  },
+  {
+    "type": "Small Pets",
+    "summary": "Hamsters, guinea pigs, and similar small companions need secure habitats, clean bedding, and species-specific diets.",
+    "idealFor": "Owners who want smaller pets but can still commit to habitat care and gentle handling",
+    "commonNeeds": ["Proper cage size", "Safe bedding", "Chew toys", "Species-specific diet"],
+    "breeds": [
+      {
+        "name": "Syrian Hamster",
+        "origin": "Syria",
+        "size": "Small",
+        "lifespan": "2-3 years",
+        "temperament": ["Solitary", "Curious", "Nocturnal"],
+        "careLevel": "Low",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners who understand solitary housing and nighttime activity",
+        "highlights": "Syrian hamsters should live alone and need wheels, tunnels, and chew toys for enrichment."
+      },
+      {
+        "name": "Dwarf Hamster",
+        "origin": "Central Asia",
+        "size": "Very Small",
+        "lifespan": "1.5-3 years",
+        "temperament": ["Quick", "Alert", "Active"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Low",
+        "goodFor": "Owners comfortable with small, fast-moving pets and secure enclosures",
+        "highlights": "Dwarf hamsters are tiny and active, so enclosure safety and careful handling matter a lot."
+      },
+      {
+        "name": "Guinea Pig",
+        "origin": "South America",
+        "size": "Small to Medium",
+        "lifespan": "5-7 years",
+        "temperament": ["Gentle", "Social", "Vocal"],
+        "careLevel": "Moderate",
+        "exerciseNeeds": "Low",
+        "groomingNeeds": "Low to Moderate",
+        "goodFor": "Homes that can keep them in compatible pairs and provide fresh vegetables",
+        "highlights": "Guinea pigs are social animals that usually do best with companionship and steady routines."
+      },
+      {
+        "name": "Chinchilla",
+        "origin": "Andes Mountains",
+        "size": "Small",
+        "lifespan": "10-15 years",
+        "temperament": ["Quiet", "Sensitive", "Agile"],
+        "careLevel": "High",
+        "exerciseNeeds": "Medium",
+        "groomingNeeds": "Specialized",
+        "goodFor": "Experienced owners who can provide cool environments and dust-bath care",
+        "highlights": "Chinchillas are delicate small pets that need cool temperatures, jumping space, and dust baths."
+      }
+    ]
+  }
+]

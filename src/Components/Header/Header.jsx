@@ -32,8 +32,6 @@ const navSections = [
     items: [
       { label: "Pet Info", to: "/pet_info" },
       { label: "Pet Care", to: "/petcare" },
-      { label: "Daycare", to: "/petcare" },
-      { label: "Boarding", to: "/petcare/boarding" },
       { label: "Pet Training", to: "/pet_training" },
       { label: "Adoption", to: "/adoption" },
       { label: "Rescue Alert", to: "/rescue_alert" },

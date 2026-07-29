@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Alert,
   Box,
   Button,
+  Chip,
   MenuItem,
   Pagination,
   Paper,
@@ -13,10 +14,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import AdminStatusChip from "../components/AdminStatusChip";
 import {
+  adminGetNewLostFoundCounts,
   adminListLostFoundReports,
   adminUpdateLostFoundReport,
 } from "../lib/adminApi";
@@ -28,17 +31,96 @@ const reportTypes = [
 
 const statuses = ["new", "reviewed", "resolved", "closed"];
 
+const normalizeLostFoundType = (value) => {
+  const normalizedValue = String(value || "").trim();
+  const exists = reportTypes.some((entry) => entry.value === normalizedValue);
+  return exists ? normalizedValue : "lost-pets";
+};
+
+const normalizePositiveInteger = (value, fallback) => {
+  const normalizedValue = Number.parseInt(value, 10);
+
+  if (Number.isNaN(normalizedValue) || normalizedValue <= 0) {
+    return fallback;
+  }
+
+  return normalizedValue;
+};
+
+const normalizeStatusFilter = (value) => {
+  const normalizedValue = String(value || "").trim();
+
+  if (!normalizedValue || normalizedValue === "all") {
+    return "all";
+  }
+
+  return statuses.includes(normalizedValue) ? normalizedValue : "all";
+};
+
 const AdminLostFound = () => {
-  const [type, setType] = useState("lost-pets");
-  const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const paramType = searchParams.get("type");
+  const paramPage = searchParams.get("page");
+  const paramQuery = searchParams.get("q");
+  const paramStatus = searchParams.get("status");
+  const [type, setType] = useState(() => normalizeLostFoundType(paramType));
+  const [page, setPage] = useState(() => normalizePositiveInteger(paramPage, 1));
+  const [searchTerm, setSearchTerm] = useState(() => paramQuery || "");
+  const [statusFilter, setStatusFilter] = useState(() =>
+    normalizeStatusFilter(paramStatus)
+  );
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
 
+  const { data: newCounts } = useQuery({
+    queryKey: ["admin", "lost-found", "new-counts"],
+    queryFn: adminGetNewLostFoundCounts,
+  });
+
+  useEffect(() => {
+    const nextType = normalizeLostFoundType(paramType);
+    if (nextType !== type) {
+      setType(nextType);
+      setPage(1);
+      setSearchTerm("");
+      setStatusFilter("all");
+      setEdits({});
+    }
+  }, [paramType, type]);
+
+  useEffect(() => {
+    const nextParams = {};
+
+    if (type) {
+      nextParams.type = type;
+    }
+
+    if (page > 1) {
+      nextParams.page = String(page);
+    }
+
+    const trimmedQuery = searchTerm.trim();
+    if (trimmedQuery) {
+      nextParams.q = trimmedQuery;
+    }
+
+    if (statusFilter && statusFilter !== "all") {
+      nextParams.status = statusFilter;
+    }
+
+    setSearchParams(nextParams, { replace: true });
+  }, [page, searchTerm, setSearchParams, statusFilter, type]);
+
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["admin", "lost-found", type, page],
-    queryFn: () => adminListLostFoundReports({ type, page, limit: 20 }),
+    queryKey: ["admin", "lost-found", type, { page, q: searchTerm, status: statusFilter }],
+    queryFn: () =>
+      adminListLostFoundReports({
+        type,
+        page,
+        limit: 20,
+        status: statusFilter === "all" ? undefined : statusFilter,
+        q: searchTerm.trim() || undefined,
+      }),
     keepPreviousData: true,
   });
 
@@ -53,25 +135,6 @@ const AdminLostFound = () => {
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
     error?.response?.data?.message || "Could not load lost & found reports.";
-  const filteredItems = items.filter((item) => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
-    const effectiveStatus = edits[item._id] || item.status || "new";
-    const matchesQuery =
-      !normalizedQuery ||
-      [
-        item.petName,
-        item.animalType,
-        item.ownerName,
-        item.founderName,
-        item.contactPhone,
-        item.lastSeenLocation,
-        item.foundLocation,
-      ]
-        .filter(Boolean)
-        .some((value) => String(value).toLowerCase().includes(normalizedQuery));
-
-    return matchesQuery && (statusFilter === "all" || effectiveStatus === statusFilter);
-  });
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -96,13 +159,35 @@ const AdminLostFound = () => {
             const nextType = reportTypes[nextIndex]?.value || "lost-pets";
             setType(nextType);
             setPage(1);
+            setSearchTerm("");
+            setStatusFilter("all");
             setEdits({});
           }}
           variant="scrollable"
           scrollButtons="auto"
         >
           {reportTypes.map((tab) => (
-            <Tab key={tab.value} label={tab.label} />
+            <Tab
+              key={tab.value}
+              label={
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <span>{tab.label}</span>
+                  {(tab.value === "lost-pets" ? newCounts?.lostPets : newCounts?.foundPets) >
+                  0 ? (
+                    <Chip
+                      label={
+                        tab.value === "lost-pets"
+                          ? newCounts?.lostPets ?? 0
+                          : newCounts?.foundPets ?? 0
+                      }
+                      size="small"
+                      color="success"
+                      sx={{ fontWeight: 900 }}
+                    />
+                  ) : null}
+                </Stack>
+              }
+            />
           ))}
         </Tabs>
       </Paper>
@@ -115,21 +200,32 @@ const AdminLostFound = () => {
 
       <AdminFilterToolbar
         searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
+        onSearchChange={(value) => {
+          setSearchTerm(value);
+          setPage(1);
+        }}
         searchPlaceholder="Search by pet name, report owner/finder, phone, type, or location"
         statusValue={statusFilter}
-        onStatusChange={setStatusFilter}
+        onStatusChange={(value) => {
+          setStatusFilter(value);
+          setPage(1);
+        }}
         statusOptions={statuses}
-        resultCount={filteredItems.length}
-        helperText={`${type} reports on the current page`}
+        resultCount={data?.total ?? 0}
+        helperText={`Matched ${type} reports across all pages`}
+        onReset={() => {
+          setSearchTerm("");
+          setStatusFilter("all");
+          setPage(1);
+        }}
       />
 
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography color="text.secondary">Loading...</Typography>
-          ) : filteredItems.length ? (
-            filteredItems.map((item) => (
+          ) : items.length ? (
+            items.map((item) => (
               <Paper
                 key={item._id}
                 variant="outlined"

@@ -27,10 +27,7 @@ const Footer = () => {
     { label: "Home", to: "/" },
     { label: "Adoption", to: "/adoption" },
     { label: "Rescue", to: "/rescue_alert" },
-    { label: "Shop (All)", to: "/shop" },
-    { label: "Shop: Food", to: "/shop?category=Food" },
-    { label: "Shop: Medicine", to: "/shop?category=Medicine" },
-    { label: "Shop: Accessories", to: "/shop?category=Accessories" },
+    { label: "Shop", to: "/shop" },
     { label: "Lost & Found", to: "/lost_found" },
     { label: "Health Care Blog", to: "/health_care_blog" },
   ];
@@ -49,10 +46,8 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        mt: 10,
         textAlign: "center",
         backgroundColor: "primary.back",
-        // minHeight: "50vh",
       }}
     >
       <Box className="myContainer">

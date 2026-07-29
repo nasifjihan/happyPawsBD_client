@@ -1,4 +1,4 @@
-import { MenuItem, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Button, MenuItem, Paper, Stack, TextField, Typography } from "@mui/material";
 
 const AdminFilterToolbar = ({
   searchValue,
@@ -9,6 +9,9 @@ const AdminFilterToolbar = ({
   statusOptions = [],
   resultCount,
   helperText,
+  onReset,
+  resetLabel = "Reset",
+  children,
 }) => (
   <Paper sx={{ p: 2, mb: 3, borderRadius: 4 }}>
     <Stack
@@ -42,9 +45,21 @@ const AdminFilterToolbar = ({
             ))}
           </TextField>
         ) : null}
+
+        {children}
       </Stack>
 
       <Stack spacing={0.25} textAlign={{ xs: "left", md: "right" }}>
+        {onReset ? (
+          <Button
+            variant="outlined"
+            onClick={onReset}
+            color="success"
+            sx={{ alignSelf: { xs: "flex-start", md: "flex-end" }, borderRadius: 3, fontWeight: 800 }}
+          >
+            {resetLabel}
+          </Button>
+        ) : null}
         <Typography variant="body2" color="text.secondary">
           Showing {resultCount} result{resultCount === 1 ? "" : "s"}
         </Typography>

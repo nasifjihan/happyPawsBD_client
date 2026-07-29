@@ -19,9 +19,10 @@ import {
   adminListAdoptableAnimals,
   adminUpsertAdoptableAnimal,
 } from "../lib/adminApi";
+import { useAdminListQueryState } from "../lib/useAdminListQueryState";
 
 const queryKeys = {
-  animals: (page) => ["admin", "adoption-animals", page],
+  animals: ({ page, q }) => ["admin", "adoption-animals", { page, q: q || "" }],
 };
 
 const emptyAnimal = {
@@ -40,14 +41,19 @@ const emptyAnimal = {
 const normalizeNumber = (value) => (value === "" ? "" : Number(value));
 
 const AdoptableAnimalsAdmin = () => {
-  const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
+  const { page, setPage, q: searchTerm, setQ: setSearchTerm } =
+    useAdminListQueryState();
   const [selected, setSelected] = useState(emptyAnimal);
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: queryKeys.animals(page),
-    queryFn: () => adminListAdoptableAnimals({ page, limit: 20 }),
+    queryKey: queryKeys.animals({ page, q: searchTerm }),
+    queryFn: () =>
+      adminListAdoptableAnimals({
+        page,
+        limit: 20,
+        q: searchTerm.trim() || undefined,
+      }),
     keepPreviousData: true,
   });
 
@@ -78,28 +84,6 @@ const AdoptableAnimalsAdmin = () => {
       })),
     [data?.items]
   );
-  const filteredRows = useMemo(() => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
-
-    if (!normalizedQuery) {
-      return rows;
-    }
-
-    return rows.filter((animal) =>
-      [
-        animal.code,
-        animal.name,
-        animal.species,
-        animal.breed,
-        animal.location,
-        animal.gender,
-      ]
-        .filter(Boolean)
-        .some((value) =>
-          String(value).toLowerCase().includes(normalizedQuery)
-        )
-    );
-  }, [rows, searchTerm]);
 
   const handleSelect = (animal) => {
     setSelected({
@@ -170,10 +154,17 @@ const AdoptableAnimalsAdmin = () => {
 
       <AdminFilterToolbar
         searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
+        onSearchChange={(value) => {
+          setSearchTerm(value);
+          setPage(1);
+        }}
         searchPlaceholder="Search by code, animal name, species, breed, or location"
-        resultCount={filteredRows.length}
-        helperText="Adoption listings on the current page"
+        resultCount={data?.total ?? 0}
+        helperText="Matched adoption listings across all pages"
+        onReset={() => {
+          setSearchTerm("");
+          setPage(1);
+        }}
       />
 
       <Grid container spacing={3}>
@@ -182,8 +173,8 @@ const AdoptableAnimalsAdmin = () => {
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography color="text.secondary">Loading...</Typography>
-              ) : filteredRows.length ? (
-                filteredRows.map((animal) => (
+              ) : rows.length ? (
+                rows.map((animal) => (
                   <Paper
                     key={animal.key}
                     variant="outlined"
@@ -221,7 +212,7 @@ const AdoptableAnimalsAdmin = () => {
                 ))
               ) : (
                 <Typography color="text.secondary">
-                  No adoptable animals matched your search.
+                  No adoptable animals found.
                 </Typography>
               )}
 

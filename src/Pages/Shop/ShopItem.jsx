@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { sanitizeImageUrl } from "../../lib/media";
 
 const ShopItem = ({ item }) => {
   return (
@@ -13,7 +14,7 @@ const ShopItem = ({ item }) => {
       <CardMedia
         component="img"
         height="140"
-        image={item.image}
+        image={sanitizeImageUrl(item.image)}
         alt={item.name}
       />
       <CardContent>

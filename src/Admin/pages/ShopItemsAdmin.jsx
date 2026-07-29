@@ -20,9 +20,11 @@ import {
   adminListShopItems,
   adminUpsertShopItem,
 } from "../lib/adminApi";
+import { useAdminListQueryState } from "../lib/useAdminListQueryState";
+import { sanitizeImageUrl } from "../../lib/media";
 
 const queryKeys = {
-  shopItems: (page) => ["admin", "shop-items", page],
+  shopItems: ({ page, q }) => ["admin", "shop-items", { page, q: q || "" }],
 };
 
 const emptyItem = {
@@ -41,14 +43,19 @@ const emptyItem = {
 const normalizeNumber = (value) => (value === "" ? "" : Number(value));
 
 const ShopItemsAdmin = () => {
-  const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
+  const { page, setPage, q: searchTerm, setQ: setSearchTerm } =
+    useAdminListQueryState();
   const [selected, setSelected] = useState(emptyItem);
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: queryKeys.shopItems(page),
-    queryFn: () => adminListShopItems({ page, limit: 20 }),
+    queryKey: queryKeys.shopItems({ page, q: searchTerm }),
+    queryFn: () =>
+      adminListShopItems({
+        page,
+        limit: 20,
+        q: searchTerm.trim() || undefined,
+      }),
     keepPreviousData: true,
   });
 
@@ -75,21 +82,8 @@ const ShopItemsAdmin = () => {
     () => (data?.items ?? []).map((item) => ({ ...item, key: item._id || item.id })),
     [data?.items]
   );
-  const filteredRows = useMemo(() => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
 
-    if (!normalizedQuery) {
-      return rows;
-    }
-
-    return rows.filter((item) =>
-      [item.name, item.category, item.brand, item.type, item.status, item.id]
-        .filter(Boolean)
-        .some((value) =>
-          String(value).toLowerCase().includes(normalizedQuery)
-        )
-    );
-  }, [rows, searchTerm]);
+  const selectedImage = sanitizeImageUrl(selected.image);
 
   const handleSelect = (item) => {
     setSelected({
@@ -98,6 +92,7 @@ const ShopItemsAdmin = () => {
       id: item?.id ?? "",
       price: item?.price ?? "",
       rating: item?.rating ?? "",
+      image: sanitizeImageUrl(item?.image),
     });
   };
 
@@ -114,6 +109,7 @@ const ShopItemsAdmin = () => {
       id: normalizeNumber(selected.id),
       price: normalizeNumber(selected.price),
       rating: normalizeNumber(selected.rating),
+      image: sanitizeImageUrl(selected.image),
     });
   };
 
@@ -161,10 +157,17 @@ const ShopItemsAdmin = () => {
 
       <AdminFilterToolbar
         searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
+        onSearchChange={(value) => {
+          setSearchTerm(value);
+          setPage(1);
+        }}
         searchPlaceholder="Search by item name, brand, category, type, or id"
-        resultCount={filteredRows.length}
-        helperText="Catalog records on the current page"
+        resultCount={data?.total ?? 0}
+        helperText="Matched catalog items across all pages"
+        onReset={() => {
+          setSearchTerm("");
+          setPage(1);
+        }}
       />
 
       <Grid container spacing={3}>
@@ -173,8 +176,8 @@ const ShopItemsAdmin = () => {
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography color="text.secondary">Loading...</Typography>
-              ) : filteredRows.length ? (
-                filteredRows.map((item) => (
+              ) : rows.length ? (
+                rows.map((item) => (
                   <Paper
                     key={item.key}
                     variant="outlined"
@@ -195,15 +198,33 @@ const ShopItemsAdmin = () => {
                       alignItems="center"
                       spacing={2}
                     >
-                      <Box>
-                        <Typography fontWeight={800}>
-                          {item.name || "Unnamed item"}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          ID {item.id} • {item.category || "Uncategorized"} • ৳
-                          {item.price ?? 0}
-                        </Typography>
-                      </Box>
+                      <Stack direction="row" spacing={1.5} alignItems="center">
+                        {sanitizeImageUrl(item.image) ? (
+                          <Box
+                            component="img"
+                            src={sanitizeImageUrl(item.image)}
+                            alt={item.name || "Product"}
+                            sx={{
+                              width: 64,
+                              height: 64,
+                              borderRadius: 2,
+                              objectFit: "cover",
+                              border: "1px solid",
+                              borderColor: "divider",
+                              flexShrink: 0,
+                            }}
+                          />
+                        ) : null}
+                        <Box>
+                          <Typography fontWeight={800}>
+                            {item.name || "Unnamed item"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            ID {item.id} • {item.category || "Uncategorized"} • ৳
+                            {item.price ?? 0}
+                          </Typography>
+                        </Box>
+                      </Stack>
                       {item.status ? <AdminStatusChip status={item.status} /> : null}
                     </Stack>
                   </Paper>
@@ -298,6 +319,29 @@ const ShopItemsAdmin = () => {
                 value={selected.image}
                 onChange={handleFieldChange}
               />
+              {selectedImage ? (
+                <Paper
+                  variant="outlined"
+                  sx={{ p: 1.5, borderRadius: 3, alignSelf: "flex-start" }}
+                >
+                  <Typography variant="body2" fontWeight={700} sx={{ mb: 1 }}>
+                    Image Preview
+                  </Typography>
+                  <Box
+                    component="img"
+                    src={selectedImage}
+                    alt={selected.name || "Selected product"}
+                    sx={{
+                      width: 180,
+                      height: 180,
+                      objectFit: "cover",
+                      borderRadius: 2,
+                      border: "1px solid",
+                      borderColor: "divider",
+                    }}
+                  />
+                </Paper>
+              ) : null}
               <TextField
                 label="Description"
                 name="description"

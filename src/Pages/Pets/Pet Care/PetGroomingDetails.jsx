@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Alert,
@@ -14,13 +14,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useUserAuth } from "../../../context/UserAuthContext";
-import PetGroomingAPI from "./../../../API/petGrooming.json";
-import { groomingApplication } from "../../../API/api";
+import { getProgram, groomingApplication } from "../../../API/api";
 import ContentState from "../../../Components/Common/ContentState";
 
 const PetGroomingDetails = () => {
   const { id } = useParams();
   const { user } = useUserAuth();
+  const [item, setItem] = useState(null);
+  const [isLoadingItem, setIsLoadingItem] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const [grooming, setGrooming] = useState({
     name: "",
     contactEmail: "",
@@ -34,11 +36,6 @@ const PetGroomingDetails = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const item = useMemo(
-    () => PetGroomingAPI.find((program) => program.id === Number.parseInt(id, 10)),
-    [id]
-  );
-
   useEffect(() => {
     if (!user) {
       return;
@@ -50,6 +47,41 @@ const PetGroomingDetails = () => {
       contactEmail: user.email || current.contactEmail,
     }));
   }, [user]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    (async () => {
+      try {
+        setIsLoadingItem(true);
+        const response = await getProgram("grooming", id);
+
+        if (!isActive) {
+          return;
+        }
+
+        setItem(response || null);
+        setLoadError("");
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+
+        setItem(null);
+        setLoadError(
+          error?.response?.data?.message || "Could not load this grooming program."
+        );
+      } finally {
+        if (isActive) {
+          setIsLoadingItem(false);
+        }
+      }
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, [id]);
 
   const handleChange = (event) => {
     setGrooming({ ...grooming, [event.target.name]: event.target.value });
@@ -95,12 +127,27 @@ const PetGroomingDetails = () => {
     }
   };
 
+  if (isLoadingItem) {
+    return (
+      <Box className="myContainer" sx={{ my: 5 }}>
+        <Paper sx={{ p: 3, borderRadius: 4 }}>
+          <Typography color="text.secondary">
+            Loading grooming program...
+          </Typography>
+        </Paper>
+      </Box>
+    );
+  }
+
   if (!item) {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
         <ContentState
           title="Grooming program not found"
-          description="The grooming service you requested is unavailable or may have moved. Please return to the grooming page and choose another option."
+          description={
+            loadError ||
+            "The grooming service you requested is unavailable or may have moved. Please return to the grooming page and choose another option."
+          }
           actionLabel="Back to Grooming"
           actionTo="/petcare/grooming"
           severity="warning"
@@ -159,13 +206,16 @@ const PetGroomingDetails = () => {
 
                 <Box>
                   <Typography variant="body1" paragraph>
-                    <strong>Duration:</strong> {item.Duration}
+                    <strong>Duration:</strong>{" "}
+                    {item.duration || item.Duration || "Contact us for an estimated duration."}
                   </Typography>
                   <Typography variant="body1" paragraph>
-                    <strong>Price:</strong> {item.Price}
+                    <strong>Price:</strong>{" "}
+                    {item.price || item.Price || "Contact us for a quote."}
                   </Typography>
                   <Typography variant="body1">
-                    <strong>Program Covers:</strong> {item.ProgramCovers}
+                    <strong>Program Covers:</strong>{" "}
+                    {item.programCovers || "Contact us to confirm what is included."}
                   </Typography>
                 </Box>
               </Stack>

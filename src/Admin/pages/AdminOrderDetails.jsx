@@ -90,10 +90,13 @@ const AdminOrderDetails = () => {
   const effectiveOrderStatus = draftStatus || order?.orderStatus || "created";
   const effectivePaymentStatus =
     draftPaymentStatus || order?.paymentStatus || "unpaid";
-  const orderItems = order?.orderSummary?.items || [];
+  const orderItems = order?.orderSummary?.items;
   const totalQuantity = useMemo(
     () =>
-      orderItems.reduce((sum, item) => sum + Number(item.quantity || 0), 0),
+      (orderItems ?? []).reduce(
+        (sum, item) => sum + Number(item.quantity || 0),
+        0
+      ),
     [orderItems]
   );
 

@@ -28,7 +28,8 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import MedicalServicesOutlinedIcon from "@mui/icons-material/MedicalServicesOutlined";
 
-const placeholderImage = "https://i.ibb.co/KwkX3N7/4809708.jpg";
+import fallbackVetImage from "../../../images/vat.png";
+import { sanitizeImageUrl } from "../../../lib/media";
 
 const getContactText = (contact) =>
   Array.isArray(contact) ? contact.join(", ") : contact || "Not available";
@@ -84,7 +85,7 @@ const DataGrid = ({ data }) => {
               <CardMedia
                 component="img"
                 height="180"
-                image={item.image || placeholderImage}
+                image={sanitizeImageUrl(item.image) || fallbackVetImage}
                 alt={item.title}
               />
 
@@ -294,7 +295,7 @@ const DataGrid = ({ data }) => {
             <Stack>
               <CardMedia
                 component="img"
-                image={selectedVet.image || placeholderImage}
+                image={sanitizeImageUrl(selectedVet.image) || fallbackVetImage}
                 alt={selectedVet.title}
                 sx={{ borderRadius: 2 }}
               />

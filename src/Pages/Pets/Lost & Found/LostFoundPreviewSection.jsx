@@ -15,6 +15,8 @@ import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
 import { Link } from "react-router-dom";
 import ContentState from "../../../Components/Common/ContentState";
+import fallbackPetImage from "../../../images/LostPet.png";
+import { sanitizeImageUrl } from "../../../lib/media";
 
 const listingMeta = {
   lost: {
@@ -111,7 +113,7 @@ const LostFoundPreviewSection = ({
               >
                 <CardMedia
                   component="img"
-                  image={pet.petPicture || "/placeholder.png"}
+                  image={sanitizeImageUrl(pet.petPicture) || fallbackPetImage}
                   alt={meta.title(pet)}
                   sx={{
                     width: { xs: "100%", sm: 200 },

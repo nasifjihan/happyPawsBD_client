@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CardMedia } from "@mui/material";
 import shopFallbackImage from "../../images/optimized/banner2.webp";
+import { sanitizeImageUrl } from "../../lib/media";
 
 const ResilientProductImage = ({
   image,
@@ -8,11 +9,12 @@ const ResilientProductImage = ({
   fallbackImage = shopFallbackImage,
   ...props
 }) => {
-  const [currentImage, setCurrentImage] = useState(image || fallbackImage);
+  const sanitizedImage = sanitizeImageUrl(image);
+  const [currentImage, setCurrentImage] = useState(sanitizedImage || fallbackImage);
 
   useEffect(() => {
-    setCurrentImage(image || fallbackImage);
-  }, [fallbackImage, image]);
+    setCurrentImage(sanitizedImage || fallbackImage);
+  }, [fallbackImage, sanitizedImage]);
 
   return (
     <CardMedia

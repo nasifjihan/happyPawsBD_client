@@ -15,6 +15,8 @@ const statusMeta = {
   payment_setup_failed: { label: "Setup Failed", color: "error" },
   payment_failed: { label: "Payment Failed", color: "error" },
   paid: { label: "Paid", color: "success" },
+  confirmed: { label: "Confirmed", color: "success" },
+  completed: { label: "Completed", color: "success" },
   cancelled: { label: "Cancelled", color: "default" },
   unpaid: { label: "Unpaid", color: "warning" },
   failed: { label: "Failed", color: "error" },

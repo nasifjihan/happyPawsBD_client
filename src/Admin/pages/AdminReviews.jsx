@@ -7,6 +7,7 @@ import {
   MenuItem,
   Pagination,
   Paper,
+  Rating,
   Stack,
   TextField,
   Typography,
@@ -16,15 +17,12 @@ import { Link as RouterLink } from "react-router-dom";
 
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import AdminStatusChip from "../components/AdminStatusChip";
-import {
-  adminListAdoptionApplications,
-  adminUpdateAdoptionApplication,
-} from "../lib/adminApi";
+import { adminListReviews, adminUpdateReview } from "../lib/adminApi";
 import { useAdminListQueryState } from "../lib/useAdminListQueryState";
 
-const statuses = ["new", "reviewed", "contacted", "approved", "rejected", "closed"];
+const statuses = ["new", "approved", "rejected"];
 
-const AdoptionRequestsAdmin = () => {
+const AdminReviews = () => {
   const {
     page,
     setPage,
@@ -37,9 +35,9 @@ const AdoptionRequestsAdmin = () => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["admin", "adoptions", { page, q: searchTerm, status: statusFilter }],
+    queryKey: ["admin", "reviews", { page, q: searchTerm, status: statusFilter }],
     queryFn: () =>
-      adminListAdoptionApplications({
+      adminListReviews({
         page,
         limit: 20,
         status: statusFilter === "all" ? undefined : statusFilter,
@@ -49,16 +47,15 @@ const AdoptionRequestsAdmin = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: adminUpdateAdoptionApplication,
+    mutationFn: adminUpdateReview,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "adoptions"] });
+      queryClient.invalidateQueries({ queryKey: ["admin", "reviews"] });
     },
   });
 
   const items = data?.items ?? [];
   const totalPages = data?.totalPages ?? 1;
-  const errorMessage =
-    error?.response?.data?.message || "Could not load adoption applications.";
+  const errorMessage = error?.response?.data?.message || "Could not load reviews.";
 
   const handleSave = async (item) => {
     const status = edits[item._id] || item.status || "new";
@@ -68,10 +65,10 @@ const AdoptionRequestsAdmin = () => {
   return (
     <Box>
       <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
-        Adoption Requests
+        Reviews
       </Typography>
       <Typography color="text.secondary" sx={{ mb: 3 }}>
-        Review adoption applications and update status.
+        Approve trusted community reviews and reject spam or irrelevant submissions.
       </Typography>
 
       {isError ? (
@@ -86,7 +83,7 @@ const AdoptionRequestsAdmin = () => {
           setSearchTerm(value);
           setPage(1);
         }}
-        searchPlaceholder="Search by applicant, animal code, email, phone, or animal type"
+        searchPlaceholder="Search by name, email, title, or message"
         statusValue={statusFilter}
         onStatusChange={(value) => {
           setStatusFilter(value);
@@ -94,7 +91,7 @@ const AdoptionRequestsAdmin = () => {
         }}
         statusOptions={statuses}
         resultCount={data?.total ?? 0}
-        helperText="Matched adoption requests across all pages"
+        helperText="Matched review submissions across all pages"
         onReset={() => {
           setSearchTerm("");
           setStatusFilter("all");
@@ -108,11 +105,7 @@ const AdoptionRequestsAdmin = () => {
             <Typography color="text.secondary">Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
-              <Paper
-                key={item._id}
-                variant="outlined"
-                sx={{ p: 2, borderRadius: 3 }}
-              >
+              <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   justifyContent="space-between"
@@ -121,14 +114,17 @@ const AdoptionRequestsAdmin = () => {
                 >
                   <Box>
                     <Typography fontWeight={900}>
-                      {item.adopterName || "Applicant"} • {item.animalCode || ""}
+                      {item.title || "Review"} • {item.fullName || "Community member"}
                     </Typography>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <Rating value={Number(item.rating || 0)} readOnly size="small" />
+                      <Typography variant="body2" color="text.secondary">
+                        {item.contactEmail ? item.contactEmail : "No email"}
+                      </Typography>
+                    </Stack>
                     <Typography variant="body2" color="text.secondary">
-                      {item.contactEmail || ""} • {item.contactPhone || ""} •{" "}
-                      {item.animalType || ""}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {item.address || ""} • {item.experience || "No adoption experience added"}
+                      {String(item.message || "").slice(0, 140)}
+                      {String(item.message || "").length > 140 ? "…" : ""}
                     </Typography>
                   </Box>
 
@@ -137,7 +133,7 @@ const AdoptionRequestsAdmin = () => {
                     <Button
                       variant="outlined"
                       component={RouterLink}
-                      to={`/admin/requests/adoptions/${item._id}`}
+                      to={`/admin/requests/reviews/${item._id}`}
                       endIcon={<ArrowForwardOutlinedIcon />}
                       sx={{ borderRadius: 3, fontWeight: 800 }}
                     >
@@ -161,7 +157,6 @@ const AdoptionRequestsAdmin = () => {
                         </MenuItem>
                       ))}
                     </TextField>
-
                     <Button
                       variant="contained"
                       color="success"
@@ -176,9 +171,7 @@ const AdoptionRequestsAdmin = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">
-              No adoption applications matched your filters.
-            </Typography>
+            <Typography color="text.secondary">No reviews matched your filters.</Typography>
           )}
 
           {totalPages > 1 ? (
@@ -197,4 +190,4 @@ const AdoptionRequestsAdmin = () => {
   );
 };
 
-export default AdoptionRequestsAdmin;
+export default AdminReviews;
