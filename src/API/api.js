@@ -235,6 +235,18 @@ export const requestOnlineConsultation = async (payload) => {
   return response.data;
 };
 
+export const requestInPersonConsultation = async (payload) => {
+  await waitForApiReady();
+  const response = await axiosInstance.post("/api/v1/consultations/in-person", payload);
+  return response.data;
+};
+
+export const requestHouseCall = async (payload) => {
+  await waitForApiReady();
+  const response = await axiosInstance.post("/api/v1/consultations/house-calls", payload);
+  return response.data;
+};
+
 export const submitReview = async (payload) => {
   await waitForApiReady();
   const response = await axiosInstance.post("/api/v1/reviews", payload);

@@ -2,6 +2,7 @@ import { Chip } from "@mui/material";
 
 const statusMeta = {
   new: { label: "New", color: "warning" },
+  reviewing: { label: "Reviewing", color: "info" },
   reviewed: { label: "Reviewed", color: "info" },
   contacted: { label: "Contacted", color: "secondary" },
   approved: { label: "Approved", color: "success" },
@@ -9,6 +10,7 @@ const statusMeta = {
   published: { label: "Published", color: "success" },
   archived: { label: "Archived", color: "default" },
   rejected: { label: "Rejected", color: "error" },
+  dispatched: { label: "Dispatched", color: "success" },
   resolved: { label: "Resolved", color: "success" },
   scheduled: { label: "Scheduled", color: "success" },
   closed: { label: "Closed", color: "default" },

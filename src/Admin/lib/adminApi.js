@@ -69,7 +69,9 @@ export const adminGetDashboardCounts = async () => {
     blogPosts,
     rescueAlerts,
     orders,
-    consultations,
+    onlineConsultations,
+    inPersonConsultations,
+    houseCalls,
     volunteers,
     adoptions,
     reviews,
@@ -90,6 +92,8 @@ export const adminGetDashboardCounts = async () => {
     axiosInstance.get("/api/v1/admin/requests/rescue-alerts", config),
     axiosInstance.get("/api/v1/admin/orders", config),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", config),
+    axiosInstance.get("/api/v1/admin/requests/consultations/in-person", config),
+    axiosInstance.get("/api/v1/admin/requests/consultations/house-calls", config),
     axiosInstance.get("/api/v1/admin/requests/volunteers", config),
     axiosInstance.get("/api/v1/admin/requests/adoptions", config),
     axiosInstance.get("/api/v1/admin/requests/reviews", config),
@@ -111,7 +115,9 @@ export const adminGetDashboardCounts = async () => {
     blogPosts: blogPosts.data.total,
     rescueAlerts: rescueAlerts.data.total,
     orders: orders.data.total,
-    onlineConsultations: consultations.data.total,
+    onlineConsultations: onlineConsultations.data.total,
+    inPersonConsultations: inPersonConsultations.data.total,
+    houseCalls: houseCalls.data.total,
     volunteerApplications: volunteers.data.total,
     adoptionApplications: adoptions.data.total,
     reviews: reviews.data.total,
@@ -131,7 +137,9 @@ export const adminGetRecentRequests = async () => {
 
   const [
     orders,
-    consultations,
+    onlineConsultations,
+    inPersonConsultations,
+    houseCalls,
     stories,
     rescueAlerts,
     volunteers,
@@ -144,6 +152,8 @@ export const adminGetRecentRequests = async () => {
   ] = await Promise.all([
     axiosInstance.get("/api/v1/admin/orders", config),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", config),
+    axiosInstance.get("/api/v1/admin/requests/consultations/in-person", config),
+    axiosInstance.get("/api/v1/admin/requests/consultations/house-calls", config),
     axiosInstance.get("/api/v1/admin/content/stories", config),
     axiosInstance.get("/api/v1/admin/requests/rescue-alerts", config),
     axiosInstance.get("/api/v1/admin/requests/volunteers", config),
@@ -157,7 +167,9 @@ export const adminGetRecentRequests = async () => {
 
   return {
     orders: orders.data.items ?? [],
-    consultations: consultations.data.items ?? [],
+    onlineConsultations: onlineConsultations.data.items ?? [],
+    inPersonConsultations: inPersonConsultations.data.items ?? [],
+    houseCalls: houseCalls.data.items ?? [],
     stories: stories.data.items ?? [],
     rescueAlerts: rescueAlerts.data.items ?? [],
     volunteers: volunteers.data.items ?? [],
@@ -177,7 +189,9 @@ export const adminGetRecentRequests = async () => {
 export const adminGetNewRequestCounts = async () => {
   const [
     orders,
-    consultations,
+    onlineConsultations,
+    inPersonConsultations,
+    houseCalls,
     volunteers,
     adoptions,
     reviews,
@@ -194,6 +208,14 @@ export const adminGetNewRequestCounts = async () => {
       params: { page: 1, limit: 1, orderStatus: "created" },
     }),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 1, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/requests/consultations/in-person", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 1, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/requests/consultations/house-calls", {
       ...adminRequestConfig(),
       params: { page: 1, limit: 1, status: "new" },
     }),
@@ -239,9 +261,16 @@ export const adminGetNewRequestCounts = async () => {
     }),
   ]);
 
+  const onlineConsultationsCount = onlineConsultations.data.total ?? 0;
+  const inPersonConsultationsCount = inPersonConsultations.data.total ?? 0;
+  const houseCallsCount = houseCalls.data.total ?? 0;
+
   return {
     orders: orders.data.total ?? 0,
-    consultations: consultations.data.total ?? 0,
+    consultations: onlineConsultationsCount + inPersonConsultationsCount + houseCallsCount,
+    onlineConsultations: onlineConsultationsCount,
+    inPersonConsultations: inPersonConsultationsCount,
+    houseCalls: houseCallsCount,
     volunteers: volunteers.data.total ?? 0,
     adoptions: adoptions.data.total ?? 0,
     reviews: reviews.data.total ?? 0,
@@ -734,6 +763,68 @@ export const adminUpdateOnlineConsultation = async ({ id, status, adminNotes }) 
   return response.data;
 };
 
+export const adminListInPersonConsultations = async ({ page, limit, status, q }) => {
+  const response = await axiosInstance.get(
+    "/api/v1/admin/requests/consultations/in-person",
+    {
+      ...adminRequestConfig(),
+      params: { page, limit, status, q },
+    }
+  );
+
+  return response.data;
+};
+
+export const adminGetInPersonConsultation = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/requests/consultations/in-person/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminUpdateInPersonConsultation = async ({ id, status, adminNotes }) => {
+  const response = await axiosInstance.put(
+    `/api/v1/admin/requests/consultations/in-person/${id}`,
+    { status, adminNotes },
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminListHouseCallRequests = async ({ page, limit, status, urgency, q }) => {
+  const response = await axiosInstance.get(
+    "/api/v1/admin/requests/consultations/house-calls",
+    {
+      ...adminRequestConfig(),
+      params: { page, limit, status, urgency, q },
+    }
+  );
+
+  return response.data;
+};
+
+export const adminGetHouseCallRequest = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/requests/consultations/house-calls/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminUpdateHouseCallRequest = async ({ id, status, adminNotes }) => {
+  const response = await axiosInstance.put(
+    `/api/v1/admin/requests/consultations/house-calls/${id}`,
+    { status, adminNotes },
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
 export const adminListReviews = async ({ page, limit, status, q }) => {
   const response = await axiosInstance.get("/api/v1/admin/requests/reviews", {
     ...adminRequestConfig(),
@@ -765,7 +856,9 @@ export const adminUpdateReview = async ({ id, status, adminNotes }) => {
 export const adminGetNewRequestsFeed = async () => {
   const [
     orders,
-    consultations,
+    onlineConsultations,
+    inPersonConsultations,
+    houseCalls,
     volunteers,
     adoptions,
     reviews,
@@ -782,6 +875,14 @@ export const adminGetNewRequestsFeed = async () => {
       params: { page: 1, limit: 3, orderStatus: "created" },
     }),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 3, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/requests/consultations/in-person", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 3, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/requests/consultations/house-calls", {
       ...adminRequestConfig(),
       params: { page: 1, limit: 3, status: "new" },
     }),
@@ -829,7 +930,9 @@ export const adminGetNewRequestsFeed = async () => {
 
   return {
     orders: orders.data.items ?? [],
-    consultations: consultations.data.items ?? [],
+    onlineConsultations: onlineConsultations.data.items ?? [],
+    inPersonConsultations: inPersonConsultations.data.items ?? [],
+    houseCalls: houseCalls.data.items ?? [],
     volunteers: volunteers.data.items ?? [],
     adoptions: adoptions.data.items ?? [],
     reviews: reviews.data.items ?? [],

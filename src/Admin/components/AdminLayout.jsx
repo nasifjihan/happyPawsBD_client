@@ -33,6 +33,8 @@ const navItems = [
   { label: "Adoptable Animals", to: "/admin/adoption/animals" },
   { label: "Orders", to: "/admin/requests/orders" },
   { label: "Online Consultations", to: "/admin/requests/consultations/online" },
+  { label: "In-Person Consultations", to: "/admin/requests/consultations/in-person" },
+  { label: "House Call Requests", to: "/admin/requests/consultations/house-calls" },
   { label: "Volunteer Requests", to: "/admin/requests/volunteers" },
   { label: "Adoption Requests", to: "/admin/requests/adoptions" },
   { label: "Reviews", to: "/admin/requests/reviews" },
@@ -67,7 +69,15 @@ const AdminLayout = () => {
     }
 
     if (to === "/admin/requests/consultations/online") {
-      return newCounts.consultations ?? 0;
+      return newCounts.onlineConsultations ?? 0;
+    }
+
+    if (to === "/admin/requests/consultations/in-person") {
+      return newCounts.inPersonConsultations ?? 0;
+    }
+
+    if (to === "/admin/requests/consultations/house-calls") {
+      return newCounts.houseCalls ?? 0;
     }
 
     if (to === "/admin/requests/volunteers") {

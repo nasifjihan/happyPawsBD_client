@@ -479,7 +479,25 @@ const AdminDashboard = () => {
                     variant="outlined"
                     sx={{ borderRadius: 3, fontWeight: 800 }}
                   >
-                    Consultations
+                    Online Consultations
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/admin/requests/consultations/in-person"
+                    color="success"
+                    variant="outlined"
+                    sx={{ borderRadius: 3, fontWeight: 800 }}
+                  >
+                    In-Person
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/admin/requests/consultations/house-calls"
+                    color="success"
+                    variant="outlined"
+                    sx={{ borderRadius: 3, fontWeight: 800 }}
+                  >
+                    House Calls
                   </Button>
                 </Stack>
               </Stack>
@@ -508,7 +526,7 @@ const AdminDashboard = () => {
                 <Grid item xs={12} md={6} lg={4}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Online Consultations</Typography>
-                    {(newRequestsFeed?.consultations ?? []).slice(0, 3).map((consultation) => (
+                    {(newRequestsFeed?.onlineConsultations ?? []).slice(0, 3).map((consultation) => (
                       <RecentRow
                         key={consultation._id}
                         title={consultation.fullName || "Consultation"}
@@ -517,9 +535,49 @@ const AdminDashboard = () => {
                         to={`/admin/requests/consultations/online/${consultation._id}`}
                       />
                     ))}
-                    {(newRequestsFeed?.consultations ?? []).length ? null : (
+                    {(newRequestsFeed?.onlineConsultations ?? []).length ? null : (
                       <Typography variant="body2" color="text.secondary">
-                        No new consultations.
+                        No new online consultations.
+                      </Typography>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={4}>
+                  <Stack spacing={1.5}>
+                    <Typography fontWeight={900}>In-Person Consultations</Typography>
+                    {(newRequestsFeed?.inPersonConsultations ?? []).slice(0, 3).map((consultation) => (
+                      <RecentRow
+                        key={consultation._id}
+                        title={consultation.fullName || "In-person Consultation"}
+                        subtitle={`${consultation.city || "City"} • ${consultation.petType || "Pet"} • ${formatDateTime(consultation.createdAt)}`}
+                        status={consultation.status || "new"}
+                        to={`/admin/requests/consultations/in-person/${consultation._id}`}
+                      />
+                    ))}
+                    {(newRequestsFeed?.inPersonConsultations ?? []).length ? null : (
+                      <Typography variant="body2" color="text.secondary">
+                        No new in-person consultation requests.
+                      </Typography>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={4}>
+                  <Stack spacing={1.5}>
+                    <Typography fontWeight={900}>House Calls</Typography>
+                    {(newRequestsFeed?.houseCalls ?? []).slice(0, 3).map((item) => (
+                      <RecentRow
+                        key={item._id}
+                        title={item.fullName || "House Call"}
+                        subtitle={`${item.urgency ? `Urgency: ${item.urgency}` : item.city || "City"} • ${item.petType || "Pet"} • ${formatDateTime(item.createdAt)}`}
+                        status={item.status || "new"}
+                        to={`/admin/requests/consultations/house-calls/${item._id}`}
+                      />
+                    ))}
+                    {(newRequestsFeed?.houseCalls ?? []).length ? null : (
+                      <Typography variant="body2" color="text.secondary">
+                        No new house call requests.
                       </Typography>
                     )}
                   </Stack>
@@ -780,22 +838,42 @@ const AdminDashboard = () => {
                         </Typography>
                       </Avatar>
                       <Box>
-                        <Typography fontWeight={900}>Online Consultations</Typography>
+                        <Typography fontWeight={900}>Consultations</Typography>
                         <Typography variant="body2" color="text.secondary">
                           Latest appointment requests
                         </Typography>
                       </Box>
                     </Stack>
-                    {(recentRequests?.consultations ?? []).slice(0, 3).map((consultation) => (
+                    {(recentRequests?.onlineConsultations ?? []).slice(0, 1).map((consultation) => (
                       <RecentRow
                         key={consultation._id}
-                        title={consultation.fullName || "Consultation"}
-                        subtitle={`${consultation.petType || "Pet"} • ${formatDateTime(consultation.createdAt)}`}
+                        title={consultation.fullName || "Online Consultation"}
+                        subtitle={`Online • ${consultation.petType || "Pet"} • ${formatDateTime(consultation.createdAt)}`}
                         status={consultation.status || "new"}
                         to={`/admin/requests/consultations/online/${consultation._id}`}
                       />
                     ))}
-                    {(recentRequests?.consultations ?? []).length ? null : (
+                    {(recentRequests?.inPersonConsultations ?? []).slice(0, 1).map((consultation) => (
+                      <RecentRow
+                        key={consultation._id}
+                        title={consultation.fullName || "In-person Consultation"}
+                        subtitle={`In-person • ${consultation.city || "City"} • ${formatDateTime(consultation.createdAt)}`}
+                        status={consultation.status || "new"}
+                        to={`/admin/requests/consultations/in-person/${consultation._id}`}
+                      />
+                    ))}
+                    {(recentRequests?.houseCalls ?? []).slice(0, 1).map((item) => (
+                      <RecentRow
+                        key={item._id}
+                        title={item.fullName || "House Call"}
+                        subtitle={`House call • ${item.urgency ? `Urgency: ${item.urgency}` : item.city || "City"} • ${formatDateTime(item.createdAt)}`}
+                        status={item.status || "new"}
+                        to={`/admin/requests/consultations/house-calls/${item._id}`}
+                      />
+                    ))}
+                    {(recentRequests?.onlineConsultations ?? []).length ||
+                    (recentRequests?.inPersonConsultations ?? []).length ||
+                    (recentRequests?.houseCalls ?? []).length ? null : (
                       <Typography variant="body2" color="text.secondary">
                         No consultation requests yet.
                       </Typography>

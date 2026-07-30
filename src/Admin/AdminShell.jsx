@@ -10,6 +10,10 @@ import AdminPrograms from "./pages/AdminPrograms";
 import AdminAdoptionRequestDetails from "./pages/AdminAdoptionRequestDetails";
 import AdminEnrollments from "./pages/AdminEnrollments";
 import AdminLostFound from "./pages/AdminLostFound";
+import AdminHouseCallRequestDetails from "./pages/AdminHouseCallRequestDetails";
+import AdminHouseCallRequests from "./pages/AdminHouseCallRequests";
+import AdminInPersonConsultationDetails from "./pages/AdminInPersonConsultationDetails";
+import AdminInPersonConsultations from "./pages/AdminInPersonConsultations";
 import AdminOnlineConsultationDetails from "./pages/AdminOnlineConsultationDetails";
 import AdminOnlineConsultations from "./pages/AdminOnlineConsultations";
 import AdminOrderDetails from "./pages/AdminOrderDetails";
@@ -56,6 +60,22 @@ const AdminShell = () => (
         <Route
           path="requests/consultations/online/:id"
           element={<AdminOnlineConsultationDetails />}
+        />
+        <Route
+          path="requests/consultations/in-person"
+          element={<AdminInPersonConsultations />}
+        />
+        <Route
+          path="requests/consultations/in-person/:id"
+          element={<AdminInPersonConsultationDetails />}
+        />
+        <Route
+          path="requests/consultations/house-calls"
+          element={<AdminHouseCallRequests />}
+        />
+        <Route
+          path="requests/consultations/house-calls/:id"
+          element={<AdminHouseCallRequestDetails />}
         />
         <Route path="requests/volunteers" element={<AdminVolunteerRequests />} />
         <Route
