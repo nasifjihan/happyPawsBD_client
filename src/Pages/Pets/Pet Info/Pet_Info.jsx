@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   Box,
   Button,
@@ -13,51 +13,60 @@ import {
 } from "@mui/material";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-import { Link as RouterLink } from "react-router-dom";
-import petInfoLibrary from "../../../data/petInfoLibrary.json";
+import { useQuery } from "@tanstack/react-query";
+import { Link as RouterLink, useSearchParams } from "react-router-dom";
+import { getPetInfoAnimals, getPetInfoLibrary } from "../../../API/api";
 
 const Pet_Info = () => {
-  const [typeFilter, setTypeFilter] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const typeFilter = searchParams.get("type") || "all";
+  const searchTerm = searchParams.get("q") || "";
+
+  const { data: animalsData } = useQuery({
+    queryKey: ["pet-info-animals"],
+    queryFn: getPetInfoAnimals,
+    staleTime: 300_000,
+  });
+
+  const { data: libraryData, isLoading, isError } = useQuery({
+    queryKey: [
+      "pet-info-library",
+      {
+        type: typeFilter === "all" ? undefined : typeFilter,
+        q: searchTerm.trim() || undefined,
+      },
+    ],
+    queryFn: () =>
+      getPetInfoLibrary({
+        type: typeFilter === "all" ? undefined : typeFilter,
+        q: searchTerm.trim() || undefined,
+      }),
+    staleTime: 300_000,
+  });
 
   const animalTypes = useMemo(
-    () => petInfoLibrary.map((item) => item.type),
-    []
+    () => (animalsData?.items ?? []).map((item) => item.type),
+    [animalsData?.items]
   );
 
-  const filteredLibrary = useMemo(() => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
+  const filteredLibrary = useMemo(() => libraryData?.items ?? [], [libraryData?.items]);
+  const visibleBreedCount = libraryData?.totalBreeds ?? 0;
+  const groupCount = animalsData?.items?.length ?? 0;
 
-    return petInfoLibrary
-      .filter((group) => typeFilter === "all" || group.type === typeFilter)
-      .map((group) => {
-        const breeds = normalizedQuery
-          ? group.breeds.filter((breed) => {
-              const haystack = [
-                breed.name,
-                breed.origin,
-                breed.size,
-                breed.goodFor,
-                breed.highlights,
-                ...(breed.temperament || []),
-              ]
-                .filter(Boolean)
-                .join(" ")
-                .toLowerCase();
+  const updateParams = (next) => {
+    const params = new URLSearchParams(searchParams);
 
-              return haystack.includes(normalizedQuery);
-            })
-          : group.breeds;
+    Object.entries(next).forEach(([key, value]) => {
+      const normalizedValue = String(value || "").trim();
+      if (!normalizedValue || normalizedValue === "all") {
+        params.delete(key);
+      } else {
+        params.set(key, normalizedValue);
+      }
+    });
 
-        return { ...group, breeds };
-      })
-      .filter((group) => group.breeds.length > 0);
-  }, [searchTerm, typeFilter]);
-
-  const visibleBreedCount = filteredLibrary.reduce(
-    (sum, group) => sum + group.breeds.length,
-    0
-  );
+    setSearchParams(params, { replace: true });
+  };
 
   return (
     <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
@@ -118,15 +127,19 @@ const Pet_Info = () => {
                   </Typography>
                   <Typography color="text.secondary">
                     {visibleBreedCount} breed{visibleBreedCount === 1 ? "" : "s"} shown
-                    across {filteredLibrary.length} animal group
-                    {filteredLibrary.length === 1 ? "" : "s"}.
+                  across {filteredLibrary.length || groupCount} animal group
+                  {filteredLibrary.length === 1 ? "" : "s"}.
                   </Typography>
                 </Box>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={1.5}>
                   <TextField
                     label="Search breeds"
                     value={searchTerm}
-                    onChange={(event) => setSearchTerm(event.target.value)}
+                    onChange={(event) =>
+                      updateParams({
+                        q: event.target.value,
+                      })
+                    }
                     placeholder="Golden Retriever, Siamese, Betta..."
                     sx={{ minWidth: { md: 280 } }}
                   />
@@ -134,7 +147,11 @@ const Pet_Info = () => {
                     select
                     label="Animal type"
                     value={typeFilter}
-                    onChange={(event) => setTypeFilter(event.target.value)}
+                    onChange={(event) =>
+                      updateParams({
+                        type: event.target.value,
+                      })
+                    }
                     sx={{ minWidth: { md: 200 } }}
                   >
                     <MenuItem value="all">All animals</MenuItem>
@@ -148,7 +165,7 @@ const Pet_Info = () => {
               </Stack>
 
               <Grid container spacing={2}>
-                {petInfoLibrary.map((group) => (
+                {(animalsData?.items ?? []).map((group) => (
                   <Grid item xs={12} sm={6} md={4} key={group.type}>
                     <Paper
                       variant="outlined"
@@ -180,7 +197,7 @@ const Pet_Info = () => {
                           <strong>Ideal for:</strong> {group.idealFor}
                         </Typography>
                         <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                          {group.commonNeeds.map((item) => (
+                          {(group.commonNeeds || []).map((item) => (
                             <Chip key={item} label={item} size="small" variant="outlined" />
                           ))}
                         </Stack>
@@ -250,7 +267,7 @@ const Pet_Info = () => {
                             </Typography>
 
                             <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                              {breed.temperament.map((trait) => (
+                              {(breed.temperament || []).map((trait) => (
                                 <Chip key={trait} label={trait} size="small" variant="outlined" />
                               ))}
                             </Stack>
@@ -264,7 +281,11 @@ const Pet_Info = () => {
             ) : (
               <Paper variant="outlined" sx={{ p: 4, borderRadius: 3, textAlign: "center" }}>
                 <Typography variant="h6" fontWeight={800} gutterBottom>
-                  No breeds matched your search
+                  {isLoading
+                    ? "Loading pet library..."
+                    : isError
+                      ? "Could not load pet library"
+                      : "No breeds matched your search"}
                 </Typography>
                 <Typography color="text.secondary">
                   Try another animal type or search term to explore the full pet

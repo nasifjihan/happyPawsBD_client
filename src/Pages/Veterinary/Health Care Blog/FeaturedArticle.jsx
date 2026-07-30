@@ -1,7 +1,19 @@
 import React from "react";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { sanitizeImageUrl } from "../../../lib/media";
 
-const FeaturedArticle = () => {
+const FeaturedArticle = ({ post }) => {
+  if (!post) {
+    return null;
+  }
+
+  const coverImageUrl = sanitizeImageUrl(post.coverImageUrl);
+  const title = post.title || "Featured Article";
+  const excerpt = post.excerpt || "";
+  const actionTo = post.id ? `/health_care_blog/posts/${post.id}` : null;
+  const actionHref = post.externalUrl ? sanitizeImageUrl(post.externalUrl) : null;
+
   return (
     <Box
       sx={{
@@ -16,17 +28,20 @@ const FeaturedArticle = () => {
       }}
     >
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <img
-            src="https://smb.ibsrv.net/imageresizer/image/article_manager/1200x1200/24863/1124967/heroimage0.951364001709243835.jpg"
-            alt="The Ultimate Guide to Pet Vaccinations"
-            style={{
-              width: "100%",
-              borderRadius: "16px",
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
+        {coverImageUrl ? (
+          <Grid item xs={12} md={6}>
+            <Box
+              component="img"
+              src={coverImageUrl}
+              alt={post.coverImageAlt || title}
+              sx={{
+                width: "100%",
+                borderRadius: 4,
+              }}
+            />
+          </Grid>
+        ) : null}
+        <Grid item xs={12} md={coverImageUrl ? 6 : 12}>
           <Stack spacing={2}>
             <Typography
               variant="overline"
@@ -44,28 +59,39 @@ const FeaturedArticle = () => {
                 mb: 0,
               }}
             >
-              The Ultimate Guide to Pet Vaccinations: What You Need to Know
+              {title}
             </Typography>
             <Typography
               variant="body1"
               sx={{ color: "text.secondary", lineHeight: 1.7 }}
             >
-              Vaccinations are one of the most important ways to protect your pet
-              from life-threatening diseases. Learn more about the essential
-              vaccines your pets need, why they matter, and when to schedule them.
+              {excerpt}
             </Typography>
             <Box>
-              <Button
-                variant="contained"
-                color="success"
-                size="large"
-                href="https://www.glastonburyanimalhospital.com/blog/1124967-decoding-pet-vaccinations-a-pet-owners-essential-guide"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{ px: 4, fontWeight: 700 }}
-              >
-                View Article
-              </Button>
+              {actionHref ? (
+                <Button
+                  variant="contained"
+                  color="success"
+                  size="large"
+                  href={actionHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ px: 4, fontWeight: 700 }}
+                >
+                  View Article
+                </Button>
+              ) : actionTo ? (
+                <Button
+                  variant="contained"
+                  color="success"
+                  size="large"
+                  component={RouterLink}
+                  to={actionTo}
+                  sx={{ px: 4, fontWeight: 700 }}
+                >
+                  Read
+                </Button>
+              ) : null}
             </Box>
           </Stack>
         </Grid>

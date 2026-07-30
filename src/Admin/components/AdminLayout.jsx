@@ -27,6 +27,9 @@ const navItems = [
   { label: "Vet Providers", to: "/admin/catalog/vets" },
   { label: "Programs", to: "/admin/catalog/programs" },
   { label: "Stories", to: "/admin/content/stories" },
+  { label: "Blog Posts", to: "/admin/content/blog-posts" },
+  { label: "Pet Info Animals", to: "/admin/content/pet-info/animals" },
+  { label: "Pet Info Breeds", to: "/admin/content/pet-info/breeds" },
   { label: "Adoptable Animals", to: "/admin/adoption/animals" },
   { label: "Orders", to: "/admin/requests/orders" },
   { label: "Online Consultations", to: "/admin/requests/consultations/online" },
@@ -35,6 +38,7 @@ const navItems = [
   { label: "Reviews", to: "/admin/requests/reviews" },
   { label: "Enrollments", to: "/admin/requests/enrollments" },
   { label: "Lost & Found", to: "/admin/requests/lost-found" },
+  { label: "Rescue Alerts", to: "/admin/requests/rescue-alerts" },
   { label: "Settings", to: "/admin/settings" },
 ];
 
@@ -88,6 +92,10 @@ const AdminLayout = () => {
 
     if (to === "/admin/requests/lost-found") {
       return newCounts.lostFound ?? 0;
+    }
+
+    if (to === "/admin/requests/rescue-alerts") {
+      return newCounts.rescueAlerts ?? 0;
     }
 
     return 0;

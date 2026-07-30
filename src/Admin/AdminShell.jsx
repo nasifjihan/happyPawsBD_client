@@ -16,7 +16,12 @@ import AdminOrderDetails from "./pages/AdminOrderDetails";
 import AdminOrders from "./pages/AdminOrders";
 import AdminReviewDetails from "./pages/AdminReviewDetails";
 import AdminReviews from "./pages/AdminReviews";
+import AdminRescueAlertDetails from "./pages/AdminRescueAlertDetails";
+import AdminRescueAlerts from "./pages/AdminRescueAlerts";
 import AdminSettings from "./pages/AdminSettings";
+import AdminBlogPosts from "./pages/AdminBlogPosts";
+import AdminPetInfoAnimals from "./pages/AdminPetInfoAnimals";
+import AdminPetInfoBreeds from "./pages/AdminPetInfoBreeds";
 import AdminStories from "./pages/AdminStories";
 import AdminVolunteerRequestDetails from "./pages/AdminVolunteerRequestDetails";
 import AdminVolunteerRequests from "./pages/AdminVolunteerRequests";
@@ -38,6 +43,9 @@ const AdminShell = () => (
         <Route path="catalog/vets" element={<AdminVetProviders />} />
         <Route path="catalog/programs" element={<AdminPrograms />} />
         <Route path="content/stories" element={<AdminStories />} />
+        <Route path="content/blog-posts" element={<AdminBlogPosts />} />
+        <Route path="content/pet-info/animals" element={<AdminPetInfoAnimals />} />
+        <Route path="content/pet-info/breeds" element={<AdminPetInfoBreeds />} />
         <Route path="adoption/animals" element={<AdoptableAnimalsAdmin />} />
         <Route path="requests/orders" element={<AdminOrders />} />
         <Route path="requests/orders/:id" element={<AdminOrderDetails />} />
@@ -63,6 +71,11 @@ const AdminShell = () => (
         <Route path="requests/reviews/:id" element={<AdminReviewDetails />} />
         <Route path="requests/enrollments" element={<AdminEnrollments />} />
         <Route path="requests/lost-found" element={<AdminLostFound />} />
+        <Route path="requests/rescue-alerts" element={<AdminRescueAlerts />} />
+        <Route
+          path="requests/rescue-alerts/:id"
+          element={<AdminRescueAlertDetails />}
+        />
         <Route path="settings" element={<AdminSettings />} />
       </Route>
     </Routes>

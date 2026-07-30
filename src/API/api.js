@@ -207,6 +207,26 @@ export const submitStory = async (payload) => {
   return response.data;
 };
 
+export const getBlogPosts = async (params) =>
+  getWithWarmup("/api/v1/blog-posts", createQueryConfig(params));
+
+export const getBlogPost = async (id) =>
+  getWithWarmup(`/api/v1/blog-posts/${id}`);
+
+export const getPetInfoAnimals = async () =>
+  getWithWarmup("/api/v1/pet-info/animals");
+
+export const getPetInfoLibrary = async (params) =>
+  getWithWarmup("/api/v1/pet-info/library", createQueryConfig(params));
+
+export const submitRescueAlert = async (payload) => {
+  await waitForApiReady();
+  const response = await axiosInstance.post("/api/v1/rescue-alerts", payload, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
 export const getSiteSettings = async () => getWithWarmup("/api/v1/site-settings");
 
 export const requestOnlineConsultation = async (payload) => {

@@ -3,12 +3,12 @@ import {
   Box,
   Card,
   CardContent,
-  CardMedia,
   Typography,
   Button,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
-const BlogCard = ({ title, excerpt, link, image }) => {
+const BlogCard = ({ title, excerpt, link, to, image }) => {
   return (
     <Card
       sx={{
@@ -23,15 +23,19 @@ const BlogCard = ({ title, excerpt, link, image }) => {
         },
       }}
     >
-      <CardMedia
-        component="img"
-        height="220"
-        image={image}
-        alt={title}
-        sx={{
-          objectFit: "cover",
-        }}
-      />
+      {image ? (
+        <Box
+          component="img"
+          src={image}
+          alt={title}
+          sx={{
+            width: "100%",
+            height: 220,
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      ) : null}
       <CardContent
         sx={{
           backgroundColor: "#f9f9f9",
@@ -57,15 +61,26 @@ const BlogCard = ({ title, excerpt, link, image }) => {
           {excerpt}
         </Typography>
         <Box>
-          <Button
-            variant="outlined"
-            color="success"
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Article
-          </Button>
+          {to ? (
+            <Button
+              variant="outlined"
+              color="success"
+              component={RouterLink}
+              to={to}
+            >
+              Read
+            </Button>
+          ) : link ? (
+            <Button
+              variant="outlined"
+              color="success"
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Article
+            </Button>
+          ) : null}
         </Box>
       </CardContent>
     </Card>

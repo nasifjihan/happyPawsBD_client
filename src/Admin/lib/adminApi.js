@@ -66,6 +66,8 @@ export const adminGetDashboardCounts = async () => {
     groomingPrograms,
     boardingPrograms,
     stories,
+    blogPosts,
+    rescueAlerts,
     orders,
     consultations,
     volunteers,
@@ -84,6 +86,8 @@ export const adminGetDashboardCounts = async () => {
     axiosInstance.get("/api/v1/admin/catalog/programs/grooming", config),
     axiosInstance.get("/api/v1/admin/catalog/programs/boarding", config),
     axiosInstance.get("/api/v1/admin/content/stories", config),
+    axiosInstance.get("/api/v1/admin/content/blog-posts", config),
+    axiosInstance.get("/api/v1/admin/requests/rescue-alerts", config),
     axiosInstance.get("/api/v1/admin/orders", config),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", config),
     axiosInstance.get("/api/v1/admin/requests/volunteers", config),
@@ -104,6 +108,8 @@ export const adminGetDashboardCounts = async () => {
     groomingPrograms: groomingPrograms.data.total,
     boardingPrograms: boardingPrograms.data.total,
     stories: stories.data.total,
+    blogPosts: blogPosts.data.total,
+    rescueAlerts: rescueAlerts.data.total,
     orders: orders.data.total,
     onlineConsultations: consultations.data.total,
     volunteerApplications: volunteers.data.total,
@@ -127,6 +133,7 @@ export const adminGetRecentRequests = async () => {
     orders,
     consultations,
     stories,
+    rescueAlerts,
     volunteers,
     adoptions,
     training,
@@ -138,6 +145,7 @@ export const adminGetRecentRequests = async () => {
     axiosInstance.get("/api/v1/admin/orders", config),
     axiosInstance.get("/api/v1/admin/requests/consultations/online", config),
     axiosInstance.get("/api/v1/admin/content/stories", config),
+    axiosInstance.get("/api/v1/admin/requests/rescue-alerts", config),
     axiosInstance.get("/api/v1/admin/requests/volunteers", config),
     axiosInstance.get("/api/v1/admin/requests/adoptions", config),
     axiosInstance.get("/api/v1/admin/requests/enrollments/training", config),
@@ -151,6 +159,7 @@ export const adminGetRecentRequests = async () => {
     orders: orders.data.items ?? [],
     consultations: consultations.data.items ?? [],
     stories: stories.data.items ?? [],
+    rescueAlerts: rescueAlerts.data.items ?? [],
     volunteers: volunteers.data.items ?? [],
     adoptions: adoptions.data.items ?? [],
     enrollments: {
@@ -173,6 +182,7 @@ export const adminGetNewRequestCounts = async () => {
     adoptions,
     reviews,
     stories,
+    rescueAlerts,
     training,
     grooming,
     boarding,
@@ -200,6 +210,10 @@ export const adminGetNewRequestCounts = async () => {
       params: { page: 1, limit: 1, status: "new" },
     }),
     axiosInstance.get("/api/v1/admin/content/stories", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 1, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/requests/rescue-alerts", {
       ...adminRequestConfig(),
       params: { page: 1, limit: 1, status: "new" },
     }),
@@ -232,6 +246,7 @@ export const adminGetNewRequestCounts = async () => {
     adoptions: adoptions.data.total ?? 0,
     reviews: reviews.data.total ?? 0,
     stories: stories.data.total ?? 0,
+    rescueAlerts: rescueAlerts.data.total ?? 0,
     enrollments:
       (training.data.total ?? 0) +
       (grooming.data.total ?? 0) +
@@ -379,6 +394,106 @@ export const adminUpsertStory = async (payload) => {
 export const adminDeleteStory = async (id) => {
   const response = await axiosInstance.delete(
     `/api/v1/admin/content/stories/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminListBlogPosts = async ({
+  page,
+  limit,
+  q,
+  status,
+  category,
+  featured,
+} = {}) => {
+  const response = await axiosInstance.get("/api/v1/admin/content/blog-posts", {
+    ...adminRequestConfig(),
+    params: { page, limit, q, status, category, featured },
+  });
+
+  return response.data;
+};
+
+export const adminGetBlogPost = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/content/blog-posts/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminUpsertBlogPost = async (payload) => {
+  const response = await axiosInstance.post(
+    "/api/v1/admin/content/blog-posts",
+    payload,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminDeleteBlogPost = async (id) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/admin/content/blog-posts/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminListPetInfoAnimals = async ({ page, limit, q } = {}) => {
+  const response = await axiosInstance.get("/api/v1/admin/content/pet-info/animals", {
+    ...adminRequestConfig(),
+    params: { page, limit, q },
+  });
+
+  return response.data;
+};
+
+export const adminUpsertPetInfoAnimal = async (payload) => {
+  const response = await axiosInstance.post(
+    "/api/v1/admin/content/pet-info/animals",
+    payload,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminDeletePetInfoAnimal = async (type) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/admin/content/pet-info/animals/${encodeURIComponent(type)}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminListPetInfoBreeds = async ({ page, limit, q, type } = {}) => {
+  const response = await axiosInstance.get("/api/v1/admin/content/pet-info/breeds", {
+    ...adminRequestConfig(),
+    params: { page, limit, q, type },
+  });
+
+  return response.data;
+};
+
+export const adminUpsertPetInfoBreed = async (payload) => {
+  const response = await axiosInstance.post(
+    "/api/v1/admin/content/pet-info/breeds",
+    payload,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminDeletePetInfoBreed = async (id) => {
+  const response = await axiosInstance.delete(
+    `/api/v1/admin/content/pet-info/breeds/${id}`,
     adminRequestConfig()
   );
 
@@ -560,6 +675,34 @@ export const adminUpdateLostFoundReport = async ({ type, id, status }) => {
   return response.data;
 };
 
+export const adminListRescueAlerts = async ({ page, limit, status, urgency, q }) => {
+  const response = await axiosInstance.get("/api/v1/admin/requests/rescue-alerts", {
+    ...adminRequestConfig(),
+    params: { page, limit, status, urgency, q },
+  });
+
+  return response.data;
+};
+
+export const adminGetRescueAlert = async (id) => {
+  const response = await axiosInstance.get(
+    `/api/v1/admin/requests/rescue-alerts/${id}`,
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
+export const adminUpdateRescueAlert = async ({ id, status, adminNotes }) => {
+  const response = await axiosInstance.put(
+    `/api/v1/admin/requests/rescue-alerts/${id}`,
+    { status, adminNotes },
+    adminRequestConfig()
+  );
+
+  return response.data;
+};
+
 export const adminListOnlineConsultations = async ({ page, limit, status, q }) => {
   const response = await axiosInstance.get(
     "/api/v1/admin/requests/consultations/online",
@@ -627,6 +770,7 @@ export const adminGetNewRequestsFeed = async () => {
     adoptions,
     reviews,
     stories,
+    rescueAlerts,
     training,
     grooming,
     boarding,
@@ -654,6 +798,10 @@ export const adminGetNewRequestsFeed = async () => {
       params: { page: 1, limit: 3, status: "new" },
     }),
     axiosInstance.get("/api/v1/admin/content/stories", {
+      ...adminRequestConfig(),
+      params: { page: 1, limit: 3, status: "new" },
+    }),
+    axiosInstance.get("/api/v1/admin/requests/rescue-alerts", {
       ...adminRequestConfig(),
       params: { page: 1, limit: 3, status: "new" },
     }),
@@ -686,6 +834,7 @@ export const adminGetNewRequestsFeed = async () => {
     adoptions: adoptions.data.items ?? [],
     reviews: reviews.data.items ?? [],
     stories: stories.data.items ?? [],
+    rescueAlerts: rescueAlerts.data.items ?? [],
     enrollments: {
       training: training.data.items ?? [],
       grooming: grooming.data.items ?? [],

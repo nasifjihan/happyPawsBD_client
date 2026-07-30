@@ -238,6 +238,20 @@ const AdminDashboard = () => {
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
+          <StatCard label="Blog Posts" value={data?.blogPosts ?? 0} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatCard
+            label="Rescue Alerts"
+            value={data?.rescueAlerts ?? 0}
+            helper={
+              (newCounts?.rescueAlerts ?? 0) > 0
+                ? `New: ${newCounts.rescueAlerts}`
+                : ""
+            }
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
           <StatCard
             label="Orders"
             value={data?.orders ?? 0}
@@ -593,6 +607,26 @@ const AdminDashboard = () => {
 
                 <Grid item xs={12} md={6} lg={4}>
                   <Stack spacing={1.5}>
+                    <Typography fontWeight={900}>Rescue Alerts</Typography>
+                    {(newRequestsFeed?.rescueAlerts ?? []).slice(0, 3).map((item) => (
+                      <RecentRow
+                        key={item._id}
+                        title={item.reporterName || "Rescue Alert"}
+                        subtitle={`${item.animalType || "Animal"} • ${formatDateTime(item.createdAt)}`}
+                        status={item.status || "new"}
+                        to={`/admin/requests/rescue-alerts/${item._id}`}
+                      />
+                    ))}
+                    {(newRequestsFeed?.rescueAlerts ?? []).length ? null : (
+                      <Typography variant="body2" color="text.secondary">
+                        No new rescue alerts.
+                      </Typography>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={4}>
+                  <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Enrollments</Typography>
                     {(newRequestsFeed?.enrollments?.training ?? []).slice(0, 1).map((item) => (
                       <RecentRow
@@ -705,7 +739,7 @@ const AdminDashboard = () => {
               </Stack>
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} alignItems="center">
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -737,7 +771,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} alignItems="center">
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -769,7 +803,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} alignItems="center">
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -796,6 +830,38 @@ const AdminDashboard = () => {
                     {(recentRequests?.stories ?? []).length ? null : (
                       <Typography variant="body2" color="text.secondary">
                         No stories yet.
+                      </Typography>
+                    )}
+                  </Stack>
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <Stack spacing={1.5}>
+                    <Stack direction="row" spacing={1.25} alignItems="center">
+                      <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
+                        <Typography fontWeight={900} color="common.white">
+                          R
+                        </Typography>
+                      </Avatar>
+                      <Box>
+                        <Typography fontWeight={900}>Rescue Alerts</Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Latest rescue reports
+                        </Typography>
+                      </Box>
+                    </Stack>
+                    {(recentRequests?.rescueAlerts ?? []).slice(0, 3).map((item) => (
+                      <RecentRow
+                        key={item._id}
+                        title={item.reporterName || "Rescue Alert"}
+                        subtitle={`${item.animalType || "Animal"} • ${formatDateTime(item.createdAt)}`}
+                        status={item.status || "new"}
+                        to={`/admin/requests/rescue-alerts/${item._id}`}
+                      />
+                    ))}
+                    {(recentRequests?.rescueAlerts ?? []).length ? null : (
+                      <Typography variant="body2" color="text.secondary">
+                        No rescue alerts yet.
                       </Typography>
                     )}
                   </Stack>

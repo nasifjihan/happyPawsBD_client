@@ -76,6 +76,9 @@ const House_Calls = lazy(() =>
 const Health_Care_Blog = lazy(() =>
   import("./Pages/Veterinary/Health Care Blog/Health_Care_Blog")
 );
+const BlogPostDetails = lazy(() =>
+  import("./Pages/Veterinary/Health Care Blog/BlogPostDetails")
+);
 const Covid19_Info = lazy(() =>
   import("./Pages/Veterinary/Covid19 Info/Covid19_Info")
 );
@@ -146,6 +149,7 @@ const publicRoutes = [
   { path: "/vet_finder", component: VetFinder },
   { path: "/house_calls", component: House_Calls },
   { path: "/health_care_blog", component: Health_Care_Blog },
+  { path: "/health_care_blog/posts/:id", component: BlogPostDetails },
   { path: "/covid19_info", component: Covid19_Info },
   { path: "/volunteer", component: Volunteer },
   { path: "/make_donation", component: Make_Donation },
