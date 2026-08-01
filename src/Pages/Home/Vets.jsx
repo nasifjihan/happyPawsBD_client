@@ -5,7 +5,7 @@ import { Box, Card, Chip, Link, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
-import { getVetProviders } from "../../API/api";
+import { getVetAuthors } from "../../API/api";
 import { sanitizeImageUrl } from "../../lib/media";
 
 // Custom Left Arrow
@@ -86,8 +86,8 @@ const CustomDot = ({ onClick, ...rest }) => {
 
 const Vets = () => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["home", "vet-providers", { page: 1, limit: 12 }],
-    queryFn: () => getVetProviders({ page: 1, limit: 12 }),
+    queryKey: ["home", "vet-authors", { page: 1, limit: 12 }],
+    queryFn: () => getVetAuthors({ page: 1, limit: 12 }),
     staleTime: 300_000,
   });
 
@@ -196,8 +196,8 @@ const Vets = () => {
               }}
             >
               <OptimizedImage
-                src={sanitizeImageUrl(item.image)}
-                alt={item.title || "Veterinary author"}
+                src={sanitizeImageUrl(item.picture)}
+                alt={item.name || "Veterinary author"}
                 style={{
                   width: "100px",
                   height: "130px",
@@ -226,7 +226,7 @@ const Vets = () => {
                     fontWeight={700}
                     component="div"
                   >
-                    {item.title || "Veterinary Author"}
+                    {item.name || "Veterinary Author"}
                   </Typography>
 
                   <Typography
@@ -236,7 +236,7 @@ const Vets = () => {
                     fontWeight={700}
                     component="div"
                   >
-                    {item.position || "Vet Partner"}
+                    {item.specialization || "Vet Partner"}
                   </Typography>
 
                   <Typography
@@ -246,7 +246,7 @@ const Vets = () => {
                     fontWeight={500}
                     component="div"
                   >
-                    {item.City || item.location || "Bangladesh"}
+                    {item.location || "Bangladesh"}
                   </Typography>
 
                   <Typography
@@ -256,9 +256,7 @@ const Vets = () => {
                     fontWeight={500}
                     component="div"
                   >
-                    {Array.isArray(item.contact)
-                      ? item.contact[0]
-                      : item.contact || ""}
+                    {item.contact || ""}
                   </Typography>
 
                   <Box
@@ -274,15 +272,11 @@ const Vets = () => {
                     }}
                   >
                     <Link
-                      href={item.map_link || item.website || "/vet_finder"}
+                      href={item.details || "/health_care_blog"}
                       underline="none"
                       color="inherit"
-                      target={item.map_link || item.website ? "_blank" : undefined}
-                      rel={
-                        item.map_link || item.website
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
+                      target={item.details ? "_blank" : undefined}
+                      rel={item.details ? "noopener noreferrer" : undefined}
                     >
                       - Learn More
                     </Link>

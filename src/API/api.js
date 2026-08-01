@@ -193,6 +193,9 @@ export const getVetProviders = async (params) =>
 export const getVetDirectoryMeta = async (params) =>
   getWithWarmup("/api/v1/vets/meta", createQueryConfig(params));
 
+export const getVetAuthors = async (params) =>
+  getWithWarmup("/api/v1/vet-authors", createQueryConfig(params));
+
 export const getPrograms = async (type, params) =>
   getWithWarmup(`/api/v1/programs/${type}`, createQueryConfig(params));
 
