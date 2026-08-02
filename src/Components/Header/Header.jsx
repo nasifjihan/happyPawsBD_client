@@ -19,10 +19,13 @@ import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Stack } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { useColorMode } from "../../context/ColorModeContext";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
 
 const navSections = [
@@ -128,6 +131,7 @@ const Header = (props) => {
 
   const drawerWidth = 280;
   const { logOut, user } = useUserAuth();
+  const { mode, toggleMode } = useColorMode();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -443,6 +447,24 @@ const Header = (props) => {
               );
             })}
           </Stack>
+
+          <Tooltip
+            title={
+              mode === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            <IconButton
+              color="inherit"
+              aria-label="Toggle color mode"
+              onClick={toggleMode}
+            >
+              {mode === "dark" ? (
+                <LightModeOutlinedIcon />
+              ) : (
+                <DarkModeOutlinedIcon />
+              )}
+            </IconButton>
+          </Tooltip>
 
           {navSections.map((section) => (
             <Menu

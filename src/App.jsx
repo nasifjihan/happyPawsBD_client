@@ -1,20 +1,18 @@
 import "./App.css";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { theme } from "./Theme/Theme";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import { CartContextProvider } from "./context/CartContext";
+import { ColorModeProvider } from "./context/ColorModeContext";
 import AppRoutes from "./routes/AppRoutes";
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ColorModeProvider>
       <UserAuthContextProvider>
         <CartContextProvider>
           <AppRoutes />
         </CartContextProvider>
       </UserAuthContextProvider>
-    </ThemeProvider>
+    </ColorModeProvider>
   );
 };
 

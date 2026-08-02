@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -19,34 +18,13 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import { alpha, createTheme, ThemeProvider } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getAuthErrorMessage } from "./authErrors";
 
-const authTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#2e7d32",
-      light: "#60ad5e",
-      dark: "#005005",
-    },
-    secondary: {
-      main: "#8bc34a",
-    },
-    background: {
-      default: "#f4f9f1",
-    },
-  },
-  shape: {
-    borderRadius: 18,
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-});
-
 const SignIn = () => {
+  const theme = useTheme();
   const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -94,49 +72,58 @@ const SignIn = () => {
     }
   };
 
+  const pageBackground =
+    theme.palette.mode === "dark"
+      ? `radial-gradient(circle at top, ${alpha(theme.palette.success.main, 0.22)}, transparent 36%), linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`
+      : "radial-gradient(circle at top, rgba(139, 195, 74, 0.18), transparent 32%), linear-gradient(180deg, #f7fbf4 0%, #eef7ea 100%)";
+
+  const cardBackground =
+    theme.palette.mode === "dark"
+      ? `linear-gradient(180deg, ${alpha(theme.palette.success.main, 0.16)} 0%, ${alpha(theme.palette.background.paper, 0.98)} 42%)`
+      : "linear-gradient(180deg, rgba(46, 125, 50, 0.08) 0%, rgba(255, 255, 255, 0.98) 38%)";
+
   return (
-    <ThemeProvider theme={authTheme}>
-      <CssBaseline />
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          pt: 8,
-          background:
-            "radial-gradient(circle at top, rgba(139, 195, 74, 0.18), transparent 32%), linear-gradient(180deg, #f7fbf4 0%, #eef7ea 100%)",
-        }}
-      >
-        <Container component="main" maxWidth="sm">
-          <Paper
-            elevation={0}
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        pt: 8,
+        background: pageBackground,
+      }}
+    >
+      <Container component="main" maxWidth="sm">
+        <Paper
+          elevation={0}
+          sx={{
+            overflow: "hidden",
+            border: "1px solid",
+            borderColor: alpha(theme.palette.primary.main, 0.2),
+            boxShadow:
+              theme.palette.mode === "dark"
+                ? "0 24px 60px rgba(0, 0, 0, 0.45)"
+                : "0 24px 60px rgba(46, 125, 50, 0.12)",
+          }}
+        >
+          <Box
             sx={{
-              overflow: "hidden",
-              border: "1px solid",
-              borderColor: alpha(authTheme.palette.primary.main, 0.12),
-              boxShadow: "0 24px 60px rgba(46, 125, 50, 0.12)",
+              px: { xs: 3, sm: 5 },
+              py: { xs: 4, sm: 5 },
+              background: cardBackground,
             }}
           >
-            <Box
-              sx={{
-                px: { xs: 3, sm: 5 },
-                py: { xs: 4, sm: 5 },
-                background:
-                  "linear-gradient(180deg, rgba(46, 125, 50, 0.08) 0%, rgba(255, 255, 255, 0.98) 38%)",
-              }}
-            >
-              <Stack spacing={3}>
-                <Stack spacing={1.5} alignItems="center" textAlign="center">
-                  <Chip
-                    icon={<SecurityOutlinedIcon />}
-                    label="Secure Pet Care Access"
-                    color="primary"
-                    variant="outlined"
-                    sx={{
-                      borderRadius: 999,
-                      px: 0.75,
-                      bgcolor: alpha(authTheme.palette.primary.main, 0.06),
-                    }}
-                  />
+            <Stack spacing={3}>
+              <Stack spacing={1.5} alignItems="center" textAlign="center">
+                <Chip
+                  icon={<SecurityOutlinedIcon />}
+                  label="Secure Pet Care Access"
+                  color="primary"
+                  variant="outlined"
+                  sx={{
+                    borderRadius: 999,
+                    px: 0.75,
+                    bgcolor: alpha(theme.palette.primary.main, 0.08),
+                  }}
+                />
 
                   <Box>
                     <Typography component="h1" variant="h4" fontWeight={700}>
@@ -255,8 +242,8 @@ const SignIn = () => {
                         py: 1.3,
                         textTransform: "none",
                         fontWeight: 700,
-                        borderColor: alpha(authTheme.palette.primary.main, 0.2),
-                        bgcolor: "#fff",
+                        borderColor: alpha(theme.palette.primary.main, 0.28),
+                        bgcolor: theme.palette.background.paper,
                       }}
                     >
                       {isGoogleSubmitting
@@ -296,12 +283,11 @@ const SignIn = () => {
                     </Link>
                   </Typography>
                 </Box>
-              </Stack>
-            </Box>
-          </Paper>
-        </Container>
-      </Box>
-    </ThemeProvider>
+            </Stack>
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 };
 

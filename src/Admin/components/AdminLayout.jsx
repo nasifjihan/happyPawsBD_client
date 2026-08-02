@@ -6,18 +6,24 @@ import {
   Container,
   Divider,
   Drawer,
+  IconButton,
   List,
   ListItemButton,
   ListItemText,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, Outlet, useLocation } from "react-router";
 import { useEffect } from "react";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 
 import { useAdminAuth } from "../context/AdminAuthContext";
 import { adminGetNewRequestCounts } from "../lib/adminApi";
+import { useColorMode } from "../../context/ColorModeContext";
 
 const drawerWidth = 260;
 
@@ -50,6 +56,7 @@ const AdminLayout = () => {
   const auth = useAdminAuth();
   const location = useLocation();
   const queryClient = useQueryClient();
+  const { mode, toggleMode } = useColorMode();
 
   const { data: newCounts } = useQuery({
     queryKey: newCountsQueryKey,
@@ -120,7 +127,14 @@ const AdminLayout = () => {
   }, [auth.isAuthenticated, location.pathname, queryClient]);
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh", backgroundColor: "#f7fafc" }}>
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        backgroundColor: "background.default",
+        color: "text.primary",
+      }}
+    >
       <Drawer
         variant="permanent"
         sx={{
@@ -129,7 +143,8 @@ const AdminLayout = () => {
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: "border-box",
-            borderRight: "1px solid rgba(15, 23, 42, 0.12)",
+            borderRight: "1px solid",
+            borderColor: "divider",
           },
         }}
       >
@@ -162,7 +177,8 @@ const AdminLayout = () => {
                   borderRadius: 2,
                   my: 0.5,
                   "&.Mui-selected": {
-                    backgroundColor: "rgba(46, 125, 50, 0.12)",
+                    backgroundColor: (theme) =>
+                      alpha(theme.palette.success.main, 0.14),
                     color: "success.dark",
                   },
                 }}
@@ -200,8 +216,9 @@ const AdminLayout = () => {
           position="sticky"
           elevation={0}
           sx={{
-            borderBottom: "1px solid rgba(15, 23, 42, 0.08)",
-            backgroundColor: "rgba(255,255,255,0.96)",
+            borderBottom: "1px solid",
+            borderColor: "divider",
+            backgroundColor: (theme) => alpha(theme.palette.background.paper, 0.9),
             color: "text.primary",
             backdropFilter: "blur(12px)",
           }}
@@ -216,6 +233,24 @@ const AdminLayout = () => {
                 )?.label || "Admin Panel"
               }
             </Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            <Tooltip
+              title={
+                mode === "dark" ? "Switch to light mode" : "Switch to dark mode"
+              }
+            >
+              <IconButton
+                color="inherit"
+                aria-label="Toggle color mode"
+                onClick={toggleMode}
+              >
+                {mode === "dark" ? (
+                  <LightModeOutlinedIcon />
+                ) : (
+                  <DarkModeOutlinedIcon />
+                )}
+              </IconButton>
+            </Tooltip>
           </Toolbar>
         </AppBar>
 

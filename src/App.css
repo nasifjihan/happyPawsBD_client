@@ -1,24 +1,10 @@
-/* CSS for Default Setting ----------------------------------------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: "Roboto"; */
 }
 
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-/* Universal className ------------------------------------------------------------- */
+/* maxWidth="lg" */
 .myContainer {
   max-width: 1280px;
   /* max-width: 1080px; */

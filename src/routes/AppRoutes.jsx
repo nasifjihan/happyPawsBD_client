@@ -2,8 +2,8 @@ import { lazy } from "react";
 import { Outlet, Route, Routes } from "react-router";
 
 import ProtectedRoute from "../Components/Authentication/ProtectedRoute";
-import AdminAppLayout from "./layouts/AdminAppLayout";
-import PublicAppLayout from "./layouts/PublicAppLayout";
+import AdminAppLayout from "./AdminAppLayout";
+import PublicAppLayout from "./PublicAppLayout";
 
 const Home = lazy(() => import("../Pages/Home/Home"));
 const AdminShell = lazy(() => import("../Admin/AdminShell"));

@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert } from "@mui/material";
-import { Link, useLocation } from "react-router";
+import Link from "@mui/material/Link";
+import { Link as RouterLink, useLocation } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getAuthErrorMessage } from "./authErrors";
-
-const defaultTheme = createTheme();
 
 const ResetPassword = () => {
   const { resetPassword } = useUserAuth();
@@ -43,94 +40,83 @@ const ResetPassword = () => {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockResetOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Reset Password
+        </Typography>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          textAlign="center"
+          sx={{ mt: 1 }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockResetOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Reset Password
-          </Typography>
+          Enter the email for your account and we&apos;ll send you a reset link.
+        </Typography>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            textAlign="center"
-            sx={{ mt: 1 }}
+        {message && (
+          <Alert severity="success" sx={{ width: "100%", mt: 2 }}>
+            {message}
+          </Alert>
+        )}
+        {error && (
+          <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
+            {error}
+          </Alert>
+        )}
+
+        <Box
+          component="form"
+          onSubmit={handleResetPassword}
+          noValidate
+          sx={{ mt: 3 }}
+        >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            type="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            disabled={isSubmitting}
           >
-            Enter the email for your account and we&apos;ll send you a reset
-            link.
-          </Typography>
+            {isSubmitting ? "Sending Reset Link..." : "Send Reset Link"}
+          </Button>
 
-          {/* Success or Error Message */}
-          {message && (
-            <Alert severity="success" sx={{ width: "100%", mt: 2 }}>
-              {message}
-            </Alert>
-          )}
-          {error && (
-            <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
-              {error}
-            </Alert>
-          )}
-
-          <Box
-            component="form"
-            onSubmit={handleResetPassword}
-            noValidate
-            sx={{ mt: 3 }}
+          <Link
+            component={RouterLink}
+            to={signInLink}
+            underline="hover"
+            color="primary.main"
+            fontWeight={600}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              type="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Sending Reset Link..." : "Send Reset Link"}
-            </Button>
-
-            <Link
-              to={signInLink}
-              style={{
-                margin: "0",
-                textDecoration: "underline",
-                color: "#1976d2",
-                fontFamily: "Roboto",
-                fontWeight: "400",
-                fontSize: "0.875rem",
-                lineHeight: "1.43",
-                letterSpacing: "0.01071em",
-              }}
-            >
-              Back to sign in
-            </Link>
-          </Box>
+            Back to sign in
+          </Link>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 };
 
