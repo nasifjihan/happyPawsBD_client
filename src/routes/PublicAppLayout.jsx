@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Box } from "@mui/material";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 
 import AppErrorBoundary from "../Components/Common/AppErrorBoundary";
 import Footer from "../Components/Footer/Footer";

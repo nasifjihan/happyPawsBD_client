@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Outlet, Route, Routes } from "react-router";
+import { Outlet, Route, Routes } from "react-router-dom";
 
 import ProtectedRoute from "../Components/Authentication/ProtectedRoute";
 import AdminAppLayout from "./AdminAppLayout";

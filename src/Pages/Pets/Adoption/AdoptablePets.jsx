@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import ContentState from "../../../Components/Common/ContentState";
 import { useAdoptableAnimalsQuery } from "../../../features/adoption/hooks";
 

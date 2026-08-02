@@ -1,4 +1,11 @@
-import { Button, MenuItem, Paper, Stack, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  MenuItem,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const AdminFilterToolbar = ({
   searchValue,
@@ -20,7 +27,11 @@ const AdminFilterToolbar = ({
       alignItems={{ xs: "stretch", md: "center" }}
       justifyContent="space-between"
     >
-      <Stack direction={{ xs: "column", md: "row" }} spacing={2} sx={{ flex: 1 }}>
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={2}
+        sx={{ flex: 1 }}
+      >
         <TextField
           label="Search"
           placeholder={searchPlaceholder}
@@ -49,13 +60,17 @@ const AdminFilterToolbar = ({
         {children}
       </Stack>
 
-      <Stack spacing={0.25} textAlign={{ xs: "left", md: "right" }}>
+      <Stack spacing={0.25} sx={{ textAlign: { xs: "left", md: "right" } }}>
         {onReset ? (
           <Button
             variant="outlined"
             onClick={onReset}
             color="success"
-            sx={{ alignSelf: { xs: "flex-start", md: "flex-end" }, borderRadius: 3, fontWeight: 800 }}
+            sx={{
+              alignSelf: { xs: "flex-start", md: "flex-end" },
+              borderRadius: 3,
+              fontWeight: 800,
+            }}
           >
             {resetLabel}
           </Button>

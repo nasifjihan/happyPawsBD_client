@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 
 const keyPoints = [
   {

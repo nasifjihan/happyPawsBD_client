@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -61,7 +61,7 @@ const AdminLoginForm = () => {
       <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 4 }}>
         <CardContent sx={{ p: 4 }}>
           <Stack spacing={2.5}>
-            <Box textAlign="center">
+            <Box sx={{ textAlign: "center" }}>
               <Typography variant="h4" fontWeight={900}>
                 Admin Login
               </Typography>

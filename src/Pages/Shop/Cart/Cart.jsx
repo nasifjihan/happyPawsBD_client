@@ -15,7 +15,7 @@ import OrderSummary from "./OrderSummary";
 import PaymentMethod from "./PaymentMethod";
 import { createPaymentSession, orders } from "../../../API/api";
 import { loadStripe } from "@stripe/stripe-js";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { appEnv } from "../../../config/env";
 import { useCart } from "../../../context/CartContext";
 import ContentState from "../../../Components/Common/ContentState";

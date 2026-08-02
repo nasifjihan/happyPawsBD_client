@@ -94,7 +94,13 @@ const Vets = () => {
   const vets = data?.items ?? [];
 
   return (
-    <Box className="myContainer" my={10} textAlign={"center"}>
+    <Box
+      className="myContainer"
+      sx={{
+        my: 10,
+        textAlign: "center",
+      }}
+    >
       <Chip
         label="Trusted Pet Care Platform"
         color="success"
@@ -260,13 +266,12 @@ const Vets = () => {
                   </Typography>
 
                   <Box
-                    position="absolute"
-                    bottom="10px"
-                    right="10px"
-                    variant="body2"
-                    fontSize={11}
-                    color={"primary.green"}
                     sx={{
+                      position: "absolute",
+                      bottom: 10,
+                      right: 10,
+                      fontSize: 11,
+                      color: "primary.green",
                       textDecoration: "none",
                       cursor: "pointer",
                     }}

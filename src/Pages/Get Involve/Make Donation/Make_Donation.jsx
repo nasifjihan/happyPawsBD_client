@@ -25,7 +25,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import { alpha } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import { getSiteSettings } from "../../../API/api";
 
 const donationMethods = [

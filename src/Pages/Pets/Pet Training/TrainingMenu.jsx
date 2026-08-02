@@ -12,7 +12,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getPrograms } from "../../../API/api";
 import ContentState from "../../../Components/Common/ContentState";
 

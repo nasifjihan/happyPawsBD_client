@@ -28,12 +28,12 @@ const Adopted = () => {
       }}
     >
       <Box
-        p={5}
-        my={5}
-        textAlign={"center"}
         sx={{
           border: "4px solid #FBD062",
           position: "relative",
+          p: 5,
+          my: 5,
+          textAlign: "center",
         }}
       >
         {/* Logo Starts --------------------------------------------------- */}

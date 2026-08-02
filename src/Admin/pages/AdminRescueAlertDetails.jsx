@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link as RouterLink, useParams } from "react-router";
+import { Link as RouterLink, useParams } from "react-router-dom";
 
 import AdminStatusChip from "../components/AdminStatusChip";
 import { adminGetRescueAlert, adminUpdateRescueAlert } from "../lib/adminApi";

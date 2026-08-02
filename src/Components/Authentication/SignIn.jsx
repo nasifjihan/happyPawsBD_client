@@ -19,7 +19,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import { alpha, useTheme } from "@mui/material/styles";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getAuthErrorMessage } from "./authErrors";
 
@@ -112,7 +112,7 @@ const SignIn = () => {
             }}
           >
             <Stack spacing={3}>
-              <Stack spacing={1.5} alignItems="center" textAlign="center">
+              <Stack spacing={1.5} sx={{ textAlign: "center" }}>
                 <Chip
                   icon={<SecurityOutlinedIcon />}
                   label="Secure Pet Care Access"
@@ -125,164 +125,169 @@ const SignIn = () => {
                   }}
                 />
 
-                  <Box>
-                    <Typography component="h1" variant="h4" fontWeight={700}>
-                      Welcome back
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mt: 1, maxWidth: 420 }}
-                    >
-                      Sign in to manage adoptions, rescue requests, checkout,
-                      and your saved pet care activity.
-                    </Typography>
-                  </Box>
-                </Stack>
-
-                {authMessage && <Alert severity="info">{authMessage}</Alert>}
-
-                {error && <Alert severity="error">{error}</Alert>}
-
-                <Box component="form" onSubmit={handleSubmit} noValidate>
-                  <Stack spacing={2.25}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      autoFocus
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <EmailOutlinedIcon color="action" />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LockOutlinedIcon color="action" />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: { xs: "flex-start", sm: "center" },
-                        justifyContent: "space-between",
-                        gap: 1,
-                        flexDirection: { xs: "column", sm: "row" },
-                      }}
-                    >
-                      <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" size="small" />}
-                        label="Remember me"
-                      />
-                      <Link
-                        component={RouterLink}
-                        to={resetPasswordLink}
-                        underline="hover"
-                        color="primary.main"
-                        fontWeight={600}
-                      >
-                        Forgot password?
-                      </Link>
-                    </Box>
-
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        py: 1.4,
-                        fontWeight: 700,
-                        textTransform: "none",
-                        boxShadow: "0 14px 28px rgba(46, 125, 50, 0.24)",
-                        background:
-                          "linear-gradient(135deg, #2e7d32 0%, #43a047 100%)",
-                      }}
-                      disabled={isSubmitting || isGoogleSubmitting}
-                    >
-                      {isSubmitting ? "Signing In..." : "Sign In"}
-                    </Button>
-
-                    <Divider sx={{ color: "text.secondary" }}>
-                      or continue with
-                    </Divider>
-
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      size="large"
-                      startIcon={<GoogleIcon />}
-                      onClick={handleGoogleSignIn}
-                      disabled={isSubmitting || isGoogleSubmitting}
-                      sx={{
-                        py: 1.3,
-                        textTransform: "none",
-                        fontWeight: 700,
-                        borderColor: alpha(theme.palette.primary.main, 0.28),
-                        bgcolor: theme.palette.background.paper,
-                      }}
-                    >
-                      {isGoogleSubmitting
-                        ? "Connecting to Google..."
-                        : "Continue with Google"}
-                    </Button>
-
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      textAlign="center"
-                    >
-                      Protected access for your account, orders, and care
-                      updates.
-                    </Typography>
-                  </Stack>
-                </Box>
-
-                <Box
-                  sx={{
-                    pt: 1,
-                    borderTop: "1px solid",
-                    borderColor: "divider",
-                    textAlign: "center",
-                  }}
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    New to Happy Paws?{" "}
-                    <Link
-                      component={RouterLink}
-                      to={signUpLink}
-                      underline="hover"
-                      color="primary.main"
-                      fontWeight={700}
-                    >
-                      Create an account
-                    </Link>
+                <Box>
+                  <Typography component="h1" variant="h4" fontWeight={700}>
+                    Welcome back
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1, maxWidth: 420 }}
+                  >
+                    Sign in to manage adoptions, rescue requests, checkout, and
+                    your saved pet care activity.
                   </Typography>
                 </Box>
+              </Stack>
+
+              {authMessage && <Alert severity="info">{authMessage}</Alert>}
+
+              {error && <Alert severity="error">{error}</Alert>}
+
+              <Box component="form" onSubmit={handleSubmit} noValidate>
+                <Stack spacing={2.25}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    autoFocus
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <EmailOutlinedIcon color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockOutlinedIcon color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: { xs: "flex-start", sm: "center" },
+                      justifyContent: "space-between",
+                      gap: 1,
+                      flexDirection: { xs: "column", sm: "row" },
+                    }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="remember"
+                          color="primary"
+                          size="small"
+                        />
+                      }
+                      label="Remember me"
+                    />
+                    <Link
+                      component={RouterLink}
+                      to={resetPasswordLink}
+                      underline="hover"
+                      color="primary.main"
+                      fontWeight={600}
+                    >
+                      Forgot password?
+                    </Link>
+                  </Box>
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    sx={{
+                      py: 1.4,
+                      fontWeight: 700,
+                      textTransform: "none",
+                      boxShadow: "0 14px 28px rgba(46, 125, 50, 0.24)",
+                      background:
+                        "linear-gradient(135deg, #2e7d32 0%, #43a047 100%)",
+                    }}
+                    disabled={isSubmitting || isGoogleSubmitting}
+                  >
+                    {isSubmitting ? "Signing In..." : "Sign In"}
+                  </Button>
+
+                  <Divider sx={{ color: "text.secondary" }}>
+                    or continue with
+                  </Divider>
+
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    size="large"
+                    startIcon={<GoogleIcon />}
+                    onClick={handleGoogleSignIn}
+                    disabled={isSubmitting || isGoogleSubmitting}
+                    sx={{
+                      py: 1.3,
+                      textTransform: "none",
+                      fontWeight: 700,
+                      borderColor: alpha(theme.palette.primary.main, 0.28),
+                      bgcolor: theme.palette.background.paper,
+                    }}
+                  >
+                    {isGoogleSubmitting
+                      ? "Connecting to Google..."
+                      : "Continue with Google"}
+                  </Button>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ textAlign: "center" }}
+                  >
+                    Protected access for your account, orders, and care updates.
+                  </Typography>
+                </Stack>
+              </Box>
+
+              <Box
+                sx={{
+                  pt: 1,
+                  borderTop: "1px solid",
+                  borderColor: "divider",
+                  textAlign: "center",  
+                }}
+              >
+                <Typography variant="body2" color="text.secondary">
+                  New to Happy Paws?{" "}
+                  <Link
+                    component={RouterLink}
+                    to={signUpLink}
+                    underline="hover"
+                    color="primary.main"
+                    fontWeight={700}
+                  >
+                    Create an account
+                  </Link>
+                </Typography>
+              </Box>
             </Stack>
           </Box>
         </Paper>

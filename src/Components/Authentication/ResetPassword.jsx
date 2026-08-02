@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Alert } from "@mui/material";
 import Link from "@mui/material/Link";
-import { Link as RouterLink, useLocation } from "react-router";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getAuthErrorMessage } from "./authErrors";
 
@@ -59,8 +59,7 @@ const ResetPassword = () => {
         <Typography
           variant="body2"
           color="text.secondary"
-          textAlign="center"
-          sx={{ mt: 1 }}
+          sx={{ textAlign: "center", mt: 1 }}
         >
           Enter the email for your account and we&apos;ll send you a reset link.
         </Typography>

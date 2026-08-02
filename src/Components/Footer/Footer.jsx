@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { green } from "@mui/material/colors";
 import { useQuery } from "@tanstack/react-query";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getSiteSettings } from "../../API/api";
 
@@ -74,7 +74,7 @@ const Footer = () => {
     >
       <Box className="myContainer">
         <Grid container spacing={3} py={2}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             {/* Contact Information */}
             {/* Logo Full Screen ------------------------------------- */}
             <Typography
@@ -164,7 +164,11 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={6} md={2} component="nav" aria-label="Footer sitemap">
+          <Grid
+            size={{ xs: 6, md: 2 }}
+            component="nav"
+            aria-label="Footer sitemap"
+          >
             {/* Contact Information */}
             <Typography variant="h5" fontWeight={700} mb={2} gutterBottom>
               Sitemap
@@ -186,9 +190,7 @@ const Footer = () => {
           </Grid>
 
           <Grid
-            item
-            xs={6}
-            md={2}
+            size={{ xs: 6, md: 2 }}
             component="nav"
             aria-label="Footer support links"
           >
@@ -212,7 +214,7 @@ const Footer = () => {
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             {/* Google Map Embed */}
             <iframe
               title="Happy Paws BD location map"

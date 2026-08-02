@@ -10,7 +10,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import Banner from "./../../images/optimized/banner2.webp";
 import React from "react";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 import { getSiteSettings } from "../../API/api";
 import { sanitizeImageUrl } from "../../lib/media";

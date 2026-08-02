@@ -16,7 +16,7 @@ import {
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
-import { Link as RouterLink, useParams } from "react-router";
+import { Link as RouterLink, useParams } from "react-router-dom";
 
 import AdminStatusChip from "../components/AdminStatusChip";
 import { adminGetReview, adminUpdateReview } from "../lib/adminApi";

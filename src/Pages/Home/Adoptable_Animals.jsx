@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link as RouterLink, useNavigate } from "react-router";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 import { useAdoptableAnimalsQuery } from "../../features/adoption/hooks";
 
@@ -35,14 +35,14 @@ const Adoptable_Animals = () => {
 
   if (isLoading) {
     return (
-      <Box textAlign="center" py={6}>
+      <Box sx={{ textAlign: "center", py: 6 }}>
         <CircularProgress color="success" />
       </Box>
     );
   }
 
   return (
-    <Box className="myContainer" my={10} textAlign={"center"}>
+    <Box className="myContainer" sx={{ textAlign: "center", my: 10 }}>
       <Stack spacing={5}>
         <Stack spacing={2} alignItems="center">
           <Chip
@@ -162,14 +162,14 @@ const Adoptable_Animals = () => {
                         <Typography
                           variant="body2"
                           color="primary.green"
-                          textAlign={"left"}
+                          sx={{ textAlign: "left" }}
                         >
                           Code: {item.code}
                         </Typography>
                         <Typography
                           variant="body2"
                           color="primary.green"
-                          textAlign={"right"}
+                          sx={{ textAlign: "right" }}
                           fontWeight={700}
                         >
                           View Details

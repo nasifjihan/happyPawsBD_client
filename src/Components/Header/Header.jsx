@@ -23,7 +23,7 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Stack } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useColorMode } from "../../context/ColorModeContext";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
@@ -98,7 +98,7 @@ const matchesPath = (pathname, paths) =>
   paths.some((path) =>
     path === "/"
       ? pathname === "/" || pathname === "/home"
-      : pathname === path || pathname.startsWith(`${path}/`)
+      : pathname === path || pathname.startsWith(`${path}/`),
   );
 
 const navButtonSx = (active) => ({
@@ -125,7 +125,7 @@ const Header = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [openMenus, setOpenMenus] = React.useState({});
   const [menuAnchors, setMenuAnchors] = React.useState(
-    Object.fromEntries(navSections.map((section) => [section.key, null]))
+    Object.fromEntries(navSections.map((section) => [section.key, null])),
   );
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -206,7 +206,11 @@ const Header = (props) => {
           const isActive = matchesPath(location.pathname, link.matchPaths);
 
           return (
-            <ListItem disablePadding key={link.label} onClick={closeMobileDrawer}>
+            <ListItem
+              disablePadding
+              key={link.label}
+              onClick={closeMobileDrawer}
+            >
               <ListItemButton
                 component={Link}
                 to={link.to}
@@ -223,7 +227,7 @@ const Header = (props) => {
         {navSections.map((section) => {
           const isSectionActive = matchesPath(
             location.pathname,
-            section.matchPaths || section.items.map((item) => item.to)
+            section.matchPaths || section.items.map((item) => item.to),
           );
 
           return (
@@ -246,7 +250,11 @@ const Header = (props) => {
                 timeout="auto"
                 unmountOnExit
               >
-                <List id={`mobile-${section.key}-menu`} component="div" disablePadding>
+                <List
+                  id={`mobile-${section.key}-menu`}
+                  component="div"
+                  disablePadding
+                >
                   {section.items.map((item) => {
                     const isActive =
                       location.pathname === item.to ||
@@ -350,7 +358,9 @@ const Header = (props) => {
         <Toolbar sx={{ gap: 1.5 }}>
           <IconButton
             color="inherit"
-            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              mobileOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation-drawer"
             edge="start"
@@ -364,13 +374,13 @@ const Header = (props) => {
             variant="h6"
             component={Link}
             to="/"
-            textAlign={{ xs: "center", md: "inherit" }}
             flexGrow={{ xs: "1", md: "0" }}
             sx={{
               color: "inherit",
               textDecoration: "none",
               pt: 1,
               display: "inline-block",
+              textAlign: { xs: "center", md: "inherit" },
             }}
           >
             <img
@@ -411,7 +421,7 @@ const Header = (props) => {
             {navSections.map((section) => {
               const isSectionActive = matchesPath(
                 location.pathname,
-                section.matchPaths || section.items.map((item) => item.to)
+                section.matchPaths || section.items.map((item) => item.to),
               );
 
               return (
@@ -606,7 +616,7 @@ const Header = (props) => {
                   "/sign_in",
                   "/sign_up",
                   "/password_reset",
-                ])
+                ]),
               )}
             >
               Sign In

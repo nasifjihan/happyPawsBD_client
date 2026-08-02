@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import RescueAlertBanner from "./../../../images/RescueAlertBanner.png";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({

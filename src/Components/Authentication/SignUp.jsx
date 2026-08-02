@@ -18,7 +18,7 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import { alpha, useTheme } from "@mui/material/styles";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getAuthErrorMessage } from "./authErrors";
 
@@ -89,7 +89,7 @@ const SignUp = () => {
             }}
           >
             <Stack spacing={3}>
-              <Stack spacing={1.5} alignItems="center" textAlign="center">
+              <Stack spacing={1.5} sx={{ textAlign: "center" }}>
                 <Chip
                   icon={<PetsOutlinedIcon />}
                   label="Join Happy Paws"
@@ -214,7 +214,7 @@ const SignUp = () => {
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      textAlign="center"
+                      sx={{ textAlign: "center" }}
                     >
                       By continuing, you are setting up your Happy Paws account
                       for secure pet care access.

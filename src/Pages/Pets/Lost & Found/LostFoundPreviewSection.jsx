@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import ArrowOutwardOutlinedIcon from "@mui/icons-material/ArrowOutwardOutlined";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import ContentState from "../../../Components/Common/ContentState";
 import fallbackPetImage from "../../../images/LostPet.png";
 import { sanitizeImageUrl } from "../../../lib/media";

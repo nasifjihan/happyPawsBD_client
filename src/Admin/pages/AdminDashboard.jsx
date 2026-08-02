@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 
 import AdminStatusChip from "../components/AdminStatusChip";
 import {
@@ -203,7 +203,7 @@ const AdminDashboard = () => {
 
   if (isLoading) {
     return (
-      <Box textAlign="center" py={8}>
+      <Box sx={{ py: 8, textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );

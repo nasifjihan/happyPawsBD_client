@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link as RouterLink, useNavigate, useParams } from "react-router";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
@@ -135,7 +135,7 @@ const OrderDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Box textAlign="center" py={6}>
+        <Box sx={{ textAlign: "center", py: 6 }}>
           <CircularProgress color="success" />
           <Typography sx={{ mt: 2 }} color="text.secondary">
             Loading order details…

@@ -16,7 +16,7 @@ import {
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
-import { Link as RouterLink, useParams } from "react-router";
+import { Link as RouterLink, useParams } from "react-router-dom";
 
 import AdminStatusChip from "../components/AdminStatusChip";
 import { adminGetOrder, adminUpdateOrder } from "../lib/adminApi";

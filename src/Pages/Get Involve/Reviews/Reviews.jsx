@@ -16,7 +16,7 @@ import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { alpha } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 
 import { getApprovedReviews, submitReview } from "../../../API/api";
 

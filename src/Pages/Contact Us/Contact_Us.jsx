@@ -20,7 +20,7 @@ import {
   Phone as PhoneIcon,
   LocationOn as LocationIcon,
 } from "@mui/icons-material";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";

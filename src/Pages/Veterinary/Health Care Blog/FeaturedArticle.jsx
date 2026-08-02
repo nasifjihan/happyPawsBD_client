@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router";
+import { Link as RouterLink } from "react-router-dom";
 import { sanitizeImageUrl } from "../../../lib/media";
 
 const FeaturedArticle = ({ post }) => {
