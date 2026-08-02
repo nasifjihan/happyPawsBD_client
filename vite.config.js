@@ -24,7 +24,7 @@ export default defineConfig({
             return "data-vendor";
           }
 
-          if (id.includes("react-multi-carousel") || id.includes("date-fns")) {
+          if (id.includes("react-multi-carousel")) {
             return "ui-utils";
           }
         },
