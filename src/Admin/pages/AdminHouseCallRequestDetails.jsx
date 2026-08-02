@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router";
 
 import AdminStatusChip from "../components/AdminStatusChip";
 import { adminGetHouseCallRequest, adminUpdateHouseCallRequest } from "../lib/adminApi";

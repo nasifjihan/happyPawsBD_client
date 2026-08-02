@@ -1,5 +1,5 @@
 import RouteLoader from "../Common/RouteLoader";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 
 const ProtectedRoute = ({ children }) => {

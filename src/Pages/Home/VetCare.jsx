@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Box, Button, Chip, Stack, Typography } from "@mui/material";
 import VetCareImage from "./../../images/optimized/vet-care.webp";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({

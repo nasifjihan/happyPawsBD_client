@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router";
 import { useEffect } from "react";
 
 import { useAdminAuth } from "../context/AdminAuthContext";

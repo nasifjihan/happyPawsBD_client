@@ -17,7 +17,7 @@ import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import { requestOnlineConsultation } from "../../../API/api";
 
 const availableDoctors = [

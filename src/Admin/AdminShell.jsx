@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 
 import { AdminAuthProvider } from "./context/AdminAuthContext";
 import AdminLayout from "./components/AdminLayout";

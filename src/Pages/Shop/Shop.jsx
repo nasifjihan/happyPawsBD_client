@@ -16,7 +16,7 @@ import ProductList from "./ProductList";
 import ProductDetailDialog from "./ProductDetailDialog";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ShopBanner from "./ShopBanner";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router";
 import ContentState from "../../Components/Common/ContentState";
 import { useCart } from "../../context/CartContext";
 import { useShopItemsQuery } from "../../features/catalog/hooks";

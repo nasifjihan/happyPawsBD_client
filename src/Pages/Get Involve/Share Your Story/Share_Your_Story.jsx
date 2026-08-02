@@ -17,7 +17,7 @@ import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { alpha } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import { submitStory } from "../../../API/api";
 
 const storyTips = [

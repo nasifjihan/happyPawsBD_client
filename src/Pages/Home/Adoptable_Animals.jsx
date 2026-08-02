@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 import { useAdoptableAnimalsQuery } from "../../features/adoption/hooks";
 

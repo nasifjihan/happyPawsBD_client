@@ -15,7 +15,7 @@ import MyLocationOutlinedIcon from "@mui/icons-material/MyLocationOutlined";
 import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { getVetDirectoryMeta, getVetProviders } from "../../../API/api";
 import DataGrid from "./DataGrid";
 import Filters from "./Filters";

@@ -38,9 +38,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@emotion/react", "@emotion/styled"],
   },
-  test: {
-    environment: "jsdom",
-    setupFiles: "./src/test/setup.js",
-    globals: true,
-  },
 });

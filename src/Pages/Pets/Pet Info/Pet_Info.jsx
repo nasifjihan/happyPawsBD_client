@@ -14,7 +14,7 @@ import {
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useQuery } from "@tanstack/react-query";
-import { Link as RouterLink, useSearchParams } from "react-router-dom";
+import { Link as RouterLink, useSearchParams } from "react-router";
 import { getPetInfoAnimals, getPetInfoLibrary } from "../../../API/api";
 
 const Pet_Info = () => {

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 
 const normalizePositiveInteger = (value, fallback) => {
   const normalizedValue = Number.parseInt(value, 10);

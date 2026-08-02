@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { green } from "@mui/material/colors";
 import { useQuery } from "@tanstack/react-query";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getSiteSettings } from "../../API/api";
 

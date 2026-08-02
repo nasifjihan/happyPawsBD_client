@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import ContentState from "../Components/Common/ContentState";
 import AccountShell from "./AccountShell";
 import { useUserAuth } from "../context/UserAuthContext";

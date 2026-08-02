@@ -8,13 +8,11 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import {
-  Add,
-  Remove,
-  DeleteOutline,
-  LocalShippingOutlined,
-  ShoppingBagOutlined,
-} from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import RemoveIcon from "@mui/icons-material/Remove";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ResilientProductImage from "../ResilientProductImage";
 
 const OrderSummary = ({
@@ -50,7 +48,7 @@ const OrderSummary = ({
       >
         <Stack spacing={1.25}>
           <Chip
-            icon={<ShoppingBagOutlined />}
+            icon={<ShoppingBagOutlinedIcon />}
             label="Cart Review"
             variant="outlined"
             sx={{
@@ -132,7 +130,7 @@ const OrderSummary = ({
                   size="small"
                   sx={{ color: "text.secondary" }}
                 >
-                  <DeleteOutline fontSize="small" />
+                  <DeleteOutlineIcon fontSize="small" />
                 </IconButton>
               </Stack>
 
@@ -160,7 +158,7 @@ const OrderSummary = ({
                     aria-label={`Decrease quantity for ${item.name}`}
                     size="small"
                   >
-                    <Remove fontSize="small" />
+                    <RemoveIcon fontSize="small" />
                   </IconButton>
                   <Typography
                     variant="body2"
@@ -174,7 +172,7 @@ const OrderSummary = ({
                     aria-label={`Increase quantity for ${item.name}`}
                     size="small"
                   >
-                    <Add fontSize="small" />
+                    <AddIcon fontSize="small" />
                   </IconButton>
                 </Box>
 
@@ -197,7 +195,7 @@ const OrderSummary = ({
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography color="text.secondary">Delivery</Typography>
           <Chip
-            icon={<LocalShippingOutlined fontSize="small" />}
+            icon={<LocalShippingOutlinedIcon fontSize="small" />}
             label="Free"
             size="small"
             variant="outlined"

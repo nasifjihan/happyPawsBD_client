@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import AdoptHeader from "./../../../images/optimized/adopt-header.webp";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router";
 import OptimizedImage from "../../../Components/Common/OptimizedImage";
 
 const BrandingWrapper = styled(Box)(({ theme }) => ({
