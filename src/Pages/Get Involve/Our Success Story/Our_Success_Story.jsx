@@ -99,7 +99,7 @@ const Our_Success_Story = () => {
             }}
           >
             <Grid container spacing={4} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={7}>
+              <Grid size={{ xs: 12, md: 7 }}>
                 <Stack spacing={2.25}>
                   <Chip
                     icon={<PetsOutlinedIcon />}
@@ -148,7 +148,7 @@ const Our_Success_Story = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={5}>
+              <Grid size={{ xs: 12, md: 5 }}>
                 <Paper
                   variant="outlined"
                   sx={{
@@ -184,7 +184,7 @@ const Our_Success_Story = () => {
 
           <Grid container spacing={2}>
             {milestones.map((item) => (
-              <Grid item xs={12} md={4} key={item.label}>
+              <Grid key={item.label} size={{ xs: 12, md: 4 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -210,7 +210,7 @@ const Our_Success_Story = () => {
 
           <Grid container spacing={2}>
             {storyCards.map((story) => (
-              <Grid item xs={12} md={4} key={story.title}>
+              <Grid key={story.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -262,7 +262,7 @@ const Our_Success_Story = () => {
               ) : stories.length ? (
                 <Grid container spacing={2}>
                   {stories.map((entry) => (
-                    <Grid item xs={12} md={6} key={entry._id || entry.id}>
+                    <Grid key={entry._id || entry.id} size={{ xs: 12, md: 6 }}>
                       <Paper
                         variant="outlined"
                         sx={{
@@ -312,7 +312,7 @@ const Our_Success_Story = () => {
             }}
           >
             <Grid container spacing={3} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={8}>
+              <Grid size={{ xs: 12, md: 8 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h5" fontWeight={800}>
                     Want to be part of the next success story?
@@ -324,7 +324,7 @@ const Our_Success_Story = () => {
                   </Typography>
                 </Stack>
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <Stack
                   direction={{ xs: "column", sm: "row", md: "column" }}
                   spacing={1.5}

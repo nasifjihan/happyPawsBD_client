@@ -56,7 +56,7 @@ const Adopted = () => {
           variant="h3"
           color="green"
           fontWeight={900}
-          lineHeight={1.5}
+          sx={{ lineHeight: 1.5 }}
         >
           {adoptedCount}
         </Typography>
@@ -65,7 +65,7 @@ const Adopted = () => {
           variant="h5"
           color="green"
           fontWeight={700}
-          lineHeight={1.5}
+          sx={{ lineHeight: 1.5 }}
         >
           {adoptedLabel}
         </Typography>

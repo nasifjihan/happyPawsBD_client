@@ -174,7 +174,7 @@ const Shop = () => {
       </Box>
 
       <Grid container spacing={5} pt={2} id="ShopProducts">
-        <Grid item xs={12} sm={4} md={2}>
+        <Grid size={{ xs: 12, sm: 4, md: 2 }}>
           <Filters
             key={filtersKey}
             categories={availableCategories}
@@ -184,7 +184,7 @@ const Shop = () => {
             initialSelectedCategories={filters.categories}
           />
         </Grid>
-        <Grid item xs={12} sm={8} md={10}>
+        <Grid size={{ xs: 12, sm: 8, md: 10 }}>
           {isError ? (
             <Alert severity="warning" sx={{ mb: 2.5 }}>
               {errorMessage}

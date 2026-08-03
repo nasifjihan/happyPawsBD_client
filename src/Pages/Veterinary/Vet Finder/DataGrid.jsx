@@ -56,7 +56,7 @@ const DataGrid = ({ data }) => {
     <>
       <Grid container spacing={3}>
         {data.map((item) => (
-          <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+          <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
             {(() => {
               const phoneNumber = getPhoneNumber(item.contact);
 

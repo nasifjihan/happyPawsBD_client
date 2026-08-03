@@ -123,7 +123,7 @@ const Share_Your_Story = () => {
             }}
           >
             <Grid container spacing={4} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={7}>
+              <Grid size={{ xs: 12, md: 7 }}>
                 <Stack spacing={2.25}>
                   <Chip
                     icon={<AutoStoriesOutlinedIcon />}
@@ -171,7 +171,7 @@ const Share_Your_Story = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={5}>
+              <Grid size={{ xs: 12, md: 5 }}>
                 <Paper
                   variant="outlined"
                   sx={{
@@ -207,7 +207,7 @@ const Share_Your_Story = () => {
 
           <Grid container spacing={2}>
             {storyThemes.map((theme) => (
-              <Grid item xs={12} md={4} key={theme.title}>
+              <Grid key={theme.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -233,7 +233,7 @@ const Share_Your_Story = () => {
           </Grid>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={7}>
+            <Grid size={{ xs: 12, lg: 7 }}>
               <Paper
                 elevation={0}
                 id="story-form"
@@ -350,7 +350,7 @@ const Share_Your_Story = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} lg={5}>
+            <Grid size={{ xs: 12, lg: 5 }}>
               <Paper
                 elevation={0}
                 sx={{

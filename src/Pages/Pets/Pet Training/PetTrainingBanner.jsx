@@ -17,10 +17,7 @@ const PetTrainingBanner = () => {
         }}
       >
         <Grid
-          item
-          sm={8}
-          md={4}
-          lg={4}
+          size={{ sm: 8, md: 4, lg: 4 }}
           sx={{ justifyContent: "center", alignItems: "center" }}
           // sx={{
           //   display: { sm: "none", lg: "block" }, // Hide the image on small screens
@@ -35,7 +32,7 @@ const PetTrainingBanner = () => {
           </Box>
         </Grid>
 
-        <Grid item sm={12} md={8} lg={8}>
+        <Grid size={{ sm: 12, md: 8, lg: 8 }}>
           <Stack spacing={2} sx={{ textAlign: { sm: "center", md: "left" } }}>
             <Typography
               variant="h4"

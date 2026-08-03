@@ -82,7 +82,7 @@ const Adoptable_Animals = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             {adoptableAnimals.slice(0, 6).map((item) => (
-              <Grid item xs={2} sm={4} md={4} key={item.code}>
+              <Grid key={item.code} size={{ xs: 2, sm: 4, md: 4 }}>
                 <Card
                   sx={{
                     boxShadow: "none",
@@ -146,10 +146,13 @@ const Adoptable_Animals = () => {
                       <Typography
                         variant="body2"
                         color="text.secondary"
-                        sx={{ mt: 1.5, minHeight: 48 }}
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                        wordWrap="break-word"
+                        sx={{
+                          mt: 1.5,
+                          minHeight: 48,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          overflowWrap: "break-word",
+                        }}
                       >
                         {item.breeddescription}
                       </Typography>

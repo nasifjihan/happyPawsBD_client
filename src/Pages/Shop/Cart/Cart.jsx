@@ -475,7 +475,7 @@ const Cart = () => {
       ) : hasCartItems ? (
         <>
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={7}>
+            <Grid size={{ xs: 12, lg: 7 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -526,7 +526,7 @@ const Cart = () => {
                 </Box>
               </Paper>
             </Grid>
-            <Grid item xs={12} lg={5}>
+            <Grid size={{ xs: 12, lg: 5 }}>
               <Box sx={{ position: { lg: "sticky" }, top: { lg: 24 } }}>
                 <OrderSummary
                   cartItems={cartItems}

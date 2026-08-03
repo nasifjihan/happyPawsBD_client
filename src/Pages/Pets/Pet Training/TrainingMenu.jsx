@@ -87,7 +87,7 @@ const TrainingMenu = () => {
         sx={{ justifyContent: "center", alignItems: "stretch" }}
       >
         {isLoading ? (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Paper sx={{ p: 3, borderRadius: 4 }}>
               <Typography color="text.secondary">
                 Loading training programs...
@@ -95,7 +95,7 @@ const TrainingMenu = () => {
             </Paper>
           </Grid>
         ) : loadError ? (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <ContentState
               title="Could not load training programs"
               description={loadError}
@@ -104,7 +104,11 @@ const TrainingMenu = () => {
           </Grid>
         ) : programs.length ? (
           programs.map((item) => (
-          <Grid item xs={12} sm={6} md={4} key={item.id} sx={{ display: "flex" }}>
+          <Grid
+            key={item.id}
+            sx={{ display: "flex" }}
+            size={{ xs: 12, sm: 6, md: 4 }}
+          >
             <Card
               sx={{
                 width: "100%",
@@ -163,7 +167,7 @@ const TrainingMenu = () => {
           </Grid>
           ))
         ) : (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Alert severity="info">No training programs available yet.</Alert>
           </Grid>
         )}

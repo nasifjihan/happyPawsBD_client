@@ -197,7 +197,7 @@ const Orders = () => {
 
             if (!order) {
               return (
-                <Grid item xs={12} md={6} key={token}>
+                <Grid size={{ xs: 12, md: 6 }} key={token}>
                   <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
                     <Stack spacing={1}>
                       <Typography variant="h6" fontWeight={800}>
@@ -228,7 +228,7 @@ const Orders = () => {
             const total = order.orderSummary?.total;
 
             return (
-              <Grid item xs={12} md={6} key={token}>
+              <Grid size={{ xs: 12, md: 6 }} key={token}>
                 <Paper
                   variant="outlined"
                   sx={{

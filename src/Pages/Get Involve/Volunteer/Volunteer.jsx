@@ -173,7 +173,7 @@ const Volunteer = () => {
             }}
           >
             <Grid container spacing={4} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={7}>
+              <Grid size={{ xs: 12, md: 7 }}>
                 <Stack spacing={2.25}>
                   <Chip
                     icon={<PetsOutlinedIcon />}
@@ -223,7 +223,7 @@ const Volunteer = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={5}>
+              <Grid size={{ xs: 12, md: 5 }}>
                 <Paper
                   variant="outlined"
                   sx={{
@@ -258,7 +258,7 @@ const Volunteer = () => {
 
           <Grid container spacing={2}>
             {volunteerRoles.map((role) => (
-              <Grid item xs={12} md={6} key={role.title}>
+              <Grid key={role.title} size={{ xs: 12, md: 6 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -284,7 +284,7 @@ const Volunteer = () => {
           </Grid>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -321,7 +321,7 @@ const Volunteer = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -364,7 +364,7 @@ const Volunteer = () => {
           </Grid>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} md={7}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -391,7 +391,7 @@ const Volunteer = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -485,7 +485,7 @@ const Volunteer = () => {
             )}
 
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Full Name"
                   fullWidth
@@ -497,7 +497,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Email Address"
                   type="email"
@@ -510,7 +510,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Phone Number"
                   fullWidth
@@ -522,7 +522,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="City or Area"
                   fullWidth
@@ -533,7 +533,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="preferredRole"
                   control={control}
@@ -557,7 +557,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="availability"
                   control={control}
@@ -581,7 +581,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="timeCommitment"
                   control={control}
@@ -604,7 +604,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="preferredContactMethod"
                   control={control}
@@ -627,7 +627,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="preferredContactTime"
                   control={control}
@@ -650,7 +650,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <TextField
                   label="Relevant Experience"
                   fullWidth
@@ -665,7 +665,7 @@ const Volunteer = () => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <TextField
                   label="Why do you want to volunteer?"
                   fullWidth

@@ -236,7 +236,7 @@ const Online_Consultation = () => {
               {submitError ? <Alert severity="error">{submitError}</Alert> : null}
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Full Name"
                     name="fullName"
@@ -248,7 +248,7 @@ const Online_Consultation = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Phone Number"
                     name="contactPhone"
@@ -260,7 +260,7 @@ const Online_Consultation = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Email (optional)"
                     name="contactEmail"
@@ -269,7 +269,7 @@ const Online_Consultation = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     select
                     label="Pet Type"
@@ -288,7 +288,7 @@ const Online_Consultation = () => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Pet Name (optional)"
                     name="petName"
@@ -297,7 +297,7 @@ const Online_Consultation = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Pet Age (optional)"
                     name="petAge"
@@ -306,7 +306,7 @@ const Online_Consultation = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     select
                     label="Consultation Mode"
@@ -319,7 +319,7 @@ const Online_Consultation = () => {
                     <MenuItem value="phone">Phone Call</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     select
                     label="Preferred Doctor"
@@ -335,7 +335,7 @@ const Online_Consultation = () => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     label="Preferred Slot"
                     name="preferredSlot"
@@ -345,7 +345,7 @@ const Online_Consultation = () => {
                     placeholder="Example: Today 7:00 PM - 8:00 PM"
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     label="What is the concern?"
                     name="concern"
@@ -386,7 +386,7 @@ const Online_Consultation = () => {
 
           <Grid container spacing={3}>
             {pricingNotes.map((item) => (
-              <Grid item xs={12} md={4} key={item.title}>
+              <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
                   <Stack spacing={1.5}>
                     {item.icon}
@@ -413,7 +413,7 @@ const Online_Consultation = () => {
 
               <Grid container spacing={2}>
                 {availableDoctors.map((doctor) => (
-                  <Grid item xs={12} md={4} key={doctor.name}>
+                  <Grid key={doctor.name} size={{ xs: 12, md: 4 }}>
                     <Paper
                       variant="outlined"
                       sx={{ p: 2.5, borderRadius: 3, height: "100%" }}
@@ -469,7 +469,7 @@ const Online_Consultation = () => {
           </Paper>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper variant="outlined" sx={{ p: 3, borderRadius: 4, height: "100%" }}>
                 <Stack spacing={2}>
                   <Typography variant="h5" fontWeight={800}>
@@ -484,7 +484,7 @@ const Online_Consultation = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper variant="outlined" sx={{ p: 3, borderRadius: 4, height: "100%" }}>
                 <Stack spacing={2}>
                   <Typography variant="h5" fontWeight={800}>

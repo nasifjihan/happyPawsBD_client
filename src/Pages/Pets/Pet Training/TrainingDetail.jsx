@@ -177,7 +177,7 @@ const TrainingDetail = () => {
         ) : null}
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Paper variant="outlined" sx={{ overflow: "hidden", borderRadius: 3 }}>
               <img
                 src={item.picture}
@@ -187,7 +187,7 @@ const TrainingDetail = () => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
               <Stack spacing={2}>
                 <Typography variant="h5" color="success.main" fontWeight={700}>
@@ -219,7 +219,7 @@ const TrainingDetail = () => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
               <Typography variant="h5" gutterBottom color="primary.main" fontWeight={700}>
                 Enroll in This Program
@@ -231,7 +231,7 @@ const TrainingDetail = () => {
 
               <Box component="form" onSubmit={handleSubmit} noValidate>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <TextField
                       fullWidth
                       label="Full Name"
@@ -242,7 +242,7 @@ const TrainingDetail = () => {
                       autoComplete="name"
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <TextField
                       fullWidth
                       label="Email"
@@ -254,7 +254,7 @@ const TrainingDetail = () => {
                       autoComplete="email"
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <TextField
                       fullWidth
                       label="Phone Number"
@@ -266,7 +266,7 @@ const TrainingDetail = () => {
                       autoComplete="tel"
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <TextField
                       fullWidth
                       label="Address"

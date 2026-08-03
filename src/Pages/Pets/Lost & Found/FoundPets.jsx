@@ -70,7 +70,11 @@ const FoundPets = () => {
         >
           {/* {adoptableAnimals.slice(0, 6).map((item) => ( */}
           {foundPets.map((pet) => (
-            <Grid item xs={2} sm={4} md={4} key={pet._id} sx={{ display: "flex" }}>
+            <Grid
+              key={pet._id}
+              sx={{ display: "flex" }}
+              size={{ xs: 2, sm: 4, md: 4 }}
+            >
               <Card
                 sx={{
                   width: "100%",

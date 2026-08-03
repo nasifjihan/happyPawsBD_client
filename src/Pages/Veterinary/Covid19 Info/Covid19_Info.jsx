@@ -52,7 +52,7 @@ const Covid19_Info = () => {
 
           <Grid container spacing={2}>
             {keyPoints.map((item) => (
-              <Grid item xs={12} md={4} key={item.title}>
+              <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   variant="outlined"
                   sx={{ p: 3, borderRadius: 3, height: "100%" }}
@@ -75,7 +75,7 @@ const Covid19_Info = () => {
               </Typography>
               <Grid container spacing={1.5}>
                 {safetyTips.map((item) => (
-                  <Grid item xs={12} sm={6} key={item}>
+                  <Grid key={item} size={{ xs: 12, sm: 6 }}>
                     <Typography variant="body2" color="text.secondary">
                       {item}
                     </Typography>

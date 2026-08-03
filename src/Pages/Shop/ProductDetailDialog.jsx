@@ -8,9 +8,9 @@ import {
   Button,
   TextField,
   Box,
+  Grid,
   IconButton,
   Tooltip,
-  Grid,
   Menu,
   MenuItem,
   Snackbar,
@@ -116,7 +116,7 @@ const ProductDetailDialog = ({
       </DialogTitle>
       <DialogContent sx={{ display: "flex", p: 1 }}>
         <Grid container>
-          <Grid item xs={12} md={6} sx={{ p: 2 }}>
+          <Grid sx={{ p: 2 }} size={{ xs: 12, md: 6 }}>
             <ResilientProductImage
               image={product.image}
               alt={product.name}
@@ -177,7 +177,7 @@ const ProductDetailDialog = ({
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6} sx={{ p: 2 }}>
+          <Grid sx={{ p: 2 }} size={{ xs: 12, md: 6 }}>
             <Typography variant="h5" fontWeight={900} color={"#f50057"}>
               {product.name}
             </Typography>

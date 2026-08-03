@@ -101,7 +101,7 @@ const AdoptablePetDetails = () => {
     <Box className="myContainer" sx={{ margin: "auto", p: 2, mt: 4 }}>
       <Grid container spacing={4}>
         {/* Pet Image Section */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography
             variant="h4"
             fontWeight={900}
@@ -163,7 +163,7 @@ const AdoptablePetDetails = () => {
         </Grid>
 
         {/* Pet Details Section */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card
             sx={{
               py: 2,

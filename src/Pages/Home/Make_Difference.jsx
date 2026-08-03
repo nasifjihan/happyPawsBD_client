@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Typography, Stack } from "@mui/material";
+import { Box, Typography, Stack, Grid } from "@mui/material";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import SmsFailedOutlinedIcon from "@mui/icons-material/SmsFailedOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
@@ -58,7 +58,7 @@ const Make_Difference = () => {
 
         <Grid container spacing={3} sx={{ justifyContent: "center" }}>
           {items.map((item, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
               <a style={{ textDecoration: "none" }}>
                 <Stack
                   spacing={3}

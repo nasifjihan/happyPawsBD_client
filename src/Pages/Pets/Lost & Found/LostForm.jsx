@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import {
   Box,
   Button,
+  Grid,
   FormControl,
   InputLabel,
   MenuItem,
@@ -13,7 +14,6 @@ import {
   Snackbar,
   Alert,
   Typography,
-  Grid,
   CircularProgress,
 } from "@mui/material";
 import {
@@ -92,7 +92,7 @@ const LostForm = ({ hideHeading = false }) => {
           )}
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Pet's Name"
@@ -108,7 +108,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <FormControl
                 variant="outlined"
                 name="animalType"
@@ -150,7 +150,7 @@ const LostForm = ({ hideHeading = false }) => {
               )}
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Pet's Colors"
@@ -166,7 +166,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Owner Name"
@@ -183,7 +183,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Contact Number"
@@ -201,7 +201,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Email"
@@ -218,7 +218,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Last Seen Area"
@@ -234,7 +234,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Date of Lost"
@@ -252,7 +252,7 @@ const LostForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 variant="outlined"
                 label="Description of Circumstances"
@@ -270,7 +270,7 @@ const LostForm = ({ hideHeading = false }) => {
             </Grid>
 
             {/* Picture Upload */}
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Button
                   variant="contained"

@@ -172,7 +172,7 @@ const Pet_Info = () => {
 
               <Grid container spacing={2}>
                 {(animalsData?.items ?? []).map((group) => (
-                  <Grid item xs={12} sm={6} md={4} key={group.type}>
+                  <Grid key={group.type} size={{ xs: 12, sm: 6, md: 4 }}>
                     <Paper
                       variant="outlined"
                       sx={{
@@ -240,7 +240,10 @@ const Pet_Info = () => {
 
                     <Grid container spacing={2}>
                       {group.breeds.map((breed) => (
-                        <Grid item xs={12} md={6} xl={4} key={`${group.type}-${breed.name}`}>
+                        <Grid
+                          key={`${group.type}-${breed.name}`}
+                          size={{ xs: 12, md: 6, xl: 4 }}
+                        >
                           <Paper
                             variant="outlined"
                             sx={{

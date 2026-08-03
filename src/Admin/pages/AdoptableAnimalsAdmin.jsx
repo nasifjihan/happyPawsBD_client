@@ -170,7 +170,7 @@ const AdoptableAnimalsAdmin = () => {
       />
 
       <Grid container spacing={3}>
-        <Grid item xs={12} lg={7}>
+        <Grid size={{ xs: 12, lg: 7 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
@@ -231,7 +231,7 @@ const AdoptableAnimalsAdmin = () => {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} lg={5}>
+        <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
               Edit Animal

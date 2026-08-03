@@ -3,12 +3,12 @@ import {
   Alert,
   Box,
   Typography,
-  Grid,
   Card,
   CardContent,
   CardMedia,
   Divider,
   CardActionArea,
+  Grid,
   Paper,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -105,7 +105,7 @@ const PetBoarding = () => {
 
       <Grid container spacing={4} pt={3}>
         {isLoading ? (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Paper sx={{ p: 3, borderRadius: 4 }}>
               <Typography color="text.secondary">
                 Loading boarding programs...
@@ -113,14 +113,14 @@ const PetBoarding = () => {
             </Paper>
           </Grid>
         ) : loadError ? (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Alert severity="warning">{loadError}</Alert>
           </Grid>
         ) : programs.length ? (
           <>
         {/* Main Article */}
         {programs.slice(0, 1).map((item) => (
-          <Grid item xs={12} md={6} key={item.id}>
+          <Grid key={item.id} size={{ xs: 12, md: 6 }}>
             <Card
               sx={{
                 borderRadius: "2%",
@@ -148,10 +148,10 @@ const PetBoarding = () => {
         ))}
 
         {/* Side Articles */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Grid container spacing={4}>
             {programs.slice(1, 5).map((item) => (
-              <Grid item xs={6} key={item.id}>
+              <Grid key={item.id} size={{ xs: 6 }}>
                 <Card
                   sx={{
                     borderRadius: "2%",
@@ -189,7 +189,7 @@ const PetBoarding = () => {
         </Grid>
           </>
         ) : (
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Alert severity="info">No boarding programs available yet.</Alert>
           </Grid>
         )}

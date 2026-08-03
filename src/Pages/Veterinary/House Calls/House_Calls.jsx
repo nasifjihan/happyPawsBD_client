@@ -162,7 +162,7 @@ const House_Calls = () => {
 
           <Grid container spacing={2}>
             {houseCallBenefits.map((item) => (
-              <Grid item xs={12} md={4} key={item.title}>
+              <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   variant="outlined"
                   sx={{ p: 3, borderRadius: 3, height: "100%" }}
@@ -191,7 +191,7 @@ const House_Calls = () => {
               {submitError ? <Alert severity="error">{submitError}</Alert> : null}
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Full Name"
                     name="fullName"
@@ -203,7 +203,7 @@ const House_Calls = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Phone Number"
                     name="contactPhone"
@@ -215,7 +215,7 @@ const House_Calls = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Email (optional)"
                     name="contactEmail"
@@ -224,7 +224,7 @@ const House_Calls = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     select
                     label="Pet Type"
@@ -243,7 +243,7 @@ const House_Calls = () => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Pet Name (optional)"
                     name="petName"
@@ -252,7 +252,7 @@ const House_Calls = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Pet Age (optional)"
                     name="petAge"
@@ -261,7 +261,7 @@ const House_Calls = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="City"
                     name="city"
@@ -273,7 +273,7 @@ const House_Calls = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     select
                     label="Urgency"
@@ -289,7 +289,7 @@ const House_Calls = () => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Preferred Date (optional)"
                     name="preferredDate"
@@ -299,7 +299,7 @@ const House_Calls = () => {
                     placeholder="Example: Friday, 15 Aug"
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Preferred Time (optional)"
                     name="preferredTime"
@@ -309,7 +309,7 @@ const House_Calls = () => {
                     placeholder="Example: 6:00 PM - 8:00 PM"
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     label="Address"
                     name="address"
@@ -321,7 +321,7 @@ const House_Calls = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     label="What do you need help with?"
                     name="concern"
@@ -376,7 +376,7 @@ const House_Calls = () => {
               </Typography>
               <Grid container spacing={1.5}>
                 {preparationChecklist.map((item) => (
-                  <Grid item xs={12} sm={6} key={item}>
+                  <Grid key={item} size={{ xs: 12, sm: 6 }}>
                     <Typography variant="body2" color="text.secondary">
                       {item}
                     </Typography>

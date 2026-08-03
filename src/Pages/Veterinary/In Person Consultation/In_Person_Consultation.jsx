@@ -146,7 +146,7 @@ const In_Person_Consultation = () => {
 
           <Grid container spacing={2}>
             {visitBenefits.map((item) => (
-              <Grid item xs={12} md={4} key={item.title}>
+              <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
                   <Typography variant="h6" fontWeight={700} gutterBottom>
                     {item.title}
@@ -172,7 +172,7 @@ const In_Person_Consultation = () => {
               {submitError ? <Alert severity="error">{submitError}</Alert> : null}
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Full Name"
                     name="fullName"
@@ -184,7 +184,7 @@ const In_Person_Consultation = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Phone Number"
                     name="contactPhone"
@@ -196,7 +196,7 @@ const In_Person_Consultation = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Email (optional)"
                     name="contactEmail"
@@ -205,7 +205,7 @@ const In_Person_Consultation = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     select
                     label="Pet Type"
@@ -224,7 +224,7 @@ const In_Person_Consultation = () => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Pet Name (optional)"
                     name="petName"
@@ -233,7 +233,7 @@ const In_Person_Consultation = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Pet Age (optional)"
                     name="petAge"
@@ -242,7 +242,7 @@ const In_Person_Consultation = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="City"
                     name="city"
@@ -254,7 +254,7 @@ const In_Person_Consultation = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Preferred Date (optional)"
                     name="preferredDate"
@@ -264,7 +264,7 @@ const In_Person_Consultation = () => {
                     placeholder="Example: Friday, 15 Aug"
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Preferred Time (optional)"
                     name="preferredTime"
@@ -274,7 +274,7 @@ const In_Person_Consultation = () => {
                     placeholder="Example: 6:00 PM - 8:00 PM"
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <TextField
                     label="Address"
                     name="address"
@@ -286,7 +286,7 @@ const In_Person_Consultation = () => {
                     required
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     label="What is the concern?"
                     name="concern"

@@ -42,7 +42,7 @@ const About_Us = () => {
           }}
         >
           <Grid container spacing={4} sx={{ alignItems: "center" }}>
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={2.5}>
                 <Typography variant="h3" fontWeight={800}>
                   About Happy Paws BD
@@ -87,7 +87,7 @@ const About_Us = () => {
               </Stack>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <OptimizedImage
                 src={aboutImage}
                 alt="Happy Paws BD supporting pets and pet families"
@@ -98,7 +98,7 @@ const About_Us = () => {
 
           <Grid container spacing={2} sx={{ mt: { xs: 3, md: 4 } }}>
             {impactHighlights.map((item) => (
-              <Grid item xs={12} md={4} key={item.title}>
+              <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   variant="outlined"
                   sx={{ p: 3, borderRadius: 3, height: "100%" }}

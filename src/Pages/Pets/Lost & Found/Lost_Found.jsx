@@ -122,7 +122,7 @@ const LostFoundRedesign = () => {
       ) : null}
 
       <Grid container spacing={3} sx={{ mt: 0.5 }}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={0}
             sx={{
@@ -155,7 +155,7 @@ const LostFoundRedesign = () => {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={0}
             sx={{
@@ -212,7 +212,7 @@ const LostFoundRedesign = () => {
         </Stack>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} xl={6}>
+          <Grid size={{ xs: 12, xl: 6 }}>
             <LostFoundPreviewSection
               variant="lost"
               title="Recent Lost Pets"
@@ -221,7 +221,7 @@ const LostFoundRedesign = () => {
               actionTo="/lost_found/lost_pets"
             />
           </Grid>
-          <Grid item xs={12} xl={6}>
+          <Grid size={{ xs: 12, xl: 6 }}>
             <LostFoundPreviewSection
               variant="found"
               title="Recent Found Pets"

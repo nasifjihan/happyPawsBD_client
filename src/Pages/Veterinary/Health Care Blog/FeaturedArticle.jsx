@@ -29,7 +29,7 @@ const FeaturedArticle = ({ post }) => {
     >
       <Grid container spacing={3}>
         {coverImageUrl ? (
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box
               component="img"
               src={coverImageUrl}
@@ -41,7 +41,7 @@ const FeaturedArticle = ({ post }) => {
             />
           </Grid>
         ) : null}
-        <Grid item xs={12} md={coverImageUrl ? 6 : 12}>
+        <Grid size={{ xs: 12, md: coverImageUrl ? 6 : 12 }}>
           <Stack spacing={2}>
             <Typography
               variant="overline"

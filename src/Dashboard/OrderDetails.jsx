@@ -155,7 +155,7 @@ const OrderDetails = () => {
 
       {!isLoading && order ? (
         <Grid container spacing={3}>
-          <Grid item xs={12} lg={7}>
+          <Grid size={{ xs: 12, lg: 7 }}>
             <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
               <Stack spacing={2.5}>
                 <Box>
@@ -239,7 +239,7 @@ const OrderDetails = () => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} lg={5}>
+          <Grid size={{ xs: 12, lg: 5 }}>
             <Stack spacing={3}>
               <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
                 <Stack spacing={1.5}>

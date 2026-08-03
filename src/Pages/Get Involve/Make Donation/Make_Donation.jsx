@@ -131,7 +131,7 @@ const Make_Donation = () => {
             }}
           >
             <Grid container spacing={4} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={7}>
+              <Grid size={{ xs: 12, md: 7 }}>
                 <Stack spacing={2.25}>
                   <Chip
                     icon={<PetsOutlinedIcon />}
@@ -182,7 +182,7 @@ const Make_Donation = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={5}>
+              <Grid size={{ xs: 12, md: 5 }}>
                 <Paper
                   variant="outlined"
                   sx={{
@@ -246,7 +246,7 @@ const Make_Donation = () => {
 
           <Grid container spacing={2}>
             {donationMethods.map((method) => (
-              <Grid item xs={12} md={6} key={method.title}>
+              <Grid key={method.title} size={{ xs: 12, md: 6 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -279,7 +279,7 @@ const Make_Donation = () => {
           </Grid>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -344,7 +344,7 @@ const Make_Donation = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -386,7 +386,7 @@ const Make_Donation = () => {
 
           <Grid container spacing={2}>
             {impactAreas.map((area) => (
-              <Grid item xs={12} md={6} lg={3} key={area.title}>
+              <Grid key={area.title} size={{ xs: 12, md: 6, lg: 3 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -421,7 +421,7 @@ const Make_Donation = () => {
             }}
           >
             <Grid container spacing={3} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={8}>
+              <Grid size={{ xs: 12, md: 8 }}>
                 <Stack spacing={1.5}>
                   <Typography variant="h5" fontWeight={800}>
                     Need help with a donation?
@@ -434,7 +434,7 @@ const Make_Donation = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <Stack
                   direction={{ xs: "column", sm: "row", md: "column" }}
                   spacing={1.5}

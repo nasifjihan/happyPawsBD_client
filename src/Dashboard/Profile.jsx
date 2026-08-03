@@ -63,7 +63,7 @@ const Profile = () => {
 
       <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 }, borderRadius: 3 }}>
         <Grid container spacing={3} sx={{ alignItems: "center" }}>
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Stack
               spacing={2}
               sx={{ alignItems: { xs: "flex-start", md: "center" } }}
@@ -78,7 +78,7 @@ const Profile = () => {
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={9}>
+          <Grid size={{ xs: 12, md: 9 }}>
             <Typography variant="h5" fontWeight={800}>
               {displayName}
             </Typography>
@@ -102,7 +102,7 @@ const Profile = () => {
         <Divider sx={{ my: 2 }} />
 
         <Grid container spacing={1}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box>
               <Typography variant="overline" color="text.secondary">
                 Contact
@@ -112,7 +112,7 @@ const Profile = () => {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box>
               <Typography variant="overline" color="text.secondary">
                 Sign-In Provider
@@ -120,7 +120,7 @@ const Profile = () => {
               <Typography variant="body1">{providerLabel}</Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box>
               <Typography variant="overline" color="text.secondary">
                 Display Name
@@ -128,7 +128,7 @@ const Profile = () => {
               <Typography variant="body1">{displayName}</Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box>
               <Typography variant="overline" color="text.secondary">
                 Account Status

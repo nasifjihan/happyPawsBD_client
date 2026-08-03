@@ -76,7 +76,7 @@ const DeliveryInformation = ({
         </Typography>
       </Stack>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="Full Name"
@@ -92,7 +92,7 @@ const DeliveryInformation = ({
             sx={inputStyles}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="Mobile Number"
@@ -108,7 +108,7 @@ const DeliveryInformation = ({
             sx={inputStyles}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="Email Address"
@@ -125,7 +125,7 @@ const DeliveryInformation = ({
             sx={inputStyles}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="City or Area"
@@ -140,7 +140,7 @@ const DeliveryInformation = ({
             sx={inputStyles}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="State"
@@ -152,7 +152,7 @@ const DeliveryInformation = ({
             sx={inputStyles}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="ZIP"
@@ -165,7 +165,7 @@ const DeliveryInformation = ({
             sx={inputStyles}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <TextField
             fullWidth
             label="Address"

@@ -80,7 +80,7 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
           </Typography>
 
           <CardContent>
-            <Typography variant="h6" fontWeight={700} lineHeight={1.4}>
+            <Typography variant="h6" fontWeight={700} sx={{ lineHeight: 1.4 }}>
               {product.name}
             </Typography>
             <Typography

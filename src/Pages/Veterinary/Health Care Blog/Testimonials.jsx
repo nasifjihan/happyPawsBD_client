@@ -44,7 +44,7 @@ const Testimonials = () => {
       </Stack>
       <Grid container spacing={3}>
         {testimonials.map((testimonial, index) => (
-          <Grid item xs={12} sm={6} key={index}>
+          <Grid key={index} size={{ xs: 12, sm: 6 }}>
             <Paper
               variant="outlined"
               sx={{

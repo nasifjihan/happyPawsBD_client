@@ -78,7 +78,7 @@ const Dashboard = () => {
 
       <Grid container spacing={2}>
         {cards.map((card) => (
-          <Grid item xs={12} md={6} key={card.title}>
+          <Grid size={{ xs: 12, md: 6 }} key={card.title}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
               <Stack spacing={2} height="100%">
                 <Typography variant="h6" fontWeight={700}>

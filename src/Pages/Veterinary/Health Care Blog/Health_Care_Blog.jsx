@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Button, Box, Paper, Stack } from "@mui/material";
+import { Typography, Button, Box, Paper, Stack, Grid } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import FeaturedArticle from "./FeaturedArticle";
 import HealthTips from "./HealthTips";
@@ -81,7 +81,7 @@ const Health_Care_Blog = () => {
         ) : recentPosts.length ? (
           <Grid container spacing={3}>
             {recentPosts.map((post) => (
-              <Grid key={post._id || post.id} item xs={12} sm={6} md={4}>
+              <Grid key={post._id || post.id} size={{ xs: 12, sm: 6, md: 4 }}>
                 <BlogCard
                   title={post.title}
                   excerpt={post.excerpt}

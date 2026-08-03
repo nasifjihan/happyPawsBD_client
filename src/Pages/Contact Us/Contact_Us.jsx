@@ -105,7 +105,7 @@ const Contact_Us = () => {
           }}
         >
           <Grid container spacing={5} sx={{ alignItems: "center" }}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <OptimizedImage
                 src={contactImage}
                 alt="Contact Happy Paws BD"
@@ -117,7 +117,7 @@ const Contact_Us = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Stack spacing={2.5}>
                 <Typography variant="h3" fontWeight={800}>
                   Contact Us

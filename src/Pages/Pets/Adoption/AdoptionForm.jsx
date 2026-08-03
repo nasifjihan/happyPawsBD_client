@@ -5,12 +5,12 @@ import {
   Alert,
   Box,
   Button,
+  Grid,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   Snackbar,
-  Grid,
   TextField,
   Typography,
 } from "@mui/material";
@@ -102,7 +102,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
 
         <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <TextField
                 variant="outlined"
                 label="Animal Code"
@@ -122,7 +122,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <FormControl
                 variant="outlined"
                 name="animalType"
@@ -171,7 +171,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               )}
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <TextField
                 variant="outlined"
                 label="Your Name"
@@ -192,7 +192,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <TextField
                 variant="outlined"
                 label="Email"
@@ -214,7 +214,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <TextField
                 variant="outlined"
                 label="Contact Number"
@@ -236,7 +236,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={4}>
+            <Grid size={{ xs: 12, sm: 4 }}>
               <TextField
                 variant="outlined"
                 label="Your Address"
@@ -257,7 +257,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 variant="outlined"
                 label="Experience with Pets"

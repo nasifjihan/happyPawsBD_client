@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import {
   Box,
   Button,
+  Grid,
   FormControl,
   InputLabel,
   MenuItem,
@@ -12,7 +13,6 @@ import {
   Snackbar,
   Alert,
   Typography,
-  Grid,
 } from "@mui/material";
 import { useCreateFoundPetMutation } from "../../../features/lost-found/hooks";
 import {
@@ -88,7 +88,7 @@ const FoundForm = ({ hideHeading = false }) => {
           )}
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <FormControl
                 variant="outlined"
                 name="animalType"
@@ -130,7 +130,7 @@ const FoundForm = ({ hideHeading = false }) => {
               )}
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Breed Type"
@@ -145,7 +145,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Pet's Colors"
@@ -161,7 +161,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <FormControl
                 variant="outlined"
                 name="gender"
@@ -197,7 +197,7 @@ const FoundForm = ({ hideHeading = false }) => {
               )}
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Your Name"
@@ -214,7 +214,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Contact Number"
@@ -232,7 +232,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Found Location"
@@ -248,7 +248,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 variant="outlined"
                 label="Date of Found"
@@ -266,7 +266,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 variant="outlined"
                 label="Description of Circumstances"
@@ -283,7 +283,7 @@ const FoundForm = ({ hideHeading = false }) => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <Button
                   variant="contained"

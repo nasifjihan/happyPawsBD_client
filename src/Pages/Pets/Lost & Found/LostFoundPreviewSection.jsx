@@ -98,7 +98,7 @@ const LostFoundPreviewSection = ({
       {previewListings.length ? (
         <Grid container spacing={2}>
           {previewListings.map((pet) => (
-            <Grid item xs={12} key={pet._id}>
+            <Grid key={pet._id} size={{ xs: 12 }}>
               <Card
                 sx={{
                   display: "flex",
@@ -138,7 +138,10 @@ const LostFoundPreviewSection = ({
 
                     <Grid container spacing={1}>
                       {meta.summary(pet).map((item) => (
-                        <Grid item xs={12} sm={6} key={`${pet._id}-${item.label}`}>
+                        <Grid
+                          key={`${pet._id}-${item.label}`}
+                          size={{ xs: 12, sm: 6 }}
+                        >
                           <Typography variant="body2" color="text.secondary">
                             <Box component="span" sx={{ fontWeight: 700, color: "#333332" }}>
                               {item.label}:

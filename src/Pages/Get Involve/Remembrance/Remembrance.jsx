@@ -87,7 +87,7 @@ const Remembrance = () => {
             }}
           >
             <Grid container spacing={4} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={7}>
+              <Grid size={{ xs: 12, md: 7 }}>
                 <Stack spacing={2.25}>
                   <Chip
                     icon={<CandlestickChartOutlinedIcon />}
@@ -136,7 +136,7 @@ const Remembrance = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={5}>
+              <Grid size={{ xs: 12, md: 5 }}>
                 <Paper
                   variant="outlined"
                   sx={{
@@ -172,7 +172,7 @@ const Remembrance = () => {
 
           <Grid container spacing={2}>
             {remembranceIdeas.map((item) => (
-              <Grid item xs={12} md={4} key={item.title}>
+              <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   elevation={0}
                   sx={{
@@ -224,7 +224,7 @@ const Remembrance = () => {
               ) : tributes.length ? (
                 <Grid container spacing={2}>
                   {tributes.map((entry) => (
-                    <Grid item xs={12} md={6} key={entry._id || entry.id}>
+                    <Grid key={entry._id || entry.id} size={{ xs: 12, md: 6 }}>
                       <Paper
                         variant="outlined"
                         sx={{

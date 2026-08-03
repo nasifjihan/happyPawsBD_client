@@ -129,7 +129,7 @@ const RescueDetails = () => {
 
         <Grid container spacing={2}>
           {rescueSteps.map((item) => (
-            <Grid item xs={12} md={4} key={item.title}>
+            <Grid key={item.title} size={{ xs: 12, md: 4 }}>
               <Paper
                 variant="outlined"
                 sx={{ p: 3, borderRadius: 3, height: "100%" }}
@@ -147,7 +147,7 @@ const RescueDetails = () => {
 
         <Grid container spacing={2} sx={{ mt: 2 }}>
           {supportCards.map((item) => (
-            <Grid item xs={12} md={4} key={item.title}>
+            <Grid key={item.title} size={{ xs: 12, md: 4 }}>
               <Paper
                 variant="outlined"
                 sx={{ p: 3, borderRadius: 3, height: "100%" }}
@@ -228,7 +228,7 @@ const RescueDetails = () => {
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="reporterName"
                   label="Your Name"
@@ -238,7 +238,7 @@ const RescueDetails = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="contactPhone"
                   label="Phone"
@@ -248,7 +248,7 @@ const RescueDetails = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="contactEmail"
                   label="Email (optional)"
@@ -257,7 +257,7 @@ const RescueDetails = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="animalType"
                   label="Animal Type"
@@ -267,7 +267,7 @@ const RescueDetails = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="location"
                   label="Location"
@@ -277,7 +277,7 @@ const RescueDetails = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="landmark"
                   label="Nearby Landmark (optional)"
@@ -286,7 +286,7 @@ const RescueDetails = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                   name="urgency"
                   label="Urgency"
@@ -302,7 +302,7 @@ const RescueDetails = () => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Button variant="outlined" component="label" fullWidth sx={{ height: "100%" }}>
                   {form.photo ? "Photo Selected" : "Upload Photo (optional)"}
                   <input
@@ -318,7 +318,7 @@ const RescueDetails = () => {
                   />
                 </Button>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <TextField
                   name="description"
                   label="What happened / Current condition"
@@ -330,7 +330,7 @@ const RescueDetails = () => {
                   minRows={4}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Stack
                   direction={{ xs: "column", sm: "row" }}
                   spacing={1.5}

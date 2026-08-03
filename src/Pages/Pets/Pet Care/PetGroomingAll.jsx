@@ -77,7 +77,7 @@ const PetGroomingAll = () => {
 
         <Grid container spacing={3}>
           {isLoading ? (
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Typography color="text.secondary">
                   Loading grooming services...
@@ -85,12 +85,12 @@ const PetGroomingAll = () => {
               </Paper>
             </Grid>
           ) : loadError ? (
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Alert severity="warning">{loadError}</Alert>
             </Grid>
           ) : programs.length ? (
             programs.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4 }}>
               <Card
                 sx={{
                   height: "100%",
@@ -157,7 +157,7 @@ const PetGroomingAll = () => {
             </Grid>
             ))
           ) : (
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Alert severity="info">No grooming programs available yet.</Alert>
             </Grid>
           )}

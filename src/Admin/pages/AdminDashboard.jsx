@@ -216,19 +216,19 @@ const AdminDashboard = () => {
       </Typography>
 
       <Grid container spacing={2.5}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Shop Items" value={data?.shopItems ?? 0} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Vet Providers" value={data?.vetProviders ?? 0} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Adoptable Animals" value={data?.adoptableAnimals ?? 0} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Programs" value={programsTotal} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Stories"
             value={data?.stories ?? 0}
@@ -237,10 +237,10 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Blog Posts" value={data?.blogPosts ?? 0} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Rescue Alerts"
             value={data?.rescueAlerts ?? 0}
@@ -251,7 +251,7 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Orders"
             value={data?.orders ?? 0}
@@ -260,7 +260,7 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Online Consultations"
             value={data?.onlineConsultations ?? 0}
@@ -271,7 +271,7 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Volunteer Requests"
             value={data?.volunteerApplications ?? 0}
@@ -282,7 +282,7 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Adoption Requests"
             value={data?.adoptionApplications ?? 0}
@@ -291,7 +291,7 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Reviews"
             value={data?.reviews ?? 0}
@@ -300,25 +300,25 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Training Enrollments"
             value={data?.trainingEnrollments ?? 0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Grooming Enrollments"
             value={data?.groomingEnrollments ?? 0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Boarding Enrollments"
             value={data?.boardingEnrollments ?? 0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Enrollments (New)"
             value={newCounts?.enrollments ?? 0}
@@ -329,13 +329,13 @@ const AdminDashboard = () => {
             }
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Lost Pets Reports" value={data?.lostPets ?? 0} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Found Pets Reports" value={data?.foundPets ?? 0} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             label="Lost & Found (New)"
             value={newCounts?.lostFound ?? 0}
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
       </Grid>
 
       <Grid container spacing={2.5} sx={{ mt: 1 }}>
-        <Grid item xs={12} lg={7}>
+        <Grid size={{ xs: 12, lg: 7 }}>
           <Card sx={{ borderRadius: 4 }}>
             <CardContent>
               <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
@@ -356,7 +356,7 @@ const AdminDashboard = () => {
 
               <Grid container spacing={2}>
                 {quickActions.map((action) => (
-                  <Grid item xs={12} md={4} key={action.to}>
+                  <Grid size={{ xs: 12, md: 4 }} key={action.to}>
                     <Card
                       variant="outlined"
                       sx={{ height: "100%", borderRadius: 3 }}
@@ -387,7 +387,7 @@ const AdminDashboard = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} lg={5}>
+        <Grid size={{ xs: 12, lg: 5 }}>
           <Card sx={{ borderRadius: 4 }}>
             <CardContent>
               <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
@@ -444,7 +444,7 @@ const AdminDashboard = () => {
       </Grid>
 
       <Grid container spacing={2.5} sx={{ mt: 1 }}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Card sx={{ borderRadius: 4 }}>
             <CardContent>
               <Stack
@@ -505,7 +505,7 @@ const AdminDashboard = () => {
               </Stack>
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Orders</Typography>
                     {(newRequestsFeed?.orders ?? []).slice(0, 3).map((order) => (
@@ -525,7 +525,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Online Consultations</Typography>
                     {(newRequestsFeed?.onlineConsultations ?? []).slice(0, 3).map((consultation) => (
@@ -545,7 +545,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>In-Person Consultations</Typography>
                     {(newRequestsFeed?.inPersonConsultations ?? []).slice(0, 3).map((consultation) => (
@@ -565,7 +565,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>House Calls</Typography>
                     {(newRequestsFeed?.houseCalls ?? []).slice(0, 3).map((item) => (
@@ -585,7 +585,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Volunteer Requests</Typography>
                     {(newRequestsFeed?.volunteers ?? []).slice(0, 3).map((volunteer) => (
@@ -605,7 +605,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Adoption Requests</Typography>
                     {(newRequestsFeed?.adoptions ?? []).slice(0, 3).map((adoption) => (
@@ -625,7 +625,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Reviews</Typography>
                     {(newRequestsFeed?.reviews ?? []).slice(0, 3).map((review) => (
@@ -645,7 +645,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Stories</Typography>
                     {(newRequestsFeed?.stories ?? []).slice(0, 3).map((story) => (
@@ -665,7 +665,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Rescue Alerts</Typography>
                     {(newRequestsFeed?.rescueAlerts ?? []).slice(0, 3).map((item) => (
@@ -685,7 +685,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Enrollments</Typography>
                     {(newRequestsFeed?.enrollments?.training ?? []).slice(0, 1).map((item) => (
@@ -723,7 +723,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
+                <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
                     <Typography fontWeight={900}>Lost & Found</Typography>
                     {(newRequestsFeed?.lostFound?.lostPets ?? []).slice(0, 1).map((item) => (
@@ -758,7 +758,7 @@ const AdminDashboard = () => {
       </Grid>
 
       <Grid container spacing={2.5} sx={{ mt: 1 }}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Card sx={{ borderRadius: 4 }}>
             <CardContent>
               <Stack
@@ -801,7 +801,7 @@ const AdminDashboard = () => {
               </Stack>
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={3}>
+                <Grid size={{ xs: 12, md: 3 }}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -833,7 +833,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid size={{ xs: 12, md: 3 }}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -885,7 +885,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid size={{ xs: 12, md: 3 }}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
@@ -917,7 +917,7 @@ const AdminDashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid size={{ xs: 12, md: 3 }}>
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>

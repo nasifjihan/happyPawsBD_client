@@ -55,7 +55,7 @@ const HealthTips = () => {
 
       <Grid container spacing={3}>
         {tips.map((tip, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
             <Paper
               variant="outlined"
               sx={{

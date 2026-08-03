@@ -131,7 +131,7 @@ const Reviews = () => {
             }}
           >
             <Grid container spacing={4} sx={{ alignItems: "center" }}>
-              <Grid item xs={12} md={7}>
+              <Grid size={{ xs: 12, md: 7 }}>
                 <Stack spacing={2.25}>
                   <Chip
                     icon={<RateReviewOutlinedIcon />}
@@ -179,7 +179,7 @@ const Reviews = () => {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={5}>
+              <Grid size={{ xs: 12, md: 5 }}>
                 <Paper
                   variant="outlined"
                   sx={{
@@ -217,7 +217,7 @@ const Reviews = () => {
           </Paper>
 
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={7}>
+            <Grid size={{ xs: 12, lg: 7 }}>
               <Paper
                 elevation={0}
                 sx={{
@@ -309,7 +309,7 @@ const Reviews = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} lg={5}>
+            <Grid size={{ xs: 12, lg: 5 }}>
               <Stack spacing={2} sx={{ height: "100%" }}>
                 <Paper
                   elevation={0}
