@@ -66,7 +66,10 @@ const AdminRescueAlertDetails = () => {
 
   return (
     <Box>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+      <Stack
+        direction="row"
+        sx={{ mb: 2, justifyContent: "space-between", alignItems: "center" }}
+      >
         <Typography variant="h3" fontWeight={900}>
           Rescue Alert
         </Typography>
@@ -92,7 +95,11 @@ const AdminRescueAlertDetails = () => {
       ) : data ? (
         <Paper sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
           <Stack spacing={2}>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2} justifyContent="space-between">
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={2}
+              sx={{ justifyContent: "space-between" }}
+            >
               <Box>
                 <Typography variant="h5" fontWeight={900}>
                   {data.reporterName || "Reporter"} • {data.animalType || "Animal"}
@@ -109,7 +116,10 @@ const AdminRescueAlertDetails = () => {
                   {data.createdAt ? `• ${formatDateTime(data.createdAt)}` : ""}
                 </Typography>
               </Box>
-              <Stack alignItems={{ xs: "flex-start", md: "flex-end" }} spacing={1}>
+              <Stack
+                spacing={1}
+                sx={{ alignItems: { xs: "flex-start", md: "flex-end" } }}
+              >
                 <AdminStatusChip status={data.status || status} />
               </Stack>
             </Stack>
@@ -175,7 +185,7 @@ const AdminRescueAlertDetails = () => {
 
             {mutation.isSuccess ? <Alert severity="success">Saved.</Alert> : null}
 
-            <Stack direction="row" justifyContent="flex-end">
+            <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
               <Button
                 variant="contained"
                 color="success"

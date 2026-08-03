@@ -9,7 +9,7 @@ const Adoptable_Animals = lazy(() => import("./Adoptable_Animals"));
 const Adopted = lazy(() => import("./Adopted"));
 
 const SectionLoader = () => (
-  <Box py={6} display="flex" justifyContent="center">
+  <Box py={6} display="flex" sx={{ justifyContent: "center" }}>
     <CircularProgress color="success" />
   </Box>
 );

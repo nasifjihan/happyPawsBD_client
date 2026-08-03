@@ -108,15 +108,17 @@ const AdminReviews = () => {
               <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
                 <Stack
                   direction={{ xs: "column", md: "row" }}
-                  justifyContent="space-between"
-                  alignItems={{ xs: "flex-start", md: "center" }}
                   spacing={2}
+                  sx={{
+                    justifyContent: "space-between",
+                    alignItems: { xs: "flex-start", md: "center" },
+                  }}
                 >
                   <Box>
                     <Typography fontWeight={900}>
                       {item.title || "Review"} • {item.fullName || "Community member"}
                     </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center">
+                    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                       <Rating value={Number(item.rating || 0)} readOnly size="small" />
                       <Typography variant="body2" color="text.secondary">
                         {item.contactEmail ? item.contactEmail : "No email"}
@@ -175,7 +177,7 @@ const AdminReviews = () => {
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" justifyContent="center" pt={2}>
+            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

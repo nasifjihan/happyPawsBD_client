@@ -113,8 +113,7 @@ const OrderSummary = ({
               <Stack
                 direction="row"
                 spacing={1}
-                justifyContent="space-between"
-                alignItems="flex-start"
+                sx={{ justifyContent: "space-between", alignItems: "flex-start" }}
               >
                 <Box sx={{ minWidth: 0 }}>
                   <Typography fontWeight={700} noWrap>
@@ -137,9 +136,11 @@ const OrderSummary = ({
               <Stack
                 direction="row"
                 spacing={1}
-                justifyContent="space-between"
-                alignItems="center"
-                sx={{ mt: 1.25 }}
+                sx={{
+                  mt: 1.25,
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
                 <Box
                   sx={{

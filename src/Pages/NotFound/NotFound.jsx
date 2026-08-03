@@ -27,7 +27,7 @@ const NotFound = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
-            justifyContent="center"
+            sx={{ justifyContent: "center" }}
           >
             <Button component={RouterLink} to="/" variant="contained" color="success">
               Go Home

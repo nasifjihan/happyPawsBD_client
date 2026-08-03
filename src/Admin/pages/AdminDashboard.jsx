@@ -163,14 +163,14 @@ const RecentRow = ({ title, subtitle, status, to }) => (
       },
     }}
   >
-    <Stack direction="row" justifyContent="space-between" spacing={2}>
+    <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between" }}>
       <Box>
         <Typography fontWeight={900}>{title}</Typography>
         <Typography variant="body2" color="text.secondary">
           {subtitle}
         </Typography>
       </Box>
-      <Box display="flex" alignItems="center">
+      <Box display="flex" sx={{ alignItems: "center" }}>
         <AdminStatusChip status={status} />
       </Box>
     </Stack>
@@ -395,7 +395,7 @@ const AdminDashboard = () => {
               </Typography>
 
               {isLoading ? (
-                <Box display="flex" justifyContent="center" py={4}>
+                <Box display="flex" py={4} sx={{ justifyContent: "center" }}>
                   <CircularProgress size={28} />
                 </Box>
               ) : catalogChecklist.length ? (
@@ -450,9 +450,11 @@ const AdminDashboard = () => {
               <Stack
                 direction={{ xs: "column", md: "row" }}
                 spacing={2}
-                justifyContent="space-between"
-                alignItems={{ xs: "flex-start", md: "center" }}
-                sx={{ mb: 2 }}
+                sx={{
+                  mb: 2,
+                  justifyContent: "space-between",
+                  alignItems: { xs: "flex-start", md: "center" },
+                }}
               >
                 <Box>
                   <Typography variant="h5" fontWeight={900}>
@@ -762,9 +764,11 @@ const AdminDashboard = () => {
               <Stack
                 direction={{ xs: "column", md: "row" }}
                 spacing={2}
-                justifyContent="space-between"
-                alignItems={{ xs: "flex-start", md: "center" }}
-                sx={{ mb: 2 }}
+                sx={{
+                  mb: 2,
+                  justifyContent: "space-between",
+                  alignItems: { xs: "flex-start", md: "center" },
+                }}
               >
                 <Box>
                   <Typography variant="h5" fontWeight={900}>
@@ -799,7 +803,7 @@ const AdminDashboard = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
-                    <Stack direction="row" spacing={1.25} alignItems="center">
+                    <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
                         <Typography fontWeight={900} color="common.white">
                           O
@@ -831,7 +835,7 @@ const AdminDashboard = () => {
 
                 <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
-                    <Stack direction="row" spacing={1.25} alignItems="center">
+                    <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
                         <Typography fontWeight={900} color="common.white">
                           C
@@ -883,7 +887,7 @@ const AdminDashboard = () => {
 
                 <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
-                    <Stack direction="row" spacing={1.25} alignItems="center">
+                    <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
                         <Typography fontWeight={900} color="common.white">
                           S
@@ -915,7 +919,7 @@ const AdminDashboard = () => {
 
                 <Grid item xs={12} md={3}>
                   <Stack spacing={1.5}>
-                    <Stack direction="row" spacing={1.25} alignItems="center">
+                    <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
                         <Typography fontWeight={900} color="common.white">
                           R

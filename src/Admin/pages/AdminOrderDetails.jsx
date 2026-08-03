@@ -112,10 +112,12 @@ const AdminOrderDetails = () => {
     <Box>
       <Stack
         direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "center" }}
         spacing={2}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          justifyContent: "space-between",
+          alignItems: { xs: "flex-start", md: "center" },
+        }}
       >
         <Box>
           <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
@@ -187,9 +189,11 @@ const AdminOrderDetails = () => {
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
-                    justifyContent="space-between"
-                    alignItems={{ xs: "flex-start", md: "center" }}
                     spacing={2}
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: { xs: "flex-start", md: "center" },
+                    }}
                   >
                     <Box>
                       <Typography variant="h5" fontWeight={900}>
@@ -209,7 +213,12 @@ const AdminOrderDetails = () => {
                     />
                   </Stack>
 
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    useFlexGap
+                    sx={{ flexWrap: "wrap" }}
+                  >
                     <AdminStatusChip
                       status={effectiveOrderStatus}
                       labelPrefix="Order"
@@ -272,8 +281,8 @@ const AdminOrderDetails = () => {
                         >
                           <Stack
                             direction={{ xs: "column", md: "row" }}
-                            justifyContent="space-between"
                             spacing={1.5}
+                            sx={{ justifyContent: "space-between" }}
                           >
                             <Box>
                               <Typography fontWeight={800}>

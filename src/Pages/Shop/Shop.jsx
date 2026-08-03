@@ -193,10 +193,12 @@ const Shop = () => {
 
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-between"
-            alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={2}
             mb={2}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: { xs: "flex-start", sm: "center" },
+            }}
           >
             <Box>
               <Typography variant="h5" fontWeight={700}>
@@ -215,7 +217,7 @@ const Shop = () => {
           </Stack>
 
           {isLoading ? (
-            <Box textAlign="center" py={6}>
+            <Box py={6} sx={{ textAlign: "center" }}>
               <CircularProgress color="success" />
             </Box>
           ) : filteredProducts.length ? (

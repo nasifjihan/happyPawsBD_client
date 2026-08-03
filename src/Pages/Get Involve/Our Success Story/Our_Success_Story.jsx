@@ -98,7 +98,7 @@ const Our_Success_Story = () => {
               boxShadow: "0 18px 44px rgba(46, 125, 50, 0.08)",
             }}
           >
-            <Grid container spacing={4} alignItems="center">
+            <Grid container spacing={4} sx={{ alignItems: "center" }}>
               <Grid item xs={12} md={7}>
                 <Stack spacing={2.25}>
                   <Chip
@@ -168,7 +168,7 @@ const Our_Success_Story = () => {
                         key={step}
                         direction="row"
                         spacing={1.25}
-                        alignItems="flex-start"
+                        sx={{ alignItems: "flex-start" }}
                       >
                         <CheckCircleOutlineOutlinedIcon color="success" />
                         <Typography variant="body2" color="text.secondary">
@@ -311,7 +311,7 @@ const Our_Success_Story = () => {
               borderColor: alpha("#2e7d32", 0.1),
             }}
           >
-            <Grid container spacing={3} alignItems="center">
+            <Grid container spacing={3} sx={{ alignItems: "center" }}>
               <Grid item xs={12} md={8}>
                 <Stack spacing={1.25}>
                   <Typography variant="h5" fontWeight={800}>

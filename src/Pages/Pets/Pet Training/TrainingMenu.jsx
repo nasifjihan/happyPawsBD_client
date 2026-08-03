@@ -62,7 +62,11 @@ const TrainingMenu = () => {
 
   return (
     <Box bgcolor={"rgba(122, 178, 89, 0.15)"} p={{ xs: 3, md: 5 }}>
-      <Stack spacing={1.5} alignItems="center" textAlign="center" mb={4}>
+      <Stack
+        spacing={1.5}
+        mb={4}
+        sx={{ alignItems: "center", textAlign: "center" }}
+      >
         <Typography
           variant="h4"
           color="primary.headline"
@@ -80,8 +84,7 @@ const TrainingMenu = () => {
         id="TrainingMenu"
         container
         spacing={{ xs: 2, md: 3 }}
-        justifyContent="center"
-        alignItems="stretch"
+        sx={{ justifyContent: "center", alignItems: "stretch" }}
       >
         {isLoading ? (
           <Grid item xs={12}>
@@ -133,7 +136,11 @@ const TrainingMenu = () => {
                     gap: 1.5,
                   }}
                 >
-                  <Typography variant="h6" textAlign="center" fontWeight={700}>
+                  <Typography
+                    variant="h6"
+                    fontWeight={700}
+                    sx={{ textAlign: "center" }}
+                  >
                     {item.title}
                   </Typography>
 

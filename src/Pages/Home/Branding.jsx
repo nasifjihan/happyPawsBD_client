@@ -52,10 +52,12 @@ const Branding = () => {
       <BrandingWrapper>
         <Stack
           spacing={4}
-          sx={{ p: { xs: 2, sm: 4 } }}
+          sx={{
+            p: { xs: 2, sm: 4 },
+            alignItems: { xs: "center", md: "flex-start" },
+            textAlign: { xs: "center", md: "left" },
+          }}
           flex={1.2}
-          alignItems={{ xs: "center", md: "flex-start" }}
-          textAlign={{ xs: "center", md: "left" }}
         >
           <Chip
             label={heroBadge}

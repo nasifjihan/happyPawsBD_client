@@ -374,8 +374,8 @@ const Header = (props) => {
             variant="h6"
             component={Link}
             to="/"
-            flexGrow={{ xs: "1", md: "0" }}
             sx={{
+              flexGrow: { xs: 1, md: 0 },
               color: "inherit",
               textDecoration: "none",
               pt: 1,

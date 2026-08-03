@@ -31,7 +31,11 @@ const Covid19_Info = () => {
     <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-          <Stack spacing={2} textAlign="center" alignItems="center" mb={4}>
+          <Stack
+            spacing={2}
+            mb={4}
+            sx={{ textAlign: "center", alignItems: "center" }}
+          >
             <Typography variant="h3" fontWeight={800}>
               COVID-19 & Pet Care
             </Typography>

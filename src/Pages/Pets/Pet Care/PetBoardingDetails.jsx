@@ -159,7 +159,7 @@ const PetBoardingDetails = () => {
   return (
     <Box className="myContainer" sx={{ my: 5 }}>
       <Stack spacing={3}>
-        <Stack spacing={1} textAlign="center">
+        <Stack spacing={1} sx={{ textAlign: "center" }}>
           <Typography variant="h3" fontWeight={800} color="primary.headline">
             {item.title}
           </Typography>

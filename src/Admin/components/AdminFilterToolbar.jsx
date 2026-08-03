@@ -24,8 +24,10 @@ const AdminFilterToolbar = ({
     <Stack
       direction={{ xs: "column", md: "row" }}
       spacing={2}
-      alignItems={{ xs: "stretch", md: "center" }}
-      justifyContent="space-between"
+      sx={{
+        alignItems: { xs: "stretch", md: "center" },
+        justifyContent: "space-between",
+      }}
     >
       <Stack
         direction={{ xs: "column", md: "row" }}

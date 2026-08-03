@@ -77,7 +77,7 @@ const PaymentMethod = ({
             }}
             label={
               <Box sx={{ py: 0.25 }}>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
+                <Stack direction="row" spacing={1} sx={{ mb: 0.5, alignItems: "center" }}>
                   <CreditCardOutlinedIcon fontSize="small" sx={{ color: "#7AB259" }} />
                   <Typography fontWeight={700}>Online Payment</Typography>
                 </Stack>
@@ -108,7 +108,7 @@ const PaymentMethod = ({
             }}
             label={
               <Box sx={{ py: 0.25 }}>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
+                <Stack direction="row" spacing={1} sx={{ mb: 0.5, alignItems: "center" }}>
                   <LocalShippingOutlinedIcon
                     fontSize="small"
                     sx={{ color: "#7AB259" }}

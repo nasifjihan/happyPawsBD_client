@@ -41,7 +41,7 @@ const About_Us = () => {
             backgroundColor: "#ffffff",
           }}
         >
-          <Grid container spacing={4} alignItems="center">
+          <Grid container spacing={4} sx={{ alignItems: "center" }}>
             <Grid item xs={12} md={8}>
               <Stack spacing={2.5}>
                 <Typography variant="h3" fontWeight={800}>

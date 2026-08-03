@@ -78,10 +78,12 @@ const AdminReviewDetails = () => {
     <Box>
       <Stack
         direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "center" }}
         spacing={2}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          justifyContent: "space-between",
+          alignItems: { xs: "flex-start", md: "center" },
+        }}
       >
         <Box>
           <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
@@ -152,9 +154,11 @@ const AdminReviewDetails = () => {
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
-                    justifyContent="space-between"
-                    alignItems={{ xs: "flex-start", md: "center" }}
                     spacing={2}
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: { xs: "flex-start", md: "center" },
+                    }}
                   >
                     <Box>
                       <Typography variant="h5" fontWeight={900}>
@@ -168,7 +172,7 @@ const AdminReviewDetails = () => {
                     <AdminStatusChip status={effectiveStatus} />
                   </Stack>
 
-                  <Stack direction="row" spacing={1} alignItems="center">
+                  <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                     <Rating value={Number(review.rating || 0)} readOnly />
                     <Typography color="text.secondary">
                       {Number(review.rating || 0)}/5
@@ -229,7 +233,7 @@ const AdminReviewDetails = () => {
                     Timeline
                   </Typography>
                   <Divider />
-                  <Stack direction="row" spacing={1} alignItems="center">
+                  <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                     <RateReviewOutlinedIcon color="success" fontSize="small" />
                     <Typography>{formatDateTime(review.createdAt)}</Typography>
                   </Stack>

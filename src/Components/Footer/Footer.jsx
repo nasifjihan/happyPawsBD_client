@@ -104,7 +104,7 @@ const Footer = () => {
                 component="nav"
                 aria-label="Social media and contact links"
                 direction="row"
-                justifyContent="space-evenly"
+                sx={{ justifyContent: "space-evenly" }}
               >
                 <a
                   href={facebookUrl}
@@ -174,7 +174,7 @@ const Footer = () => {
               Sitemap
             </Typography>
 
-            <Stack spacing={1} alignItems="center">
+            <Stack spacing={1} sx={{ alignItems: "center" }}>
               {sitemapLinks.map((link) => (
                 <MuiLink
                   key={`${link.to}-${link.label}`}
@@ -199,7 +199,7 @@ const Footer = () => {
               Support
             </Typography>
 
-            <Stack spacing={1} alignItems="center">
+            <Stack spacing={1} sx={{ alignItems: "center" }}>
               {supportLinks.map((link) => (
                 <MuiLink
                   key={`${link.to}-${link.label}`}
@@ -246,8 +246,7 @@ const Footer = () => {
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={1}
-          alignItems="center"
-          justifyContent="center"
+          sx={{ alignItems: "center", justifyContent: "center" }}
           variant="body2"
         >
           <span>© {new Date().getFullYear()} Happy Paws BD. Developed by</span>

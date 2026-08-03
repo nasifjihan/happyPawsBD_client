@@ -24,10 +24,12 @@ const RescueBanner = () => {
       <BrandingWrapper>
         <Stack
           spacing={3}
-          sx={{ p: { xs: 2, md: 4 } }}
+          sx={{
+            p: { xs: 2, md: 4 },
+            textAlign: { xs: "center", md: "left" },
+            alignItems: { xs: "center", md: "flex-start" },
+          }}
           flex={1.1}
-          textAlign={{ xs: "center", md: "left" }}
-          alignItems={{ xs: "center", md: "flex-start" }}
         >
           <Typography
             variant="h3"

@@ -181,7 +181,7 @@ const Online_Consultation = () => {
       <Container maxWidth="lg">
         <Stack spacing={3}>
           <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-            <Stack spacing={2} alignItems="flex-start">
+            <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
               <Chip
                 label="Online Vet Appointment"
                 color="success"
@@ -421,9 +421,11 @@ const Online_Consultation = () => {
                       <Stack spacing={1.25}>
                         <Stack
                           direction="row"
-                          justifyContent="space-between"
-                          alignItems="flex-start"
                           spacing={1}
+                          sx={{
+                            justifyContent: "space-between",
+                            alignItems: "flex-start",
+                          }}
                         >
                           <Box>
                             <Typography variant="h6" fontWeight={800}>

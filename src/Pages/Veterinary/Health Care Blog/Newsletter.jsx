@@ -3,8 +3,8 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 
 const Newsletter = () => {
   return (
-    <Box textAlign="center">
-      <Stack spacing={1} alignItems="center" sx={{ mb: 3 }}>
+    <Box sx={{ textAlign: "center" }}>
+      <Stack spacing={1} sx={{ mb: 3, alignItems: "center" }}>
         <Typography
           variant="overline"
           color="success.main"

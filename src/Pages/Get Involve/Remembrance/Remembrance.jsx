@@ -86,7 +86,7 @@ const Remembrance = () => {
               boxShadow: "0 18px 44px rgba(46, 125, 50, 0.08)",
             }}
           >
-            <Grid container spacing={4} alignItems="center">
+            <Grid container spacing={4} sx={{ alignItems: "center" }}>
               <Grid item xs={12} md={7}>
                 <Stack spacing={2.25}>
                   <Chip
@@ -156,7 +156,7 @@ const Remembrance = () => {
                         key={prompt}
                         direction="row"
                         spacing={1.25}
-                        alignItems="flex-start"
+                        sx={{ alignItems: "flex-start" }}
                       >
                         <FavoriteBorderOutlinedIcon color="success" />
                         <Typography variant="body2" color="text.secondary">

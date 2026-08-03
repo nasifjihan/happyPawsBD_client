@@ -24,7 +24,7 @@ const LostFoundRedesign = () => {
 
   if (isLoading) {
     return (
-      <Box textAlign="center" py={20}>
+      <Box py={20} sx={{ textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );

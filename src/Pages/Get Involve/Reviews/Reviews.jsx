@@ -130,7 +130,7 @@ const Reviews = () => {
               boxShadow: "0 18px 44px rgba(46, 125, 50, 0.08)",
             }}
           >
-            <Grid container spacing={4} alignItems="center">
+            <Grid container spacing={4} sx={{ alignItems: "center" }}>
               <Grid item xs={12} md={7}>
                 <Stack spacing={2.25}>
                   <Chip
@@ -202,7 +202,7 @@ const Reviews = () => {
                         key={item}
                         direction="row"
                         spacing={1.25}
-                        alignItems="flex-start"
+                        sx={{ alignItems: "flex-start" }}
                       >
                         <FavoriteBorderOutlinedIcon color="success" />
                         <Typography variant="body2" color="text.secondary">
@@ -257,7 +257,7 @@ const Reviews = () => {
                   <Stack
                     direction={{ xs: "column", sm: "row" }}
                     spacing={2}
-                    alignItems={{ xs: "stretch", sm: "center" }}
+                    sx={{ alignItems: { xs: "stretch", sm: "center" } }}
                   >
                     <Typography fontWeight={700}>Rating</Typography>
                     <Rating
@@ -358,7 +358,7 @@ const Reviews = () => {
                     >
                       <Stack spacing={1}>
                         <Typography fontWeight={800}>{review.title || "Review"}</Typography>
-                        <Stack direction="row" spacing={1} alignItems="center">
+                        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                           <Rating
                             value={Number(review.rating || 0)}
                             readOnly

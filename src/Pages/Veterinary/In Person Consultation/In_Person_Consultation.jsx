@@ -129,7 +129,11 @@ const In_Person_Consultation = () => {
     <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-          <Stack spacing={2} textAlign="center" alignItems="center" mb={4}>
+          <Stack
+            spacing={2}
+            mb={4}
+            sx={{ textAlign: "center", alignItems: "center" }}
+          >
             <Typography variant="h3" fontWeight={800}>
               In-Person Consultation
             </Typography>

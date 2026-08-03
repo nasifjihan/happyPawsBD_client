@@ -72,7 +72,11 @@ const Pet_Info = () => {
     <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-          <Stack spacing={2} textAlign="center" alignItems="center" mb={4}>
+          <Stack
+            spacing={2}
+            mb={4}
+            sx={{ textAlign: "center", alignItems: "center" }}
+          >
             <Chip
               label="Pet Library"
               variant="outlined"
@@ -118,8 +122,10 @@ const Pet_Info = () => {
               <Stack
                 direction={{ xs: "column", lg: "row" }}
                 spacing={2}
-                justifyContent="space-between"
-                alignItems={{ xs: "stretch", lg: "center" }}
+                sx={{
+                  justifyContent: "space-between",
+                  alignItems: { xs: "stretch", lg: "center" },
+                }}
               >
                 <Box>
                   <Typography variant="h5" fontWeight={900}>
@@ -184,7 +190,11 @@ const Pet_Info = () => {
                       }}
                     >
                       <Stack spacing={1.25}>
-                        <Stack direction="row" spacing={1.25} alignItems="center">
+                        <Stack
+                          direction="row"
+                          spacing={1.25}
+                          sx={{ alignItems: "center" }}
+                        >
                           <PetsOutlinedIcon sx={{ color: "success.main" }} />
                           <Typography variant="h6" fontWeight={800}>
                             {group.type}
@@ -196,7 +206,12 @@ const Pet_Info = () => {
                         <Typography variant="body2">
                           <strong>Ideal for:</strong> {group.idealFor}
                         </Typography>
-                        <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          useFlexGap
+                          sx={{ flexWrap: "wrap" }}
+                        >
                           {(group.commonNeeds || []).map((item) => (
                             <Chip key={item} label={item} size="small" variant="outlined" />
                           ))}
@@ -237,7 +252,11 @@ const Pet_Info = () => {
                               gap: 1.25,
                             }}
                           >
-                            <Stack direction="row" justifyContent="space-between" spacing={1.5}>
+                            <Stack
+                              direction="row"
+                              spacing={1.5}
+                              sx={{ justifyContent: "space-between" }}
+                            >
                               <Box>
                                 <Typography variant="h6" fontWeight={900}>
                                   {breed.name}
@@ -266,7 +285,12 @@ const Pet_Info = () => {
                               <strong>Good for:</strong> {breed.goodFor}
                             </Typography>
 
-                            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                            <Stack
+                              direction="row"
+                              spacing={1}
+                              useFlexGap
+                              sx={{ flexWrap: "wrap" }}
+                            >
                               {(breed.temperament || []).map((trait) => (
                                 <Chip key={trait} label={trait} size="small" variant="outlined" />
                               ))}

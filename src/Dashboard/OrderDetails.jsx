@@ -167,7 +167,12 @@ const OrderDetails = () => {
                   </Typography>
                 </Box>
 
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  sx={{ flexWrap: "wrap" }}
+                >
                   <Chip
                     label={`Order: ${order.orderStatus || "unknown"}`}
                     color={getOrderStatusChipColor(order.orderStatus)}
@@ -206,7 +211,7 @@ const OrderDetails = () => {
                           <Stack
                             direction={{ xs: "column", sm: "row" }}
                             spacing={1.5}
-                            justifyContent="space-between"
+                            sx={{ justifyContent: "space-between" }}
                           >
                             <Box>
                               <Typography fontWeight={700}>

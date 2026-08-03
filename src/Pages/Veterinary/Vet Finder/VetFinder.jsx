@@ -346,7 +346,7 @@ const VetFinder = () => {
       <Container className="myContainer">
         <Stack spacing={3}>
           <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-            <Stack spacing={2} textAlign="center" alignItems="center">
+            <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
               <Typography variant="h4" fontWeight={800}>
                 Vet Finder
               </Typography>
@@ -367,10 +367,12 @@ const VetFinder = () => {
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   spacing={1.5}
-                  justifyContent="space-between"
-                  alignItems={{ xs: "flex-start", md: "center" }}
+                  sx={{
+                    justifyContent: "space-between",
+                    alignItems: { xs: "flex-start", md: "center" },
+                  }}
                 >
-                  <Stack direction="row" spacing={1} alignItems="center">
+                  <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                     <Chip
                       label="Nearest Clinic Mode"
                       color="success"
@@ -382,7 +384,12 @@ const VetFinder = () => {
                     </Typography>
                   </Stack>
 
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    useFlexGap
+                    sx={{ flexWrap: "wrap" }}
+                  >
                     <Button
                       variant="contained"
                       color="success"
@@ -463,8 +470,10 @@ const VetFinder = () => {
             <Stack
               direction={{ xs: "column", md: "row" }}
               spacing={2}
-              justifyContent="space-between"
-              alignItems={{ xs: "flex-start", md: "center" }}
+              sx={{
+                justifyContent: "space-between",
+                alignItems: { xs: "flex-start", md: "center" },
+              }}
             >
               <Box>
                 <Typography variant="body1" fontWeight={500}>

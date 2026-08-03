@@ -29,7 +29,7 @@ const LostPets = () => {
 
   if (isLoading) {
     return (
-      <Box textAlign="center" py={6}>
+      <Box py={6} sx={{ textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
@@ -42,8 +42,8 @@ const LostPets = () => {
         borderRadius={3}
         p={{ xs: 3, md: 4 }}
         my={5}
-        textAlign={"center"}
         backgroundColor={"primary.para"}
+        sx={{ textAlign: "center" }}
       >
         <Typography variant="h4" fontWeight={900} pb={1.5}>
           All Lost Pets
@@ -137,7 +137,7 @@ const LostPets = () => {
         </Grid>
 
         {lostPets.length > 0 && totalPages > 1 ? (
-          <Box display="flex" justifyContent="center" mt={4}>
+          <Box display="flex" mt={4} sx={{ justifyContent: "center" }}>
             <Pagination
               count={totalPages}
               page={page}

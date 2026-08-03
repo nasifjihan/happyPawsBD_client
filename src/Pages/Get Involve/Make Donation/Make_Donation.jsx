@@ -130,7 +130,7 @@ const Make_Donation = () => {
               boxShadow: "0 18px 44px rgba(46, 125, 50, 0.08)",
             }}
           >
-            <Grid container spacing={4} alignItems="center">
+            <Grid container spacing={4} sx={{ alignItems: "center" }}>
               <Grid item xs={12} md={7}>
                 <Stack spacing={2.25}>
                   <Chip
@@ -197,7 +197,7 @@ const Make_Donation = () => {
                       Donation Support Channels
                     </Typography>
 
-                    <Stack direction="row" spacing={1.5} alignItems="center">
+                    <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
                       <PhoneOutlinedIcon color="success" />
                       <Box>
                         <Typography variant="body2" color="text.secondary">
@@ -214,7 +214,7 @@ const Make_Donation = () => {
                       </Box>
                     </Stack>
 
-                    <Stack direction="row" spacing={1.5} alignItems="center">
+                    <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
                       <EmailOutlinedIcon color="success" />
                       <Box>
                         <Typography variant="body2" color="text.secondary">
@@ -327,7 +327,7 @@ const Make_Donation = () => {
                       key={step}
                       direction="row"
                       spacing={1.5}
-                      alignItems="flex-start"
+                      sx={{ alignItems: "flex-start" }}
                     >
                       <Chip
                         label={index + 1}
@@ -365,7 +365,7 @@ const Make_Donation = () => {
                       key={item}
                       direction="row"
                       spacing={1.25}
-                      alignItems="flex-start"
+                      sx={{ alignItems: "flex-start" }}
                     >
                       <CheckCircleOutlineOutlinedIcon color="success" />
                       <Typography variant="body2" color="text.secondary">
@@ -420,7 +420,7 @@ const Make_Donation = () => {
               borderColor: alpha("#2e7d32", 0.1),
             }}
           >
-            <Grid container spacing={3} alignItems="center">
+            <Grid container spacing={3} sx={{ alignItems: "center" }}>
               <Grid item xs={12} md={8}>
                 <Stack spacing={1.5}>
                   <Typography variant="h5" fontWeight={800}>

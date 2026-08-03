@@ -10,17 +10,18 @@ const PetTrainingBanner = () => {
       <Grid
         container
         spacing={2}
-        textAlign={"center"}
-        justifyContent="center"
-        alignItems="center"
+        sx={{
+          textAlign: "center",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Grid
           item
           sm={8}
           md={4}
           lg={4}
-          justifyContent="center"
-          alignItems="center"
+          sx={{ justifyContent: "center", alignItems: "center" }}
           // sx={{
           //   display: { sm: "none", lg: "block" }, // Hide the image on small screens
           // }}

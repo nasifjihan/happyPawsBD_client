@@ -27,7 +27,7 @@ const ContentState = ({
         backgroundColor: "#fafafa",
       }}
     >
-      <Stack spacing={1.5} alignItems="center">
+      <Stack spacing={1.5} sx={{ alignItems: "center" }}>
         <Typography variant="h5" fontWeight={800} color={colorMap[severity]}>
           {title}
         </Typography>

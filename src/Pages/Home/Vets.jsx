@@ -1,5 +1,5 @@
 import React from "react";
-import Carousel from "react-multi-carousel";
+import Carousel from "react-multi-carousel/lib/Carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Box, Card, Chip, Link, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";

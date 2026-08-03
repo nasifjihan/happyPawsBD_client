@@ -17,7 +17,7 @@ const testimonials = [
 const Testimonials = () => {
   return (
     <Stack spacing={3}>
-      <Stack spacing={1} textAlign="center" alignItems="center">
+      <Stack spacing={1} sx={{ textAlign: "center", alignItems: "center" }}>
         <Typography
           variant="overline"
           color="success.main"

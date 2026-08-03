@@ -56,7 +56,7 @@ const FoundForm = ({ hideHeading = false }) => {
   return (
     <Box>
       {!hideHeading ? (
-        <Box mx={"auto"} textAlign={"center"}>
+        <Box mx={"auto"} sx={{ textAlign: "center" }}>
           <Typography variant="h5" fontWeight={700}>
             FOUND PET REGISTRATION
           </Typography>

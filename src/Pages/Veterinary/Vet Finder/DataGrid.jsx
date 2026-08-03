@@ -111,8 +111,8 @@ const DataGrid = ({ data }) => {
                     <Stack
                       direction="row"
                       spacing={1}
-                      flexWrap="wrap"
                       useFlexGap
+                      sx={{ flexWrap: "wrap" }}
                     >
                       {item.position ? (
                         <Chip
@@ -147,7 +147,7 @@ const DataGrid = ({ data }) => {
                   </Box>
 
                   <Stack spacing={1}>
-                    <Stack direction="row" spacing={1} alignItems="center">
+                    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                       <Avatar
                         sx={{
                           width: 24,
@@ -189,7 +189,7 @@ const DataGrid = ({ data }) => {
                         border: "1px solid rgba(46, 125, 50, 0.12)",
                       }}
                     >
-                      <Stack direction="row" spacing={1} alignItems="center">
+                      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                         <PhoneOutlinedIcon
                           sx={{ fontSize: 20, color: "success.dark" }}
                         />

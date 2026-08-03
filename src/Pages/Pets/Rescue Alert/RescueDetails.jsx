@@ -112,7 +112,11 @@ const RescueDetails = () => {
   return (
     <Box className="myContainer" sx={{ my: 5 }}>
       <Paper variant="outlined" sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-        <Stack spacing={2} textAlign="center" alignItems="center" mb={4}>
+        <Stack
+          spacing={2}
+          mb={4}
+          sx={{ textAlign: "center", alignItems: "center" }}
+        >
           <Typography variant="h4" color="primary.headline" fontWeight={900}>
             Make a Difference for Animals in Need
           </Typography>
@@ -170,7 +174,10 @@ const RescueDetails = () => {
           ))}
         </Grid>
 
-        <Stack spacing={1.5} alignItems="center" textAlign="center" sx={{ mt: 4 }}>
+        <Stack
+          spacing={1.5}
+          sx={{ mt: 4, alignItems: "center", textAlign: "center" }}
+        >
           <Typography variant="h5" color="primary.headline" fontWeight={800}>
             Together, We Can Respond Faster
           </Typography>
@@ -182,14 +189,18 @@ const RescueDetails = () => {
         </Stack>
 
         <Box sx={{ mt: 5 }}>
-          <Typography variant="h5" fontWeight={900} textAlign="center" gutterBottom>
+          <Typography
+            variant="h5"
+            fontWeight={900}
+            gutterBottom
+            sx={{ textAlign: "center" }}
+          >
             Submit a Rescue Report
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
-            textAlign="center"
-            sx={{ maxWidth: 760, mx: "auto", mb: 3 }}
+            sx={{ textAlign: "center", maxWidth: 760, mx: "auto", mb: 3 }}
           >
             Share the location and condition details. Our team will review and follow
             up as quickly as possible.
@@ -320,7 +331,11 @@ const RescueDetails = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} justifyContent="flex-end">
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={1.5}
+                  sx={{ justifyContent: "flex-end" }}
+                >
                   <Button
                     variant="outlined"
                     color="success"

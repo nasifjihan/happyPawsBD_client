@@ -23,10 +23,12 @@ const VetCare = () => {
       <BrandingWrapper>
         <Stack
           spacing={3}
-          sx={{ p: 4 }}
+          sx={{
+            p: 4,
+            alignItems: { xs: "center", md: "flex-start" },
+            textAlign: { xs: "center", md: "left" },
+          }}
           flex={1.4}
-          alignItems={{ xs: "center", md: "flex-start" }}
-          textAlign={{ xs: "center", md: "left" }}
         >
           <Chip
             label="Daily Pet Care Support"
@@ -56,7 +58,7 @@ const VetCare = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1}
-            justifyContent={{ xs: "center", md: "flex-start" }}
+            sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
           >
             <Typography variant="body2" color="text.secondary">
               Grooming
@@ -90,8 +92,7 @@ const VetCare = () => {
         <Box
           flex={1}
           display="flex"
-          justifyContent="center"
-          alignItems="center"
+          sx={{ justifyContent: "center", alignItems: "center" }}
         >
           <OptimizedImage
             src={VetCareImage}

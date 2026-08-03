@@ -115,9 +115,11 @@ const AdoptionRequestsAdmin = () => {
               >
                 <Stack
                   direction={{ xs: "column", md: "row" }}
-                  justifyContent="space-between"
-                  alignItems={{ xs: "flex-start", md: "center" }}
                   spacing={2}
+                  sx={{
+                    justifyContent: "space-between",
+                    alignItems: { xs: "flex-start", md: "center" },
+                  }}
                 >
                   <Box>
                     <Typography fontWeight={900}>
@@ -182,7 +184,7 @@ const AdoptionRequestsAdmin = () => {
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" justifyContent="center" pt={2}>
+            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

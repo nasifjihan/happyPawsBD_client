@@ -34,14 +34,14 @@ const AdoptablePets = () => {
 
   if (isLoading) {
     return (
-      <Box textAlign="center" py={6}>
+      <Box py={6} sx={{ textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
   }
 
   return (
-    <Box className="myContainer" mt={5} textAlign={"center"}>
+    <Box className="myContainer" mt={5} sx={{ textAlign: "center" }}>
       <Box mb={5}>
         <Typography
           variant="h4"
@@ -56,7 +56,7 @@ const AdoptablePets = () => {
           variant="body1"
           color="primary.green"
           fontWeight={700}
-          textAlign={"center"}
+          sx={{ textAlign: "center" }}
         >
           Browse available companions and open a full profile to review their
           details and adoption requirements.
@@ -121,23 +121,25 @@ const AdoptablePets = () => {
 
                       <Stack
                         direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
                         spacing={2}
                         mt={2}
+                        sx={{
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
                       >
                         <Typography
                           variant="body2"
                           color="primary.green"
-                          textAlign={"left"}
+                          sx={{ textAlign: "left" }}
                         >
                           Code: {item.code}
                         </Typography>
                         <Typography
                           variant="body2"
                           color="primary.green"
-                          textAlign={"right"}
                           fontWeight={700}
+                          sx={{ textAlign: "right" }}
                         >
                           View details
                         </Typography>

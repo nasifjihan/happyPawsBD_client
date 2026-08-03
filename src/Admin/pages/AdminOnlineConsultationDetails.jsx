@@ -80,10 +80,12 @@ const AdminOnlineConsultationDetails = () => {
     <Box>
       <Stack
         direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "center" }}
         spacing={2}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          justifyContent: "space-between",
+          alignItems: { xs: "flex-start", md: "center" },
+        }}
       >
         <Box>
           <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
@@ -157,9 +159,11 @@ const AdminOnlineConsultationDetails = () => {
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
-                    justifyContent="space-between"
-                    alignItems={{ xs: "flex-start", md: "center" }}
                     spacing={2}
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: { xs: "flex-start", md: "center" },
+                    }}
                   >
                     <Box>
                       <Typography variant="h5" fontWeight={900}>

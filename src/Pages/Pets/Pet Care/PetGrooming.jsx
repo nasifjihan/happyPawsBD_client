@@ -65,7 +65,10 @@ const PetGrooming = () => {
 
   return (
     <Box my={6}>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        display="flex"
+        sx={{ justifyContent: "space-between", alignItems: "center" }}
+      >
         <Typography variant="h4" gutterBottom fontWeight={900}>
           Grooming
         </Typography>

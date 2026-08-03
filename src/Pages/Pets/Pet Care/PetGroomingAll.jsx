@@ -63,7 +63,7 @@ const PetGroomingAll = () => {
     <Box className="myContainer" sx={{ py: 4 }}>
       <Stack spacing={3}>
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
-          <Stack spacing={2} textAlign="center" alignItems="center">
+          <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
             <Typography variant="h3" fontWeight={800}>
               Pet Grooming
             </Typography>

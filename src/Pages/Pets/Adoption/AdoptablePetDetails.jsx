@@ -47,7 +47,7 @@ const AdoptablePetDetails = () => {
 
   if (isLoading) {
     return (
-      <Box textAlign="center" py={6}>
+      <Box py={6} sx={{ textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
@@ -107,9 +107,8 @@ const AdoptablePetDetails = () => {
             fontWeight={900}
             my={3}
             gutterBottom
-            textAlign="center"
             color="primary.main"
-            sx={{ fontSize: { xs: "2rem", md: "3rem" } }}
+            sx={{ textAlign: "center", fontSize: { xs: "2rem", md: "3rem" } }}
           >
             Meet "{pet.name}"
           </Typography>
@@ -175,7 +174,7 @@ const AdoptablePetDetails = () => {
           >
             <CardContent>
               <Stack spacing={2}>
-                <Box textAlign="center">
+                <Box sx={{ textAlign: "center" }}>
                   <Typography
                     variant="h5"
                     fontWeight={700}
@@ -188,7 +187,6 @@ const AdoptablePetDetails = () => {
                   <Typography
                     variant="body2"
                     color="textSecondary"
-                    // textAlign="right"
                     sx={{ fontSize: { xs: "0.875rem", md: "1rem" } }}
                   >
                     {pet.origin}
@@ -198,56 +196,56 @@ const AdoptablePetDetails = () => {
                 <Divider sx={{ mb: 2 }} />
 
                 {/* Pet Information */}
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Cake color="secondary" />
                   <Typography variant="body1">
                     <strong>Age:</strong> {pet.age} years
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Wc color="info" />
                   <Typography variant="body1">
                     <strong>Gender:</strong> {pet.gender}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Scale color="secondary" />
                   <Typography variant="body1">
                     <strong>Weight:</strong> {pet.weight}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Vaccines color="success" />
                   <Typography variant="body1">
                     <strong>Vaccine:</strong> {pet.vaccinationstatus}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Palette color="warning" />
                   <Typography variant="body1">
                     <strong>Color:</strong> {pet.color}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <MonitorHeart color="error" />
                   <Typography variant="body1">
                     <strong>Health Issue:</strong> {pet.healthconditions}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <AttachMoney color="success" />
                   <Typography variant="body1">
                     <strong>Adoption Fee:</strong> {pet.adoptionfee} BDT
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Pets color="primary" />
                   <Typography variant="body1">
                     <strong>Good with Other Pets:</strong>{" "}
@@ -255,21 +253,21 @@ const AdoptablePetDetails = () => {
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <ChildCare color="warning" />
                   <Typography variant="body1">
                     <strong>Good with Children:</strong> {pet.goodwithchildren}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Place color="primary" />
                   <Typography variant="body1">
                     <strong>Location:</strong> {pet.location}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                   <Event color="info" />
                   <Typography variant="body1">
                     <strong>Available Since:</strong> {pet.availablesince}
@@ -328,7 +326,7 @@ const AdoptablePetDetails = () => {
           fontWeight={700}
           color="green"
           mb={2}
-          textAlign="center"
+          sx={{ textAlign: "center" }}
         >
           Ready to Adopt? Fill out the form below!
         </Typography>
@@ -336,7 +334,7 @@ const AdoptablePetDetails = () => {
           variant="body2"
           color="text.secondary"
           mb={2}
-          textAlign="center"
+          sx={{ textAlign: "center" }}
         >
           Complete the application with your contact details and pet experience
           so the rescue team can review your request.

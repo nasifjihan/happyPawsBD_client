@@ -104,7 +104,7 @@ const Contact_Us = () => {
             bgcolor: "background.paper",
           }}
         >
-          <Grid container spacing={5} alignItems="center">
+          <Grid container spacing={5} sx={{ alignItems: "center" }}>
             <Grid item xs={12} md={6}>
               <OptimizedImage
                 src={contactImage}
@@ -183,7 +183,12 @@ const Contact_Us = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
                     Use these quick links to reach the right page faster.
                   </Typography>
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    useFlexGap
+                    sx={{ flexWrap: "wrap" }}
+                  >
                     <Button
                       component={RouterLink}
                       to="/adoption"
@@ -232,7 +237,12 @@ const Contact_Us = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
                     If your message is urgent, please call directly.
                   </Typography>
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    useFlexGap
+                    sx={{ flexWrap: "wrap" }}
+                  >
                     <Chip
                       label="Replies: 24–48 hours"
                       color="success"
@@ -255,7 +265,12 @@ const Contact_Us = () => {
                     Connect with Us
                   </Typography>
 
-                  <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    useFlexGap
+                    sx={{ flexWrap: "wrap" }}
+                  >
                     {socialLinks.map((item) => (
                       <a
                         key={item.label}

@@ -44,7 +44,7 @@ const Adoptable_Animals = () => {
   return (
     <Box className="myContainer" sx={{ textAlign: "center", my: 10 }}>
       <Stack spacing={5}>
-        <Stack spacing={2} alignItems="center">
+        <Stack spacing={2} sx={{ alignItems: "center" }}>
           <Chip
             label="Ready for Adoption"
             color="success"
@@ -108,10 +108,12 @@ const Adoptable_Animals = () => {
                     <CardContent>
                       <Stack
                         direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
                         spacing={1}
                         mb={1}
+                        sx={{
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
                       >
                         <Typography
                           gutterBottom
@@ -154,10 +156,12 @@ const Adoptable_Animals = () => {
 
                       <Stack
                         direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
                         spacing={2}
                         mt={2}
+                        sx={{
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
                       >
                         <Typography
                           variant="body2"

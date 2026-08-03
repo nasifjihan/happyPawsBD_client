@@ -26,9 +26,9 @@ const Health_Care_Blog = () => {
     <Box maxWidth="lg" className="myContainer">
       {/* Hero Section */}
       <Box
-        textAlign="center"
         py={8}
         sx={{
+          textAlign: "center",
           backgroundColor: "rgba(122, 178, 89, 0.15)",
           borderRadius: 4,
           color: "text.primary",

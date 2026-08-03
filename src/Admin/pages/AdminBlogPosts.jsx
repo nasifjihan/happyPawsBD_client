@@ -229,7 +229,11 @@ const AdminBlogPosts = () => {
         <Grid item xs={12} lg={7}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
-              <Stack direction="row" justifyContent="space-between" spacing={2}>
+              <Stack
+                direction="row"
+                spacing={2}
+                sx={{ justifyContent: "space-between" }}
+              >
                 <Typography variant="h5" fontWeight={900}>
                   Posts
                 </Typography>
@@ -262,7 +266,11 @@ const AdminBlogPosts = () => {
                     onClick={() => handleSelect(item)}
                   >
                     <Stack spacing={0.5}>
-                      <Stack direction="row" alignItems="center" spacing={1}>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        sx={{ alignItems: "center" }}
+                      >
                         <Typography fontWeight={900}>
                           {item.title || "Untitled"}
                         </Typography>
@@ -280,7 +288,7 @@ const AdminBlogPosts = () => {
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" justifyContent="center" pt={2}>
+                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -435,7 +443,11 @@ const AdminBlogPosts = () => {
                 <Alert severity="success">Saved.</Alert>
               ) : null}
 
-              <Stack direction="row" spacing={1.5} justifyContent="flex-end">
+              <Stack
+                direction="row"
+                spacing={1.5}
+                sx={{ justifyContent: "flex-end" }}
+              >
                 <Button
                   variant="outlined"
                   color="error"
@@ -464,4 +476,3 @@ const AdminBlogPosts = () => {
 };
 
 export default AdminBlogPosts;
-

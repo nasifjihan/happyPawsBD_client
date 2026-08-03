@@ -242,8 +242,10 @@ const Orders = () => {
                       <Stack
                         direction="row"
                         spacing={1}
-                        justifyContent="space-between"
-                        alignItems="flex-start"
+                        sx={{
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                        }}
                       >
                         <Box>
                           <Typography variant="h6" fontWeight={900}>
@@ -267,7 +269,12 @@ const Orders = () => {
                       </Stack>
                     </Box>
 
-                    <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      useFlexGap
+                      sx={{ flexWrap: "wrap" }}
+                    >
                       <Chip
                         label={`Order: ${order.orderStatus || "unknown"}`}
                         color={getOrderStatusChipColor(order.orderStatus)}

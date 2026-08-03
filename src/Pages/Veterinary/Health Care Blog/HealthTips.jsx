@@ -24,7 +24,10 @@ const tips = [
 const HealthTips = () => {
   return (
     <Box sx={{ py: 1 }}>
-      <Stack spacing={1} textAlign="center" alignItems="center" sx={{ mb: 4 }}>
+      <Stack
+        spacing={1}
+        sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
+      >
         <Typography
           variant="overline"
           color="success.main"

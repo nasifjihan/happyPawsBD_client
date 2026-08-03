@@ -122,10 +122,12 @@ const AdoptableAnimalsAdmin = () => {
     <Box>
       <Stack
         direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "center" }}
         spacing={2}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          justifyContent: "space-between",
+          alignItems: { xs: "flex-start", md: "center" },
+        }}
       >
         <Box>
           <Typography variant="h3" fontWeight={900}>
@@ -191,9 +193,8 @@ const AdoptableAnimalsAdmin = () => {
                   >
                     <Stack
                       direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
                       spacing={2}
+                      sx={{ justifyContent: "space-between", alignItems: "center" }}
                     >
                       <Box>
                         <Typography fontWeight={800}>
@@ -217,7 +218,7 @@ const AdoptableAnimalsAdmin = () => {
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" justifyContent="center" pt={2}>
+                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}

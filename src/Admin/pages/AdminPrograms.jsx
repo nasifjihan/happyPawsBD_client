@@ -299,7 +299,11 @@ const AdminPrograms = () => {
         <Grid item xs={12} lg={7}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
-              <Stack direction="row" justifyContent="space-between" spacing={2}>
+              <Stack
+                direction="row"
+                spacing={2}
+                sx={{ justifyContent: "space-between" }}
+              >
                 <Typography variant="h5" fontWeight={900}>
                   {programTypes.find((entry) => entry.value === type)?.label} Programs
                 </Typography>
@@ -347,7 +351,7 @@ const AdminPrograms = () => {
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" justifyContent="center" pt={2}>
+                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}

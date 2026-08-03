@@ -121,8 +121,7 @@ const SignUp = () => {
                   direction="row"
                   spacing={1}
                   useFlexGap
-                  flexWrap="wrap"
-                  justifyContent="center"
+                  sx={{ flexWrap: "wrap", justifyContent: "center" }}
                 >
                   <Chip
                     size="small"
