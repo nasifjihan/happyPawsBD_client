@@ -193,7 +193,7 @@ const Vets = () => {
                       width: "100%",
                       height: "100%",
                       borderRadius: ".5rem",
-                      boxShadow: "0px 0px 10px 5px rgba(82,82,82,0.2)",
+                      boxShadow: "0px 0px 20px 1px rgba(82,82,82,0.2)",
                       padding: "30px 15px 0px 75px",
                     }}
                   >
