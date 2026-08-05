@@ -87,7 +87,7 @@ const Adoptable_Animals = () => {
                   sx={{
                     boxShadow: "none",
                     backgroundColor: "#FBFBFB",
-                    borderRadius: 3,
+                    borderRadius: 1,
                     border: "1px solid",
                     borderColor: "divider",
                     height: "100%",

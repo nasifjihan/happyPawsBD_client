@@ -27,6 +27,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useColorMode } from "../../context/ColorModeContext";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
+import HPBDLogo2 from "./../../images/HPBD-Logo2.png";
 
 const navSections = [
   {
@@ -91,7 +92,7 @@ const accountLinks = [
   { label: "Dashboard", to: "/dashboard" },
 ];
 
-const desktopNavRadius = 1.5;
+const desktopNavRadius = 0.5;
 const mobileNavRadius = 1;
 
 const matchesPath = (pathname, paths) =>
@@ -384,7 +385,7 @@ const Header = (props) => {
             }}
           >
             <img
-              src={HPBDLogo}
+              src={mode === "dark" ? HPBDLogo2 : HPBDLogo}
               alt="Happy Paws BD"
               width={100}
               style={{ cursor: "pointer" }}

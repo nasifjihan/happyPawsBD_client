@@ -13,16 +13,18 @@ import { useQuery } from "@tanstack/react-query";
 import { Link as RouterLink } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getSiteSettings } from "../../API/api";
-
 import NasifIcon from "./../../images/optimized/nasif.webp";
 import HPBDLogo from "./../../images/HPBD-Logo.png";
+import HPBDLogo2 from "./../../images/HPBD-Logo2.png";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import EmailIcon from "@mui/icons-material/Email";
+import { useColorMode } from "../../context/ColorModeContext";
 
 const Footer = () => {
+  const { mode } = useColorMode();
   const { user } = useUserAuth();
   const { data: siteSettings } = useQuery({
     queryKey: ["site-settings"],
@@ -70,10 +72,11 @@ const Footer = () => {
       sx={{
         textAlign: "center",
         backgroundColor: "primary.back",
+        pt: 4,
       }}
     >
       <Box className="myContainer">
-        <Grid container spacing={3} py={2}>
+        <Grid container sx={{ spacing: 3, py: 2 }}>
           <Grid size={{ xs: 12, md: 4 }}>
             {/* Contact Information */}
             {/* Logo Full Screen ------------------------------------- */}
@@ -83,10 +86,15 @@ const Footer = () => {
               to="/"
               sx={{ color: "inherit", textDecoration: "none", pt: 1 }}
             >
-              <img src={HPBDLogo} alt="Happy Paws BD" width={150} />
+              <img
+                src={mode === "dark" ? HPBDLogo2 : HPBDLogo}
+                alt="Happy Paws BD"
+                width={150}
+              />
             </Typography>
-            <Typography fontWeight={900} variant="h5" gutterBottom>
-              {brandName}{" "}
+
+            <Typography sx={{ fontWeight: 900 }} variant="h5" gutterBottom>
+              {brandName}
             </Typography>
 
             <Typography
@@ -99,7 +107,7 @@ const Footer = () => {
               owners and enthusiasts.
             </Typography>
 
-            <Box mt={2}>
+            <Box sx={{ mt: 2 }}>
               <Stack
                 component="nav"
                 aria-label="Social media and contact links"
@@ -170,7 +178,11 @@ const Footer = () => {
             aria-label="Footer sitemap"
           >
             {/* Contact Information */}
-            <Typography variant="h5" fontWeight={700} mb={2} gutterBottom>
+            <Typography
+              sx={{ fontWeight: 700, mb: 2 }}
+              variant="h5"
+              gutterBottom
+            >
               Sitemap
             </Typography>
 
@@ -195,7 +207,11 @@ const Footer = () => {
             aria-label="Footer support links"
           >
             {/* Contact Information */}
-            <Typography variant="h5" fontWeight={700} mb={2} gutterBottom>
+            <Typography
+              sx={{ fontWeight: 700, mb: 2 }}
+              variant="h5"
+              gutterBottom
+            >
               Support
             </Typography>
 
@@ -245,8 +261,7 @@ const Footer = () => {
       >
         <Stack
           direction={{ xs: "column", sm: "row" }}
-          spacing={1}
-          sx={{ alignItems: "center", justifyContent: "center" }}
+          sx={{ alignItems: "center", justifyContent: "center", gap: 1 }}
           variant="body2"
         >
           <span>© {new Date().getFullYear()} Happy Paws BD. Developed by</span>

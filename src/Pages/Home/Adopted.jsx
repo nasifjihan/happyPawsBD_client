@@ -18,13 +18,13 @@ const Adopted = () => {
   return (
     <Box
       className="myContainer"
-      my={10}
-      p={6}
       sx={{
         backgroundImage: `url(${BGImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "450px",
+        my: 10,
+        p: 6,
       }}
     >
       <Box

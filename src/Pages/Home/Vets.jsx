@@ -82,8 +82,7 @@ const Vets = () => {
       <Typography
         variant="h4"
         color="primary.headline"
-        p={4}
-        sx={{ lineHeight: 1, fontWeight: "900" }}
+        sx={{ lineHeight: 1, fontWeight: "900", p:2 }}
       >
         Meet Our Veterinary Authors
       </Typography>
@@ -108,9 +107,10 @@ const Vets = () => {
 
         <Box
           sx={{
-            "& .swiper": { overflow: "visible" },
-            "& .swiper-wrapper": { overflow: "visible" },
-            "& .swiper-slide": { overflow: "visible" },
+            mt: 4,
+            "& .swiper": {
+              overflow: "hidden",
+            },
             "& .swiper-pagination": { position: "static", marginTop: "16px" },
             "& .swiper-pagination-bullet": {
               backgroundColor: "#E0E0E0",
@@ -155,9 +155,9 @@ const Vets = () => {
             grabCursor
             breakpoints={{
               0: { slidesPerView: 0.6, spaceBetween: 30 },
-              600: { slidesPerView: 1, spaceBetween: 30 },
-              900: { slidesPerView: 2, spaceBetween: 30 },
-              1224: { slidesPerView: 3, spaceBetween: 40 },
+              600: { slidesPerView: 2, spaceBetween: 30 },
+              900: { slidesPerView: 3, spaceBetween: 30 },
+              1224: { slidesPerView: 4, spaceBetween: 40 },
             }}
           >
             {vets.map((item) => (
@@ -165,9 +165,11 @@ const Vets = () => {
                 <Box
                   position="relative"
                   sx={{
-                    width: 250,
+                    width: "100%",
+                    maxWidth: 250,
+                    // mx: "auto",
                     height: 150,
-                    margin: "40px 0px",
+                    // margin: "40px 0px",
                   }}
                 >
                   <OptimizedImage
@@ -181,10 +183,12 @@ const Vets = () => {
                       position: "absolute",
                       left: "-35px",
                       top: "10px",
+                      zIndex: 100,
                     }}
                   />
                   <Card
                     sx={{
+                      position: "relative",
                       display: "flex",
                       width: "100%",
                       height: "100%",
@@ -195,40 +199,48 @@ const Vets = () => {
                   >
                     <Stack spacing={0}>
                       <Typography
-                        sx={{ textAlign: "left" }}
+                        sx={{
+                          textAlign: "left",
+                          fontSize: 16,
+                          fontWeight: 700,
+                        }}
                         variant="h6"
-                        fontSize={18}
-                        fontWeight={700}
                         component="div"
                       >
                         {item.name || "Veterinary Author"}
                       </Typography>
 
                       <Typography
-                        sx={{ textAlign: "left" }}
+                        sx={{
+                          textAlign: "left",
+                          fontSize: 12,
+                          fontWeight: 700,
+                        }}
                         variant="h6"
-                        fontSize={12}
-                        fontWeight={700}
                         component="div"
                       >
                         {item.specialization || "Vet Partner"}
                       </Typography>
 
                       <Typography
-                        sx={{ textAlign: "left" }}
+                        sx={{
+                          textAlign: "left",
+                          fontSize: 11,
+                          fontWeight: 500,
+                        }}
                         variant="h6"
-                        fontSize={11}
-                        fontWeight={500}
                         component="div"
                       >
                         {item.location || "Bangladesh"}
                       </Typography>
 
                       <Typography
-                        sx={{ textAlign: "left" }}
+                        sx={{
+                          textAlign: "left",
+                          fontSize: 11,
+                          fontWeight: 500,
+                        }}
                         variant="h6"
-                        fontSize={11}
-                        fontWeight={500}
                         component="div"
                       >
                         {item.contact || ""}
@@ -250,9 +262,7 @@ const Vets = () => {
                           underline="none"
                           color="inherit"
                           target={item.details ? "_blank" : undefined}
-                          rel={
-                            item.details ? "noopener noreferrer" : undefined
-                          }
+                          rel={item.details ? "noopener noreferrer" : undefined}
                         >
                           - Learn More
                         </Link>
