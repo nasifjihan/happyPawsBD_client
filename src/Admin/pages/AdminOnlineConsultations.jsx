@@ -67,10 +67,10 @@ const AdminOnlineConsultations = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Online Consultations
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
+      <Typography sx={{ mb: 3, color: "text.secondary" }}>
         Review appointment requests and confirm the schedule.
       </Typography>
 
@@ -105,7 +105,7 @@ const AdminOnlineConsultations = () => {
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
-            <Typography color="text.secondary">Loading...</Typography>
+            <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
               <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
@@ -118,15 +118,15 @@ const AdminOnlineConsultations = () => {
                   }}
                 >
                   <Box>
-                    <Typography fontWeight={900}>
+                    <Typography sx={{ fontWeight: 900 }}>
                       {item.fullName || "Client"} • {item.petType || "Pet"}
                       {item.petName ? ` (${item.petName})` : ""}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.contactPhone || ""}{" "}
                       {item.contactEmail ? `• ${item.contactEmail}` : ""}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {[
                         item.consultationMode ? `Mode: ${item.consultationMode}` : null,
                         item.preferredDoctor ? `Doctor: ${item.preferredDoctor}` : null,
@@ -180,13 +180,13 @@ const AdminOnlineConsultations = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">
+            <Typography sx={{ color: "text.secondary" }}>
               No online consultations matched your filters.
             </Typography>
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+            <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

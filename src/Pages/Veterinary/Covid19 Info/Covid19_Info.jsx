@@ -33,10 +33,9 @@ const Covid19_Info = () => {
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
           <Stack
             spacing={2}
-            mb={4}
-            sx={{ textAlign: "center", alignItems: "center" }}
+            sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
           >
-            <Typography variant="h3" fontWeight={800}>
+            <Typography variant="h3" sx={{ fontWeight: 800 }}>
               COVID-19 & Pet Care
             </Typography>
             <Typography
@@ -57,10 +56,10 @@ const Covid19_Info = () => {
                   variant="outlined"
                   sx={{ p: 3, borderRadius: 3, height: "100%" }}
                 >
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {item.description}
                   </Typography>
                 </Paper>
@@ -70,13 +69,13 @@ const Covid19_Info = () => {
 
           <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, mt: 3 }}>
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight={700}>
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 Quick safety checklist
               </Typography>
               <Grid container spacing={1.5}>
                 {safetyTips.map((item) => (
                   <Grid key={item} size={{ xs: 12, sm: 6 }}>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item}
                     </Typography>
                   </Grid>

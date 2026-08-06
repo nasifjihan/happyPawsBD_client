@@ -45,14 +45,12 @@ const FeaturedArticle = ({ post }) => {
           <Stack spacing={2}>
             <Typography
               variant="overline"
-              color="success.main"
-              sx={{ fontWeight: 700, letterSpacing: 1 }}
+              sx={{ color: "success.main", fontWeight: 700, letterSpacing: 1 }}
             >
               Featured Article
             </Typography>
             <Typography
               variant="h4"
-              gutterBottom
               sx={{
                 fontWeight: 800,
                 color: "primary.headline",

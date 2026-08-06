@@ -120,10 +120,10 @@ const AdminOrderDetails = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 1, fontWeight: 900 }}>
             Order Details
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Review the full checkout record, line items, delivery details, and
             payment status from one page.
           </Typography>
@@ -177,7 +177,7 @@ const AdminOrderDetails = () => {
 
       {isLoading ? (
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">Loading order details...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading order details...</Typography>
         </Paper>
       ) : null}
 
@@ -196,10 +196,10 @@ const AdminOrderDetails = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="h5" fontWeight={900}>
+                      <Typography variant="h5" sx={{ fontWeight: 900 }}>
                         Order #{order._id?.slice(-6)}
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {order.deliveryInfo?.name || "Customer"} •{" "}
                         {formatPaymentMethod(order.paymentMethod)}
                       </Typography>
@@ -265,7 +265,7 @@ const AdminOrderDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Line Items
                   </Typography>
                   {orderItems.length ? (
@@ -285,18 +285,18 @@ const AdminOrderDetails = () => {
                             sx={{ justifyContent: "space-between" }}
                           >
                             <Box>
-                              <Typography fontWeight={800}>
+                              <Typography sx={{ fontWeight: 800 }}>
                                 {item.name || "Unnamed item"}
                               </Typography>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                                 Product ID: {item.id || "N/A"}
                               </Typography>
                             </Box>
                             <Box sx={{ textAlign: { md: "right" } }}>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                                 {quantity} x {formatMoney(unitPrice)}
                               </Typography>
-                              <Typography fontWeight={800}>
+                              <Typography sx={{ fontWeight: 800 }}>
                                 {formatMoney(quantity * unitPrice)}
                               </Typography>
                             </Box>
@@ -316,17 +316,17 @@ const AdminOrderDetails = () => {
             <Stack spacing={3}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Customer
                   </Typography>
                   <Divider />
-                  <Typography fontWeight={700}>
+                  <Typography sx={{ fontWeight: 700 }}>
                     {order.deliveryInfo?.name || "Customer"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {order.deliveryInfo?.email || "No email provided"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {order.deliveryInfo?.phone || "No phone provided"}
                   </Typography>
                 </Stack>
@@ -334,14 +334,14 @@ const AdminOrderDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Delivery
                   </Typography>
                   <Divider />
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {order.deliveryInfo?.address || "No address provided"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {[
                       order.deliveryInfo?.city,
                       order.deliveryInfo?.state,
@@ -355,25 +355,25 @@ const AdminOrderDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Tracking
                   </Typography>
                   <Divider />
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Created
                   </Typography>
                   <Typography>{formatDateTime(order.createdAt)}</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Updated
                   </Typography>
                   <Typography>{formatDateTime(order.updatedAt)}</Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Public Token
                   </Typography>
                   <Typography sx={{ fontFamily: "monospace", wordBreak: "break-all" }}>
                     {order.publicToken || "Not generated"}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Stripe Session
                   </Typography>
                   <Typography sx={{ fontFamily: "monospace", wordBreak: "break-all" }}>

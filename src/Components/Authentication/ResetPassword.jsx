@@ -58,8 +58,7 @@ const ResetPassword = () => {
 
         <Typography
           variant="body2"
-          color="text.secondary"
-          sx={{ textAlign: "center", mt: 1 }}
+          sx={{ textAlign: "center", mt: 1, color: "text.secondary" }}
         >
           Enter the email for your account and we&apos;ll send you a reset link.
         </Typography>
@@ -108,8 +107,7 @@ const ResetPassword = () => {
             component={RouterLink}
             to={signInLink}
             underline="hover"
-            color="primary.main"
-            fontWeight={600}
+            sx={{ color: "primary.main", fontWeight: 600 }}
           >
             Back to sign in
           </Link>

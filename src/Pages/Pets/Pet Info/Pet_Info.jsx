@@ -74,8 +74,7 @@ const Pet_Info = () => {
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
           <Stack
             spacing={2}
-            mb={4}
-            sx={{ textAlign: "center", alignItems: "center" }}
+            sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
           >
             <Chip
               label="Pet Library"
@@ -88,10 +87,10 @@ const Pet_Info = () => {
                 fontWeight: 700,
               }}
             />
-            <Typography variant="h3" fontWeight={900}>
+            <Typography variant="h3" sx={{ fontWeight: 900 }}>
               Pet Animals, Breeds, and Info
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 820 }}>
+            <Typography variant="body1" sx={{ maxWidth: 820, color: "text.secondary" }}>
               Explore different kinds of pet animals and browse common breeds for
               each one. This page is built as a quick reference so visitors can
               compare temperament, care level, size, and lifestyle fit.
@@ -128,10 +127,10 @@ const Pet_Info = () => {
                 }}
               >
                 <Box>
-                  <Typography variant="h5" fontWeight={900}>
+                  <Typography variant="h5" sx={{ fontWeight: 900 }}>
                     Explore by Animal Type and Breed
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {visibleBreedCount} breed{visibleBreedCount === 1 ? "" : "s"} shown
                   across {filteredLibrary.length || groupCount} animal group
                   {filteredLibrary.length === 1 ? "" : "s"}.
@@ -196,11 +195,11 @@ const Pet_Info = () => {
                           sx={{ alignItems: "center" }}
                         >
                           <PetsOutlinedIcon sx={{ color: "success.main" }} />
-                          <Typography variant="h6" fontWeight={800}>
+                          <Typography variant="h6" sx={{ fontWeight: 800 }}>
                             {group.type}
                           </Typography>
                         </Stack>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {group.summary}
                         </Typography>
                         <Typography variant="body2">
@@ -230,10 +229,10 @@ const Pet_Info = () => {
                 <Paper key={group.type} variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 3 }}>
                   <Stack spacing={2}>
                     <Box>
-                      <Typography variant="h4" fontWeight={900}>
+                      <Typography variant="h4" sx={{ fontWeight: 900 }}>
                         {group.type}
                       </Typography>
-                      <Typography color="text.secondary" sx={{ maxWidth: 840 }}>
+                      <Typography sx={{ maxWidth: 840, color: "text.secondary" }}>
                         {group.summary}
                       </Typography>
                     </Box>
@@ -261,17 +260,17 @@ const Pet_Info = () => {
                               sx={{ justifyContent: "space-between" }}
                             >
                               <Box>
-                                <Typography variant="h6" fontWeight={900}>
+                                <Typography variant="h6" sx={{ fontWeight: 900 }}>
                                   {breed.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                                   {breed.origin} • {breed.size}
                                 </Typography>
                               </Box>
                               <Chip label={breed.careLevel} color="success" size="small" />
                             </Stack>
 
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" sx={{ color: "text.secondary" }}>
                               {breed.highlights}
                             </Typography>
 
@@ -307,14 +306,14 @@ const Pet_Info = () => {
               ))
             ) : (
               <Paper variant="outlined" sx={{ p: 4, borderRadius: 3, textAlign: "center" }}>
-                <Typography variant="h6" fontWeight={800} gutterBottom>
+                <Typography variant="h6" sx={{ mb: 1, fontWeight: 800 }}>
                   {isLoading
                     ? "Loading pet library..."
                     : isError
                       ? "Could not load pet library"
                       : "No breeds matched your search"}
                 </Typography>
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   Try another animal type or search term to explore the full pet
                   library again.
                 </Typography>

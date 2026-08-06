@@ -16,7 +16,7 @@ const BlogPostDetails = () => {
   });
 
   return (
-    <Box className="myContainer" maxWidth="lg" py={4}>
+    <Box className="myContainer" sx={{ maxWidth: "lg", py: 4 }}>
       <Stack spacing={2.5}>
         <Button
           component={RouterLink}
@@ -29,25 +29,25 @@ const BlogPostDetails = () => {
         </Button>
 
         {isLoading ? (
-          <Typography color="text.secondary">Loading...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
         ) : isError ? (
-          <Typography color="text.secondary">Could not load blog post.</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Could not load blog post.</Typography>
         ) : data ? (
           <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
             <Stack spacing={1.5}>
-              <Typography variant="overline" color="success.main" sx={{ fontWeight: 700 }}>
+              <Typography variant="overline" sx={{ color: "success.main", fontWeight: 700 }}>
                 {data.category || "Health Care Blog"}
               </Typography>
               <Typography variant="h3" sx={{ fontWeight: 900, color: "primary.headline" }}>
                 {data.title || "Untitled"}
               </Typography>
               {data.authorName ? (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   By {data.authorName}
                 </Typography>
               ) : null}
               {data.excerpt ? (
-                <Typography variant="h6" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                <Typography variant="h6" sx={{ color: "text.secondary", lineHeight: 1.6 }}>
                   {data.excerpt}
                 </Typography>
               ) : null}

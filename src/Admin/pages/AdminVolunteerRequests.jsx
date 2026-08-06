@@ -67,10 +67,10 @@ const AdminVolunteerRequests = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Volunteer Requests
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
+      <Typography sx={{ mb: 3, color: "text.secondary" }}>
         Review volunteer applications and update status.
       </Typography>
 
@@ -105,7 +105,7 @@ const AdminVolunteerRequests = () => {
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
-            <Typography color="text.secondary">Loading...</Typography>
+            <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
               <Paper
@@ -122,20 +122,20 @@ const AdminVolunteerRequests = () => {
                   }}
                 >
                   <Box>
-                    <Typography fontWeight={900}>
+                    <Typography sx={{ fontWeight: 900 }}>
                       {item.fullName || "Volunteer"} • {item.preferredRole || ""}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.contactEmail || ""} • {item.contactPhone || ""} •{" "}
                       {item.city || ""}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.availability || ""} • {item.experience || "No experience added"}
                     </Typography>
                     {item.timeCommitment ||
                     item.preferredContactMethod ||
                     item.preferredContactTime ? (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {[item.timeCommitment, item.preferredContactMethod, item.preferredContactTime]
                           .filter(Boolean)
                           .join(" • ")}
@@ -187,13 +187,13 @@ const AdminVolunteerRequests = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">
+            <Typography sx={{ color: "text.secondary" }}>
               No volunteer applications matched your filters.
             </Typography>
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+            <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

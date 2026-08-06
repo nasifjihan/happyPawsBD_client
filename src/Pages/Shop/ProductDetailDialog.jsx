@@ -128,8 +128,7 @@ const ProductDetailDialog = ({
             >
               <Typography
                 variant="subtitle2"
-                color="textSecondary"
-                sx={{ mt: 1, textAlign: "right" }}
+                sx={{ color: "text.secondary", mt: 1, textAlign: "right" }}
               >
                 CODE: {product.id}
               </Typography>
@@ -178,7 +177,7 @@ const ProductDetailDialog = ({
           </Grid>
 
           <Grid sx={{ p: 2 }} size={{ xs: 12, md: 6 }}>
-            <Typography variant="h5" fontWeight={900} color={"#f50057"}>
+            <Typography variant="h5" sx={{ fontWeight: 900, color: "#f50057" }}>
               {product.name}
             </Typography>
 
@@ -212,7 +211,7 @@ const ProductDetailDialog = ({
                 readOnly
                 precision={0.5}
                 emptyIcon={
-                  <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                  <StarIcon sx={{ opacity: 0.55 }} fontSize="inherit" />
                 }
               />
               <Typography variant="caption" sx={{ ml: 1, pt: 0.3 }}>
@@ -238,9 +237,7 @@ const ProductDetailDialog = ({
 
             <Typography
               variant="body1"
-              color="text.primary"
-              fontWeight={700}
-              sx={{ my: 2 }}
+              sx={{ color: "text.primary", fontWeight: 700, my: 2 }}
             >
               ৳{product.price}
             </Typography>

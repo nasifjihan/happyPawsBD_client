@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Box,
   Button,
@@ -14,21 +13,6 @@ import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 import { getSiteSettings } from "../../API/api";
 import { sanitizeImageUrl } from "../../lib/media";
-
-const BrandingWrapper = styled(Box)(({ theme }) => ({
-  // height: "60vh",
-  backgroundColor: "rgba(122, 178, 89, 0.15)",
-  padding: theme.spacing(4),
-  margin: "1rem 0",
-  // clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
-  display: "flex",
-  justifyContent: "space-between",
-  flexDirection: "column",
-  [theme.breakpoints.up("md")]: {
-    flexDirection: "row",
-    clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
-  },
-}));
 
 const Branding = () => {
   const { data: siteSettings } = useQuery({
@@ -49,15 +33,25 @@ const Branding = () => {
 
   return (
     <Box className="myContainer">
-      <BrandingWrapper>
+      <Box
+        sx={{
+          backgroundColor: "rgba(122, 178, 89, 0.15)",
+          padding: 4,
+          margin: "1rem 0",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", md: "row" },
+          clipPath: { md: "polygon(0 0, 100% 0, 100% 85%, 0 100%)" },
+        }}
+      >
         <Stack
           spacing={4}
           sx={{
             p: { xs: 2, sm: 4 },
             alignItems: { xs: "center", md: "flex-start" },
             textAlign: { xs: "center", md: "left" },
+            flex: 1.2,
           }}
-          flex={1.2}
         >
           <Chip
             label={heroBadge}
@@ -114,22 +108,23 @@ const Branding = () => {
         </Stack>
 
         <Box
-          flex={1}
           sx={{
+            flex: 1,
             width: { xs: "100%", sm: "auto" },
             mt: { xs: 2, sm: 0 },
             textAlign: { xs: "center", sm: "right" },
           }}
         >
-          <OptimizedImage
-            src={heroImageUrl || Banner}
-            alt={heroImageAlt}
-            loading="eager"
-            fetchPriority="high"
-            style={{ width: "100%" }}
-          />
+          <Box sx={{ width: "100%" }}>
+            <OptimizedImage
+              src={heroImageUrl || Banner}
+              alt={heroImageAlt}
+              loading="eager"
+              fetchPriority="high"
+            />
+          </Box>
         </Box>
-      </BrandingWrapper>
+      </Box>
     </Box>
   );
 };

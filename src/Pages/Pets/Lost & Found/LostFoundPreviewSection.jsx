@@ -89,10 +89,10 @@ const LostFoundPreviewSection = ({
             backgroundColor: "rgba(122, 178, 89, 0.08)",
           }}
         />
-        <Typography variant="h4" fontWeight={800} color="#333332">
+        <Typography variant="h4" sx={{ fontWeight: 800, color: "#333332" }}>
           {title}
         </Typography>
-        <Typography color="text.secondary">{description}</Typography>
+        <Typography sx={{ color: "text.secondary" }}>{description}</Typography>
       </Stack>
 
       {previewListings.length ? (
@@ -126,10 +126,10 @@ const LostFoundPreviewSection = ({
                 <CardContent sx={{ flex: 1, p: 2.25 }}>
                   <Stack spacing={1.25}>
                     <Box>
-                      <Typography variant="h6" fontWeight={800} color="#333332">
+                      <Typography variant="h6" sx={{ fontWeight: 800, color: "#333332" }}>
                         {meta.title(pet)}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {meta.personLabel(pet)}
                       </Typography>
                     </Box>
@@ -142,7 +142,7 @@ const LostFoundPreviewSection = ({
                           key={`${pet._id}-${item.label}`}
                           size={{ xs: 12, sm: 6 }}
                         >
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
                             <Box component="span" sx={{ fontWeight: 700, color: "#333332" }}>
                               {item.label}:
                             </Box>{" "}

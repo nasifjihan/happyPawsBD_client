@@ -145,11 +145,11 @@ const Reviews = () => {
                     }}
                   />
 
-                  <Typography variant="h3" fontWeight={800}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
                     Real feedback builds trust and helps more pets
                   </Typography>
 
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     If you’ve adopted, rescued, donated, volunteered, or received
                     guidance from Happy Paws BD, your review helps others feel
                     confident and supported.
@@ -190,7 +190,7 @@ const Reviews = () => {
                   }}
                 >
                   <Stack spacing={1.5}>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       What to include
                     </Typography>
                     {[
@@ -205,7 +205,7 @@ const Reviews = () => {
                         sx={{ alignItems: "flex-start" }}
                       >
                         <FavoriteBorderOutlinedIcon color="success" />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {item}
                         </Typography>
                       </Stack>
@@ -228,10 +228,10 @@ const Reviews = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Leave a review
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Reviews are moderated before publishing. Submissions help us
                     improve and build trust with the community.
                   </Typography>
@@ -259,7 +259,7 @@ const Reviews = () => {
                     spacing={2}
                     sx={{ alignItems: { xs: "stretch", sm: "center" } }}
                   >
-                    <Typography fontWeight={700}>Rating</Typography>
+                    <Typography sx={{ fontWeight: 700 }}>Rating</Typography>
                     <Rating
                       value={rating}
                       onChange={(_, next) => setRating(next || 5)}
@@ -321,10 +321,10 @@ const Reviews = () => {
                   }}
                 >
                   <Stack spacing={1.25}>
-                    <Typography variant="h5" fontWeight={800}>
+                    <Typography variant="h5" sx={{ fontWeight: 800 }}>
                       Recent community notes
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       Verified reviews are published after moderation.
                     </Typography>
                   </Stack>
@@ -336,11 +336,11 @@ const Reviews = () => {
                   ) : null}
 
                   {isLoadingPublished ? (
-                    <Typography color="text.secondary">Loading reviews...</Typography>
+                    <Typography sx={{ color: "text.secondary" }}>Loading reviews...</Typography>
                   ) : null}
 
                   {!isLoadingPublished && !publishedReviews.length ? (
-                    <Typography color="text.secondary">
+                    <Typography sx={{ color: "text.secondary" }}>
                       No verified reviews published yet.
                     </Typography>
                   ) : null}
@@ -357,18 +357,18 @@ const Reviews = () => {
                       }}
                     >
                       <Stack spacing={1}>
-                        <Typography fontWeight={800}>{review.title || "Review"}</Typography>
+                        <Typography sx={{ fontWeight: 800 }}>{review.title || "Review"}</Typography>
                         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                           <Rating
                             value={Number(review.rating || 0)}
                             readOnly
                             size="small"
                           />
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
                             {review.fullName || "Community member"}
                           </Typography>
                         </Stack>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {review.message || ""}
                         </Typography>
                       </Stack>

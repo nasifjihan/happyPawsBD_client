@@ -7,14 +7,12 @@ const Newsletter = () => {
       <Stack spacing={1} sx={{ mb: 3, alignItems: "center" }}>
         <Typography
           variant="overline"
-          color="success.main"
-          sx={{ fontWeight: 700, letterSpacing: 1 }}
+          sx={{ color: "success.main", fontWeight: 700, letterSpacing: 1 }}
         >
           Stay Updated
         </Typography>
         <Typography
           variant="h4"
-          gutterBottom
           sx={{ fontWeight: 800, color: "primary.headline", mb: 0 }}
         >
           Subscribe to Our Pet Health Newsletter
@@ -27,10 +25,11 @@ const Newsletter = () => {
           care updates from the Happy Paws BD content team.
         </Typography>
       </Stack>
-      <form
+      <Box
+        component="form"
         noValidate
         autoComplete="off"
-        style={{ maxWidth: "500px", margin: "0 auto" }}
+        sx={{ maxWidth: "500px", margin: "0 auto" }}
       >
         <TextField
           label="Your Email"
@@ -56,7 +55,7 @@ const Newsletter = () => {
         >
           Subscribe
         </Button>
-      </form>
+      </Box>
     </Box>
   );
 };

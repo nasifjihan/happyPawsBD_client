@@ -29,27 +29,29 @@ const LostPets = () => {
 
   if (isLoading) {
     return (
-      <Box py={6} sx={{ textAlign: "center" }}>
+      <Box sx={{ py: 6, textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
   }
 
   return (
-    <Box className="myContainer" my={5}>
+    <Box className="myContainer" sx={{ my: 5 }}>
       <Box
-        color="white"
-        borderRadius={3}
-        p={{ xs: 3, md: 4 }}
-        my={5}
-        backgroundColor={"primary.para"}
-        sx={{ textAlign: "center" }}
+        sx={{
+          color: "white",
+          borderRadius: 3,
+          p: { xs: 3, md: 4 },
+          my: 5,
+          backgroundColor: "primary.para",
+          textAlign: "center",
+        }}
       >
-        <Typography variant="h4" fontWeight={900} pb={1.5}>
+        <Typography variant="h4" sx={{ fontWeight: 900, pb: 1.5 }}>
           All Lost Pets
         </Typography>
 
-        <Typography variant="body1" fontWeight={500}>
+        <Typography variant="body1" sx={{ fontWeight: 500 }}>
           If you recognize or have found any pet below, contact the owner using
           the listing details.
         </Typography>
@@ -62,7 +64,7 @@ const LostPets = () => {
       ) : null}
 
       {/* Card Section Starts ----------------------------------------------------  */}
-      <Stack my={3}>
+      <Stack sx={{ my: 3 }}>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -93,43 +95,43 @@ const LostPets = () => {
                   component="img"
                   image={pet.petPicture}
                   alt={pet.petName || "Lost pet listing"}
-                  height={220}
+                  sx={{ height: 220 }}
                 />
                 <CardContent sx={{ p: 2.5 }}>
                   <Stack spacing={1.5}>
                     <Divider>Pet Info</Divider>
-                    <Typography gutterBottom fontWeight={700} sx={{ mb: 0 }}>
+                    <Typography sx={{ fontWeight: 700, mb: 0 }}>
                       {pet.petName ? `Pet Name: ${pet.petName}` : "Lost pet listing"}
                     </Typography>
 
-                    <Typography variant="body2" color="primary.para">
+                    <Typography variant="body2" sx={{ color: "primary.para" }}>
                       <span className="span3">Type:</span> {pet.animalType}
                     </Typography>
 
-                    <Typography variant="body2" color="primary.para">
+                    <Typography variant="body2" sx={{ color: "primary.para" }}>
                       <span className="span3">Age:</span> {pet.age}
                     </Typography>
 
-                    <Typography variant="body2" color="primary.para">
+                    <Typography variant="body2" sx={{ color: "primary.para" }}>
                       <span className="span3"> Color: </span> {pet.colors}
                     </Typography>
 
-                    <Typography variant="body2" color="primary.para">
+                    <Typography variant="body2" sx={{ color: "primary.para" }}>
                       <span className="span3">Lost Location:</span>{" "}
                       {pet.lastSeenLocation}
                     </Typography>
 
-                    <Typography variant="body2" color="primary.para">
+                    <Typography variant="body2" sx={{ color: "primary.para" }}>
                       <span className="span3">Lost Date:</span> {pet.lostDate}
                     </Typography>
 
                     <Divider>Owner Info</Divider>
 
-                    <Typography variant="body2" fontWeight={700}>
+                    <Typography variant="body2" sx={{ fontWeight: 700 }}>
                       Owner Name: {pet.ownerName}
                     </Typography>
 
-                    <Typography variant="body2" color="primary.para">
+                    <Typography variant="body2" sx={{ color: "primary.para" }}>
                       <span className="span3"> Contact:</span>{" "}
                       {pet.contactPhone}
                     </Typography>
@@ -141,7 +143,7 @@ const LostPets = () => {
         </Grid>
 
         {lostPets.length > 0 && totalPages > 1 ? (
-          <Box display="flex" mt={4} sx={{ justifyContent: "center" }}>
+          <Box sx={{ display: "flex", mt: 4, justifyContent: "center" }}>
             <Pagination
               count={totalPages}
               page={page}

@@ -34,29 +34,25 @@ const AdoptablePets = () => {
 
   if (isLoading) {
     return (
-      <Box py={6} sx={{ textAlign: "center" }}>
+      <Box sx={{ py: 6, textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
   }
 
   return (
-    <Box className="myContainer" mt={5} sx={{ textAlign: "center" }}>
-      <Box mb={5}>
+    <Box className="myContainer" sx={{ mt: 5, textAlign: "center" }}>
+      <Box sx={{ mb: 5 }}>
         <Typography
           variant="h4"
-          color="primary.headline"
-          sx={{ lineHeight: 1.2, fontWeight: "900" }}
+          sx={{ lineHeight: 1.2, fontWeight: "900", color: "primary.headline" }}
         >
           OUR AVAILABLE PETS
         </Typography>
 
         <Typography
-          mt={1}
           variant="body1"
-          color="primary.green"
-          fontWeight={700}
-          sx={{ textAlign: "center" }}
+          sx={{ mt: 1, textAlign: "center", fontWeight: 700, color: "primary.green" }}
         >
           Browse available companions and open a full profile to review their
           details and adoption requirements.
@@ -70,7 +66,7 @@ const AdoptablePets = () => {
       ) : null}
 
       {/* Card Section Starts ----------------------------------------------------  */}
-      <Stack my={3}>
+      <Stack sx={{ my: 3 }}>
         {adoptableAnimals.length ? (
           <Grid
             container
@@ -93,29 +89,29 @@ const AdoptablePets = () => {
                       component="img"
                       image={item.photos}
                       alt={item.name}
-                      height={250}
+                      sx={{ height: 250 }}
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h6" fontWeight={700}>
+                      <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
                         {item.name}
                       </Typography>
-                      <Typography variant="body2" fontSize={12}>
+                      <Typography variant="body2" sx={{ fontSize: 12 }}>
                         {item.breed} - {item.origin}
                       </Typography>
-                      <Typography variant="body2" pt={2} color="primary.para">
+                      <Typography variant="body2" sx={{ pt: 2, color: "primary.para" }}>
                         {item.age} Year{" "}
-                        <span style={{ color: "green" }}>|</span> {item.gender}{" "}
-                        <span style={{ color: "green" }}>|</span> {item.weight}
+                        <Box component="span" sx={{ color: "green" }}>|</Box> {item.gender}{" "}
+                        <Box component="span" sx={{ color: "green" }}>|</Box> {item.weight}
                       </Typography>
 
                       <Typography
                         variant="body2"
-                        color="primary.para"
                         sx={{
                           maxHeight: 140,
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           overflowWrap: "break-word",
+                          color: "primary.para",
                         }}
                       >
                         {item.breeddescription}
@@ -124,24 +120,21 @@ const AdoptablePets = () => {
                       <Stack
                         direction="row"
                         spacing={2}
-                        mt={2}
                         sx={{
+                          mt: 2,
                           justifyContent: "space-between",
                           alignItems: "center",
                         }}
                       >
                         <Typography
                           variant="body2"
-                          color="primary.green"
-                          sx={{ textAlign: "left" }}
+                          sx={{ textAlign: "left", color: "primary.green" }}
                         >
                           Code: {item.code}
                         </Typography>
                         <Typography
                           variant="body2"
-                          color="primary.green"
-                          fontWeight={700}
-                          sx={{ textAlign: "right" }}
+                          sx={{ textAlign: "right", fontWeight: 700, color: "primary.green" }}
                         >
                           View details
                         </Typography>

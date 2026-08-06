@@ -137,7 +137,7 @@ const OrderDetails = () => {
       {isLoading ? (
         <Box sx={{ textAlign: "center", py: 6 }}>
           <CircularProgress color="success" />
-          <Typography sx={{ mt: 2 }} color="text.secondary">
+          <Typography sx={{ mt: 2, color: "text.secondary" }}>
             Loading order details…
           </Typography>
         </Box>
@@ -159,10 +159,10 @@ const OrderDetails = () => {
             <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
               <Stack spacing={2.5}>
                 <Box>
-                  <Typography variant="h5" fontWeight={900}>
+                  <Typography variant="h5" sx={{ fontWeight: 900 }}>
                     Order #{orderIdSuffix || "—"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Placed {formatOrderDateTime(order.createdAt)}
                   </Typography>
                 </Box>
@@ -193,7 +193,7 @@ const OrderDetails = () => {
                 <Divider />
 
                 <Stack spacing={1.5}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Items
                   </Typography>
                   {items.length ? (
@@ -214,18 +214,18 @@ const OrderDetails = () => {
                             sx={{ justifyContent: "space-between" }}
                           >
                             <Box>
-                              <Typography fontWeight={700}>
+                              <Typography sx={{ fontWeight: 700 }}>
                                 {item.name || "Unnamed item"}
                               </Typography>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                                 Product ID: {item.id || "—"}
                               </Typography>
                             </Box>
                             <Box sx={{ textAlign: { sm: "right" } }}>
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                                 {quantity} x ৳{price.toFixed(2)}
                               </Typography>
-                              <Typography fontWeight={700}>৳{lineTotal}</Typography>
+                              <Typography sx={{ fontWeight: 700 }}>৳{lineTotal}</Typography>
                             </Box>
                           </Stack>
                         </Paper>
@@ -243,22 +243,22 @@ const OrderDetails = () => {
             <Stack spacing={3}>
               <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
                 <Stack spacing={1.5}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Summary
                   </Typography>
                   <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography color="text.secondary">Items</Typography>
-                    <Typography fontWeight={700}>
+                    <Typography sx={{ color: "text.secondary" }}>Items</Typography>
+                    <Typography sx={{ fontWeight: 700 }}>
                       {items.length} item{items.length === 1 ? "" : "s"}
                     </Typography>
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography color="text.secondary">Total</Typography>
-                    <Typography fontWeight={800}>৳{total}</Typography>
+                    <Typography sx={{ color: "text.secondary" }}>Total</Typography>
+                    <Typography sx={{ fontWeight: 800 }}>৳{total}</Typography>
                   </Box>
                   <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography color="text.secondary">Updated</Typography>
-                    <Typography fontWeight={600}>
+                    <Typography sx={{ color: "text.secondary" }}>Updated</Typography>
+                    <Typography sx={{ fontWeight: 600 }}>
                       {formatOrderDateTime(order.updatedAt)}
                     </Typography>
                   </Box>
@@ -267,16 +267,16 @@ const OrderDetails = () => {
 
               <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
                 <Stack spacing={1.5}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Delivery Details
                   </Typography>
-                  <Typography fontWeight={700}>
+                  <Typography sx={{ fontWeight: 700 }}>
                     {order.deliveryInfo?.name || "Customer"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {order.deliveryInfo?.address || "Address unavailable"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {[order.deliveryInfo?.city, order.deliveryInfo?.state, order.deliveryInfo?.zip]
                       .filter(Boolean)
                       .join(", ") || "Location unavailable"}
@@ -286,10 +286,10 @@ const OrderDetails = () => {
 
               <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
                 <Stack spacing={1.5}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Tracking Token
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     This browser uses a saved order token to load the order history
                     without exposing email or phone details in the public response.
                   </Typography>

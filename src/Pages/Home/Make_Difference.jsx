@@ -46,12 +46,11 @@ const Make_Difference = () => {
         textAlign: "center",
       }}
     >
-      <Box padding={10}>
+      <Box sx={{ padding: 10 }}>
         <Typography
           variant="h4"
           color="primary.headline"
-          pb={6}
-          sx={{ lineHeight: 1.2, fontWeight: "900" }}
+          sx={{ pb: 6, lineHeight: 1.2, fontWeight: "900" }}
         >
           You Can Make a Difference
         </Typography>
@@ -59,11 +58,11 @@ const Make_Difference = () => {
         <Grid container spacing={3} sx={{ justifyContent: "center" }}>
           {items.map((item, index) => (
             <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
-              <a style={{ textDecoration: "none" }}>
+              <Box component="a" sx={{ textDecoration: "none" }}>
                 <Stack
                   spacing={3}
-                  p={3}
                   sx={{
+                    p: 3,
                     height: 320,
                     backgroundColor: item.backgroundColor,
                     opacity: 1,
@@ -94,7 +93,7 @@ const Make_Difference = () => {
 
                   <Typography variant="body1">{item.description}</Typography>
                 </Stack>
-              </a>
+              </Box>
             </Grid>
           ))}
         </Grid>

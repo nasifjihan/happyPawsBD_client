@@ -1,31 +1,24 @@
-import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import AdoptHeader from "./../../../images/optimized/adopt-header.webp";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../../Components/Common/OptimizedImage";
 
-const BrandingWrapper = styled(Box)(({ theme }) => ({
-  // height: "60vh",
-  backgroundColor: "rgba(122, 178, 89, 0.15)",
-  padding: theme.spacing(4),
-  margin: "1rem 0",
-  // clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
-  display: "flex",
-  justifyContent: "space-between",
-  flexDirection: "column",
-  [theme.breakpoints.up("md")]: {
-    flexDirection: "row",
-    clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)",
-  },
-}));
-
 const AdoptionBanner = () => {
   return (
     <Box className="myContainer">
-      {/* <img src={AdoptHeader} alt="" /> */}
-      <BrandingWrapper>
-        <Stack spacing={6} sx={{ p: 4 }} flex={1.5}>
+      <Box
+        sx={{
+          backgroundColor: "rgba(122, 178, 89, 0.15)",
+          padding: 4,
+          margin: "1rem 0",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", md: "row" },
+          clipPath: { md: "polygon(0 0, 100% 0, 100% 85%, 0 100%)" },
+        }}
+      >
+        <Stack spacing={6} sx={{ p: 4, flex: 1.5 }}>
           <Typography
             variant="h4"
             color="primary.headline"
@@ -37,9 +30,8 @@ const AdoptionBanner = () => {
           <Box>
             <Typography
               variant="h6"
-              pb={2}
               color="primary.para"
-              sx={{ fontWeight: "700" }}
+              sx={{ pb: 2, fontWeight: "700" }}
             >
               Looking for a Pet? Start your search here!
             </Typography>
@@ -58,18 +50,19 @@ const AdoptionBanner = () => {
         </Stack>
 
         <Box
-          flex={1}
           sx={{
-            display: { xs: "none", md: "block" }, // Hide the image on small screens
+            flex: 1,
+            display: { xs: "none", md: "block" },
           }}
         >
-          <OptimizedImage
-            src={AdoptHeader}
-            alt="Adoption banner"
-            style={{ width: "100%" }}
-          />
+          <Box sx={{ width: "100%" }}>
+            <OptimizedImage
+              src={AdoptHeader}
+              alt="Adoption banner"
+            />
+          </Box>
         </Box>
-      </BrandingWrapper>
+      </Box>
     </Box>
   );
 };

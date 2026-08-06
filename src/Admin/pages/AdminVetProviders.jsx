@@ -364,10 +364,10 @@ const AdminVetProviders = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900}>
+          <Typography variant="h3" sx={{ fontWeight: 900 }}>
             Vet Providers
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Manage Vet Finder directory entries displayed on the public site.
           </Typography>
         </Box>
@@ -452,7 +452,7 @@ const AdminVetProviders = () => {
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
-                <Typography color="text.secondary">Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
               ) : rows.length ? (
                 rows.map((item) => (
                   <Paper
@@ -496,10 +496,10 @@ const AdminVetProviders = () => {
                           />
                         ) : null}
                         <Box>
-                          <Typography fontWeight={800}>
+                          <Typography sx={{ fontWeight: 800 }}>
                             {item.title || "Unnamed provider"}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
                             ID {item.id} • {item.City || "City"} •{" "}
                             {item.Division || "Division"}
                           </Typography>
@@ -509,13 +509,13 @@ const AdminVetProviders = () => {
                   </Paper>
                 ))
               ) : (
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   No vet providers found.
                 </Typography>
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -530,7 +530,7 @@ const AdminVetProviders = () => {
 
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
-            <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Provider
             </Typography>
             <Divider sx={{ mb: 2 }} />

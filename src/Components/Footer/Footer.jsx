@@ -76,7 +76,7 @@ const Footer = () => {
       }}
     >
       <Box className="myContainer">
-        <Grid container sx={{ spacing: 3, py: 2 }}>
+        <Grid container sx={{ py: 2 }}>
           <Grid size={{ xs: 12, md: 4 }}>
             {/* Contact Information */}
             {/* Logo Full Screen ------------------------------------- */}
@@ -86,22 +86,19 @@ const Footer = () => {
               to="/"
               sx={{ color: "inherit", textDecoration: "none", pt: 1 }}
             >
-              <img
+              <Box
+                component="img"
                 src={mode === "dark" ? HPBDLogo2 : HPBDLogo}
                 alt="Happy Paws BD"
-                width={150}
+                sx={{ width: 150 }}
               />
             </Typography>
 
-            <Typography sx={{ fontWeight: 900 }} variant="h5" gutterBottom>
+            <Typography sx={{ fontWeight: 900, mb: "0.35em" }} variant="h5">
               {brandName}
             </Typography>
 
-            <Typography
-              color={"primary.para"}
-              variant="body2"
-              // textAlign={"justify"}
-            >
+            <Typography variant="body2" sx={{ color: "primary.para" }}>
               The "Happy Paws BD" project is a comprehensive pet website aimed
               at promoting pet welfare and providing a range of services to pet
               owners and enthusiasts.
@@ -178,22 +175,18 @@ const Footer = () => {
             aria-label="Footer sitemap"
           >
             {/* Contact Information */}
-            <Typography
-              sx={{ fontWeight: 700, mb: 2 }}
-              variant="h5"
-              gutterBottom
-            >
+            <Typography sx={{ fontWeight: 700, mb: 2 }} variant="h5">
               Sitemap
             </Typography>
 
-            <Stack spacing={1} sx={{ alignItems: "center" }}>
+            <Stack sx={{ alignItems: "center", gap: 1 }}>
               {sitemapLinks.map((link) => (
                 <MuiLink
                   key={`${link.to}-${link.label}`}
                   component={RouterLink}
                   to={link.to}
-                  color={"primary.para"}
                   underline="hover"
+                  sx={{ color: "primary.para" }}
                 >
                   {link.label}
                 </MuiLink>
@@ -207,22 +200,18 @@ const Footer = () => {
             aria-label="Footer support links"
           >
             {/* Contact Information */}
-            <Typography
-              sx={{ fontWeight: 700, mb: 2 }}
-              variant="h5"
-              gutterBottom
-            >
+            <Typography sx={{ fontWeight: 700, mb: 2 }} variant="h5">
               Support
             </Typography>
 
-            <Stack spacing={1} sx={{ alignItems: "center" }}>
+            <Stack sx={{ alignItems: "center", gap: 1 }}>
               {supportLinks.map((link) => (
                 <MuiLink
                   key={`${link.to}-${link.label}`}
                   component={RouterLink}
                   to={link.to}
-                  color={"primary.para"}
                   underline="hover"
+                  sx={{ color: "primary.para" }}
                 >
                   {link.label}
                 </MuiLink>
@@ -232,18 +221,19 @@ const Footer = () => {
 
           <Grid size={{ xs: 12, md: 4 }}>
             {/* Google Map Embed */}
-            <iframe
+            <Box
+              component="iframe"
               title="Happy Paws BD location map"
               src={mapEmbedUrl}
-              style={{
+              allowFullScreen=""
+              loading="lazy"
+              sx={{
                 border: 1,
-                borderColor: "black",
+                borderColor: "transparent",
                 width: "100%",
                 height: "250px",
                 borderRadius: "10px",
               }}
-              allowFullScreen=""
-              loading="lazy"
             />
           </Grid>
         </Grid>

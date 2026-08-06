@@ -101,11 +101,11 @@ const Remembrance = () => {
                     }}
                   />
 
-                  <Typography variant="h3" fontWeight={800}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
                     A quiet space to honor the pets who stay with us
                   </Typography>
 
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     Remembrance is for the animals who shaped our homes, our
                     hearts, and our lives. Whether your memory is joyful,
                     bittersweet, or still healing, this space is meant to hold
@@ -147,7 +147,7 @@ const Remembrance = () => {
                   }}
                 >
                   <Stack spacing={2}>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Tribute prompts
                     </Typography>
 
@@ -159,7 +159,7 @@ const Remembrance = () => {
                         sx={{ alignItems: "flex-start" }}
                       >
                         <FavoriteBorderOutlinedIcon color="success" />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {prompt}
                         </Typography>
                       </Stack>
@@ -185,10 +185,10 @@ const Remembrance = () => {
                 >
                   <Stack spacing={1.5}>
                     <Box>{item.icon}</Box>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {item.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.description}
                     </Typography>
                   </Stack>
@@ -207,18 +207,18 @@ const Remembrance = () => {
             }}
           >
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight={800}>
+              <Typography variant="h5" sx={{ fontWeight: 800 }}>
                 Community tributes
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Tributes are reviewed and published by the admin team to keep this
                 space respectful and supportive.
               </Typography>
 
               {isLoading ? (
-                <Typography color="text.secondary">Loading tributes...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading tributes...</Typography>
               ) : isError ? (
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   Tributes are unavailable right now.
                 </Typography>
               ) : tributes.length ? (
@@ -235,14 +235,14 @@ const Remembrance = () => {
                         }}
                       >
                         <Stack spacing={1}>
-                          <Typography fontWeight={800}>
+                          <Typography sx={{ fontWeight: 800 }}>
                             {entry.title || "Tribute"}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
                             {entry.excerpt ||
                               String(entry.story || "").slice(0, 140) + "..."}
                           </Typography>
-                          <Box pt={0.5}>
+                          <Box sx={{ pt: 0.5 }}>
                             <Button
                               size="small"
                               color="success"
@@ -257,7 +257,7 @@ const Remembrance = () => {
                   ))}
                 </Grid>
               ) : (
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   No tributes have been published yet.
                 </Typography>
               )}
@@ -274,16 +274,16 @@ const Remembrance = () => {
             }}
           >
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight={800}>
+              <Typography variant="h5" sx={{ fontWeight: 800 }}>
                 Why this page matters
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography variant="body1" sx={{ color: "text.secondary" }}>
                 For many people, grief after losing a pet is real and lasting.
                 Making space for remembrance helps keep that bond visible,
                 valued, and connected to future acts of care for animals still
                 waiting for help.
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography variant="body1" sx={{ color: "text.secondary" }}>
                 Over time, this page can grow into a collection of community
                 tributes that honor animals and gently encourage others to adopt
                 kindly, care responsibly, and remember deeply.
@@ -305,12 +305,12 @@ const Remembrance = () => {
         <DialogContent dividers>
           <Stack spacing={1.5}>
             {selectedTribute?.petName ? (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Pet: {selectedTribute.petName}
               </Typography>
             ) : null}
             {selectedTribute?.authorName ? (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 By {selectedTribute.authorName}
               </Typography>
             ) : null}

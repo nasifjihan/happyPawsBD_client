@@ -87,10 +87,10 @@ const AdminInPersonConsultationDetails = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 1, fontWeight: 900 }}>
             In-Person Consultation Details
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Confirm the schedule, guide the client, and track status.
           </Typography>
         </Box>
@@ -144,7 +144,7 @@ const AdminInPersonConsultationDetails = () => {
 
       {isLoading ? (
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Loading consultation request...
           </Typography>
         </Paper>
@@ -165,10 +165,10 @@ const AdminInPersonConsultationDetails = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="h5" fontWeight={900}>
+                      <Typography variant="h5" sx={{ fontWeight: 900 }}>
                         {consultation.fullName || "Client"}
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {consultation.petType || "Pet"}{" "}
                         {consultation.petName ? `• ${consultation.petName}` : ""}
                       </Typography>
@@ -196,10 +196,10 @@ const AdminInPersonConsultationDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Concern
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {consultation.concern || "No concern provided."}
                   </Typography>
                 </Stack>
@@ -207,7 +207,7 @@ const AdminInPersonConsultationDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
                   </Typography>
                   <TextField
@@ -225,14 +225,14 @@ const AdminInPersonConsultationDetails = () => {
             <Stack spacing={3}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Contact
                   </Typography>
                   <Divider />
-                  <Typography fontWeight={700}>
+                  <Typography sx={{ fontWeight: 700 }}>
                     {consultation.contactPhone || "No phone"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {consultation.contactEmail || "No email"}
                   </Typography>
                 </Stack>
@@ -240,7 +240,7 @@ const AdminInPersonConsultationDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Visit Details
                   </Typography>
                   <Divider />
@@ -256,7 +256,7 @@ const AdminInPersonConsultationDetails = () => {
                   <Typography>
                     <strong>Preferred Time:</strong> {consultation.preferredTime || "—"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     <strong>Pet age:</strong> {consultation.petAge || "Not provided"}
                   </Typography>
                 </Stack>
@@ -264,14 +264,14 @@ const AdminInPersonConsultationDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Metadata
                   </Typography>
                   <Divider />
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Created: {formatDateTime(consultation.createdAt) || "—"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Updated: {formatDateTime(consultation.updatedAt) || "—"}
                   </Typography>
                 </Stack>

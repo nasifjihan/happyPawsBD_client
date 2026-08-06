@@ -149,10 +149,10 @@ const AdminLayout = () => {
         }}
       >
         <Box sx={{ p: 2.5 }}>
-          <Typography variant="h6" fontWeight={800}>
+          <Typography variant="h6" sx={{ fontWeight: 800 }}>
             Happy Paws Admin
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
             Signed in as {auth.username || "admin"}
           </Typography>
         </Box>
@@ -224,7 +224,7 @@ const AdminLayout = () => {
           }}
         >
           <Toolbar>
-            <Typography variant="h6" fontWeight={800}>
+            <Typography variant="h6" sx={{ fontWeight: 800 }}>
               {
                 navItems.find((item) =>
                   item.to === "/admin"

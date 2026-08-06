@@ -84,10 +84,10 @@ const AdminHouseCallRequestDetails = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 1, fontWeight: 900 }}>
             House Call Details
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Confirm the visit, dispatch a team member, and track status.
           </Typography>
         </Box>
@@ -140,7 +140,7 @@ const AdminHouseCallRequestDetails = () => {
 
       {isLoading ? (
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">Loading house call request...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading house call request...</Typography>
         </Paper>
       ) : null}
 
@@ -159,10 +159,10 @@ const AdminHouseCallRequestDetails = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="h5" fontWeight={900}>
+                      <Typography variant="h5" sx={{ fontWeight: 900 }}>
                         {request.fullName || "Client"}
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {request.petType || "Pet"}{" "}
                         {request.petName ? `• ${request.petName}` : ""}
                       </Typography>
@@ -190,10 +190,10 @@ const AdminHouseCallRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Concern
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {request.concern || "No concern provided."}
                   </Typography>
                 </Stack>
@@ -201,7 +201,7 @@ const AdminHouseCallRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
                   </Typography>
                   <TextField
@@ -219,18 +219,18 @@ const AdminHouseCallRequestDetails = () => {
             <Stack spacing={3}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Contact
                   </Typography>
                   <Divider />
-                  <Typography fontWeight={700}>{request.contactPhone || "No phone"}</Typography>
-                  <Typography color="text.secondary">{request.contactEmail || "No email"}</Typography>
+                  <Typography sx={{ fontWeight: 700 }}>{request.contactPhone || "No phone"}</Typography>
+                  <Typography sx={{ color: "text.secondary" }}>{request.contactEmail || "No email"}</Typography>
                 </Stack>
               </Paper>
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Visit Details
                   </Typography>
                   <Divider />
@@ -249,7 +249,7 @@ const AdminHouseCallRequestDetails = () => {
                   <Typography>
                     <strong>Preferred Time:</strong> {request.preferredTime || "—"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     <strong>Pet age:</strong> {request.petAge || "Not provided"}
                   </Typography>
                 </Stack>
@@ -257,14 +257,14 @@ const AdminHouseCallRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Metadata
                   </Typography>
                   <Divider />
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Created: {formatDateTime(request.createdAt) || "—"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Updated: {formatDateTime(request.updatedAt) || "—"}
                   </Typography>
                 </Stack>

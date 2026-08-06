@@ -23,11 +23,11 @@ const Health_Care_Blog = () => {
     .slice(0, 3);
 
   return (
-    <Box maxWidth="lg" className="myContainer">
+    <Box className="myContainer" sx={{ maxWidth: "lg" }}>
       {/* Hero Section */}
       <Box
-        py={8}
         sx={{
+          py: 8,
           textAlign: "center",
           backgroundColor: "rgba(122, 178, 89, 0.15)",
           borderRadius: 4,
@@ -39,15 +39,14 @@ const Health_Care_Blog = () => {
       >
         <Typography
           variant="overline"
-          color="success.main"
-          sx={{ fontWeight: 700, letterSpacing: 1 }}
+          sx={{ color: "success.main", fontWeight: 700, letterSpacing: 1 }}
         >
           Health Care Blog
         </Typography>
-        <Typography variant="h2" gutterBottom sx={{ fontWeight: 800 }}>
+        <Typography variant="h2" sx={{ mb: 1, fontWeight: 800 }}>
           Caring for Your Pets <br /> One Step at a Time
         </Typography>
-        <Typography variant="h6" gutterBottom sx={{ mb: 4, color: "text.secondary" }}>
+        <Typography variant="h6" sx={{ mb: 4, color: "text.secondary" }}>
           Get expert advice, tips, and tricks to keep your furry friends healthy
           and happy.
         </Typography>
@@ -63,19 +62,18 @@ const Health_Care_Blog = () => {
       </Box>
 
       {/* Recent Blog Posts */}
-      <Box py={5}>
+      <Box sx={{ py: 5 }}>
         <Typography
           variant="h4"
-          gutterBottom
           sx={{ fontWeight: 800, color: "primary.headline", mb: 4 }}
         >
           Recent Blog Posts
         </Typography>
         <Box id="recent-blog-posts" />
         {isLoading ? (
-          <Typography color="text.secondary">Loading...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
         ) : isError ? (
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Could not load blog posts right now.
           </Typography>
         ) : recentPosts.length ? (
@@ -93,14 +91,14 @@ const Health_Care_Blog = () => {
             ))}
           </Grid>
         ) : (
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             No published blog posts yet.
           </Typography>
         )}
       </Box>
 
       {/* Featured Article */}
-      <Box pb={6}>
+      <Box sx={{ pb: 6 }}>
         <FeaturedArticle post={featuredPost} />
       </Box>
 

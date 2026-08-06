@@ -28,13 +28,12 @@ const ContentState = ({
       }}
     >
       <Stack spacing={1.5} sx={{ alignItems: "center" }}>
-        <Typography variant="h5" fontWeight={800} color={colorMap[severity]}>
+        <Typography variant="h5" sx={{ fontWeight: 800, color: colorMap[severity] }}>
           {title}
         </Typography>
         <Typography
           variant="body1"
-          color="text.secondary"
-          sx={{ maxWidth: 560 }}
+          sx={{ maxWidth: 560, color: "text.secondary" }}
         >
           {description}
         </Typography>

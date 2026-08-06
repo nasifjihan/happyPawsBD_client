@@ -163,7 +163,7 @@ const Orders = () => {
       {isLoading ? (
         <Box sx={{ textAlign: "center", py: 6 }}>
           <CircularProgress color="success" />
-          <Typography sx={{ mt: 2 }} color="text.secondary">
+          <Typography sx={{ mt: 2, color: "text.secondary" }}>
             Loading orders…
           </Typography>
         </Box>
@@ -200,10 +200,10 @@ const Orders = () => {
                 <Grid size={{ xs: 12, md: 6 }} key={token}>
                   <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
                     <Stack spacing={1}>
-                      <Typography variant="h6" fontWeight={800}>
+                      <Typography variant="h6" sx={{ fontWeight: 800 }}>
                         Order unavailable
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {entry.error || "This order could not be loaded."}
                       </Typography>
                       <Button
@@ -237,7 +237,7 @@ const Orders = () => {
                     height: "100%",
                   }}
                 >
-                  <Stack spacing={2} height="100%">
+                  <Stack spacing={2} sx={{ height: "100%" }}>
                     <Box>
                       <Stack
                         direction="row"
@@ -248,10 +248,10 @@ const Orders = () => {
                         }}
                       >
                         <Box>
-                          <Typography variant="h6" fontWeight={900}>
+                          <Typography variant="h6" sx={{ fontWeight: 900 }}>
                             Order #{orderIdSuffix || "—"}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
                             {formatOrderDateTime(order.createdAt)}
                           </Typography>
                         </Box>
@@ -293,17 +293,17 @@ const Orders = () => {
                     </Stack>
 
                     <Box>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         Items
                       </Typography>
-                      <Typography fontWeight={700}>
+                      <Typography sx={{ fontWeight: 700 }}>
                         {itemCount} item{itemCount === 1 ? "" : "s"} · ৳
                         {Number(total || 0).toFixed(2)}
                       </Typography>
                     </Box>
 
                     <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         Delivery
                       </Typography>
                       <Typography>

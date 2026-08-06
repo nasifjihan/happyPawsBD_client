@@ -62,13 +62,13 @@ const Filters = ({
 
   return (
     <Box>
-      <Typography variant="h6" fontWeight={700} mb={2}>
+      <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
         Filters
         <Divider />
       </Typography>
 
       <FormControl component="fieldset">
-        <Typography variant="subtitle1" fontWeight={700}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
           Categories
         </Typography>
         <FormGroup>
@@ -92,7 +92,7 @@ const Filters = ({
       <br />
 
       <FormControl component="fieldset">
-        <Typography variant="subtitle1" fontWeight={700} mt={3}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 700, mt: 3 }}>
           Product Types
         </Typography>
         <FormGroup>
@@ -112,7 +112,7 @@ const Filters = ({
         </FormGroup>
       </FormControl>
 
-      <Typography variant="subtitle1" fontWeight={700} mt={3}>
+      <Typography variant="subtitle1" sx={{ fontWeight: 700, mt: 3 }}>
         Price Range
       </Typography>
       <Slider

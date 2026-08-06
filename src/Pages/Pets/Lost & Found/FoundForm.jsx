@@ -56,8 +56,8 @@ const FoundForm = ({ hideHeading = false }) => {
   return (
     <Box>
       {!hideHeading ? (
-        <Box mx={"auto"} sx={{ textAlign: "center" }}>
-          <Typography variant="h5" fontWeight={700}>
+        <Box sx={{ mx: "auto", textAlign: "center" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700 }}>
             FOUND PET REGISTRATION
           </Typography>
         </Box>
@@ -66,10 +66,10 @@ const FoundForm = ({ hideHeading = false }) => {
       <Box>
         <Box
           component="form"
-          mx={"auto"}
           noValidate
           onSubmit={handleSubmit(onSubmit)}
           sx={{
+            mx: "auto",
             p: hideHeading ? 0 : 2,
           }}
         >
@@ -124,7 +124,7 @@ const FoundForm = ({ hideHeading = false }) => {
                 />
               </FormControl>
               {errors.animalType && (
-                <Typography variant="caption" color="error">
+                <Typography variant="caption" sx={{ color: "error" }}>
                   {errors.animalType.message}
                 </Typography>
               )}
@@ -191,7 +191,7 @@ const FoundForm = ({ hideHeading = false }) => {
                 />
               </FormControl>
               {errors.gender && (
-                <Typography variant="caption" color="error">
+                <Typography variant="caption" sx={{ color: "error" }}>
                   {errors.gender.message}
                 </Typography>
               )}
@@ -316,7 +316,7 @@ const FoundForm = ({ hideHeading = false }) => {
                 )}
               </Box>
               {errors.petPicture && (
-                <Typography variant="caption" color="error">
+                <Typography variant="caption" sx={{ color: "error" }}>
                   {errors.petPicture.message}
                 </Typography>
               )}

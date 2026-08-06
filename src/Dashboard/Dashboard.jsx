@@ -67,10 +67,10 @@ const Dashboard = () => {
       description="A simple control center for the most important signed-in actions across Happy Paws BD."
     >
       <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
-        <Typography variant="h6" fontWeight={700} gutterBottom>
+        <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
           Welcome back{user.displayName ? `, ${user.displayName}` : ""}.
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" sx={{ color: "text.secondary" }}>
           Use these shortcuts to jump back into adoption, rescue support, account
           management, or checkout without hunting through the full site navigation.
         </Typography>
@@ -80,11 +80,11 @@ const Dashboard = () => {
         {cards.map((card) => (
           <Grid size={{ xs: 12, md: 6 }} key={card.title}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
-              <Stack spacing={2} height="100%">
-                <Typography variant="h6" fontWeight={700}>
+              <Stack spacing={2} sx={{ height: "100%" }}>
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
                   {card.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+                <Typography variant="body2" sx={{ color: "text.secondary", flexGrow: 1 }}>
                   {card.description}
                 </Typography>
                 <Button

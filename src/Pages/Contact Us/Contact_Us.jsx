@@ -106,10 +106,11 @@ const Contact_Us = () => {
         >
           <Grid container spacing={5} sx={{ alignItems: "center" }}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <OptimizedImage
+              <Box
+                component={OptimizedImage}
                 src={contactImage}
                 alt="Contact Happy Paws BD"
-                style={{
+                sx={{
                   width: "100%",
                   borderRadius: "24px",
                   objectFit: "cover",
@@ -119,17 +120,17 @@ const Contact_Us = () => {
 
             <Grid size={{ xs: 12, md: 6 }}>
               <Stack spacing={2.5}>
-                <Typography variant="h3" fontWeight={800}>
+                <Typography variant="h3" sx={{ fontWeight: 800 }}>
                   Contact Us
                 </Typography>
 
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   Reach out if you need help with adoption, rescue support, lost
                   and found guidance, or general questions about using the
                   platform.
                 </Typography>
 
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   We aim to make it easy for pet families and animal lovers to
                   find the right next step quickly.
                 </Typography>
@@ -137,7 +138,7 @@ const Contact_Us = () => {
                 <Divider />
 
                 <Box>
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
                     Contact Information
                   </Typography>
 
@@ -177,10 +178,10 @@ const Contact_Us = () => {
                 <Divider />
 
                 <Box>
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
                     What do you need help with?
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                  <Typography variant="body2" sx={{ color: "text.secondary", mb: 1.5 }}>
                     Use these quick links to reach the right page faster.
                   </Typography>
                   <Stack
@@ -231,10 +232,10 @@ const Contact_Us = () => {
                 <Divider />
 
                 <Box>
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
                     Response expectations
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
+                  <Typography variant="body2" sx={{ color: "text.secondary", mb: 1.5 }}>
                     If your message is urgent, please call directly.
                   </Typography>
                   <Stack
@@ -261,7 +262,7 @@ const Contact_Us = () => {
                 <Divider />
 
                 <Box>
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
                     Connect with Us
                   </Typography>
 

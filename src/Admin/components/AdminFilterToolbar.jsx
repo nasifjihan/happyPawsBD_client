@@ -77,11 +77,11 @@ const AdminFilterToolbar = ({
             {resetLabel}
           </Button>
         ) : null}
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           Showing {resultCount} result{resultCount === 1 ? "" : "s"}
         </Typography>
         {helperText ? (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" sx={{ color: "text.secondary" }}>
             {helperText}
           </Typography>
         ) : null}

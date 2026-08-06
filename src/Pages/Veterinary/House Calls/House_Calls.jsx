@@ -142,10 +142,9 @@ const House_Calls = () => {
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
           <Stack
             spacing={2}
-            mb={4}
-            sx={{ textAlign: "center", alignItems: "center" }}
+            sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
           >
-            <Typography variant="h3" fontWeight={800}>
+            <Typography variant="h3" sx={{ fontWeight: 800 }}>
               House Calls
             </Typography>
             <Typography
@@ -167,10 +166,10 @@ const House_Calls = () => {
                   variant="outlined"
                   sx={{ p: 3, borderRadius: 3, height: "100%" }}
                 >
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {item.description}
                   </Typography>
                 </Paper>
@@ -180,10 +179,10 @@ const House_Calls = () => {
 
           <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, borderRadius: 4, mt: 3 }}>
             <Stack spacing={2.5}>
-              <Typography variant="h5" fontWeight={900}>
+              <Typography variant="h5" sx={{ fontWeight: 900 }}>
                 Request a House Call
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Share your address, preferred date/time, and what your pet needs help with. Our
                 team will confirm availability and the expected visit fee.
               </Typography>
@@ -371,13 +370,13 @@ const House_Calls = () => {
 
           <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, mt: 3 }}>
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight={700}>
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 How to prepare
               </Typography>
               <Grid container spacing={1.5}>
                 {preparationChecklist.map((item) => (
                   <Grid key={item} size={{ xs: 12, sm: 6 }}>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item}
                     </Typography>
                   </Grid>

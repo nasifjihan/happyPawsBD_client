@@ -47,7 +47,7 @@ const AdoptablePetDetails = () => {
 
   if (isLoading) {
     return (
-      <Box py={6} sx={{ textAlign: "center" }}>
+      <Box sx={{ py: 6, textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
@@ -104,11 +104,7 @@ const AdoptablePetDetails = () => {
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography
             variant="h4"
-            fontWeight={900}
-            my={3}
-            gutterBottom
-            color="primary.main"
-            sx={{ textAlign: "center", fontSize: { xs: "2rem", md: "3rem" } }}
+            sx={{ fontWeight: 900, my: 3, color: "primary.main", textAlign: "center", fontSize: { xs: "2rem", md: "3rem" } }}
           >
             Meet "{pet.name}"
           </Typography>
@@ -132,7 +128,7 @@ const AdoptablePetDetails = () => {
                 zIndex: 1,
               }}
             >
-              <Typography variant="h6" fontWeight={700}>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
                 {pet.code}
               </Typography>
             </Box>
@@ -148,16 +144,16 @@ const AdoptablePetDetails = () => {
             />
           </Card>
 
-          <Typography variant="body2" mt={2} mb={1} paragraph>
+          <Typography variant="body2" paragraph sx={{ mt: 2, mb: 1 }}>
             <strong>Breed:</strong> {pet.breeddescription}
           </Typography>
-          <Typography variant="body2" mb={1} paragraph>
+          <Typography variant="body2" paragraph sx={{ mb: 1 }}>
             <strong>Temperament:</strong> {pet.temperament}
           </Typography>
-          <Typography variant="body2" mb={1} paragraph>
+          <Typography variant="body2" paragraph sx={{ mb: 1 }}>
             <strong>Adoption Requirements:</strong> {pet.adoptionrequirements}
           </Typography>
-          <Typography variant="body2" mb={1} paragraph>
+          <Typography variant="body2" paragraph sx={{ mb: 1 }}>
             <strong>Background Story:</strong> {pet.storybackground}
           </Typography>
         </Grid>
@@ -177,17 +173,14 @@ const AdoptablePetDetails = () => {
                 <Box sx={{ textAlign: "center" }}>
                   <Typography
                     variant="h5"
-                    fontWeight={700}
-                    color="primary.dark"
-                    sx={{ fontSize: { xs: "1.5rem", md: "2rem" } }}
+                    sx={{ fontWeight: 700, color: "primary.dark", fontSize: { xs: "1.5rem", md: "2rem" } }}
                   >
                     {pet.breed}
                   </Typography>
 
                   <Typography
                     variant="body2"
-                    color="textSecondary"
-                    sx={{ fontSize: { xs: "0.875rem", md: "1rem" } }}
+                    sx={{ color: "textSecondary", fontSize: { xs: "0.875rem", md: "1rem" } }}
                   >
                     {pet.origin}
                   </Typography>
@@ -317,24 +310,17 @@ const AdoptablePetDetails = () => {
       {/* Adoption Form Section */}
       <Box
         id="adoption-form"
-        mt={8}
-
-        // sx={{ backgroundColor: "#e0f7fa", borderRadius: "15px" }}
+        sx={{ mt: 8 }}
       >
         <Typography
           variant="h5"
-          fontWeight={700}
-          color="green"
-          mb={2}
-          sx={{ textAlign: "center" }}
+          sx={{ fontWeight: 700, color: "green", mb: 2, textAlign: "center" }}
         >
           Ready to Adopt? Fill out the form below!
         </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
-          mb={2}
-          sx={{ textAlign: "center" }}
+          sx={{ color: "text.secondary", mb: 2, textAlign: "center" }}
         >
           Complete the application with your contact details and pet experience
           so the rescue team can review your request.

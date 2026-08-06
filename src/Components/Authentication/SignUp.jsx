@@ -103,13 +103,12 @@ const SignUp = () => {
                 />
 
                   <Box>
-                    <Typography component="h1" variant="h4" fontWeight={700}>
+                    <Typography component="h1" variant="h4" sx={{ fontWeight: 700 }}>
                       Create your account
                     </Typography>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
-                      sx={{ mt: 1, maxWidth: 460 }}
+                      sx={{ mt: 1, maxWidth: 460, color: "text.secondary" }}
                     >
                       Get started with adoptions, rescue support, checkout, and
                       personalized pet care updates in one place.
@@ -212,8 +211,7 @@ const SignUp = () => {
 
                     <Typography
                       variant="body2"
-                      color="text.secondary"
-                      sx={{ textAlign: "center" }}
+                      sx={{ textAlign: "center", color: "text.secondary" }}
                     >
                       By continuing, you are setting up your Happy Paws account
                       for secure pet care access.
@@ -229,14 +227,13 @@ const SignUp = () => {
                     textAlign: "center",
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Already have an account?{" "}
                     <Link
                       component={RouterLink}
                       to={signInLink}
                       underline="hover"
-                      color="primary.main"
-                      fontWeight={700}
+                      sx={{ color: "primary.main", fontWeight: 700 }}
                     >
                       Sign in
                     </Link>

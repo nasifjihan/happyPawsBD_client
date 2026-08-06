@@ -65,12 +65,11 @@ const DeliveryInformation = ({
         <Typography
           id="delivery-information-heading"
           variant="h5"
-          fontWeight={800}
-          color="#333332"
+          sx={{ fontWeight: 800, color: "#333332" }}
         >
           Delivery Information
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           Add your contact and address details so we can deliver your order
           smoothly.
         </Typography>

@@ -188,16 +188,16 @@ const Online_Consultation = () => {
                 variant="outlined"
                 sx={{ fontWeight: 700 }}
               />
-              <Typography variant="h3" fontWeight={800}>
+              <Typography variant="h3" sx={{ fontWeight: 800 }}>
                 Online Consultation
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 820 }}>
+              <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 820 }}>
                 Book a short online appointment with an available vet, discuss your
                 pet&apos;s symptoms, and get guidance on treatment, medicine, or whether
                 you should visit a clinic in person.
               </Typography>
 
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} pt={1}>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ pt: 1 }}>
                 <Button
                   variant="contained"
                   color="success"
@@ -225,10 +225,10 @@ const Online_Consultation = () => {
             sx={{ p: { xs: 3, md: 4 }, borderRadius: 4 }}
           >
             <Stack spacing={2.5}>
-              <Typography variant="h5" fontWeight={900}>
+              <Typography variant="h5" sx={{ fontWeight: 900 }}>
                 Appointment Request
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Submit your details and preferred slot. Our team will confirm the
                 schedule and payment.
               </Typography>
@@ -390,13 +390,13 @@ const Online_Consultation = () => {
                 <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
                   <Stack spacing={1.5}>
                     {item.icon}
-                    <Typography variant="h6" fontWeight={800}>
+                    <Typography variant="h6" sx={{ fontWeight: 800 }}>
                       {item.title}
                     </Typography>
-                    <Typography variant="h4" color="success.main" fontWeight={900}>
+                    <Typography variant="h4" sx={{ color: "success.main", fontWeight: 900 }}>
                       {item.value}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.detail}
                     </Typography>
                   </Stack>
@@ -407,7 +407,7 @@ const Online_Consultation = () => {
 
           <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, borderRadius: 4 }}>
             <Stack spacing={3}>
-              <Typography variant="h5" fontWeight={800}>
+              <Typography variant="h5" sx={{ fontWeight: 800 }}>
                 Available Online Doctors
               </Typography>
 
@@ -428,10 +428,10 @@ const Online_Consultation = () => {
                           }}
                         >
                           <Box>
-                            <Typography variant="h6" fontWeight={800}>
+                            <Typography variant="h6" sx={{ fontWeight: 800 }}>
                               {doctor.name}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" sx={{ color: "text.secondary" }}>
                               {doctor.specialty}
                             </Typography>
                           </Box>
@@ -442,13 +442,13 @@ const Online_Consultation = () => {
                           />
                         </Stack>
 
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           <strong>Time:</strong> {doctor.schedule}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           <strong>Fee:</strong> {doctor.fee}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           <strong>Best for:</strong> {doctor.supports}
                         </Typography>
 
@@ -472,11 +472,11 @@ const Online_Consultation = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <Paper variant="outlined" sx={{ p: 3, borderRadius: 4, height: "100%" }}>
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     How It Works
                   </Typography>
                   {consultSteps.map((step) => (
-                    <Typography key={step} variant="body2" color="text.secondary">
+                    <Typography key={step} variant="body2" sx={{ color: "text.secondary" }}>
                       • {step}
                     </Typography>
                   ))}
@@ -487,11 +487,11 @@ const Online_Consultation = () => {
             <Grid size={{ xs: 12, md: 6 }}>
               <Paper variant="outlined" sx={{ p: 3, borderRadius: 4, height: "100%" }}>
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Good Cases for Online Consult
                   </Typography>
                   {consultationUseCases.map((item) => (
-                    <Typography key={item} variant="body2" color="text.secondary">
+                    <Typography key={item} variant="body2" sx={{ color: "text.secondary" }}>
                       • {item}
                     </Typography>
                   ))}

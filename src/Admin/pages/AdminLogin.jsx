@@ -62,10 +62,10 @@ const AdminLoginForm = () => {
         <CardContent sx={{ p: 4 }}>
           <Stack spacing={2.5}>
             <Box sx={{ textAlign: "center" }}>
-              <Typography variant="h4" fontWeight={900}>
+              <Typography variant="h4" sx={{ fontWeight: 900 }}>
                 Admin Login
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Sign in to manage items and requests.
               </Typography>
             </Box>

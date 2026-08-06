@@ -131,13 +131,12 @@ const In_Person_Consultation = () => {
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
           <Stack
             spacing={2}
-            mb={4}
-            sx={{ textAlign: "center", alignItems: "center" }}
+            sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
           >
-            <Typography variant="h3" fontWeight={800}>
+            <Typography variant="h3" sx={{ fontWeight: 800 }}>
               In-Person Consultation
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+            <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 760 }}>
               When your pet needs direct examination, treatment, or more confident
               clinical assessment, visiting a veterinary professional in person is
               often the most reliable next step.
@@ -148,10 +147,10 @@ const In_Person_Consultation = () => {
             {visitBenefits.map((item) => (
               <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {item.description}
                   </Typography>
                 </Paper>
@@ -161,10 +160,10 @@ const In_Person_Consultation = () => {
 
           <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, borderRadius: 4, mt: 3 }}>
             <Stack spacing={2.5}>
-              <Typography variant="h5" fontWeight={900}>
+              <Typography variant="h5" sx={{ fontWeight: 900 }}>
                 Request an Appointment
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Share your details and preferred date/time. Our team will confirm the clinic
                 schedule and any fees before the visit.
               </Typography>
@@ -327,10 +326,10 @@ const In_Person_Consultation = () => {
 
           <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, mt: 3 }}>
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight={700}>
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 What to Bring
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography variant="body1" sx={{ color: "text.secondary" }}>
                 Bring previous prescriptions, vaccination records, symptom notes,
                 and any recent test reports if available. That gives the veterinarian
                 a clearer picture and can reduce repeat questions during the visit.

@@ -30,14 +30,12 @@ const HealthTips = () => {
       >
         <Typography
           variant="overline"
-          color="success.main"
-          sx={{ fontWeight: 700, letterSpacing: 1 }}
+          sx={{ color: "success.main", fontWeight: 700, letterSpacing: 1 }}
         >
           Quick Reference
         </Typography>
         <Typography
           variant="h4"
-          gutterBottom
           sx={{
             textAlign: "center",
             fontWeight: 800,
@@ -47,7 +45,7 @@ const HealthTips = () => {
         >
           Health Tips & Quick Guides
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+        <Typography variant="body1" sx={{ maxWidth: 760, color: "text.secondary" }}>
           Browse a few practical care topics that can help you respond faster to
           common health questions and everyday pet needs.
         </Typography>
@@ -72,7 +70,6 @@ const HealthTips = () => {
             >
               <Typography
                 variant="h6"
-                gutterBottom
                 sx={{
                   color: "primary.headline",
                   fontWeight: 700,

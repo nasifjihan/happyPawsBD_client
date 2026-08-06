@@ -1,35 +1,31 @@
-import styled from "@emotion/styled";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import RescueAlertBanner from "./../../../images/RescueAlertBanner.png";
 
-const BrandingWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: "rgba(122, 178, 89, 0.15)",
-  padding: theme.spacing(4),
-  margin: "1rem 0",
-  display: "flex",
-  justifyContent: "space-between",
-  flexDirection: "column",
-  gap: theme.spacing(3),
-  [theme.breakpoints.up("md")]: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-}));
-
 const RescueBanner = () => {
   return (
     <Box className="myContainer">
-      <BrandingWrapper>
+      <Box
+        sx={{
+          backgroundColor: "rgba(122, 178, 89, 0.15)",
+          padding: 4,
+          margin: "1rem 0",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 3,
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: { md: "center" },
+        }}
+      >
         <Stack
           spacing={3}
           sx={{
             p: { xs: 2, md: 4 },
             textAlign: { xs: "center", md: "left" },
             alignItems: { xs: "center", md: "flex-start" },
+            flex: 1.1,
           }}
-          flex={1.1}
         >
           <Typography
             variant="h3"
@@ -39,7 +35,7 @@ const RescueBanner = () => {
             Be Their Voice When Every Minute Matters
           </Typography>
 
-          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 620 }}>
+          <Typography variant="body1" sx={{ maxWidth: 620, color: "text.secondary" }}>
             If you see an injured, abandoned, or distressed animal, let Happy Paws
             BD know as quickly as possible. Timely reports can help us guide rescue
             action, connect local support, and increase the chance of a safe recovery.
@@ -47,8 +43,7 @@ const RescueBanner = () => {
 
           <Typography
             variant="subtitle1"
-            color="primary.para"
-            sx={{ fontWeight: 700 }}
+            sx={{ fontWeight: 700, color: "primary.para" }}
           >
             Work with us. Report concerns early. Help rescue efforts move faster.
           </Typography>
@@ -76,19 +71,20 @@ const RescueBanner = () => {
         </Stack>
 
         <Box
-          flex={1}
           sx={{
+            flex: 1,
             display: { xs: "none", md: "block" },
             textAlign: "right",
           }}
         >
-          <img
+          <Box
+            component="img"
             src={RescueAlertBanner}
             alt="Rescue support illustration"
-            style={{ width: "100%", maxWidth: "460px" }}
+            sx={{ width: "100%", maxWidth: "460px" }}
           />
         </Box>
-      </BrandingWrapper>
+      </Box>
     </Box>
   );
 };

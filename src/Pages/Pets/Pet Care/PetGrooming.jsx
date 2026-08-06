@@ -64,12 +64,11 @@ const PetGrooming = () => {
   }, []);
 
   return (
-    <Box my={6}>
+    <Box sx={{ my: 6 }}>
       <Box
-        display="flex"
-        sx={{ justifyContent: "space-between", alignItems: "center" }}
+        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
       >
-        <Typography variant="h4" gutterBottom fontWeight={900}>
+        <Typography variant="h4" sx={{ mb: 1, fontWeight: 900 }}>
           Grooming
         </Typography>
 
@@ -77,9 +76,9 @@ const PetGrooming = () => {
           component="button"
           onClick={handleViewAll}
           variant="body1"
-          gutterBottom
-          fontWeight={700}
           sx={{
+            mb: 1,
+            fontWeight: 700,
             textDecoration: "none",
             color: "inherit",
             background: "none",
@@ -94,20 +93,18 @@ const PetGrooming = () => {
           component={Link}
           to="/petcare/grooming"
           variant="body1"
-          gutterBottom
-          fontWeight={700}
-          sx={{ textDecoration: "none", color: "inherit" }} // Optional: to remove underline and inherit text color
+          sx={{ gutterBottom: true, fontWeight: 700, textDecoration: "none", color: "inherit" }} // Optional: to remove underline and inherit text color
         >
           View All
         </Typography> */}
       </Box>
       <Divider />
 
-      <Grid container spacing={4} pt={3}>
+      <Grid container spacing={4} sx={{ pt: 3 }}>
         {isLoading ? (
           <Grid size={{ xs: 12 }}>
             <Paper sx={{ p: 3, borderRadius: 4 }}>
-              <Typography color="text.secondary">
+              <Typography sx={{ color: "text.secondary" }}>
                 Loading grooming programs...
               </Typography>
             </Paper>
@@ -130,15 +127,15 @@ const PetGrooming = () => {
               <CardActionArea onClick={() => handledaycare(item.id)}>
                 <CardMedia
                   component="img"
-                  height="420"
                   image={item.picture}
                   alt="Main Article"
+                  sx={{ height: 420 }}
                 />
                 <CardContent sx={{ padding: "0 !important" }}>
-                  <Typography variant="h6" fontWeight={700} gutterBottom pt={2}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, pt: 2 }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body1" color="primary.para">
+                  <Typography variant="body1" sx={{ color: "primary.para" }}>
                     {item.dis1}
                   </Typography>
                 </CardContent>
@@ -161,23 +158,21 @@ const PetGrooming = () => {
                   <CardActionArea onClick={() => handledaycare(item.id)}>
                     <CardMedia
                       component="img"
-                      height="150"
                       image={item.picture}
                       alt="Side Article 1"
                       sx={{
+                        height: 150,
                         borderRadius: "2%",
                       }}
                     />
                     <CardContent sx={{ padding: "0 !important" }}>
                       <Typography
                         variant="body1"
-                        fontWeight={700}
-                        gutterBottom
-                        pt={2}
+                        sx={{ fontWeight: 700, mb: 1, pt: 2 }}
                       >
                         {item.title}
                       </Typography>
-                      <Typography variant="body2" color="primary.para">
+                      <Typography variant="body2" sx={{ color: "primary.para" }}>
                         {item.dis1}
                       </Typography>
                     </CardContent>

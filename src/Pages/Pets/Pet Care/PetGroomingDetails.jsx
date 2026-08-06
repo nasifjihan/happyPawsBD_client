@@ -131,7 +131,7 @@ const PetGroomingDetails = () => {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Loading grooming program...
           </Typography>
         </Paper>
@@ -160,10 +160,10 @@ const PetGroomingDetails = () => {
     <Box className="myContainer" sx={{ my: 5 }}>
       <Stack spacing={3}>
         <Stack spacing={1} sx={{ textAlign: "center" }}>
-          <Typography variant="h3" fontWeight={800} color="primary.headline">
+          <Typography variant="h3" sx={{ color: "primary.headline", fontWeight: 800 }}>
             {item.title}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: "text.secondary" }}>
             Review what&apos;s included, then submit your request to reserve this
             grooming service for your pet.
           </Typography>
@@ -181,10 +181,11 @@ const PetGroomingDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, md: 6 }}>
             <Paper variant="outlined" sx={{ overflow: "hidden", borderRadius: 3 }}>
-              <img
+              <Box
+                component="img"
                 src={item.picture}
                 alt={item.title}
-                style={{ width: "100%", display: "block" }}
+                sx={{ width: "100%", display: "block" }}
               />
             </Paper>
           </Grid>
@@ -192,7 +193,7 @@ const PetGroomingDetails = () => {
           <Grid size={{ xs: 12, md: 6 }}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
               <Stack spacing={2}>
-                <Typography variant="h5" color="success.main" fontWeight={700}>
+                <Typography variant="h5" sx={{ color: "success.main", fontWeight: 700 }}>
                   Service Overview
                 </Typography>
 
@@ -224,10 +225,10 @@ const PetGroomingDetails = () => {
 
           <Grid size={{ xs: 12 }}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
-              <Typography variant="h5" gutterBottom color="primary.main" fontWeight={700}>
+              <Typography variant="h5" sx={{ mb: 1, color: "primary.main", fontWeight: 700 }}>
                 Request This Grooming Service
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
                 Share your details and we&apos;ll follow up about scheduling and
                 availability.
               </Typography>

@@ -111,16 +111,16 @@ const AdminSettings = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Settings
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
+      <Typography sx={{ mb: 3, color: "text.secondary" }}>
         Manage admin credentials and public site settings.
       </Typography>
 
       <Stack spacing={3} sx={{ maxWidth: 820 }}>
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
             Admin Credentials
           </Typography>
           <Stack spacing={2}>
@@ -168,10 +168,10 @@ const AdminSettings = () => {
         </Paper>
 
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
             Site Settings
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
             These values are used on Footer, Contact Us, and Donation pages.
           </Typography>
 
@@ -205,7 +205,7 @@ const AdminSettings = () => {
 
                 <Divider />
 
-                <Typography variant="subtitle1" fontWeight={900}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 900 }}>
                   Home Page
                 </Typography>
 

@@ -13,7 +13,7 @@ const RouteLoader = ({ message = "Loading page..." }) => {
       }}
     >
       <CircularProgress color="success" />
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{ color: "text.secondary" }}>
         {message}
       </Typography>
     </Box>

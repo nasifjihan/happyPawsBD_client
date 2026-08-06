@@ -20,14 +20,12 @@ const Testimonials = () => {
       <Stack spacing={1} sx={{ textAlign: "center", alignItems: "center" }}>
         <Typography
           variant="overline"
-          color="success.main"
-          sx={{ fontWeight: 700, letterSpacing: 1 }}
+          sx={{ color: "success.main", fontWeight: 700, letterSpacing: 1 }}
         >
           Reader Feedback
         </Typography>
         <Typography
           variant="h4"
-          gutterBottom
           sx={{
             textAlign: "center",
             fontWeight: 800,
@@ -37,7 +35,7 @@ const Testimonials = () => {
         >
           What Our Readers Say
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+        <Typography variant="body1" sx={{ maxWidth: 760, color: "text.secondary" }}>
           A few examples of how clear, practical pet health guidance can make day
           to day care feel more manageable for families.
         </Typography>

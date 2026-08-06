@@ -6,7 +6,7 @@ import OptimizedImage from "../../../Components/Common/OptimizedImage";
 
 const PetTrainingBanner = () => {
   return (
-    <Box my={5} p={5}>
+    <Box sx={{ my: 5, p: 5 }}>
       <Grid
         container
         spacing={2}
@@ -23,11 +23,10 @@ const PetTrainingBanner = () => {
           //   display: { sm: "none", lg: "block" }, // Hide the image on small screens
           // }}
         >
-          <Box>
+          <Box sx={{ width: "90%", padding: "25px 0px" }}>
             <OptimizedImage
               src={TrainingHero}
               alt="Pet training Banner Picture"
-              style={{ width: "90%", padding: "25px 0px" }}
             />
           </Box>
         </Grid>
@@ -36,9 +35,8 @@ const PetTrainingBanner = () => {
           <Stack spacing={2} sx={{ textAlign: { sm: "center", md: "left" } }}>
             <Typography
               variant="h4"
-              pb={2}
               color="primary.headline"
-              sx={{ fontWeight: "900" }}
+              sx={{ pb: 2, fontWeight: "900" }}
             >
               Training
             </Typography>
@@ -55,9 +53,8 @@ const PetTrainingBanner = () => {
 
             <Typography
               variant="h6"
-              pb={2}
               color="primary.para"
-              sx={{ fontWeight: "500" }}
+              sx={{ pb: 2, fontWeight: "500" }}
             >
               Pups, like kids, learn best when they’re having fun. That’s why we
               created an all-day “play school” for dogs ready to get serious

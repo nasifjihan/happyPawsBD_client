@@ -88,10 +88,10 @@ const AdminAdoptionRequestDetails = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 1, fontWeight: 900 }}>
             Adoption Request Details
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Review applicant details, the requested animal code, and adoption
             background before updating the case status.
           </Typography>
@@ -146,7 +146,7 @@ const AdminAdoptionRequestDetails = () => {
 
       {isLoading ? (
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">Loading adoption request...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading adoption request...</Typography>
         </Paper>
       ) : null}
 
@@ -165,10 +165,10 @@ const AdminAdoptionRequestDetails = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="h5" fontWeight={900}>
+                      <Typography variant="h5" sx={{ fontWeight: 900 }}>
                         {application.adopterName || "Applicant"}
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {application.animalCode || "No code"} •{" "}
                         {application.animalType || "Animal type not provided"}
                       </Typography>
@@ -196,11 +196,11 @@ const AdminAdoptionRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Adoption Background
                   </Typography>
                   <Divider />
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {application.experience || "No adoption experience was shared."}
                   </Typography>
                 </Stack>
@@ -208,7 +208,7 @@ const AdminAdoptionRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Applicant Contact
                   </Typography>
                   <Divider />
@@ -220,7 +220,7 @@ const AdminAdoptionRequestDetails = () => {
                     <strong>Phone:</strong>{" "}
                     {application.contactPhone || "No phone provided"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {application.address || "No address provided"}
                   </Typography>
                 </Stack>
@@ -232,17 +232,17 @@ const AdminAdoptionRequestDetails = () => {
             <Stack spacing={3}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Animal Request
                   </Typography>
                   <Divider />
                   <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                     <PetsOutlinedIcon color="success" fontSize="small" />
-                    <Typography fontWeight={700}>
+                    <Typography sx={{ fontWeight: 700 }}>
                       {application.animalCode || "No code"}
                     </Typography>
                   </Stack>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {application.animalType || "Animal type not provided"}
                   </Typography>
                 </Stack>
@@ -250,14 +250,14 @@ const AdminAdoptionRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Timeline
                   </Typography>
                   <Divider />
                   <Typography>
                     <strong>Created:</strong> {formatDateTime(application.createdAt)}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Updated {formatDateTime(application.updatedAt)}
                   </Typography>
                 </Stack>

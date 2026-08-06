@@ -1,23 +1,26 @@
+import { Box } from "@mui/material";
+
 const OptimizedImage = ({
   src,
   alt,
   loading = "lazy",
   decoding = "async",
   fetchPriority,
-  style,
+  sx,
   ...rest
 }) => {
   return (
-    <img
+    <Box
+      component="img"
       src={src}
       alt={alt}
       loading={loading}
       decoding={decoding}
       fetchPriority={fetchPriority}
-      style={{
+      sx={{
         display: "block",
         maxWidth: "100%",
-        ...style,
+        ...sx,
       }}
       {...rest}
     />

@@ -61,20 +61,18 @@ const TrainingMenu = () => {
   }, []);
 
   return (
-    <Box bgcolor={"rgba(122, 178, 89, 0.15)"} p={{ xs: 3, md: 5 }}>
+    <Box sx={{ bgcolor: "rgba(122, 178, 89, 0.15)", p: { xs: 3, md: 5 } }}>
       <Stack
         spacing={1.5}
-        mb={4}
-        sx={{ alignItems: "center", textAlign: "center" }}
+        sx={{ mb: 4, alignItems: "center", textAlign: "center" }}
       >
         <Typography
           variant="h4"
-          color="primary.headline"
-          sx={{ lineHeight: 1.3, fontWeight: 900 }}
+          sx={{ color: "primary.headline", lineHeight: 1.3, fontWeight: 900 }}
         >
           Training Programs at Happy Paws BD
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+        <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 760 }}>
           Explore training options designed to improve everyday behavior,
           confidence, and communication between pets and their families.
         </Typography>
@@ -89,7 +87,7 @@ const TrainingMenu = () => {
         {isLoading ? (
           <Grid size={{ xs: 12 }}>
             <Paper sx={{ p: 3, borderRadius: 4 }}>
-              <Typography color="text.secondary">
+              <Typography sx={{ color: "text.secondary" }}>
                 Loading training programs...
               </Typography>
             </Paper>
@@ -130,7 +128,7 @@ const TrainingMenu = () => {
                   component="img"
                   image={item.picture}
                   alt={item.title}
-                  height="220"
+                  sx={{ height: 220 }}
                 />
                 <CardContent
                   sx={{
@@ -142,17 +140,16 @@ const TrainingMenu = () => {
                 >
                   <Typography
                     variant="h6"
-                    fontWeight={700}
-                    sx={{ textAlign: "center" }}
+                    sx={{ fontWeight: 700, textAlign: "center" }}
                   >
                     {item.title}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {item.dis1}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {item.dis2}
                   </Typography>
 

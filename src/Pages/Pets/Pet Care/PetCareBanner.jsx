@@ -55,10 +55,11 @@ const PetCareBanner = () => {
       </Box>
 
       {/* Decorative SVG */}
-      <svg
+      <Box
+        component="svg"
         viewBox="0 0 1200 200"
         preserveAspectRatio="none"
-        style={{
+        sx={{
           position: "absolute",
           bottom: 0,
           left: 0,
@@ -79,7 +80,7 @@ const PetCareBanner = () => {
           d="M0,60 C300,210 900,210 1200,60 L1200,200 L0,200 Z"
           fill="#DCDCDC"
         ></path>
-      </svg>
+      </Box>
     </Box>
   );
 };

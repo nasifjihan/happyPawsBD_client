@@ -60,8 +60,8 @@ const LostForm = ({ hideHeading = false }) => {
   return (
     <Box>
       {!hideHeading ? (
-        <Box mx={"auto"} sx={{ textAlign: "center" }}>
-          <Typography variant="h5" fontWeight={700}>
+        <Box sx={{ mx: "auto", textAlign: "center" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700 }}>
             LOST PET REGISTRATION
           </Typography>
         </Box>
@@ -70,10 +70,10 @@ const LostForm = ({ hideHeading = false }) => {
       <Box>
         <Box
           component="form"
-          mx={"auto"}
           noValidate
           onSubmit={handleSubmit(onSubmit)}
           sx={{
+            mx: "auto",
             p: hideHeading ? 0 : 2,
           }}
         >
@@ -144,7 +144,7 @@ const LostForm = ({ hideHeading = false }) => {
                 />
               </FormControl>
               {errors.animalType && (
-                <Typography variant="caption" color="error">
+                <Typography variant="caption" sx={{ color: "error" }}>
                   {errors.animalType.message}
                 </Typography>
               )}
@@ -303,7 +303,7 @@ const LostForm = ({ hideHeading = false }) => {
                 )}
               </Box>
               {errors.petPicture && (
-                <Typography variant="caption" color="error">
+                <Typography variant="caption" sx={{ color: "error" }}>
                   {errors.petPicture.message}
                 </Typography>
               )}

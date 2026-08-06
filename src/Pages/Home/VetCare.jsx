@@ -1,34 +1,30 @@
-import styled from "@emotion/styled";
 import { Box, Button, Chip, Stack, Typography } from "@mui/material";
 import VetCareImage from "./../../images/optimized/vet-care.webp";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import OptimizedImage from "../../Components/Common/OptimizedImage";
 
-const BrandingWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: "rgba(122, 178, 89, 0.15)",
-  padding: theme.spacing(4),
-  display: "flex",
-  justifyContent: "space-between",
-  borderRadius: ".6rem",
-  flexDirection: "column",
-  [theme.breakpoints.up("md")]: {
-    flexDirection: "row",
-  },
-}));
-
 const VetCare = () => {
   return (
-    <Box className="myContainer" my={6}>
-      <BrandingWrapper>
+    <Box className="myContainer" sx={{ my: 6 }}>
+      <Box
+        sx={{
+          backgroundColor: "rgba(122, 178, 89, 0.15)",
+          padding: 4,
+          display: "flex",
+          justifyContent: "space-between",
+          borderRadius: ".6rem",
+          flexDirection: { xs: "column", md: "row" },
+        }}
+      >
         <Stack
           spacing={3}
           sx={{
             p: 4,
             alignItems: { xs: "center", md: "flex-start" },
             textAlign: { xs: "center", md: "left" },
+            flex: 1.4,
           }}
-          flex={1.4}
         >
           <Chip
             label="Daily Pet Care Support"
@@ -60,19 +56,19 @@ const VetCare = () => {
             spacing={1}
             sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
           >
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
               Grooming
             </Typography>
-            <Typography variant="body2" color="success.main">
+            <Typography variant="body2" sx={{ color: "success.main" }}>
               |
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
               Boarding
             </Typography>
-            <Typography variant="body2" color="success.main">
+            <Typography variant="body2" sx={{ color: "success.main" }}>
               |
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
               Trusted care guidance
             </Typography>
           </Stack>
@@ -90,17 +86,21 @@ const VetCare = () => {
         </Stack>
 
         <Box
-          flex={1}
-          display="flex"
-          sx={{ justifyContent: "center", alignItems: "center" }}
+          sx={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <OptimizedImage
-            src={VetCareImage}
-            alt="Pet care illustration"
-            style={{ width: "80%" }}
-          />
+          <Box sx={{ width: "80%" }}>
+            <OptimizedImage
+              src={VetCareImage}
+              alt="Pet care illustration"
+            />
+          </Box>
         </Box>
-      </BrandingWrapper>
+      </Box>
     </Box>
   );
 };

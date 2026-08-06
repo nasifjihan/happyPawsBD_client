@@ -4,12 +4,11 @@ import { Link as RouterLink } from "react-router-dom";
 
 const AdoptionDetails = () => {
   return (
-    <Box className="myContainer" mt={5}>
+    <Box className="myContainer" sx={{ mt: 5 }}>
       <Stack
         direction={{ xs: "column", md: "row" }}
         spacing={6}
-        sx={{ p: 4 }}
-        flex={1}
+        sx={{ p: 4, flex: 1 }}
         divider={
           <Divider
             orientation="vertical"
@@ -18,17 +17,15 @@ const AdoptionDetails = () => {
           />
         }
       >
-        <Box flex={1}>
+        <Box sx={{ flex: 1 }}>
           <Typography
             variant="h5"
-            color="primary.headline"
-            fontWeight={700}
-            my={2}
+            sx={{ color: "primary.headline", fontWeight: 700, my: 2 }}
           >
             ADOPTERS WELCOME
           </Typography>
 
-          <Typography variant="body2" color="primary.para">
+          <Typography variant="body2" sx={{ color: "primary.para" }}>
             Here at The Happy Paws BD, our Adoptions Department approaches
             adopting our homeless pets in need with an open end approach
             philosophy inspired by the coined term 'Adopters Welcome' by The
@@ -38,17 +35,15 @@ const AdoptionDetails = () => {
           </Typography>
         </Box>
 
-        <Box flex={1.4}>
+        <Box sx={{ flex: 1.4 }}>
           <Typography
             variant="h5"
-            color="primary.headline"
-            fontWeight={700}
-            // my={2}
+            sx={{ color: "primary.headline", fontWeight: 700 }}
           >
             ADOPTION REQUIREMENTS
           </Typography>
 
-          <Typography variant="body2" color="primary.para" pl={5}>
+          <Typography variant="body2" sx={{ color: "primary.para", pl: 5 }}>
             <ul>
               <li>
                 Must be 18+ years old to adopt a cat & 21+ years old to adopt a
@@ -74,17 +69,15 @@ const AdoptionDetails = () => {
         </Box>
       </Stack>
 
-      <Box px={4}>
+      <Box sx={{ px: 4 }}>
         <Typography
           variant="h5"
-          color="primary.headline"
-          fontWeight={700}
-          my={2}
+          sx={{ color: "primary.headline", fontWeight: 700, my: 2 }}
         >
           HOW TO ADD A NEW PET TO YOUR FAMILY
         </Typography>
 
-        <Typography variant="body2" color="primary.para" pl={5}>
+        <Typography variant="body2" sx={{ color: "primary.para", pl: 5 }}>
           <ul>
             <li>
               Visit{" "}

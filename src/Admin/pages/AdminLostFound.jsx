@@ -145,10 +145,10 @@ const AdminLostFound = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Lost & Found
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 2 }}>
+      <Typography sx={{ mb: 2, color: "text.secondary" }}>
         Review community reports and mark them resolved when appropriate.
       </Typography>
 
@@ -223,7 +223,7 @@ const AdminLostFound = () => {
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
-            <Typography color="text.secondary">Loading...</Typography>
+            <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
               <Paper
@@ -240,18 +240,18 @@ const AdminLostFound = () => {
                   }}
                 >
                   <Box>
-                    <Typography fontWeight={900}>
+                    <Typography sx={{ fontWeight: 900 }}>
                       {type === "lost-pets"
                         ? item.petName || "Lost pet"
                         : item.breed || item.animalType || "Found pet"}{" "}
                       • {item.animalType || ""}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {type === "lost-pets"
                         ? `${item.ownerName || ""} • ${item.contactPhone || ""}`
                         : `${item.founderName || ""} • ${item.contactPhone || ""}`}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.lastSeenLocation || item.foundLocation || ""} •{" "}
                       {item.lostDate || item.foundDate || ""}
                     </Typography>
@@ -292,13 +292,13 @@ const AdminLostFound = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">
+            <Typography sx={{ color: "text.secondary" }}>
               No reports matched your filters.
             </Typography>
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+            <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

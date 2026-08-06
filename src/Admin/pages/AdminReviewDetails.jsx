@@ -86,10 +86,10 @@ const AdminReviewDetails = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 1, fontWeight: 900 }}>
             Review Details
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Approve trusted feedback and keep internal notes for moderation decisions.
           </Typography>
         </Box>
@@ -142,7 +142,7 @@ const AdminReviewDetails = () => {
 
       {isLoading ? (
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">Loading review...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading review...</Typography>
         </Paper>
       ) : null}
 
@@ -161,10 +161,10 @@ const AdminReviewDetails = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="h5" fontWeight={900}>
+                      <Typography variant="h5" sx={{ fontWeight: 900 }}>
                         {review.title || "Review"}
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {review.fullName || "Community member"}
                         {review.contactEmail ? ` • ${review.contactEmail}` : ""}
                       </Typography>
@@ -174,7 +174,7 @@ const AdminReviewDetails = () => {
 
                   <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                     <Rating value={Number(review.rating || 0)} readOnly />
-                    <Typography color="text.secondary">
+                    <Typography sx={{ color: "text.secondary" }}>
                       {Number(review.rating || 0)}/5
                     </Typography>
                   </Stack>
@@ -197,11 +197,11 @@ const AdminReviewDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Review Message
                   </Typography>
                   <Divider />
-                  <Typography color="text.secondary" sx={{ whiteSpace: "pre-line" }}>
+                  <Typography sx={{ color: "text.secondary", whiteSpace: "pre-line" }}>
                     {review.message || "No message provided."}
                   </Typography>
                 </Stack>
@@ -209,7 +209,7 @@ const AdminReviewDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
                   </Typography>
                   <Divider />
@@ -229,7 +229,7 @@ const AdminReviewDetails = () => {
             <Stack spacing={3}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Timeline
                   </Typography>
                   <Divider />
@@ -237,7 +237,7 @@ const AdminReviewDetails = () => {
                     <RateReviewOutlinedIcon color="success" fontSize="small" />
                     <Typography>{formatDateTime(review.createdAt)}</Typography>
                   </Stack>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Updated {formatDateTime(review.updatedAt)}
                   </Typography>
                 </Stack>

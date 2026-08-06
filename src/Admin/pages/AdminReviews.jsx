@@ -64,10 +64,10 @@ const AdminReviews = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Reviews
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
+      <Typography sx={{ mb: 3, color: "text.secondary" }}>
         Approve trusted community reviews and reject spam or irrelevant submissions.
       </Typography>
 
@@ -102,7 +102,7 @@ const AdminReviews = () => {
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
-            <Typography color="text.secondary">Loading...</Typography>
+            <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
               <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
@@ -115,16 +115,16 @@ const AdminReviews = () => {
                   }}
                 >
                   <Box>
-                    <Typography fontWeight={900}>
+                    <Typography sx={{ fontWeight: 900 }}>
                       {item.title || "Review"} • {item.fullName || "Community member"}
                     </Typography>
                     <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                       <Rating value={Number(item.rating || 0)} readOnly size="small" />
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {item.contactEmail ? item.contactEmail : "No email"}
                       </Typography>
                     </Stack>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {String(item.message || "").slice(0, 140)}
                       {String(item.message || "").length > 140 ? "…" : ""}
                     </Typography>
@@ -173,11 +173,11 @@ const AdminReviews = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">No reviews matched your filters.</Typography>
+            <Typography sx={{ color: "text.secondary" }}>No reviews matched your filters.</Typography>
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+            <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

@@ -171,10 +171,10 @@ const AdminBlogPosts = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Blog Posts
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 2 }}>
+      <Typography sx={{ mb: 2, color: "text.secondary" }}>
         Manage articles shown on the Health Care Blog page.
       </Typography>
 
@@ -234,7 +234,7 @@ const AdminBlogPosts = () => {
                 spacing={2}
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography variant="h5" fontWeight={900}>
+                <Typography variant="h5" sx={{ fontWeight: 900 }}>
                   Posts
                 </Typography>
                 <Button
@@ -248,7 +248,7 @@ const AdminBlogPosts = () => {
               </Stack>
 
               {isLoading ? (
-                <Typography color="text.secondary">Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
               ) : rows.length ? (
                 rows.map((item) => (
                   <Paper
@@ -271,12 +271,12 @@ const AdminBlogPosts = () => {
                         spacing={1}
                         sx={{ alignItems: "center" }}
                       >
-                        <Typography fontWeight={900}>
+                        <Typography sx={{ fontWeight: 900 }}>
                           {item.title || "Untitled"}
                         </Typography>
                         {item.status ? <AdminStatusChip status={item.status} /> : null}
                       </Stack>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         ID {item.id} • {item.category || "Uncategorized"}
                         {item.featured ? " • Featured" : ""}
                       </Typography>
@@ -284,11 +284,11 @@ const AdminBlogPosts = () => {
                   </Paper>
                 ))
               ) : (
-                <Typography color="text.secondary">No blog posts found.</Typography>
+                <Typography sx={{ color: "text.secondary" }}>No blog posts found.</Typography>
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -303,7 +303,7 @@ const AdminBlogPosts = () => {
 
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
-            <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Post
             </Typography>
             <Divider sx={{ mb: 2 }} />

@@ -103,7 +103,7 @@ const matchesPath = (pathname, paths) =>
   );
 
 const navButtonSx = (active) => ({
-  color: active ? "success.main" : "inherit",
+  color: active ? "success.main" : "text.primary",
   fontWeight: 600,
   borderRadius: desktopNavRadius,
   px: 1.5,
@@ -115,7 +115,7 @@ const navButtonSx = (active) => ({
 
 const menuItemSx = {
   textDecoration: "none",
-  color: "inherit",
+  color: "text.primary",
   fontWeight: 600,
   minWidth: 220,
   "&:hover": { backgroundColor: "primary.back" },
@@ -129,12 +129,24 @@ const Header = (props) => {
     Object.fromEntries(navSections.map((section) => [section.key, null])),
   );
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [scrolled, setScrolled] = React.useState(false);
 
   const drawerWidth = 280;
   const { logOut, user } = useUserAuth();
   const { mode, toggleMode } = useColorMode();
   const navigate = useNavigate();
   const location = useLocation();
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+    if (typeof window !== "undefined") {
+      handleScroll();
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [window]);
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -191,11 +203,11 @@ const Header = (props) => {
     <Box sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 1 }}>
         <Link to="/" onClick={closeMobileDrawer}>
-          <img
+          <Box
+            component="img"
             src={HPBDLogo}
             alt="Happy Paws BD"
-            width={100}
-            style={{ cursor: "pointer" }}
+            sx={{ width: 100, cursor: "pointer" }}
           />
         </Link>
       </Typography>
@@ -349,282 +361,321 @@ const Header = (props) => {
   );
 
   return (
-    <Box className="myContainer" sx={{ display: "flex" }}>
-      <AppBar
-        color="default"
-        component="nav"
-        position="sticky"
-        sx={{ backgroundColor: "transparent", boxShadow: "none" }}
-      >
-        <Toolbar sx={{ gap: 1.5 }}>
-          <IconButton
-            color="inherit"
-            aria-label={
-              mobileOpen ? "Close navigation menu" : "Open navigation menu"
-            }
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation-drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ display: { md: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
+    <Box
+      component="header"
+      sx={{
+        position: "sticky",
+        top: 0,
+        zIndex: (theme) => theme.zIndex.appBar,
+        width: "100%",
+        backgroundColor:
+          mode === "dark"
+            ? "rgba(11, 16, 32, 0.95)"
+            : "rgba(255, 255, 255, 0.95)",
 
-          <Typography
-            variant="h6"
-            component={Link}
-            to="/"
-            sx={{
-              flexGrow: { xs: 1, md: 0 },
-              color: "inherit",
-              textDecoration: "none",
-              pt: 1,
-              display: "inline-block",
-              textAlign: { xs: "center", md: "inherit" },
-            }}
-          >
-            <img
-              src={mode === "dark" ? HPBDLogo2 : HPBDLogo}
-              alt="Happy Paws BD"
-              width={100}
-              style={{ cursor: "pointer" }}
-            />
-          </Typography>
-
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{
-              mx: 3,
-              flexGrow: 1,
-              alignItems: "center",
-              display: { xs: "none", md: "flex" },
-              flexWrap: "wrap",
-            }}
-          >
-            {primaryLinks.slice(0, 1).map((link) => {
-              const isActive = matchesPath(location.pathname, link.matchPaths);
-
-              return (
-                <Button
-                  key={link.to}
-                  component={Link}
-                  to={link.to}
-                  aria-current={isActive ? "page" : undefined}
-                  sx={navButtonSx(isActive)}
-                >
-                  {link.label}
-                </Button>
-              );
-            })}
-
-            {navSections.map((section) => {
-              const isSectionActive = matchesPath(
-                location.pathname,
-                section.matchPaths || section.items.map((item) => item.to),
-              );
-
-              return (
-                <Button
-                  key={section.key}
-                  onClick={(event) => handleDesktopMenuOpen(section.key, event)}
-                  aria-controls={
-                    menuAnchors[section.key] ? `${section.key}-menu` : undefined
-                  }
-                  aria-expanded={Boolean(menuAnchors[section.key])}
-                  aria-haspopup="menu"
-                  sx={navButtonSx(isSectionActive)}
-                >
-                  {section.label}
-                  <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
-                </Button>
-              );
-            })}
-
-            {primaryLinks.slice(1).map((link) => {
-              const isActive = matchesPath(location.pathname, link.matchPaths);
-
-              return (
-                <Button
-                  key={link.to}
-                  component={Link}
-                  to={link.to}
-                  aria-current={isActive ? "page" : undefined}
-                  sx={navButtonSx(isActive)}
-                >
-                  {link.label}
-                </Button>
-              );
-            })}
-          </Stack>
-
-          <Tooltip
-            title={
-              mode === "dark" ? "Switch to light mode" : "Switch to dark mode"
-            }
-          >
+        backdropFilter: scrolled ? "blur(10px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(10px)" : "none",
+        boxShadow: scrolled ? 2 : "none",
+        transition:
+          "background-color 200ms ease, box-shadow 200ms ease, backdrop-filter 200ms ease",
+      }}
+    >
+      <Box className="myContainer" sx={{ display: "flex", width: "100%" }}>
+        <AppBar
+          component="nav"
+          sx={{
+            backgroundColor: "transparent",
+            boxShadow: "none",
+            color: "text.primary",
+            width: "100%",
+            position: "static",
+          }}
+        >
+          <Toolbar sx={{ gap: 1.5 }}>
             <IconButton
-              color="inherit"
-              aria-label="Toggle color mode"
-              onClick={toggleMode}
+              aria-label={
+                mobileOpen ? "Close navigation menu" : "Open navigation menu"
+              }
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation-drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ color: "text.primary", display: { md: "none" } }}
             >
-              {mode === "dark" ? (
-                <LightModeOutlinedIcon />
-              ) : (
-                <DarkModeOutlinedIcon />
-              )}
+              <MenuIcon />
             </IconButton>
-          </Tooltip>
 
-          {navSections.map((section) => (
-            <Menu
-              key={section.key}
-              id={`${section.key}-menu`}
-              anchorEl={menuAnchors[section.key]}
-              keepMounted
-              open={Boolean(menuAnchors[section.key])}
-              onClose={() => handleDesktopMenuClose(section.key)}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+            <Typography
+              variant="h6"
+              component={Link}
+              to="/"
+              sx={{
+                flexGrow: { xs: 1, md: 0 },
+                color: "inherit",
+                textDecoration: "none",
+                pt: 1,
+                display: "inline-block",
+                textAlign: { xs: "center", md: "inherit" },
               }}
             >
-              {section.items.map((item) => {
-                const isActive =
-                  location.pathname === item.to ||
-                  location.pathname.startsWith(`${item.to}/`);
+              <Box
+                component="img"
+                src={mode === "dark" ? HPBDLogo2 : HPBDLogo}
+                alt="Happy Paws BD"
+                sx={{ width: 100, cursor: "pointer" }}
+              />
+            </Typography>
+
+            <Stack
+              direction="row"
+              sx={{
+                gap: 1,
+                mx: 3,
+                flexGrow: 1,
+                alignItems: "center",
+                display: { xs: "none", md: "flex" },
+                flexWrap: "wrap",
+              }}
+            >
+              {primaryLinks.slice(0, 1).map((link) => {
+                const isActive = matchesPath(
+                  location.pathname,
+                  link.matchPaths,
+                );
 
                 return (
-                  <MenuItem
-                    key={item.to}
+                  <Button
+                    key={link.to}
                     component={Link}
-                    to={item.to}
-                    onClick={() => handleDesktopMenuClose(section.key)}
-                    selected={isActive}
+                    to={link.to}
                     aria-current={isActive ? "page" : undefined}
-                    sx={menuItemSx}
+                    sx={navButtonSx(isActive)}
                   >
-                    {item.label}
-                  </MenuItem>
+                    {link.label}
+                  </Button>
                 );
               })}
-            </Menu>
-          ))}
 
-          {user ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip
-                title={
-                  user.displayName
-                    ? `Open account menu for ${user.displayName}`
-                    : "Open account menu"
-                }
-              >
-                <IconButton
-                  onClick={handleOpenUserMenu}
-                  aria-label="Open account menu"
-                  aria-controls={anchorElUser ? "user-menu" : undefined}
-                  aria-expanded={Boolean(anchorElUser)}
-                  aria-haspopup="menu"
-                >
-                  <Avatar
-                    alt={user.displayName || user.email || "Account"}
-                    src={user.photoURL || undefined}
+              {navSections.map((section) => {
+                const isSectionActive = matchesPath(
+                  location.pathname,
+                  section.matchPaths || section.items.map((item) => item.to),
+                );
+
+                return (
+                  <Button
+                    key={section.key}
+                    onClick={(event) =>
+                      handleDesktopMenuOpen(section.key, event)
+                    }
+                    aria-controls={
+                      menuAnchors[section.key]
+                        ? `${section.key}-menu`
+                        : undefined
+                    }
+                    aria-expanded={Boolean(menuAnchors[section.key])}
+                    aria-haspopup="menu"
+                    sx={navButtonSx(isSectionActive)}
                   >
-                    {(user.displayName || user.email || "A").charAt(0)}
-                  </Avatar>
-                </IconButton>
-              </Tooltip>
+                    {section.label}
+                    <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
+                  </Button>
+                );
+              })}
 
+              {primaryLinks.slice(1).map((link) => {
+                const isActive = matchesPath(
+                  location.pathname,
+                  link.matchPaths,
+                );
+
+                return (
+                  <Button
+                    key={link.to}
+                    component={Link}
+                    to={link.to}
+                    aria-current={isActive ? "page" : undefined}
+                    sx={navButtonSx(isActive)}
+                  >
+                    {link.label}
+                  </Button>
+                );
+              })}
+            </Stack>
+
+            <Tooltip
+              title={
+                mode === "dark" ? "Switch to light mode" : "Switch to dark mode"
+              }
+            >
+              <IconButton
+                aria-label="Toggle color mode"
+                onClick={toggleMode}
+                sx={{ color: "text.primary" }}
+              >
+                {mode === "dark" ? (
+                  <LightModeOutlinedIcon />
+                ) : (
+                  <DarkModeOutlinedIcon />
+                )}
+              </IconButton>
+            </Tooltip>
+
+            {navSections.map((section) => (
               <Menu
-                id="user-menu"
-                sx={{ mt: "45px" }}
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                key={section.key}
+                id={`${section.key}-menu`}
+                anchorEl={menuAnchors[section.key]}
                 keepMounted
+                open={Boolean(menuAnchors[section.key])}
+                onClose={() => handleDesktopMenuClose(section.key)}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "right",
+                  horizontal: "left",
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
               >
-                <MenuItem
-                  disabled
-                  sx={{
-                    opacity: 1,
-                    pointerEvents: "none",
-                    display: "block",
-                    maxWidth: 240,
-                  }}
-                >
-                  <Typography variant="subtitle2" fontWeight={700} noWrap>
-                    {user.displayName || "Happy Paws Member"}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" noWrap>
-                    {user.email || "Signed in"}
-                  </Typography>
-                </MenuItem>
-
-                <Divider />
-
-                {accountLinks.map((link) => {
-                  const isActive = matchesPath(location.pathname, [link.to]);
+                {section.items.map((item) => {
+                  const isActive =
+                    location.pathname === item.to ||
+                    location.pathname.startsWith(`${item.to}/`);
 
                   return (
                     <MenuItem
-                      key={link.to}
+                      key={item.to}
                       component={Link}
-                      to={link.to}
-                      onClick={handleCloseUserMenu}
+                      to={item.to}
+                      onClick={() => handleDesktopMenuClose(section.key)}
                       selected={isActive}
                       aria-current={isActive ? "page" : undefined}
                       sx={menuItemSx}
                     >
-                      {link.label}
+                      {item.label}
                     </MenuItem>
                   );
                 })}
-
-                <MenuItem onClick={handleLogout} sx={menuItemSx}>
-                  Log Out
-                </MenuItem>
               </Menu>
-            </Box>
-          ) : (
-            <Button
-              component={Link}
-              to="/sign_in"
-              aria-current={
-                matchesPath(location.pathname, [
-                  "/sign_in",
-                  "/sign_up",
-                  "/password_reset",
-                ])
-                  ? "page"
-                  : undefined
-              }
-              sx={navButtonSx(
-                matchesPath(location.pathname, [
-                  "/sign_in",
-                  "/sign_up",
-                  "/password_reset",
-                ]),
-              )}
-            >
-              Sign In
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
+            ))}
+
+            {user ? (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip
+                  title={
+                    user.displayName
+                      ? `Open account menu for ${user.displayName}`
+                      : "Open account menu"
+                  }
+                >
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    aria-label="Open account menu"
+                    aria-controls={anchorElUser ? "user-menu" : undefined}
+                    aria-expanded={Boolean(anchorElUser)}
+                    aria-haspopup="menu"
+                  >
+                    <Avatar
+                      alt={user.displayName || user.email || "Account"}
+                      src={user.photoURL || undefined}
+                    >
+                      {(user.displayName || user.email || "A").charAt(0)}
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  id="user-menu"
+                  sx={{ mt: "45px" }}
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem
+                    disabled
+                    sx={{
+                      opacity: 1,
+                      pointerEvents: "none",
+                      display: "block",
+                      maxWidth: 240,
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ fontWeight: 700, whiteSpace: "nowrap" }}
+                    >
+                      {user.displayName || "Happy Paws Member"}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary", whiteSpace: "nowrap" }}
+                    >
+                      {user.email || "Signed in"}
+                    </Typography>
+                  </MenuItem>
+
+                  <Divider />
+
+                  {accountLinks.map((link) => {
+                    const isActive = matchesPath(location.pathname, [link.to]);
+
+                    return (
+                      <MenuItem
+                        key={link.to}
+                        component={Link}
+                        to={link.to}
+                        onClick={handleCloseUserMenu}
+                        selected={isActive}
+                        aria-current={isActive ? "page" : undefined}
+                        sx={menuItemSx}
+                      >
+                        {link.label}
+                      </MenuItem>
+                    );
+                  })}
+
+                  <MenuItem onClick={handleLogout} sx={menuItemSx}>
+                    Log Out
+                  </MenuItem>
+                </Menu>
+              </Box>
+            ) : (
+              <Button
+                component={Link}
+                to="/sign_in"
+                aria-current={
+                  matchesPath(location.pathname, [
+                    "/sign_in",
+                    "/sign_up",
+                    "/password_reset",
+                  ])
+                    ? "page"
+                    : undefined
+                }
+                sx={navButtonSx(
+                  matchesPath(location.pathname, [
+                    "/sign_in",
+                    "/sign_up",
+                    "/password_reset",
+                  ]),
+                )}
+              >
+                Sign In
+              </Button>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Box>
 
       <Box component="nav">
         <Drawer

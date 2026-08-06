@@ -14,10 +14,10 @@ const ErrorFallback = () => {
       }}
     >
       <Stack spacing={2} sx={{ maxWidth: 520, textAlign: "center" }}>
-        <Typography variant="h4" component="h1" fontWeight={700}>
+        <Typography variant="h4" component="h1" sx={{ fontWeight: 700 }}>
           Something went wrong
         </Typography>
-        <Typography color="text.secondary">
+        <Typography sx={{ color: "text.secondary" }}>
           We hit an unexpected problem while loading this page. You can try the
           home page or reload and continue from there.
         </Typography>

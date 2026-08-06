@@ -48,7 +48,6 @@ const BlogCard = ({ title, excerpt, link, to, image }) => {
       >
         <Typography
           variant="h6"
-          gutterBottom
           sx={{
             fontWeight: 700,
             color: "primary.headline",
@@ -57,7 +56,7 @@ const BlogCard = ({ title, excerpt, link, to, image }) => {
         >
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+        <Typography variant="body2" sx={{ flexGrow: 1, color: "text.secondary" }}>
           {excerpt}
         </Typography>
         <Box>

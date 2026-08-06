@@ -114,13 +114,12 @@ const RescueDetails = () => {
       <Paper variant="outlined" sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
         <Stack
           spacing={2}
-          mb={4}
-          sx={{ textAlign: "center", alignItems: "center" }}
+          sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
         >
-          <Typography variant="h4" color="primary.headline" fontWeight={900}>
+          <Typography variant="h4" sx={{ color: "primary.headline", fontWeight: 900 }}>
             Make a Difference for Animals in Need
           </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+          <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 760 }}>
             Happy Paws BD believes rescue works best when communities act early,
             share accurate information, and stay connected. Your report can help
             start the right response sooner.
@@ -134,10 +133,10 @@ const RescueDetails = () => {
                 variant="outlined"
                 sx={{ p: 3, borderRadius: 3, height: "100%" }}
               >
-                <Typography variant="h6" fontWeight={700} gutterBottom>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                   {item.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   {item.description}
                 </Typography>
               </Paper>
@@ -152,11 +151,11 @@ const RescueDetails = () => {
                 variant="outlined"
                 sx={{ p: 3, borderRadius: 3, height: "100%" }}
               >
-                <Stack spacing={2} height="100%">
-                  <Typography variant="h6" fontWeight={700}>
+                <Stack spacing={2} sx={{ height: "100%" }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+                  <Typography variant="body2" sx={{ color: "text.secondary", flexGrow: 1 }}>
                     {item.description}
                   </Typography>
                   <Button
@@ -178,10 +177,10 @@ const RescueDetails = () => {
           spacing={1.5}
           sx={{ mt: 4, alignItems: "center", textAlign: "center" }}
         >
-          <Typography variant="h5" color="primary.headline" fontWeight={800}>
+          <Typography variant="h5" sx={{ color: "primary.headline", fontWeight: 800 }}>
             Together, We Can Respond Faster
           </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+          <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 760 }}>
             Thank you for being part of a more compassionate rescue network. The
             earlier a report reaches the right people, the better the chances of
             safety, treatment, and reunification.
@@ -191,16 +190,13 @@ const RescueDetails = () => {
         <Box sx={{ mt: 5 }}>
           <Typography
             variant="h5"
-            fontWeight={900}
-            gutterBottom
-            sx={{ textAlign: "center" }}
+            sx={{ fontWeight: 900, mb: 1, textAlign: "center" }}
           >
             Submit a Rescue Report
           </Typography>
           <Typography
             variant="body2"
-            color="text.secondary"
-            sx={{ textAlign: "center", maxWidth: 760, mx: "auto", mb: 3 }}
+            sx={{ color: "text.secondary", textAlign: "center", maxWidth: 760, mx: "auto", mb: 3 }}
           >
             Share the location and condition details. Our team will review and follow
             up as quickly as possible.

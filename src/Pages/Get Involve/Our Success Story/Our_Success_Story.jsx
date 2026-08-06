@@ -113,11 +113,11 @@ const Our_Success_Story = () => {
                     }}
                   />
 
-                  <Typography variant="h3" fontWeight={800}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
                     Every rescue journey is built one small win at a time
                   </Typography>
 
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     Happy Paws BD success is not only about adoption. It is also
                     about healing injured animals, helping lost pets return
                     home, supporting families with care guidance, and building a
@@ -159,7 +159,7 @@ const Our_Success_Story = () => {
                   }}
                 >
                   <Stack spacing={2}>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       What success looks like here
                     </Typography>
 
@@ -171,7 +171,7 @@ const Our_Success_Story = () => {
                         sx={{ alignItems: "flex-start" }}
                       >
                         <CheckCircleOutlineOutlinedIcon color="success" />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {step}
                         </Typography>
                       </Stack>
@@ -196,10 +196,10 @@ const Our_Success_Story = () => {
                   }}
                 >
                   <Stack spacing={1}>
-                    <Typography variant="h3" color="success.main" fontWeight={900}>
+                    <Typography variant="h3" sx={{ color: "success.main", fontWeight: 900 }}>
                       {item.number}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.label}
                     </Typography>
                   </Stack>
@@ -223,10 +223,10 @@ const Our_Success_Story = () => {
                 >
                   <Stack spacing={1.5}>
                     <FavoriteBorderOutlinedIcon color="success" />
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {story.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {story.description}
                     </Typography>
                   </Stack>
@@ -245,18 +245,18 @@ const Our_Success_Story = () => {
             }}
           >
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight={800}>
+              <Typography variant="h5" sx={{ fontWeight: 800 }}>
                 Featured success stories
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 These stories are managed from the admin panel so they stay up to
                 date as new rescues, recoveries, and adoptions happen.
               </Typography>
 
               {isLoading ? (
-                <Typography color="text.secondary">Loading stories...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading stories...</Typography>
               ) : isError ? (
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   Stories are unavailable right now.
                 </Typography>
               ) : stories.length ? (
@@ -273,14 +273,14 @@ const Our_Success_Story = () => {
                         }}
                       >
                         <Stack spacing={1}>
-                          <Typography fontWeight={800}>
+                          <Typography sx={{ fontWeight: 800 }}>
                             {entry.title || "Story"}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
                             {entry.excerpt ||
                               String(entry.story || "").slice(0, 140) + "..."}
                           </Typography>
-                          <Box pt={0.5}>
+                          <Box sx={{ pt: 0.5 }}>
                             <Button
                               size="small"
                               color="success"
@@ -295,7 +295,7 @@ const Our_Success_Story = () => {
                   ))}
                 </Grid>
               ) : (
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   No stories have been published yet.
                 </Typography>
               )}
@@ -314,10 +314,10 @@ const Our_Success_Story = () => {
             <Grid container spacing={3} sx={{ alignItems: "center" }}>
               <Grid size={{ xs: 12, md: 8 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Want to be part of the next success story?
                   </Typography>
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     You can help through donations, volunteering, adoption
                     support, transport coordination, or simply by sharing the
                     stories that deserve to be seen.
@@ -367,12 +367,12 @@ const Our_Success_Story = () => {
         <DialogContent dividers>
           <Stack spacing={1.5}>
             {selectedStory?.petName ? (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Pet: {selectedStory.petName}
               </Typography>
             ) : null}
             {selectedStory?.authorName ? (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 By {selectedStory.authorName}
               </Typography>
             ) : null}

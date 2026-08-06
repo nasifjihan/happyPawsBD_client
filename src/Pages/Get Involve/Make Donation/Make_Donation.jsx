@@ -145,11 +145,11 @@ const Make_Donation = () => {
                     }}
                   />
 
-                  <Typography variant="h3" fontWeight={800}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
                     Make a Donation to Help Pets in Need
                   </Typography>
 
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     Your support helps Happy Paws BD care for rescued,
                     vulnerable, and adoptable pets through food, shelter,
                     treatment, and urgent rescue response. Even a small donation
@@ -193,21 +193,20 @@ const Make_Donation = () => {
                   }}
                 >
                   <Stack spacing={2}>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Donation Support Channels
                     </Typography>
 
                     <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
                       <PhoneOutlinedIcon color="success" />
                       <Box>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Donation Phone / bKash
                         </Typography>
                         <Link
                           href={`tel:${bkashNumber.replace(/\s+/g, "")}`}
                           underline="hover"
-                          color="success.main"
-                          fontWeight={700}
+                          sx={{ color: "success.main", fontWeight: 700 }}
                         >
                           {bkashNumber}
                         </Link>
@@ -217,14 +216,13 @@ const Make_Donation = () => {
                     <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
                       <EmailOutlinedIcon color="success" />
                       <Box>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Donation Email Support
                         </Typography>
                         <Link
                           href={`mailto:${supportEmail}`}
                           underline="hover"
-                          color="success.main"
-                          fontWeight={700}
+                          sx={{ color: "success.main", fontWeight: 700 }}
                         >
                           {supportEmail}
                         </Link>
@@ -233,7 +231,7 @@ const Make_Donation = () => {
 
                     <Divider />
 
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       bKash is the fastest option right now. Nagad, bank
                       transfer, and in-kind donations are also available by
                       contacting the team directly.
@@ -259,7 +257,7 @@ const Make_Donation = () => {
                 >
                   <Stack spacing={1.5}>
                     <Box>{method.icon}</Box>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {method.title}
                     </Typography>
                     <Chip
@@ -269,7 +267,7 @@ const Make_Donation = () => {
                       variant="outlined"
                       sx={{ width: "fit-content", borderRadius: 999 }}
                     />
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {method.description}
                     </Typography>
                   </Stack>
@@ -291,7 +289,7 @@ const Make_Donation = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Donate via bKash
                   </Typography>
 
@@ -302,20 +300,18 @@ const Make_Donation = () => {
                       bgcolor: alpha("#2e7d32", 0.06),
                     }}
                   >
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       bKash Number
                     </Typography>
                     <Typography
                       variant="h4"
-                      fontWeight={800}
-                      color="success.main"
+                      sx={{ fontWeight: 800, color: "success.main" }}
                     >
                       {bkashNumber}
                     </Typography>
                     <Typography
                       variant="body2"
-                      color="text.secondary"
-                      sx={{ mt: 1 }}
+                      sx={{ color: "text.secondary", mt: 1 }}
                     >
                       Send your donation and keep the transaction ID for
                       confirmation.
@@ -335,7 +331,7 @@ const Make_Donation = () => {
                         size="small"
                         sx={{ fontWeight: 700 }}
                       />
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {step}
                       </Typography>
                     </Stack>
@@ -356,7 +352,7 @@ const Make_Donation = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Other Ways to Support
                   </Typography>
 
@@ -368,13 +364,13 @@ const Make_Donation = () => {
                       sx={{ alignItems: "flex-start" }}
                     >
                       <CheckCircleOutlineOutlinedIcon color="success" />
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {item}
                       </Typography>
                     </Stack>
                   ))}
 
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     For Nagad, bank transfer, sponsorship, or supply donations,
                     please contact Happy Paws BD directly so the team can guide
                     you with the right next step.
@@ -399,10 +395,10 @@ const Make_Donation = () => {
                 >
                   <Stack spacing={1.5}>
                     <Box>{area.icon}</Box>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {area.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {area.description}
                     </Typography>
                   </Stack>
@@ -423,10 +419,10 @@ const Make_Donation = () => {
             <Grid container spacing={3} sx={{ alignItems: "center" }}>
               <Grid size={{ xs: 12, md: 8 }}>
                 <Stack spacing={1.5}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Need help with a donation?
                   </Typography>
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     If you want to make a larger contribution, donate through a
                     different channel, or support with supplies instead of cash,
                     reach out directly and the team will guide you.

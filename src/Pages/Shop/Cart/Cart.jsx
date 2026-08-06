@@ -360,7 +360,7 @@ const Cart = () => {
             }}
             variant="outlined"
           />
-          <Typography variant="h3" fontWeight={800} color="#333332">
+          <Typography variant="h3" sx={{ fontWeight: 800, color: "#333332" }}>
             Checkout
           </Typography>
           <Typography sx={{ maxWidth: 720, color: "text.secondary" }}>
@@ -428,16 +428,16 @@ const Cart = () => {
                 borderRadius: 2,
               }}
             />
-            <Typography variant="h4" fontWeight={800} color="#333332">
+            <Typography variant="h4" sx={{ fontWeight: 800, color: "#333332" }}>
               Thanks, your checkout is complete
             </Typography>
-            <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
+            <Typography sx={{ maxWidth: 720, color: "text.secondary" }}>
               We have saved your order for {completedOrder.itemCount} item
               {completedOrder.itemCount === 1 ? "" : "s"} totaling ৳
               {completedOrder.total}.{" "}
               {completedOrder.paymentMethod === "online_payment"
                 ? "Your online payment was completed successfully."
-                : "Your cash on delivery request has been received."}
+                : "Your order is saved as cash on delivery."}
             </Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ pt: 1 }}>
               <Button
@@ -496,10 +496,10 @@ const Cart = () => {
                   }}
                 >
                   <Stack spacing={0.75}>
-                    <Typography variant="h5" fontWeight={800} color="#333332">
+                    <Typography variant="h5" sx={{ fontWeight: 800, color: "#333332" }}>
                       Complete Your Order
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       Fill in delivery details, choose how you want to pay, and
                       confirm everything from one place.
                     </Typography>

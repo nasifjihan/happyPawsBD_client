@@ -80,18 +80,18 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
           </Typography>
 
           <CardContent>
-            <Typography variant="h6" fontWeight={700} sx={{ lineHeight: 1.4 }}>
+            <Typography variant="h6" sx={{ lineHeight: 1.4, fontWeight: 700 }}>
               {product.name}
             </Typography>
             <Typography
               variant="body2"
-              color="text.secondary"
               sx={{
                 mb: 2,
                 display: "-webkit-box",
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
+                color: "text.secondary",
               }}
             >
               {product.description}
@@ -109,11 +109,11 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
           pb: 1,
         }}
       >
-        <Typography variant="body1" fontWeight={700} color="text.primary">
+        <Typography variant="body1" sx={{ fontWeight: 700, color: "text.primary" }}>
           ৳{product.price}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           {product.rating} star rating
         </Typography>
       </Box>

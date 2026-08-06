@@ -152,10 +152,10 @@ const AdminPetInfoBreeds = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Pet Info Breeds
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 2 }}>
+      <Typography sx={{ mb: 2, color: "text.secondary" }}>
         Manage breed records shown under each animal type in the Pet Library page.
       </Typography>
 
@@ -204,7 +204,7 @@ const AdminPetInfoBreeds = () => {
                 spacing={2}
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography variant="h5" fontWeight={900}>
+                <Typography variant="h5" sx={{ fontWeight: 900 }}>
                   Breeds
                 </Typography>
                 <Button
@@ -218,7 +218,7 @@ const AdminPetInfoBreeds = () => {
               </Stack>
 
               {isLoading ? (
-                <Typography color="text.secondary">Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
               ) : rows.length ? (
                 rows.map((item) => (
                   <Paper
@@ -236,19 +236,19 @@ const AdminPetInfoBreeds = () => {
                     onClick={() => handleSelect(item)}
                   >
                     <Stack spacing={0.5}>
-                      <Typography fontWeight={900}>{item.name || "Unnamed"}</Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography sx={{ fontWeight: 900 }}>{item.name || "Unnamed"}</Typography>
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         ID {item.id} • {item.type || "Unknown type"} • {item.size || "N/A"}
                       </Typography>
                     </Stack>
                   </Paper>
                 ))
               ) : (
-                <Typography color="text.secondary">No breeds found.</Typography>
+                <Typography sx={{ color: "text.secondary" }}>No breeds found.</Typography>
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -263,7 +263,7 @@ const AdminPetInfoBreeds = () => {
 
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
-            <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Breed
             </Typography>
             <Divider sx={{ mb: 2 }} />

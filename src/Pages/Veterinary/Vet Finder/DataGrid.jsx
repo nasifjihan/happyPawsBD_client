@@ -84,9 +84,9 @@ const DataGrid = ({ data }) => {
             >
               <CardMedia
                 component="img"
-                height="180"
                 image={sanitizeImageUrl(item.image) || fallbackVetImage}
                 alt={item.title}
+                sx={{ height: 180 }}
               />
 
               <CardContent
@@ -101,9 +101,7 @@ const DataGrid = ({ data }) => {
                   <Box>
                     <Typography
                       variant="h6"
-                      fontWeight={700}
-                      gutterBottom
-                      sx={{ lineHeight: 1.3 }}
+                      sx={{ fontWeight: 700, mb: 1, lineHeight: 1.3 }}
                     >
                       {item.title}
                     </Typography>
@@ -160,13 +158,13 @@ const DataGrid = ({ data }) => {
                       </Avatar>
 
                       <Box sx={{ minWidth: 0 }}>
-                        <Typography variant="caption" color="text.secondary">
+                        <Typography variant="caption" sx={{ color: "text.secondary" }}>
                           Location
                         </Typography>
                         <Typography
                           variant="body2"
-                          color="text.primary"
                           sx={{
+                            color: "text.primary",
                             fontWeight: 500,
                             display: "-webkit-box",
                             fontSize: 12,
@@ -301,7 +299,7 @@ const DataGrid = ({ data }) => {
               />
 
               {selectedVet.position ? (
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   {selectedVet.position}
                 </Typography>
               ) : null}

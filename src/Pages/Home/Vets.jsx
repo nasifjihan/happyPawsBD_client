@@ -79,15 +79,11 @@ const Vets = () => {
         sx={{ fontWeight: 700 }}
       />
 
-      <Typography
-        variant="h4"
-        color="primary.headline"
-        sx={{ lineHeight: 1, fontWeight: "900", p:2 }}
-      >
+      <Typography variant="h4" sx={{ lineHeight: 1, fontWeight: "900", p: 2 }}>
         Meet Our Veterinary Authors
       </Typography>
 
-      <Typography variant="body1" color="primary.para" px={4}>
+      <Typography variant="body1" sx={{ px: 4, color: "primary.para" }}>
         Veterinarians are at the core of Great Pet Care. These caring
         professionals write articles, review content <br /> for medical
         accuracy, and provide trusted information and insight. Meet some of our
@@ -96,11 +92,11 @@ const Vets = () => {
 
       <Box sx={{ position: "relative" }}>
         {isLoading ? (
-          <Typography color="primary.para" sx={{ mt: 3 }}>
+          <Typography sx={{ mt: 3, color: "primary.para" }}>
             Loading...
           </Typography>
         ) : isError ? (
-          <Typography color="primary.para" sx={{ mt: 3 }}>
+          <Typography sx={{ mt: 3, color: "primary.para" }}>
             Could not load veterinary authors.
           </Typography>
         ) : null}
@@ -163,8 +159,8 @@ const Vets = () => {
             {vets.map((item) => (
               <SwiperSlide key={item._id || item.id}>
                 <Box
-                  position="relative"
                   sx={{
+                    position: "relative",
                     width: "100%",
                     maxWidth: 250,
                     // mx: "auto",
@@ -172,20 +168,29 @@ const Vets = () => {
                     // margin: "40px 0px",
                   }}
                 >
-                  <OptimizedImage
-                    src={sanitizeImageUrl(item.picture)}
-                    alt={item.name || "Veterinary author"}
-                    style={{
+                  <Box
+                    sx={{
                       width: "100px",
                       height: "130px",
-                      objectFit: "cover",
                       borderRadius: ".6rem",
                       position: "absolute",
                       left: "-35px",
                       top: "10px",
                       zIndex: 100,
+                      overflow: "hidden",
                     }}
-                  />
+                  >
+                    <OptimizedImage
+                      src={sanitizeImageUrl(item.picture)}
+                      alt={item.name || "Veterinary author"}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </Box>
                   <Card
                     sx={{
                       position: "relative",

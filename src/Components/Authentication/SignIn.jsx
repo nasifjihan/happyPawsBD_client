@@ -126,13 +126,12 @@ const SignIn = () => {
                 />
 
                 <Box>
-                  <Typography component="h1" variant="h4" fontWeight={700}>
+                  <Typography component="h1" variant="h4" sx={{ fontWeight: 700 }}>
                     Welcome back
                   </Typography>
                   <Typography
                     variant="body2"
-                    color="text.secondary"
-                    sx={{ mt: 1, maxWidth: 420 }}
+                    sx={{ mt: 1, maxWidth: 420, color: "text.secondary" }}
                   >
                     Sign in to manage adoptions, rescue requests, checkout, and
                     your saved pet care activity.
@@ -208,8 +207,7 @@ const SignIn = () => {
                       component={RouterLink}
                       to={resetPasswordLink}
                       underline="hover"
-                      color="primary.main"
-                      fontWeight={600}
+                      sx={{ color: "primary.main", fontWeight: 600 }}
                     >
                       Forgot password?
                     </Link>
@@ -259,8 +257,7 @@ const SignIn = () => {
 
                   <Typography
                     variant="body2"
-                    color="text.secondary"
-                    sx={{ textAlign: "center" }}
+                    sx={{ textAlign: "center", color: "text.secondary" }}
                   >
                     Protected access for your account, orders, and care updates.
                   </Typography>
@@ -275,14 +272,13 @@ const SignIn = () => {
                   textAlign: "center",  
                 }}
               >
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   New to Happy Paws?{" "}
                   <Link
                     component={RouterLink}
                     to={signUpLink}
                     underline="hover"
-                    color="primary.main"
-                    fontWeight={700}
+                    sx={{ color: "primary.main", fontWeight: 700 }}
                   >
                     Create an account
                   </Link>

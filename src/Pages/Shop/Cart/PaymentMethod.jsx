@@ -44,12 +44,11 @@ const PaymentMethod = ({
         <Typography
           id="payment-method-heading"
           variant="h5"
-          fontWeight={800}
-          color="#333332"
+          sx={{ fontWeight: 800, color: "#333332" }}
         >
           Payment Method
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           Choose how you would like to complete this order.
         </Typography>
       </Stack>
@@ -79,9 +78,9 @@ const PaymentMethod = ({
               <Box sx={{ py: 0.25 }}>
                 <Stack direction="row" spacing={1} sx={{ mb: 0.5, alignItems: "center" }}>
                   <CreditCardOutlinedIcon fontSize="small" sx={{ color: "#7AB259" }} />
-                  <Typography fontWeight={700}>Online Payment</Typography>
+                  <Typography sx={{ fontWeight: 700 }}>Online Payment</Typography>
                 </Stack>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   Pay securely with Stripe and complete checkout instantly.
                 </Typography>
               </Box>
@@ -113,9 +112,9 @@ const PaymentMethod = ({
                     fontSize="small"
                     sx={{ color: "#7AB259" }}
                   />
-                  <Typography fontWeight={700}>Cash on Delivery</Typography>
+                  <Typography sx={{ fontWeight: 700 }}>Cash on Delivery</Typography>
                 </Stack>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   Pay when your order reaches your doorstep.
                 </Typography>
               </Box>

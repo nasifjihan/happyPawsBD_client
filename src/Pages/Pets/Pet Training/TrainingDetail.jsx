@@ -131,7 +131,7 @@ const TrainingDetail = () => {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">Loading training program...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading training program...</Typography>
         </Paper>
       </Box>
     );
@@ -158,10 +158,10 @@ const TrainingDetail = () => {
     <Box className="myContainer" sx={{ my: 5 }}>
       <Stack spacing={3}>
         <Stack spacing={1} sx={{ textAlign: "center" }}>
-          <Typography variant="h3" fontWeight={800} color="primary.headline">
+          <Typography variant="h3" sx={{ color: "primary.headline", fontWeight: 800 }}>
             {item.title}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" sx={{ color: "text.secondary" }}>
             Review the program details below, then complete the enrollment form to
             request your place.
           </Typography>
@@ -179,10 +179,11 @@ const TrainingDetail = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, md: 6 }}>
             <Paper variant="outlined" sx={{ overflow: "hidden", borderRadius: 3 }}>
-              <img
+              <Box
+                component="img"
                 src={item.picture}
                 alt={item.title}
-                style={{ width: "100%", display: "block" }}
+                sx={{ width: "100%", display: "block" }}
               />
             </Paper>
           </Grid>
@@ -190,7 +191,7 @@ const TrainingDetail = () => {
           <Grid size={{ xs: 12, md: 6 }}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
               <Stack spacing={2}>
-                <Typography variant="h5" color="success.main" fontWeight={700}>
+                <Typography variant="h5" sx={{ color: "success.main", fontWeight: 700 }}>
                   Program Overview
                 </Typography>
 
@@ -221,10 +222,10 @@ const TrainingDetail = () => {
 
           <Grid size={{ xs: 12 }}>
             <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
-              <Typography variant="h5" gutterBottom color="primary.main" fontWeight={700}>
+              <Typography variant="h5" sx={{ mb: 1, color: "primary.main", fontWeight: 700 }}>
                 Enroll in This Program
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
                 Submit your details and our team can follow up with next steps and
                 scheduling guidance.
               </Typography>

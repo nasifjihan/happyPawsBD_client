@@ -187,11 +187,11 @@ const Volunteer = () => {
                     }}
                   />
 
-                  <Typography variant="h3" fontWeight={800}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
                     Volunteer With Happy Paws BD
                   </Typography>
 
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     Join a compassionate network that helps rescued, vulnerable,
                     and adoptable pets get the support they need. Whether you
                     can help on the ground or behind the scenes, your time can
@@ -234,7 +234,7 @@ const Volunteer = () => {
                   }}
                 >
                   <Stack spacing={2}>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       What we look for
                     </Typography>
                     {volunteerExpectations.map((item) => (
@@ -245,7 +245,7 @@ const Volunteer = () => {
                         sx={{ alignItems: "flex-start" }}
                       >
                         <CheckCircleOutlineOutlinedIcon color="success" />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {item}
                         </Typography>
                       </Stack>
@@ -271,10 +271,10 @@ const Volunteer = () => {
                 >
                   <Stack spacing={1.5}>
                     <Box>{role.icon}</Box>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {role.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {role.description}
                     </Typography>
                   </Stack>
@@ -296,7 +296,7 @@ const Volunteer = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     How to join
                   </Typography>
                   {processSteps.map((step, index) => (
@@ -312,7 +312,7 @@ const Volunteer = () => {
                         size="small"
                         sx={{ fontWeight: 700 }}
                       />
-                      <Typography variant="body1" color="text.secondary">
+                      <Typography variant="body1" sx={{ color: "text.secondary" }}>
                         {step}
                       </Typography>
                     </Stack>
@@ -333,16 +333,16 @@ const Volunteer = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Why volunteers matter
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Volunteers help us respond faster, support more pets, and
                     stay connected with the community. Even a few hours of your
                     time can help with rescue coordination, transport, foster
                     care, and awareness efforts.
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     If you are ready to help, submit your request and we will
                     review it for the best fit.
                   </Typography>
@@ -376,13 +376,13 @@ const Volunteer = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Volunteer FAQ
                   </Typography>
                   {faqItems.map((item) => (
                     <Box key={item.question}>
-                      <Typography fontWeight={800}>{item.question}</Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography sx={{ fontWeight: 800 }}>{item.question}</Typography>
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {item.answer}
                       </Typography>
                     </Box>
@@ -403,10 +403,10 @@ const Volunteer = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Other ways to help
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     If volunteering is not possible right now, you can still
                     support pets through donations, stories, and community
                     reviews.
@@ -454,10 +454,10 @@ const Volunteer = () => {
         maxWidth="md"
       >
         <DialogTitle sx={{ pb: 1 }}>
-          <Typography variant="h5" fontWeight={800}>
+          <Typography variant="h5" sx={{ fontWeight: 800 }}>
             Volunteer Request Form
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          <Typography variant="body2" sx={{ mt: 1, color: "text.secondary" }}>
             Share your details and preferred role. We will review your request
             and contact you with next steps.
           </Typography>

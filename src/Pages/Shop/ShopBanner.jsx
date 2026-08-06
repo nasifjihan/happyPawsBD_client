@@ -6,8 +6,8 @@ import shopBannerImage from "../../images/optimized/banner2.webp";
 const ShopBanner = () => {
   return (
     <Box
-      my={3}
       sx={{
+        my: 3,
         height: "400px",
         backgroundImage: `url(${shopBannerImage})`,
         backgroundSize: "cover",

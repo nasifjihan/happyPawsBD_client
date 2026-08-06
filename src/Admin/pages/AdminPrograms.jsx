@@ -258,10 +258,10 @@ const AdminPrograms = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Programs
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 2 }}>
+      <Typography sx={{ mb: 2, color: "text.secondary" }}>
         Manage training, grooming, and boarding program content shown on the public
         pages.
       </Typography>
@@ -304,7 +304,7 @@ const AdminPrograms = () => {
                 spacing={2}
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography variant="h5" fontWeight={900}>
+                <Typography variant="h5" sx={{ fontWeight: 900 }}>
                   {programTypes.find((entry) => entry.value === type)?.label} Programs
                 </Typography>
                 <Button
@@ -318,7 +318,7 @@ const AdminPrograms = () => {
               </Stack>
 
               {isLoading ? (
-                <Typography color="text.secondary">Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
               ) : rows.length ? (
                 rows.map((item) => (
                   <Paper
@@ -336,10 +336,10 @@ const AdminPrograms = () => {
                     onClick={() => handleSelect(item)}
                   >
                     <Stack spacing={0.5}>
-                      <Typography fontWeight={900}>
+                      <Typography sx={{ fontWeight: 900 }}>
                         {item.title || "Untitled"}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         ID {item.id} • {item.duration || item.Duration || "TBD"} •{" "}
                         {item.price || item.Price || "TBD"}
                       </Typography>
@@ -347,11 +347,11 @@ const AdminPrograms = () => {
                   </Paper>
                 ))
               ) : (
-                <Typography color="text.secondary">No programs found.</Typography>
+                <Typography sx={{ color: "text.secondary" }}>No programs found.</Typography>
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -366,7 +366,7 @@ const AdminPrograms = () => {
 
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
-            <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Program
             </Typography>
             <Divider sx={{ mb: 2 }} />

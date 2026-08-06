@@ -347,13 +347,12 @@ const VetFinder = () => {
         <Stack spacing={3}>
           <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
             <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
-              <Typography variant="h4" fontWeight={800}>
+              <Typography variant="h4" sx={{ fontWeight: 800 }}>
                 Vet Finder
               </Typography>
               <Typography
                 variant="body2"
-                color="text.secondary"
-                sx={{ maxWidth: 780 }}
+                sx={{ maxWidth: 780, color: "text.secondary" }}
               >
                 Search veterinary clinics, hospitals, and professionals across
                 Bangladesh. Use the filters below to narrow the list and open
@@ -379,7 +378,7 @@ const VetFinder = () => {
                       variant="outlined"
                       sx={{ fontWeight: 700 }}
                     />
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       Use your location to quickly open nearby clinics in Google Maps.
                     </Typography>
                   </Stack>
@@ -476,10 +475,10 @@ const VetFinder = () => {
               }}
             >
               <Box>
-                <Typography variant="body1" fontWeight={500}>
+                <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   {totalItems} result{totalItems === 1 ? "" : "s"} found
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   Currently showing providers in {locationSummary}.
                 </Typography>
               </Box>
@@ -497,7 +496,7 @@ const VetFinder = () => {
 
           {isLoadingData ? (
             <Paper sx={{ p: 3, borderRadius: 4 }}>
-              <Typography color="text.secondary">Loading vet directory...</Typography>
+              <Typography sx={{ color: "text.secondary" }}>Loading vet directory...</Typography>
             </Paper>
           ) : loadError ? (
             <ContentState

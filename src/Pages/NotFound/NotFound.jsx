@@ -14,13 +14,13 @@ const NotFound = () => {
         }}
       >
         <Stack spacing={2.5} sx={{ textAlign: "center", maxWidth: 560 }}>
-          <Typography variant="overline" color="success.main">
+          <Typography variant="overline" sx={{ color: "success.main" }}>
             404
           </Typography>
-          <Typography variant="h3" component="h1" fontWeight={700}>
+          <Typography variant="h3" component="h1" sx={{ fontWeight: 700 }}>
             Page not found
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             The page you are looking for does not exist or may have moved.
             Let&apos;s get you back to a working route.
           </Typography>

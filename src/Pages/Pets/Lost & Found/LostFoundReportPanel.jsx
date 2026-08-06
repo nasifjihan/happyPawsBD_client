@@ -70,10 +70,10 @@ const LostFoundReportPanel = React.forwardRef(
                 backgroundColor: "rgba(255, 255, 255, 0.56)",
               }}
             />
-            <Typography variant="h4" fontWeight={800} color="#333332">
+            <Typography variant="h4" sx={{ fontWeight: 800, color: "#333332" }}>
               Create a Clear, Useful Report
             </Typography>
-            <Typography color="text.secondary" sx={{ maxWidth: 760 }}>
+            <Typography sx={{ maxWidth: 760, color: "text.secondary" }}>
               Pick the report type that matches your situation, then fill out
               the form with accurate details and a recent photo.
             </Typography>
@@ -121,10 +121,10 @@ const LostFoundReportPanel = React.forwardRef(
               border: "1px solid rgba(122, 178, 89, 0.12)",
             }}
           >
-            <Typography variant="subtitle1" fontWeight={700} color="#333332">
+            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: "#333332" }}>
               {currentTab.label}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+            <Typography variant="body2" sx={{ mt: 0.5, color: "text.secondary" }}>
               {currentTab.description}
             </Typography>
           </Box>

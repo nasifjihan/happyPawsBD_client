@@ -137,11 +137,11 @@ const Share_Your_Story = () => {
                     }}
                   />
 
-                  <Typography variant="h3" fontWeight={800}>
+                  <Typography variant="h3" sx={{ fontWeight: 800 }}>
                     Share a story that can inspire care, adoption, and hope
                   </Typography>
 
-                  <Typography variant="body1" color="text.secondary">
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     If Happy Paws BD helped a pet you love, supported a rescue,
                     or encouraged a meaningful adoption journey, your story can
                     help more people trust the process and join the mission.
@@ -182,7 +182,7 @@ const Share_Your_Story = () => {
                   }}
                 >
                   <Stack spacing={2}>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       Story guide
                     </Typography>
 
@@ -194,7 +194,7 @@ const Share_Your_Story = () => {
                           size="small"
                           sx={{ fontWeight: 700 }}
                         />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {tip}
                         </Typography>
                       </Stack>
@@ -220,10 +220,10 @@ const Share_Your_Story = () => {
                 >
                   <Stack spacing={1.5}>
                     <Box>{theme.icon}</Box>
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {theme.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {theme.description}
                     </Typography>
                   </Stack>
@@ -245,10 +245,10 @@ const Share_Your_Story = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Draft your story
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     This first version gives visitors a strong place to begin.
                     Your submission is reviewed by the admin team before it is
                     published on the site.
@@ -362,15 +362,15 @@ const Share_Your_Story = () => {
                 }}
               >
                 <Stack spacing={2}>
-                  <Typography variant="h5" fontWeight={800}>
+                  <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     What makes a strong submission
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     The best stories are personal, clear, and grounded in real
                     moments. They do not have to be long. They just need heart,
                     honesty, and enough detail for others to connect with them.
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     If you also have photos, a rescue timeline, or an adoption
                     update, include them when you contact the team so the story
                     can later be featured more fully.

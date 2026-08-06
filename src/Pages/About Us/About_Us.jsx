@@ -44,24 +44,24 @@ const About_Us = () => {
           <Grid container spacing={4} sx={{ alignItems: "center" }}>
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={2.5}>
-                <Typography variant="h3" fontWeight={800}>
+                <Typography variant="h3" sx={{ fontWeight: 800 }}>
                   About Happy Paws BD
                 </Typography>
 
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   Happy Paws BD is a community-focused pet platform built to make
                   rescue, adoption, and everyday pet care more accessible for families
                   across Bangladesh.
                 </Typography>
 
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   We want pet owners, rescuers, and animal lovers to find practical
                   support in one place, whether that means helping a lost pet return
                   home, exploring adoption, or getting trusted guidance for health and
                   care.
                 </Typography>
 
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   Our goal is simple: reduce friction for good care and create a more
                   compassionate journey for pets and the people looking after them.
                 </Typography>
@@ -88,10 +88,11 @@ const About_Us = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 4 }}>
-              <OptimizedImage
+              <Box
+                component={OptimizedImage}
                 src={aboutImage}
                 alt="Happy Paws BD supporting pets and pet families"
-                style={{ width: "100%", borderRadius: "24px" }}
+                sx={{ width: "100%", borderRadius: "24px" }}
               />
             </Grid>
           </Grid>
@@ -103,10 +104,10 @@ const About_Us = () => {
                   variant="outlined"
                   sx={{ p: 3, borderRadius: 3, height: "100%" }}
                 >
-                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {item.description}
                   </Typography>
                 </Paper>

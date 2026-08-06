@@ -115,10 +115,10 @@ const AdminPetInfoAnimals = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Pet Info Animals
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 2 }}>
+      <Typography sx={{ mb: 2, color: "text.secondary" }}>
         Manage animal type group summaries shown in the Pet Library page.
       </Typography>
 
@@ -152,7 +152,7 @@ const AdminPetInfoAnimals = () => {
                 spacing={2}
                 sx={{ justifyContent: "space-between" }}
               >
-                <Typography variant="h5" fontWeight={900}>
+                <Typography variant="h5" sx={{ fontWeight: 900 }}>
                   Animal Types
                 </Typography>
                 <Button
@@ -166,7 +166,7 @@ const AdminPetInfoAnimals = () => {
               </Stack>
 
               {isLoading ? (
-                <Typography color="text.secondary">Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
               ) : rows.length ? (
                 rows.map((item) => (
                   <Paper
@@ -184,19 +184,19 @@ const AdminPetInfoAnimals = () => {
                     onClick={() => handleSelect(item)}
                   >
                     <Stack spacing={0.5}>
-                      <Typography fontWeight={900}>{item.type || "Untitled"}</Typography>
-                      <Typography variant="body2" color="text.secondary" noWrap>
+                      <Typography sx={{ fontWeight: 900 }}>{item.type || "Untitled"}</Typography>
+                      <Typography variant="body2" sx={{ color: "text.secondary", whiteSpace: "nowrap" }}>
                         {item.summary || ""}
                       </Typography>
                     </Stack>
                   </Paper>
                 ))
               ) : (
-                <Typography color="text.secondary">No animal groups found.</Typography>
+                <Typography sx={{ color: "text.secondary" }}>No animal groups found.</Typography>
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -211,7 +211,7 @@ const AdminPetInfoAnimals = () => {
 
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
-            <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Animal
             </Typography>
             <Divider sx={{ mb: 2 }} />

@@ -21,10 +21,10 @@ const AccountShell = ({ activeSection, title, description, children }) => {
       <Paper elevation={2} sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
         <Stack spacing={3}>
           <Box>
-            <Typography variant="h4" fontWeight={800} gutterBottom>
+            <Typography variant="h4" sx={{ mb: 1, fontWeight: 800 }}>
               {title}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" sx={{ color: "text.secondary" }}>
               {description}
             </Typography>
           </Box>

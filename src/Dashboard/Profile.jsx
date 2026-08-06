@@ -79,10 +79,10 @@ const Profile = () => {
           </Grid>
 
           <Grid size={{ xs: 12, md: 9 }}>
-            <Typography variant="h5" fontWeight={800}>
+            <Typography variant="h5" sx={{ fontWeight: 800 }}>
               {displayName}
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5 }}>
+            <Typography variant="body1" sx={{ mt: 0.5, color: "text.secondary" }}>
               {user.email || "No email address available"}{" "}
               <Chip
                 label={
@@ -93,7 +93,7 @@ const Profile = () => {
                 color={user.emailVerified ? "success" : "warning"}
               />
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+            <Typography variant="body2" sx={{ mt: 0.5, color: "text.secondary" }}>
               UID: {user.uid}
             </Typography>
           </Grid>
@@ -104,7 +104,7 @@ const Profile = () => {
         <Grid container spacing={1}>
           <Grid size={{ xs: 12, md: 6 }}>
             <Box>
-              <Typography variant="overline" color="text.secondary">
+              <Typography variant="overline" sx={{ color: "text.secondary" }}>
                 Contact
               </Typography>
               <Typography variant="body1">
@@ -114,7 +114,7 @@ const Profile = () => {
           </Grid>
           <Grid size={{ xs: 12, md: 6 }}>
             <Box>
-              <Typography variant="overline" color="text.secondary">
+              <Typography variant="overline" sx={{ color: "text.secondary" }}>
                 Sign-In Provider
               </Typography>
               <Typography variant="body1">{providerLabel}</Typography>
@@ -122,7 +122,7 @@ const Profile = () => {
           </Grid>
           <Grid size={{ xs: 12, md: 6 }}>
             <Box>
-              <Typography variant="overline" color="text.secondary">
+              <Typography variant="overline" sx={{ color: "text.secondary" }}>
                 Display Name
               </Typography>
               <Typography variant="body1">{displayName}</Typography>
@@ -130,7 +130,7 @@ const Profile = () => {
           </Grid>
           <Grid size={{ xs: 12, md: 6 }}>
             <Box>
-              <Typography variant="overline" color="text.secondary">
+              <Typography variant="overline" sx={{ color: "text.secondary" }}>
                 Account Status
               </Typography>
               <Typography variant="body1">

@@ -78,10 +78,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
       >
         <Typography
           variant="h4"
-          fontWeight={900}
-          color="#34495e"
-          pb={2}
-          gutterBottom
+          sx={{ fontWeight: 900, color: "#34495e", pb: 2, mb: 1 }}
         >
           Adoption Application Form
         </Typography>
@@ -165,7 +162,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 />
               </FormControl>
               {errors.animalType && (
-                <Typography variant="caption" color="error">
+                <Typography variant="caption" sx={{ color: "error" }}>
                   {errors.animalType.message}
                 </Typography>
               )}

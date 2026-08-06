@@ -81,10 +81,10 @@ const AdminVolunteerRequestDetails = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900} sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 1, fontWeight: 900 }}>
             Volunteer Request Details
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Review motivation, availability, contact preferences, and follow-up
             status from one page.
           </Typography>
@@ -139,7 +139,7 @@ const AdminVolunteerRequestDetails = () => {
 
       {isLoading ? (
         <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography color="text.secondary">Loading volunteer request...</Typography>
+          <Typography sx={{ color: "text.secondary" }}>Loading volunteer request...</Typography>
         </Paper>
       ) : null}
 
@@ -158,10 +158,10 @@ const AdminVolunteerRequestDetails = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="h5" fontWeight={900}>
+                      <Typography variant="h5" sx={{ fontWeight: 900 }}>
                         {application.fullName || "Volunteer"}
                       </Typography>
-                      <Typography color="text.secondary">
+                      <Typography sx={{ color: "text.secondary" }}>
                         {application.preferredRole || "Role not provided"} •{" "}
                         {application.city || "City not provided"}
                       </Typography>
@@ -189,10 +189,10 @@ const AdminVolunteerRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Motivation
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {application.motivation || "No motivation provided."}
                   </Typography>
                 </Stack>
@@ -200,7 +200,7 @@ const AdminVolunteerRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={2}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Experience and Availability
                   </Typography>
                   <Divider />
@@ -212,7 +212,7 @@ const AdminVolunteerRequestDetails = () => {
                     <strong>Time Commitment:</strong>{" "}
                     {application.timeCommitment || "Not provided"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {application.experience || "No experience shared."}
                   </Typography>
                 </Stack>
@@ -224,21 +224,21 @@ const AdminVolunteerRequestDetails = () => {
             <Stack spacing={3}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Contact
                   </Typography>
                   <Divider />
-                  <Typography fontWeight={700}>
+                  <Typography sx={{ fontWeight: 700 }}>
                     {application.contactEmail || "No email"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     {application.contactPhone || "No phone"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Preferred method:{" "}
                     {application.preferredContactMethod || "Not provided"}
                   </Typography>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Preferred time:{" "}
                     {application.preferredContactTime || "Not provided"}
                   </Typography>
@@ -247,7 +247,7 @@ const AdminVolunteerRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Summary
                   </Typography>
                   <Divider />
@@ -263,7 +263,7 @@ const AdminVolunteerRequestDetails = () => {
 
               <Paper sx={{ p: 3, borderRadius: 4 }}>
                 <Stack spacing={1.25}>
-                  <Typography variant="h6" fontWeight={800}>
+                  <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Timeline
                   </Typography>
                   <Divider />
@@ -271,7 +271,7 @@ const AdminVolunteerRequestDetails = () => {
                     <VolunteerActivismOutlinedIcon color="success" fontSize="small" />
                     <Typography>{formatDateTime(application.createdAt)}</Typography>
                   </Stack>
-                  <Typography color="text.secondary">
+                  <Typography sx={{ color: "text.secondary" }}>
                     Updated {formatDateTime(application.updatedAt)}
                   </Typography>
                 </Stack>

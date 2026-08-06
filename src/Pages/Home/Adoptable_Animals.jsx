@@ -75,7 +75,7 @@ const Adoptable_Animals = () => {
           </Alert>
         ) : null}
 
-        <Stack my={3}>
+        <Stack sx={{ my: 3 }}>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -86,7 +86,7 @@ const Adoptable_Animals = () => {
                 <Card
                   sx={{
                     boxShadow: "none",
-                    backgroundColor: "#FBFBFB",
+                   
                     borderRadius: 1,
                     border: "1px solid",
                     borderColor: "divider",
@@ -100,26 +100,26 @@ const Adoptable_Animals = () => {
                     onClick={() => handleCardClick(item.code)}
                     sx={{ height: "100%", alignItems: "stretch" }}
                   >
-                    <OptimizedImage
-                      src={item.photos}
-                      alt={item.name}
-                      style={{ width: "100%", height: 250, objectFit: "cover" }}
-                    />
+                    <Box sx={{ width: "100%", height: 250, overflow: "hidden" }}>
+                      <OptimizedImage
+                        src={item.photos}
+                        alt={item.name}
+                        sx={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      />
+                    </Box>
                     <CardContent>
                       <Stack
                         direction="row"
                         spacing={1}
-                        mb={1}
                         sx={{
+                          mb: 1,
                           justifyContent: "space-between",
                           alignItems: "center",
                         }}
                       >
                         <Typography
-                          gutterBottom
                           variant="h6"
-                          fontWeight={700}
-                          sx={{ mb: 0 }}
+                          sx={{ mb: 0, fontWeight: 700 }}
                         >
                           {item.name}
                         </Typography>
@@ -132,26 +132,25 @@ const Adoptable_Animals = () => {
                       </Stack>
                       <Typography
                         variant="body2"
-                        fontSize={12}
-                        color="text.secondary"
+                        sx={{ fontSize: 12, color: "text.secondary" }}
                       >
                         {item.breed} - {item.origin}
                       </Typography>
-                      <Typography variant="body2" pt={2} color="primary.para">
+                      <Typography variant="body2" sx={{ pt: 2, color: "primary.para" }}>
                         {item.age} Year{" "}
-                        <span style={{ color: "green" }}>|</span> {item.gender}{" "}
-                        <span style={{ color: "green" }}>|</span> {item.weight}
+                        <Box component="span" sx={{ color: "green" }}>|</Box> {item.gender}{" "}
+                        <Box component="span" sx={{ color: "green" }}>|</Box> {item.weight}
                       </Typography>
 
                       <Typography
                         variant="body2"
-                        color="text.secondary"
                         sx={{
                           mt: 1.5,
                           minHeight: 48,
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           overflowWrap: "break-word",
+                          color: "text.secondary",
                         }}
                       >
                         {item.breeddescription}
@@ -160,24 +159,21 @@ const Adoptable_Animals = () => {
                       <Stack
                         direction="row"
                         spacing={2}
-                        mt={2}
                         sx={{
+                          mt: 2,
                           justifyContent: "space-between",
                           alignItems: "center",
                         }}
                       >
                         <Typography
                           variant="body2"
-                          color="primary.green"
-                          sx={{ textAlign: "left" }}
+                          sx={{ textAlign: "left", color: "primary.green" }}
                         >
                           Code: {item.code}
                         </Typography>
                         <Typography
                           variant="body2"
-                          color="primary.green"
-                          sx={{ textAlign: "right" }}
-                          fontWeight={700}
+                          sx={{ textAlign: "right", fontWeight: 700, color: "primary.green" }}
                         >
                           View Details
                         </Typography>
@@ -203,7 +199,7 @@ const Adoptable_Animals = () => {
             },
           }}
         >
-          <Typography variant="button" fontWeight="bold">
+          <Typography variant="button" sx={{ fontWeight: "bold" }}>
             View All Adoptable Animals
           </Typography>
         </Button>

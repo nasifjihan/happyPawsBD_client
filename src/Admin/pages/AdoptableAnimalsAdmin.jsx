@@ -130,10 +130,10 @@ const AdoptableAnimalsAdmin = () => {
         }}
       >
         <Box>
-          <Typography variant="h3" fontWeight={900}>
+          <Typography variant="h3" sx={{ fontWeight: 900 }}>
             Adoptable Animals
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: "text.secondary" }}>
             Manage adoption listings shown on the public site.
           </Typography>
         </Box>
@@ -174,7 +174,7 @@ const AdoptableAnimalsAdmin = () => {
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
-                <Typography color="text.secondary">Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
               ) : rows.length ? (
                 rows.map((animal) => (
                   <Paper
@@ -197,28 +197,28 @@ const AdoptableAnimalsAdmin = () => {
                       sx={{ justifyContent: "space-between", alignItems: "center" }}
                     >
                       <Box>
-                        <Typography fontWeight={800}>
+                        <Typography sx={{ fontWeight: 800 }}>
                           {animal.name || "Unnamed animal"}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Code {animal.code} • {animal.species || ""} •{" "}
                           {animal.location || ""}
                         </Typography>
                       </Box>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {animal.gender || ""}
                       </Typography>
                     </Stack>
                   </Paper>
                 ))
               ) : (
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   No adoptable animals found.
                 </Typography>
               )}
 
               {totalPages > 1 ? (
-                <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
                   <Pagination
                     count={totalPages}
                     page={page}
@@ -233,7 +233,7 @@ const AdoptableAnimalsAdmin = () => {
 
         <Grid size={{ xs: 12, lg: 5 }}>
           <Paper sx={{ p: 2.5, borderRadius: 4 }}>
-            <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+            <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Animal
             </Typography>
             <Divider sx={{ mb: 2 }} />

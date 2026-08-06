@@ -159,10 +159,10 @@ const Shop = () => {
       <ShopBanner />
 
       <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-        <Typography variant="h6" color="initial">
+        <Typography variant="h6" sx={{ color: "initial" }}>
           Search
         </Typography>
-        <Box mx={5} sx={{ flexGrow: 1 }}>
+        <Box sx={{ mx: 5, flexGrow: 1 }}>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </Box>
 
@@ -173,7 +173,7 @@ const Shop = () => {
         </IconButton>
       </Box>
 
-      <Grid container spacing={5} pt={2} id="ShopProducts">
+      <Grid container spacing={5} sx={{ pt: 2 }} id="ShopProducts">
         <Grid size={{ xs: 12, sm: 4, md: 2 }}>
           <Filters
             key={filtersKey}
@@ -194,17 +194,17 @@ const Shop = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
-            mb={2}
             sx={{
+              mb: 2,
               justifyContent: "space-between",
               alignItems: { xs: "flex-start", sm: "center" },
             }}
           >
             <Box>
-              <Typography variant="h5" fontWeight={700}>
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 Products
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {filteredProducts.length} item
                 {filteredProducts.length === 1 ? "" : "s"} match your current
                 filters.
@@ -217,7 +217,7 @@ const Shop = () => {
           </Stack>
 
           {isLoading ? (
-            <Box py={6} sx={{ textAlign: "center" }}>
+            <Box sx={{ py: 6, textAlign: "center" }}>
               <CircularProgress color="success" />
             </Box>
           ) : filteredProducts.length ? (

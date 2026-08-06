@@ -44,7 +44,7 @@ const Account = () => {
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
-            <Typography variant="h6" fontWeight={700} gutterBottom>
+            <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
               Sign-In Details
             </Typography>
             <Stack spacing={1.5}>
@@ -60,11 +60,11 @@ const Account = () => {
 
         <Grid size={{ xs: 12, md: 6 }}>
           <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
-            <Typography variant="h6" fontWeight={700} gutterBottom>
+            <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
               Quick Actions
             </Typography>
             <Stack spacing={1.5}>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Need to update how you sign in?
               </Typography>
               <ContentState
@@ -80,7 +80,7 @@ const Account = () => {
 
         <Grid size={{ xs: 12 }}>
           <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
-            <Typography variant="h6" fontWeight={700} gutterBottom>
+            <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
               What This Area Covers
             </Typography>
             <Stack spacing={1}>
@@ -104,7 +104,7 @@ const Account = () => {
 
 const BoxRow = ({ label, value }) => (
   <div>
-    <Typography variant="overline" color="text.secondary">
+    <Typography variant="overline" sx={{ color: "text.secondary" }}>
       {label}
     </Typography>
     <Typography variant="body1">{value}</Typography>

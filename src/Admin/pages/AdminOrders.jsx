@@ -119,10 +119,10 @@ const AdminOrders = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 2 }}>
+      <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Orders
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
+      <Typography sx={{ mb: 3, color: "text.secondary" }}>
         Review checkout submissions and update statuses.
       </Typography>
 
@@ -176,7 +176,7 @@ const AdminOrders = () => {
       <Paper sx={{ p: 2.5, borderRadius: 4 }}>
         <Stack spacing={2}>
           {isLoading ? (
-            <Typography color="text.secondary">Loading...</Typography>
+            <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((order) => (
               <Paper
@@ -194,15 +194,15 @@ const AdminOrders = () => {
                     }}
                   >
                     <Box>
-                      <Typography fontWeight={900}>
+                      <Typography sx={{ fontWeight: 900 }}>
                         Order #{order._id?.slice(-6)}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {order.deliveryInfo?.name || "Customer"} • ৳
                         {order.orderSummary?.total ?? 0} •{" "}
                         {order.paymentMethod || ""}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {order.deliveryInfo?.email || ""} •{" "}
                         {order.deliveryInfo?.phone || ""}
                       </Typography>
@@ -298,13 +298,13 @@ const AdminOrders = () => {
               </Paper>
             ))
           ) : (
-            <Typography color="text.secondary">
+            <Typography sx={{ color: "text.secondary" }}>
               No orders matched your current filters.
             </Typography>
           )}
 
           {totalPages > 1 ? (
-            <Box display="flex" pt={2} sx={{ justifyContent: "center" }}>
+            <Box sx={{ display: "flex", pt: 2, justifyContent: "center" }}>
               <Pagination
                 count={totalPages}
                 page={page}

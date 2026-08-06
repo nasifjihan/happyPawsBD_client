@@ -24,7 +24,7 @@ const LostFoundRedesign = () => {
 
   if (isLoading) {
     return (
-      <Box py={20} sx={{ textAlign: "center" }}>
+      <Box sx={{ py: 20, textAlign: "center" }}>
         <CircularProgress color="success" />
       </Box>
     );
@@ -78,10 +78,10 @@ const LostFoundRedesign = () => {
               backgroundColor: "rgba(255, 255, 255, 0.56)",
             }}
           />
-          <Typography variant="h2" fontWeight={800} color="#333332">
+          <Typography variant="h2" sx={{ fontWeight: 800, color: "#333332" }}>
             Lost & Found Pets
           </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 760 }}>
+          <Typography variant="h6" sx={{ maxWidth: 760, color: "text.secondary" }}>
             Browse the latest lost and found reports first, then submit a clear
             report in the right format when you are ready.
           </Typography>
@@ -135,10 +135,10 @@ const LostFoundRedesign = () => {
           >
             <Stack spacing={1.5}>
               <SearchOutlinedIcon sx={{ color: "#7AB259", fontSize: 30 }} />
-              <Typography variant="h5" fontWeight={800} color="#333332">
+              <Typography variant="h5" sx={{ fontWeight: 800, color: "#333332" }}>
                 Found a pet?
               </Typography>
-              <Typography color="text.secondary">
+              <Typography sx={{ color: "text.secondary" }}>
                 Start by checking recent lost pet reports. If you do not find a
                 match, create a found pet report with a photo and contact
                 details.
@@ -168,10 +168,10 @@ const LostFoundRedesign = () => {
           >
             <Stack spacing={1.5}>
               <CampaignOutlinedIcon sx={{ color: "#7AB259", fontSize: 30 }} />
-              <Typography variant="h5" fontWeight={800} color="#333332">
+              <Typography variant="h5" sx={{ fontWeight: 800, color: "#333332" }}>
                 Lost a pet?
               </Typography>
-              <Typography color="text.secondary">
+              <Typography sx={{ color: "text.secondary" }}>
                 Check recent found pet reports first. If your pet is not there,
                 publish a lost pet report so others can help identify and
                 contact you quickly.
@@ -202,10 +202,10 @@ const LostFoundRedesign = () => {
               backgroundColor: "rgba(122, 178, 89, 0.08)",
             }}
           />
-          <Typography variant="h3" fontWeight={800} color="#333332">
+          <Typography variant="h3" sx={{ fontWeight: 800, color: "#333332" }}>
             Start with the Latest Listings
           </Typography>
-          <Typography color="text.secondary" sx={{ maxWidth: 760 }}>
+          <Typography sx={{ maxWidth: 760, color: "text.secondary" }}>
             Separating browsing from reporting makes it easier to scan current
             listings first and submit the right kind of report afterward.
           </Typography>

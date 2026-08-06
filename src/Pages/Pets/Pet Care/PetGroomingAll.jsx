@@ -64,10 +64,10 @@ const PetGroomingAll = () => {
       <Stack spacing={3}>
         <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
           <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
-            <Typography variant="h3" fontWeight={800}>
+            <Typography variant="h3" sx={{ fontWeight: 800 }}>
               Pet Grooming
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760 }}>
+            <Typography variant="body1" sx={{ maxWidth: 760, color: "text.secondary" }}>
               Explore grooming services that help pets stay clean, comfortable,
               and healthy. Choose a focused treatment or a full grooming package
               based on your pet&apos;s needs.
@@ -79,7 +79,7 @@ const PetGroomingAll = () => {
           {isLoading ? (
             <Grid size={{ xs: 12 }}>
               <Paper sx={{ p: 3, borderRadius: 4 }}>
-                <Typography color="text.secondary">
+                <Typography sx={{ color: "text.secondary" }}>
                   Loading grooming services...
                 </Typography>
               </Paper>
@@ -109,9 +109,9 @@ const PetGroomingAll = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="220"
                     image={item.picture}
                     alt={item.title}
+                    sx={{ height: 220 }}
                   />
                   <CardContent
                     sx={{
@@ -121,13 +121,13 @@ const PetGroomingAll = () => {
                       gap: 1.5,
                     }}
                   >
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {item.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {item.dis1}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                       {(() => {
                         const durationText = item.duration || item.Duration || "";
                         const priceText = item.price || item.Price || "";

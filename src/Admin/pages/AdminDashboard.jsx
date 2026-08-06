@@ -113,14 +113,14 @@ const StatCard = ({ label, value, helper }) => (
   <Card sx={{ borderRadius: 4 }}>
     <CardContent>
       <Stack spacing={1}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           {label}
         </Typography>
-        <Typography variant="h4" fontWeight={900}>
+        <Typography variant="h4" sx={{ fontWeight: 900 }}>
           {value}
         </Typography>
         {helper ? (
-          <Typography variant="body2" fontWeight={800} color="success.dark">
+          <Typography variant="body2" sx={{ fontWeight: 800, color: "success.dark" }}>
             {helper}
           </Typography>
         ) : null}
@@ -165,12 +165,12 @@ const RecentRow = ({ title, subtitle, status, to }) => (
   >
     <Stack direction="row" spacing={2} sx={{ justifyContent: "space-between" }}>
       <Box>
-        <Typography fontWeight={900}>{title}</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography sx={{ fontWeight: 900 }}>{title}</Typography>
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
           {subtitle}
         </Typography>
       </Box>
-      <Box display="flex" sx={{ alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <AdminStatusChip status={status} />
       </Box>
     </Stack>
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
 
   return (
     <Box>
-      <Typography variant="h3" fontWeight={900} sx={{ mb: 3 }}>
+      <Typography variant="h3" sx={{ mb: 3, fontWeight: 900 }}>
         Overview
       </Typography>
 
@@ -350,7 +350,7 @@ const AdminDashboard = () => {
         <Grid size={{ xs: 12, lg: 7 }}>
           <Card sx={{ borderRadius: 4 }}>
             <CardContent>
-              <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+              <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
                 Quick Actions
               </Typography>
 
@@ -362,10 +362,10 @@ const AdminDashboard = () => {
                       sx={{ height: "100%", borderRadius: 3 }}
                     >
                       <CardContent>
-                        <Typography fontWeight={800} sx={{ mb: 1 }}>
+                        <Typography sx={{ mb: 1, fontWeight: 800 }}>
                           {action.title}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {action.description}
                         </Typography>
                       </CardContent>
@@ -390,12 +390,12 @@ const AdminDashboard = () => {
         <Grid size={{ xs: 12, lg: 5 }}>
           <Card sx={{ borderRadius: 4 }}>
             <CardContent>
-              <Typography variant="h5" fontWeight={900} sx={{ mb: 2 }}>
+              <Typography variant="h5" sx={{ fontWeight: 900, mb: 2 }}>
                 Content Checklist
               </Typography>
 
               {isLoading ? (
-                <Box display="flex" py={4} sx={{ justifyContent: "center" }}>
+                <Box sx={{ display: "flex", py: 4, justifyContent: "center" }}>
                   <CircularProgress size={28} />
                 </Box>
               ) : catalogChecklist.length ? (
@@ -420,11 +420,11 @@ const AdminDashboard = () => {
                       }}
                     >
                       <Stack spacing={0.5}>
-                        <Typography fontWeight={900}>{task.title}</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography sx={{ fontWeight: 900 }}>{task.title}</Typography>
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           {task.description}
                         </Typography>
-                        <Box pt={0.5}>
+                        <Box sx={{ pt: 0.5 }}>
                           <Button size="small" color="success">
                             Open
                           </Button>
@@ -434,7 +434,7 @@ const AdminDashboard = () => {
                   ))}
                 </Stack>
               ) : (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   All core catalogs have content. Use Quick Actions to review new requests.
                 </Typography>
               )}
@@ -457,10 +457,10 @@ const AdminDashboard = () => {
                 }}
               >
                 <Box>
-                  <Typography variant="h5" fontWeight={900}>
+                  <Typography variant="h5" sx={{ fontWeight: 900 }}>
                     New Requests
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Items that still have a new/created status.
                   </Typography>
                 </Box>
@@ -507,7 +507,7 @@ const AdminDashboard = () => {
               <Grid container spacing={2}>
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Orders</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Orders</Typography>
                     {(newRequestsFeed?.orders ?? []).slice(0, 3).map((order) => (
                       <RecentRow
                         key={order._id}
@@ -518,7 +518,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.orders ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new orders.
                       </Typography>
                     )}
@@ -527,7 +527,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Online Consultations</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Online Consultations</Typography>
                     {(newRequestsFeed?.onlineConsultations ?? []).slice(0, 3).map((consultation) => (
                       <RecentRow
                         key={consultation._id}
@@ -538,7 +538,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.onlineConsultations ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new online consultations.
                       </Typography>
                     )}
@@ -547,7 +547,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>In-Person Consultations</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>In-Person Consultations</Typography>
                     {(newRequestsFeed?.inPersonConsultations ?? []).slice(0, 3).map((consultation) => (
                       <RecentRow
                         key={consultation._id}
@@ -558,7 +558,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.inPersonConsultations ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new in-person consultation requests.
                       </Typography>
                     )}
@@ -567,7 +567,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>House Calls</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>House Calls</Typography>
                     {(newRequestsFeed?.houseCalls ?? []).slice(0, 3).map((item) => (
                       <RecentRow
                         key={item._id}
@@ -578,7 +578,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.houseCalls ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new house call requests.
                       </Typography>
                     )}
@@ -587,7 +587,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Volunteer Requests</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Volunteer Requests</Typography>
                     {(newRequestsFeed?.volunteers ?? []).slice(0, 3).map((volunteer) => (
                       <RecentRow
                         key={volunteer._id}
@@ -598,7 +598,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.volunteers ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new volunteer requests.
                       </Typography>
                     )}
@@ -607,7 +607,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Adoption Requests</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Adoption Requests</Typography>
                     {(newRequestsFeed?.adoptions ?? []).slice(0, 3).map((adoption) => (
                       <RecentRow
                         key={adoption._id}
@@ -618,7 +618,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.adoptions ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new adoption requests.
                       </Typography>
                     )}
@@ -627,7 +627,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Reviews</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Reviews</Typography>
                     {(newRequestsFeed?.reviews ?? []).slice(0, 3).map((review) => (
                       <RecentRow
                         key={review._id}
@@ -638,7 +638,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.reviews ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new reviews.
                       </Typography>
                     )}
@@ -647,7 +647,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Stories</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Stories</Typography>
                     {(newRequestsFeed?.stories ?? []).slice(0, 3).map((story) => (
                       <RecentRow
                         key={story._id || story.id}
@@ -658,7 +658,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.stories ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new story submissions.
                       </Typography>
                     )}
@@ -667,7 +667,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Rescue Alerts</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Rescue Alerts</Typography>
                     {(newRequestsFeed?.rescueAlerts ?? []).slice(0, 3).map((item) => (
                       <RecentRow
                         key={item._id}
@@ -678,7 +678,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newRequestsFeed?.rescueAlerts ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new rescue alerts.
                       </Typography>
                     )}
@@ -687,7 +687,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Enrollments</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Enrollments</Typography>
                     {(newRequestsFeed?.enrollments?.training ?? []).slice(0, 1).map((item) => (
                       <RecentRow
                         key={item._id}
@@ -716,7 +716,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newCounts?.enrollments ?? 0) > 0 ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new enrollments.
                       </Typography>
                     )}
@@ -725,7 +725,7 @@ const AdminDashboard = () => {
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                   <Stack spacing={1.5}>
-                    <Typography fontWeight={900}>Lost & Found</Typography>
+                    <Typography sx={{ fontWeight: 900 }}>Lost & Found</Typography>
                     {(newRequestsFeed?.lostFound?.lostPets ?? []).slice(0, 1).map((item) => (
                       <RecentRow
                         key={item._id}
@@ -745,7 +745,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(newCounts?.lostFound ?? 0) > 0 ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No new reports.
                       </Typography>
                     )}
@@ -771,10 +771,10 @@ const AdminDashboard = () => {
                 }}
               >
                 <Box>
-                  <Typography variant="h5" fontWeight={900}>
+                  <Typography variant="h5" sx={{ fontWeight: 900 }}>
                     Recent Requests
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     Latest items across orders, requests, and stories.
                   </Typography>
                 </Box>
@@ -805,13 +805,13 @@ const AdminDashboard = () => {
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
-                        <Typography fontWeight={900} color="common.white">
+                        <Typography sx={{ fontWeight: 900, color: "common.white" }}>
                           O
                         </Typography>
                       </Avatar>
                       <Box>
-                        <Typography fontWeight={900}>Orders</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography sx={{ fontWeight: 900 }}>Orders</Typography>
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Latest checkout activity
                         </Typography>
                       </Box>
@@ -826,7 +826,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(recentRequests?.orders ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No recent orders yet.
                       </Typography>
                     )}
@@ -837,13 +837,13 @@ const AdminDashboard = () => {
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
-                        <Typography fontWeight={900} color="common.white">
+                        <Typography sx={{ fontWeight: 900, color: "common.white" }}>
                           C
                         </Typography>
                       </Avatar>
                       <Box>
-                        <Typography fontWeight={900}>Consultations</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography sx={{ fontWeight: 900 }}>Consultations</Typography>
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Latest appointment requests
                         </Typography>
                       </Box>
@@ -878,7 +878,7 @@ const AdminDashboard = () => {
                     {(recentRequests?.onlineConsultations ?? []).length ||
                     (recentRequests?.inPersonConsultations ?? []).length ||
                     (recentRequests?.houseCalls ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No consultation requests yet.
                       </Typography>
                     )}
@@ -889,13 +889,13 @@ const AdminDashboard = () => {
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
-                        <Typography fontWeight={900} color="common.white">
+                        <Typography sx={{ fontWeight: 900, color: "common.white" }}>
                           S
                         </Typography>
                       </Avatar>
                       <Box>
-                        <Typography fontWeight={900}>Stories</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography sx={{ fontWeight: 900 }}>Stories</Typography>
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Latest submissions and updates
                         </Typography>
                       </Box>
@@ -910,7 +910,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(recentRequests?.stories ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No stories yet.
                       </Typography>
                     )}
@@ -921,13 +921,13 @@ const AdminDashboard = () => {
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                       <Avatar sx={{ bgcolor: "success.main", width: 34, height: 34 }}>
-                        <Typography fontWeight={900} color="common.white">
+                        <Typography sx={{ fontWeight: 900, color: "common.white" }}>
                           R
                         </Typography>
                       </Avatar>
                       <Box>
-                        <Typography fontWeight={900}>Rescue Alerts</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography sx={{ fontWeight: 900 }}>Rescue Alerts</Typography>
+                        <Typography variant="body2" sx={{ color: "text.secondary" }}>
                           Latest rescue reports
                         </Typography>
                       </Box>
@@ -942,7 +942,7 @@ const AdminDashboard = () => {
                       />
                     ))}
                     {(recentRequests?.rescueAlerts ?? []).length ? null : (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         No rescue alerts yet.
                       </Typography>
                     )}

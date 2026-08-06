@@ -70,7 +70,7 @@ const AdminRescueAlertDetails = () => {
         direction="row"
         sx={{ mb: 2, justifyContent: "space-between", alignItems: "center" }}
       >
-        <Typography variant="h3" fontWeight={900}>
+        <Typography variant="h3" sx={{ fontWeight: 900 }}>
           Rescue Alert
         </Typography>
         <Button
@@ -91,7 +91,7 @@ const AdminRescueAlertDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Typography color="text.secondary">Loading...</Typography>
+        <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
       ) : data ? (
         <Paper sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
           <Stack spacing={2}>
@@ -101,17 +101,17 @@ const AdminRescueAlertDetails = () => {
               sx={{ justifyContent: "space-between" }}
             >
               <Box>
-                <Typography variant="h5" fontWeight={900}>
+                <Typography variant="h5" sx={{ fontWeight: 900 }}>
                   {data.reporterName || "Reporter"} • {data.animalType || "Animal"}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   ID {data.id} • {data.contactPhone || ""}{" "}
                   {data.contactEmail ? `• ${data.contactEmail}` : ""}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   {[data.location, data.landmark].filter(Boolean).join(" • ")}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   {data.urgency ? `Urgency: ${data.urgency}` : ""}{" "}
                   {data.createdAt ? `• ${formatDateTime(data.createdAt)}` : ""}
                 </Typography>
@@ -143,7 +143,7 @@ const AdminRescueAlertDetails = () => {
             <Divider />
 
             <Box>
-              <Typography fontWeight={900} gutterBottom>
+              <Typography sx={{ fontWeight: 900, mb: 1 }}>
                 Description
               </Typography>
               <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
