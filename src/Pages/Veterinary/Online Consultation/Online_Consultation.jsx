@@ -180,7 +180,7 @@ const Online_Consultation = () => {
     <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
         <Stack spacing={3}>
-          <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+          <Paper elevation={2} sx={{ p: { xs: 3, md: 5 } }}>
             <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
               <Chip
                 label="Online Vet Appointment"
@@ -203,7 +203,7 @@ const Online_Consultation = () => {
                   color="success"
                   onClick={handleRequestAppointment}
                   disabled={submitting}
-                  sx={{ fontWeight: 800, borderRadius: 3 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Request Appointment
                 </Button>
@@ -212,7 +212,7 @@ const Online_Consultation = () => {
                   to="/vet_finder"
                   variant="outlined"
                   color="success"
-                  sx={{ fontWeight: 800, borderRadius: 3 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   View All Vets
                 </Button>
@@ -222,7 +222,7 @@ const Online_Consultation = () => {
 
           <Paper
             variant="outlined"
-            sx={{ p: { xs: 3, md: 4 }, borderRadius: 4 }}
+            sx={{ p: { xs: 3, md: 4 } }}
           >
             <Stack spacing={2.5}>
               <Typography variant="h5" sx={{ fontWeight: 900 }}>
@@ -367,7 +367,7 @@ const Online_Consultation = () => {
                   color="success"
                   onClick={handleRequestAppointment}
                   disabled={submitting}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Submit Request
                 </Button>
@@ -376,7 +376,7 @@ const Online_Consultation = () => {
                   to="/vet_finder"
                   variant="outlined"
                   color="success"
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Prefer In-Person
                 </Button>
@@ -387,7 +387,7 @@ const Online_Consultation = () => {
           <Grid container spacing={3}>
             {pricingNotes.map((item) => (
               <Grid key={item.title} size={{ xs: 12, md: 4 }}>
-                <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+                <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
                   <Stack spacing={1.5}>
                     {item.icon}
                     <Typography variant="h6" sx={{ fontWeight: 800 }}>
@@ -405,7 +405,7 @@ const Online_Consultation = () => {
             ))}
           </Grid>
 
-          <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, borderRadius: 4 }}>
+          <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 } }}>
             <Stack spacing={3}>
               <Typography variant="h5" sx={{ fontWeight: 800 }}>
                 Available Online Doctors
@@ -416,7 +416,7 @@ const Online_Consultation = () => {
                   <Grid key={doctor.name} size={{ xs: 12, md: 4 }}>
                     <Paper
                       variant="outlined"
-                      sx={{ p: 2.5, borderRadius: 3, height: "100%" }}
+                      sx={{ p: 2.5, height: "100%" }}
                     >
                       <Stack spacing={1.25}>
                         <Stack
@@ -456,7 +456,7 @@ const Online_Consultation = () => {
                           variant="contained"
                           color="success"
                           onClick={() => handleSelectDoctor(doctor.name)}
-                          sx={{ mt: 1, alignSelf: "flex-start", borderRadius: 3, fontWeight: 700 }}
+                          sx={{ mt: 1, alignSelf: "flex-start", fontWeight: 700 }}
                         >
                           Select Doctor
                         </Button>
@@ -470,7 +470,7 @@ const Online_Consultation = () => {
 
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Paper variant="outlined" sx={{ p: 3, borderRadius: 4, height: "100%" }}>
+              <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
                 <Stack spacing={2}>
                   <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     How It Works
@@ -485,7 +485,7 @@ const Online_Consultation = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <Paper variant="outlined" sx={{ p: 3, borderRadius: 4, height: "100%" }}>
+              <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
                 <Stack spacing={2}>
                   <Typography variant="h5" sx={{ fontWeight: 800 }}>
                     Good Cases for Online Consult

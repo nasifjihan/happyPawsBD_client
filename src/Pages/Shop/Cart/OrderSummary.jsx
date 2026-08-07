@@ -21,8 +21,9 @@ const OrderSummary = ({
   handleRemoveItem,
 }) => {
   const subtotal = cartItems.reduce(
-    (total, item) => total + Number(item.price || 0) * Number(item.quantity || 0),
-    0
+    (total, item) =>
+      total + Number(item.price || 0) * Number(item.quantity || 0),
+    0,
   );
 
   const calculateTotal = () => subtotal.toFixed(2);
@@ -31,7 +32,7 @@ const OrderSummary = ({
     <Card
       sx={{
         overflow: "hidden",
-        borderRadius: 5,
+
         border: "1px solid",
         borderColor: "rgba(122, 178, 89, 0.16)",
         boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
@@ -63,8 +64,8 @@ const OrderSummary = ({
             Order Summary
           </Typography>
           <Typography variant="body2" sx={{ color: "#4f4f4f" }}>
-            {cartItems.length} item{cartItems.length === 1 ? "" : "s"} ready
-            for checkout.
+            {cartItems.length} item{cartItems.length === 1 ? "" : "s"} ready for
+            checkout.
           </Typography>
         </Stack>
       </Box>
@@ -85,7 +86,7 @@ const OrderSummary = ({
               display: "flex",
               gap: 1.5,
               p: 1.5,
-              borderRadius: 3,
+
               border: "1px solid",
               borderColor: "rgba(122, 178, 89, 0.14)",
               backgroundColor: "rgba(122, 178, 89, 0.05)",
@@ -96,7 +97,7 @@ const OrderSummary = ({
                 width: 72,
                 height: 72,
                 overflow: "hidden",
-                borderRadius: 3,
+
                 flexShrink: 0,
                 backgroundColor: "#fff",
               }}
@@ -113,7 +114,10 @@ const OrderSummary = ({
               <Stack
                 direction="row"
                 spacing={1}
-                sx={{ justifyContent: "space-between", alignItems: "flex-start" }}
+                sx={{
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
               >
                 <Box sx={{ minWidth: 0 }}>
                   <Typography sx={{ fontWeight: 700, whiteSpace: "nowrap" }}>
@@ -148,13 +152,14 @@ const OrderSummary = ({
                     alignItems: "center",
                     border: "1px solid",
                     borderColor: "rgba(122, 178, 89, 0.16)",
-                    borderRadius: 999,
                     px: 0.5,
                     backgroundColor: "#fff",
                   }}
                 >
                   <IconButton
-                    onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                    onClick={() =>
+                      handleQuantityChange(item.id, item.quantity - 1)
+                    }
                     disabled={item.quantity === 1}
                     aria-label={`Decrease quantity for ${item.name}`}
                     size="small"
@@ -168,7 +173,9 @@ const OrderSummary = ({
                     {item.quantity}
                   </Typography>
                   <IconButton
-                    onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                    onClick={() =>
+                      handleQuantityChange(item.id, item.quantity + 1)
+                    }
                     aria-label={`Increase quantity for ${item.name}`}
                     size="small"
                   >
@@ -177,7 +184,10 @@ const OrderSummary = ({
                 </Box>
 
                 <Typography sx={{ fontWeight: 700 }}>
-                  ৳{(Number(item.price || 0) * Number(item.quantity || 0)).toFixed(2)}
+                  ৳
+                  {(
+                    Number(item.price || 0) * Number(item.quantity || 0)
+                  ).toFixed(2)}
                 </Typography>
               </Stack>
             </Box>

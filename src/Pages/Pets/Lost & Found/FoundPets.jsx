@@ -24,8 +24,7 @@ const FoundPets = () => {
   const foundPets = useMemo(() => data?.items ?? [], [data]);
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
-    error?.response?.data?.message ||
-    "Could not load found pets right now.";
+    error?.response?.data?.message || "Could not load found pets right now.";
 
   if (isLoading) {
     return (
@@ -40,7 +39,7 @@ const FoundPets = () => {
       <Box
         sx={{
           color: "white",
-          borderRadius: 3,
+
           p: { xs: 3, md: 4 },
           my: 5,
           backgroundColor: "primary.para",
@@ -81,7 +80,6 @@ const FoundPets = () => {
                 sx={{
                   width: "100%",
                   backgroundColor: "#FBFBFB",
-                  borderRadius: 3,
                   border: "1px solid",
                   borderColor: "divider",
                   boxShadow: "none",

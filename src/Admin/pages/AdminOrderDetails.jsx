@@ -176,7 +176,7 @@ const AdminOrderDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper sx={{ p: 3 }}>
           <Typography sx={{ color: "text.secondary" }}>Loading order details...</Typography>
         </Paper>
       ) : null}
@@ -185,7 +185,7 @@ const AdminOrderDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
@@ -263,7 +263,7 @@ const AdminOrderDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Line Items
@@ -277,7 +277,7 @@ const AdminOrderDetails = () => {
                         <Paper
                           key={`${item.id || item.name || "item"}-${index}`}
                           variant="outlined"
-                          sx={{ p: 2, borderRadius: 3 }}
+                          sx={{ p: 2 }}
                         >
                           <Stack
                             direction={{ xs: "column", md: "row" }}
@@ -314,7 +314,7 @@ const AdminOrderDetails = () => {
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Customer
@@ -332,7 +332,7 @@ const AdminOrderDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Delivery
@@ -353,7 +353,7 @@ const AdminOrderDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Tracking

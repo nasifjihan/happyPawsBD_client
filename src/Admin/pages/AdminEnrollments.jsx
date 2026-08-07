@@ -34,7 +34,9 @@ const statuses = ["new", "reviewed", "contacted", "scheduled", "closed"];
 
 const normalizeEnrollmentType = (value) => {
   const normalizedValue = String(value || "").trim();
-  const exists = enrollmentTypes.some((entry) => entry.value === normalizedValue);
+  const exists = enrollmentTypes.some(
+    (entry) => entry.value === normalizedValue,
+  );
   return exists ? normalizedValue : "training";
 };
 
@@ -65,10 +67,12 @@ const AdminEnrollments = () => {
   const paramQuery = searchParams.get("q");
   const paramStatus = searchParams.get("status");
   const [type, setType] = useState(() => normalizeEnrollmentType(paramType));
-  const [page, setPage] = useState(() => normalizePositiveInteger(paramPage, 1));
+  const [page, setPage] = useState(() =>
+    normalizePositiveInteger(paramPage, 1),
+  );
   const [searchTerm, setSearchTerm] = useState(() => paramQuery || "");
   const [statusFilter, setStatusFilter] = useState(() =>
-    normalizeStatusFilter(paramStatus)
+    normalizeStatusFilter(paramStatus),
   );
   const [edits, setEdits] = useState({});
   const queryClient = useQueryClient();
@@ -113,7 +117,12 @@ const AdminEnrollments = () => {
   }, [page, searchTerm, setSearchParams, statusFilter, type]);
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["admin", "enrollments", type, { page, q: searchTerm, status: statusFilter }],
+    queryKey: [
+      "admin",
+      "enrollments",
+      type,
+      { page, q: searchTerm, status: statusFilter },
+    ],
     queryFn: () =>
       adminListEnrollments({
         type,
@@ -128,7 +137,9 @@ const AdminEnrollments = () => {
   const updateMutation = useMutation({
     mutationFn: adminUpdateEnrollment,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin", "enrollments", type] });
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "enrollments", type],
+      });
     },
   });
 
@@ -153,7 +164,7 @@ const AdminEnrollments = () => {
         Review training, grooming, and boarding enrollments.
       </Typography>
 
-      <Paper sx={{ borderRadius: 4, overflow: "hidden", mb: 3 }}>
+      <Paper sx={{ overflow: "hidden", mb: 3 }}>
         <Tabs
           value={Math.max(0, tabIndex)}
           onChange={(_, nextIndex) => {
@@ -171,7 +182,11 @@ const AdminEnrollments = () => {
             <Tab
               key={tab.value}
               label={
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ alignItems: "center" }}
+                >
                   <span>{tab.label}</span>
                   {(newCounts?.[tab.value] ?? 0) > 0 ? (
                     <Chip
@@ -216,17 +231,13 @@ const AdminEnrollments = () => {
         }}
       />
 
-      <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+      <Paper sx={{ p: 2.5 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
-              <Paper
-                key={item._id}
-                variant="outlined"
-                sx={{ p: 2, borderRadius: 3 }}
-              >
+              <Paper key={item._id} variant="outlined" sx={{ p: 2 }}>
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   spacing={2}
@@ -237,9 +248,13 @@ const AdminEnrollments = () => {
                 >
                   <Box>
                     <Typography sx={{ fontWeight: 900 }}>
-                      {item.name || "Applicant"} • Program {item.programId ?? ""}
+                      {item.name || "Applicant"} • Program{" "}
+                      {item.programId ?? ""}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
                       {item.contactEmail || ""} • {item.contactPhone || ""} •{" "}
                       {item.address || ""}
                     </Typography>
@@ -271,7 +286,7 @@ const AdminEnrollments = () => {
                       color="success"
                       onClick={() => handleSave(item)}
                       disabled={updateMutation.isPending}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       Save
                     </Button>

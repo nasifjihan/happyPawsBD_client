@@ -33,7 +33,7 @@ const BlogPostDetails = () => {
         ) : isError ? (
           <Typography sx={{ color: "text.secondary" }}>Could not load blog post.</Typography>
         ) : data ? (
-          <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
+          <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 4 } }}>
             <Stack spacing={1.5}>
               <Typography variant="overline" sx={{ color: "success.main", fontWeight: 700 }}>
                 {data.category || "Health Care Blog"}

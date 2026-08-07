@@ -142,7 +142,7 @@ const AdoptableAnimalsAdmin = () => {
           variant="contained"
           color="success"
           onClick={() => setSelected(emptyAnimal)}
-          sx={{ borderRadius: 3, fontWeight: 800 }}
+          sx={{ fontWeight: 800 }}
         >
           New Animal
         </Button>
@@ -171,7 +171,7 @@ const AdoptableAnimalsAdmin = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
@@ -182,7 +182,6 @@ const AdoptableAnimalsAdmin = () => {
                     variant="outlined"
                     sx={{
                       p: 2,
-                      borderRadius: 3,
                       cursor: "pointer",
                       borderColor:
                         selected?.code === animal.code
@@ -232,7 +231,7 @@ const AdoptableAnimalsAdmin = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Animal
             </Typography>
@@ -314,7 +313,7 @@ const AdoptableAnimalsAdmin = () => {
                   color="success"
                   onClick={handleSave}
                   disabled={upsertMutation.isPending}
-                  sx={{ flex: 1, borderRadius: 3, fontWeight: 800 }}
+                  sx={{ flex: 1, fontWeight: 800 }}
                 >
                   Save
                 </Button>
@@ -323,7 +322,7 @@ const AdoptableAnimalsAdmin = () => {
                   color="error"
                   onClick={handleDelete}
                   disabled={deleteMutation.isPending || !selected?.code}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Delete
                 </Button>

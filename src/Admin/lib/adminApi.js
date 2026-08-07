@@ -492,6 +492,40 @@ export const adminUpsertPetInfoAnimal = async (payload) => {
   return response.data;
 };
 
+export const adminUpsertPetInfoAnimalWithImage = async ({
+  payload,
+  imageFile,
+}) => {
+  const formData = new FormData();
+
+  Object.entries(payload).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === "") return;
+    if (Array.isArray(value)) {
+      value.forEach((item) => formData.append(key, item));
+      return;
+    }
+    formData.append(key, value);
+  });
+
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
+
+  const response = await axiosInstance.post(
+    "/api/v1/admin/content/pet-info/animals",
+    formData,
+    {
+      ...adminRequestConfig(),
+      headers: {
+        ...(adminRequestConfig().headers || {}),
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return response.data;
+};
+
 export const adminDeletePetInfoAnimal = async (type) => {
   const response = await axiosInstance.delete(
     `/api/v1/admin/content/pet-info/animals/${encodeURIComponent(type)}`,
@@ -516,6 +550,41 @@ export const adminUpsertPetInfoBreed = async (payload) => {
     payload,
     adminRequestConfig()
   );
+
+  return response.data;
+};
+
+export const adminUpsertPetInfoBreedWithImage = async ({
+  payload,
+  imageFile,
+  breedId,
+}) => {
+  const formData = new FormData();
+
+  Object.entries(payload).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === "") return;
+    if (Array.isArray(value)) {
+      value.forEach((item) => formData.append(key, item));
+      return;
+    }
+    formData.append(key, value);
+  });
+
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
+
+  const baseUrl = "/api/v1/admin/content/pet-info/breeds";
+  const url = breedId ? `${baseUrl}/${breedId}` : baseUrl;
+  const method = breedId ? "put" : "post";
+
+  const response = await axiosInstance[method](url, formData, {
+    ...adminRequestConfig(),
+    headers: {
+      ...(adminRequestConfig().headers || {}),
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return response.data;
 };

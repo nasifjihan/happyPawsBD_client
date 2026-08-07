@@ -20,7 +20,7 @@ const AdminFilterToolbar = ({
   resetLabel = "Reset",
   children,
 }) => (
-  <Paper sx={{ p: 2, mb: 3, borderRadius: 4 }}>
+  <Paper sx={{ p: 2, mb: 3 }}>
     <Stack
       direction={{ xs: "column", md: "row" }}
       spacing={2}
@@ -70,7 +70,6 @@ const AdminFilterToolbar = ({
             color="success"
             sx={{
               alignSelf: { xs: "flex-start", md: "flex-end" },
-              borderRadius: 3,
               fontWeight: 800,
             }}
           >

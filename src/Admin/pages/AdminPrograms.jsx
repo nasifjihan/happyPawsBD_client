@@ -266,7 +266,7 @@ const AdminPrograms = () => {
         pages.
       </Typography>
 
-      <Paper sx={{ p: 1.5, borderRadius: 4, mb: 3 }}>
+      <Paper sx={{ p: 1.5, mb: 3 }}>
         <Tabs value={type} onChange={handleChangeType} variant="scrollable">
           {programTypes.map((entry) => (
             <Tab key={entry.value} value={entry.value} label={entry.label} />
@@ -297,7 +297,7 @@ const AdminPrograms = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               <Stack
                 direction="row"
@@ -311,7 +311,7 @@ const AdminPrograms = () => {
                   variant="contained"
                   color="success"
                   onClick={() => setSelected(emptyProgram)}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   New
                 </Button>
@@ -326,7 +326,6 @@ const AdminPrograms = () => {
                     variant="outlined"
                     sx={{
                       p: 2,
-                      borderRadius: 3,
                       cursor: "pointer",
                       borderColor:
                         selected?.id === item.id
@@ -365,7 +364,7 @@ const AdminPrograms = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Program
             </Typography>
@@ -381,7 +380,6 @@ const AdminPrograms = () => {
                     width: "100%",
                     height: 220,
                     objectFit: "cover",
-                    borderRadius: 3,
                     border: "1px solid",
                     borderColor: "divider",
                   }}
@@ -504,7 +502,7 @@ const AdminPrograms = () => {
                   color="success"
                   onClick={handleSave}
                   disabled={upsertMutation.isPending || !selected.id}
-                  sx={{ borderRadius: 3, fontWeight: 800, flex: 1 }}
+                  sx={{ fontWeight: 800, flex: 1 }}
                 >
                   Save
                 </Button>
@@ -513,7 +511,7 @@ const AdminPrograms = () => {
                   color="error"
                   onClick={handleDelete}
                   disabled={deleteMutation.isPending || !selected.id}
-                  sx={{ borderRadius: 3, fontWeight: 800, flex: 1 }}
+                  sx={{ fontWeight: 800, flex: 1 }}
                 >
                   Delete
                 </Button>

@@ -105,7 +105,6 @@ const matchesPath = (pathname, paths) =>
 const navButtonSx = (active) => ({
   color: active ? "success.main" : "text.primary",
   fontWeight: 600,
-  borderRadius: desktopNavRadius,
   px: 1.5,
   backgroundColor: active ? "rgba(122, 178, 89, 0.14)" : "transparent",
   "&:hover": {

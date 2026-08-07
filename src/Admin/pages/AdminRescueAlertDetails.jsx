@@ -78,7 +78,7 @@ const AdminRescueAlertDetails = () => {
           to="/admin/requests/rescue-alerts"
           variant="outlined"
           color="success"
-          sx={{ borderRadius: 3, fontWeight: 800 }}
+          sx={{ fontWeight: 800 }}
         >
           Back
         </Button>
@@ -93,7 +93,7 @@ const AdminRescueAlertDetails = () => {
       {isLoading ? (
         <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
       ) : data ? (
-        <Paper sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
+        <Paper sx={{ p: { xs: 2.5, md: 4 } }}>
           <Stack spacing={2}>
             <Stack
               direction={{ xs: "column", md: "row" }}
@@ -133,7 +133,6 @@ const AdminRescueAlertDetails = () => {
                   width: "100%",
                   maxHeight: 320,
                   objectFit: "cover",
-                  borderRadius: 3,
                   border: "1px solid",
                   borderColor: "divider",
                 }}
@@ -191,7 +190,7 @@ const AdminRescueAlertDetails = () => {
                 color="success"
                 disabled={mutation.isPending}
                 onClick={() => mutation.mutate({ id, status, adminNotes })}
-                sx={{ borderRadius: 3, fontWeight: 800 }}
+                sx={{ fontWeight: 800 }}
               >
                 Save
               </Button>

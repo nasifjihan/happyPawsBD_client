@@ -30,7 +30,6 @@ const Health_Care_Blog = () => {
           py: 8,
           textAlign: "center",
           backgroundColor: "rgba(122, 178, 89, 0.15)",
-          borderRadius: 4,
           color: "text.primary",
           border: "1px solid",
           borderColor: "divider",
@@ -107,7 +106,6 @@ const Health_Care_Blog = () => {
         variant="outlined"
         sx={{
           p: 4,
-          borderRadius: 4,
           mb: 6,
           backgroundColor: "#f9f9f9",
         }}
@@ -120,7 +118,6 @@ const Health_Care_Blog = () => {
         variant="outlined"
         sx={{
           py: 6,
-          borderRadius: 4,
           mb: 6,
           p: 5,
           backgroundColor: "#fffdf5",
@@ -132,7 +129,7 @@ const Health_Care_Blog = () => {
       {/* Newsletter */}
       <Paper
         variant="outlined"
-        sx={{ p: 6, borderRadius: 4, backgroundColor: "#faf7ff" }}
+        sx={{ p: 6, backgroundColor: "#faf7ff" }}
       >
         <Newsletter />
       </Paper>

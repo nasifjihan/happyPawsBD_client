@@ -17,7 +17,10 @@ import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import { Link as RouterLink, useParams } from "react-router-dom";
 
 import AdminStatusChip from "../components/AdminStatusChip";
-import { adminGetHouseCallRequest, adminUpdateHouseCallRequest } from "../lib/adminApi";
+import {
+  adminGetHouseCallRequest,
+  adminUpdateHouseCallRequest,
+} from "../lib/adminApi";
 
 const statuses = ["new", "reviewed", "dispatched", "completed", "cancelled"];
 
@@ -45,7 +48,13 @@ const AdminHouseCallRequestDetails = () => {
   const [draftStatus, setDraftStatus] = useState(null);
   const [draftNotes, setDraftNotes] = useState(null);
 
-  const { data: request, isLoading, isError, error, refetch } = useQuery({
+  const {
+    data: request,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "house-call-request", id],
     queryFn: () => adminGetHouseCallRequest(id),
     enabled: Boolean(id),
@@ -62,7 +71,8 @@ const AdminHouseCallRequestDetails = () => {
   });
 
   const effectiveStatus = draftStatus || request?.status || "new";
-  const effectiveNotes = draftNotes !== null ? draftNotes : request?.adminNotes || "";
+  const effectiveNotes =
+    draftNotes !== null ? draftNotes : request?.adminNotes || "";
 
   const handleSave = async () => {
     await updateMutation.mutateAsync({
@@ -121,7 +131,8 @@ const AdminHouseCallRequestDetails = () => {
 
       {isError ? (
         <Alert severity="warning" sx={{ mb: 3 }}>
-          {error?.response?.data?.message || "Could not load this house call request."}
+          {error?.response?.data?.message ||
+            "Could not load this house call request."}
         </Alert>
       ) : null}
 
@@ -139,8 +150,10 @@ const AdminHouseCallRequestDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography sx={{ color: "text.secondary" }}>Loading house call request...</Typography>
+        <Paper sx={{ p: 3 }}>
+          <Typography sx={{ color: "text.secondary" }}>
+            Loading house call request...
+          </Typography>
         </Paper>
       ) : null}
 
@@ -148,7 +161,7 @@ const AdminHouseCallRequestDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
@@ -188,7 +201,7 @@ const AdminHouseCallRequestDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Concern
@@ -199,7 +212,7 @@ const AdminHouseCallRequestDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
@@ -217,18 +230,22 @@ const AdminHouseCallRequestDetails = () => {
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Contact
                   </Typography>
                   <Divider />
-                  <Typography sx={{ fontWeight: 700 }}>{request.contactPhone || "No phone"}</Typography>
-                  <Typography sx={{ color: "text.secondary" }}>{request.contactEmail || "No email"}</Typography>
+                  <Typography sx={{ fontWeight: 700 }}>
+                    {request.contactPhone || "No phone"}
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {request.contactEmail || "No email"}
+                  </Typography>
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Visit Details
@@ -244,10 +261,12 @@ const AdminHouseCallRequestDetails = () => {
                     <strong>Address:</strong> {request.address || "—"}
                   </Typography>
                   <Typography>
-                    <strong>Preferred Date:</strong> {request.preferredDate || "—"}
+                    <strong>Preferred Date:</strong>{" "}
+                    {request.preferredDate || "—"}
                   </Typography>
                   <Typography>
-                    <strong>Preferred Time:</strong> {request.preferredTime || "—"}
+                    <strong>Preferred Time:</strong>{" "}
+                    {request.preferredTime || "—"}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
                     <strong>Pet age:</strong> {request.petAge || "Not provided"}
@@ -255,7 +274,7 @@ const AdminHouseCallRequestDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Metadata
@@ -278,4 +297,3 @@ const AdminHouseCallRequestDetails = () => {
 };
 
 export default AdminHouseCallRequestDetails;
-

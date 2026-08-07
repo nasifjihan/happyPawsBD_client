@@ -36,7 +36,7 @@ const common = {
     },
   },
   shape: {
-    borderRadius: 14,
+    borderRadius: 0,
   },
   typography: {
     fontFamily: '"Poppins","Roboto","Helvetica","Arial",sans-serif',
@@ -94,7 +94,7 @@ export const getAppTheme = (mode = "light") =>
         },
         styleOverrides: {
           root: {
-            borderRadius: 12,
+            borderRadius: 0,
             paddingInline: 18,
           },
         },
@@ -103,6 +103,7 @@ export const getAppTheme = (mode = "light") =>
         styleOverrides: {
           root: {
             backgroundImage: "none",
+            borderRadius: 0,
           },
         },
       },

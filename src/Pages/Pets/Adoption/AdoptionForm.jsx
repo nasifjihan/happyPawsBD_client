@@ -69,7 +69,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
           background: "linear-gradient(135deg, #f0f4f8, #d9e4f5)",
           p: 5,
           my: 3,
-          borderRadius: "12px",
           // maxWidth: 600,
           mx: "auto",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
@@ -284,7 +283,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             size="large"
             sx={{
               fontWeight: "bold",
-              borderRadius: "8px",
               my: 3,
             }}
             disabled={adoptionMutation.isPending}

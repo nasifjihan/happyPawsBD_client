@@ -198,7 +198,7 @@ const Orders = () => {
             if (!order) {
               return (
                 <Grid size={{ xs: 12, md: 6 }} key={token}>
-                  <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
+                  <Paper variant="outlined" sx={{ p: 3 }}>
                     <Stack spacing={1}>
                       <Typography variant="h6" sx={{ fontWeight: 800 }}>
                         Order unavailable
@@ -233,7 +233,6 @@ const Orders = () => {
                   variant="outlined"
                   sx={{
                     p: 3,
-                    borderRadius: 3,
                     height: "100%",
                   }}
                 >

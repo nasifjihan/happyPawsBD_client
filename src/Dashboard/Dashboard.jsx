@@ -66,7 +66,7 @@ const Dashboard = () => {
       title="Dashboard"
       description="A simple control center for the most important signed-in actions across Happy Paws BD."
     >
-      <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
+      <Paper variant="outlined" sx={{ p: 3 }}>
         <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
           Welcome back{user.displayName ? `, ${user.displayName}` : ""}.
         </Typography>
@@ -79,7 +79,7 @@ const Dashboard = () => {
       <Grid container spacing={2}>
         {cards.map((card) => (
           <Grid size={{ xs: 12, md: 6 }} key={card.title}>
-            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+            <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
               <Stack spacing={2} sx={{ height: "100%" }}>
                 <Typography variant="h6" sx={{ fontWeight: 700 }}>
                   {card.title}

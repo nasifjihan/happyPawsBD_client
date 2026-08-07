@@ -111,7 +111,7 @@ const RescueDetails = () => {
 
   return (
     <Box className="myContainer" sx={{ my: 5 }}>
-      <Paper variant="outlined" sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+      <Paper variant="outlined" sx={{ p: { xs: 3, md: 5 } }}>
         <Stack
           spacing={2}
           sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
@@ -131,7 +131,7 @@ const RescueDetails = () => {
             <Grid key={item.title} size={{ xs: 12, md: 4 }}>
               <Paper
                 variant="outlined"
-                sx={{ p: 3, borderRadius: 3, height: "100%" }}
+                sx={{ p: 3, height: "100%" }}
               >
                 <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                   {item.title}
@@ -149,7 +149,7 @@ const RescueDetails = () => {
             <Grid key={item.title} size={{ xs: 12, md: 4 }}>
               <Paper
                 variant="outlined"
-                sx={{ p: 3, borderRadius: 3, height: "100%" }}
+                sx={{ p: 3, height: "100%" }}
               >
                 <Stack spacing={2} sx={{ height: "100%" }}>
                   <Typography variant="h6" sx={{ fontWeight: 700 }}>

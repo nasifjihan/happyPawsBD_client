@@ -78,7 +78,6 @@ const Remembrance = () => {
             elevation={0}
             sx={{
               p: { xs: 3, md: 5 },
-              borderRadius: 4,
               border: "1px solid",
               borderColor: alpha("#2e7d32", 0.12),
               background:
@@ -141,7 +140,6 @@ const Remembrance = () => {
                   variant="outlined"
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     bgcolor: "#fff",
                     borderColor: alpha("#2e7d32", 0.12),
                   }}
@@ -177,7 +175,6 @@ const Remembrance = () => {
                   elevation={0}
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     height: "100%",
                     border: "1px solid",
                     borderColor: alpha("#2e7d32", 0.1),
@@ -201,7 +198,6 @@ const Remembrance = () => {
             elevation={0}
             sx={{
               p: { xs: 3, md: 4 },
-              borderRadius: 4,
               border: "1px solid",
               borderColor: alpha("#2e7d32", 0.1),
             }}
@@ -229,7 +225,6 @@ const Remembrance = () => {
                         variant="outlined"
                         sx={{
                           p: 2.5,
-                          borderRadius: 3,
                           height: "100%",
                           borderColor: alpha("#2e7d32", 0.12),
                         }}
@@ -268,7 +263,6 @@ const Remembrance = () => {
             elevation={0}
             sx={{
               p: { xs: 3, md: 4 },
-              borderRadius: 4,
               border: "1px solid",
               borderColor: alpha("#2e7d32", 0.1),
             }}

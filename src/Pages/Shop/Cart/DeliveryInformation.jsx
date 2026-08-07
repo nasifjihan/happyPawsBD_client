@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Chip,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Chip, Grid, Stack, TextField, Typography } from "@mui/material";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 
 const DeliveryInformation = ({
@@ -29,7 +22,6 @@ const DeliveryInformation = ({
       color: "#7AB259",
     },
     "& .MuiOutlinedInput-root": {
-      borderRadius: 3,
       backgroundColor: "#fff",
       "& fieldset": {
         borderColor: "rgba(122, 178, 89, 0.22)",
@@ -45,10 +37,7 @@ const DeliveryInformation = ({
   };
 
   return (
-    <Box
-      component="section"
-      aria-labelledby="delivery-information-heading"
-    >
+    <Box component="section" aria-labelledby="delivery-information-heading">
       <Stack spacing={1.25} sx={{ mb: 3 }}>
         <Chip
           icon={<LocalShippingOutlinedIcon />}

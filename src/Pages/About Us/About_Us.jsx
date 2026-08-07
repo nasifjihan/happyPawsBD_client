@@ -37,7 +37,6 @@ const About_Us = () => {
           elevation={2}
           sx={{
             p: { xs: 3, md: 5 },
-            borderRadius: 4,
             backgroundColor: "#ffffff",
           }}
         >
@@ -92,7 +91,7 @@ const About_Us = () => {
                 component={OptimizedImage}
                 src={aboutImage}
                 alt="Happy Paws BD supporting pets and pet families"
-                sx={{ width: "100%", borderRadius: "24px" }}
+                sx={{ width: "100%" }}
               />
             </Grid>
           </Grid>
@@ -102,7 +101,7 @@ const About_Us = () => {
               <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   variant="outlined"
-                  sx={{ p: 3, borderRadius: 3, height: "100%" }}
+                  sx={{ p: 3, height: "100%" }}
                 >
                   <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
                     {item.title}

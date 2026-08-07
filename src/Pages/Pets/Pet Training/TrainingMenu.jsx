@@ -86,7 +86,7 @@ const TrainingMenu = () => {
       >
         {isLoading ? (
           <Grid size={{ xs: 12 }}>
-            <Paper sx={{ p: 3, borderRadius: 4 }}>
+            <Paper>
               <Typography sx={{ color: "text.secondary" }}>
                 Loading training programs...
               </Typography>
@@ -112,7 +112,6 @@ const TrainingMenu = () => {
                 width: "100%",
                 boxShadow: "none",
                 backgroundColor: "#FBFBFB",
-                borderRadius: 3,
                 border: "1px solid",
                 borderColor: "divider",
                 "&:hover": {

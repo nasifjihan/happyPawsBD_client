@@ -376,7 +376,7 @@ const AdminVetProviders = () => {
           variant="contained"
           color="success"
           onClick={() => setSelected(emptyProvider)}
-          sx={{ borderRadius: 3, fontWeight: 800 }}
+          sx={{ fontWeight: 800 }}
         >
           New Provider
         </Button>
@@ -449,7 +449,7 @@ const AdminVetProviders = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
@@ -460,7 +460,6 @@ const AdminVetProviders = () => {
                     variant="outlined"
                     sx={{
                       p: 2,
-                      borderRadius: 3,
                       cursor: "pointer",
                       borderColor:
                         selected?.id === item.id
@@ -487,7 +486,6 @@ const AdminVetProviders = () => {
                             sx={{
                               width: 64,
                               height: 64,
-                              borderRadius: 2,
                               objectFit: "cover",
                               border: "1px solid",
                               borderColor: "divider",
@@ -529,7 +527,7 @@ const AdminVetProviders = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Provider
             </Typography>
@@ -545,7 +543,6 @@ const AdminVetProviders = () => {
                     width: "100%",
                     height: 220,
                     objectFit: "cover",
-                    borderRadius: 3,
                     border: "1px solid",
                     borderColor: "divider",
                   }}
@@ -650,7 +647,7 @@ const AdminVetProviders = () => {
                   color="success"
                   onClick={handleSave}
                   disabled={upsertMutation.isPending || !selected.id}
-                  sx={{ borderRadius: 3, fontWeight: 800, flex: 1 }}
+                  sx={{ fontWeight: 800, flex: 1 }}
                 >
                   Save
                 </Button>
@@ -659,7 +656,7 @@ const AdminVetProviders = () => {
                   color="error"
                   onClick={handleDelete}
                   disabled={deleteMutation.isPending || !selected.id}
-                  sx={{ borderRadius: 3, fontWeight: 800, flex: 1 }}
+                  sx={{ fontWeight: 800, flex: 1 }}
                 >
                   Delete
                 </Button>

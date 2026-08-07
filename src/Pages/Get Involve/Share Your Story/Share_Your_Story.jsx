@@ -114,7 +114,6 @@ const Share_Your_Story = () => {
             elevation={0}
             sx={{
               p: { xs: 3, md: 5 },
-              borderRadius: 4,
               border: "1px solid",
               borderColor: alpha("#2e7d32", 0.12),
               background:
@@ -176,7 +175,6 @@ const Share_Your_Story = () => {
                   variant="outlined"
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     bgcolor: "#fff",
                     borderColor: alpha("#2e7d32", 0.12),
                   }}
@@ -212,7 +210,6 @@ const Share_Your_Story = () => {
                   elevation={0}
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     height: "100%",
                     border: "1px solid",
                     borderColor: alpha("#2e7d32", 0.1),
@@ -239,7 +236,6 @@ const Share_Your_Story = () => {
                 id="story-form"
                 sx={{
                   p: { xs: 3, md: 4 },
-                  borderRadius: 4,
                   border: "1px solid",
                   borderColor: alpha("#2e7d32", 0.1),
                 }}
@@ -355,7 +351,6 @@ const Share_Your_Story = () => {
                 elevation={0}
                 sx={{
                   p: { xs: 3, md: 4 },
-                  borderRadius: 4,
                   border: "1px solid",
                   borderColor: alpha("#2e7d32", 0.1),
                   height: "100%",

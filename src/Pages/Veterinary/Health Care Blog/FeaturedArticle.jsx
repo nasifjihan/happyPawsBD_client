@@ -21,7 +21,6 @@ const FeaturedArticle = ({ post }) => {
         flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
         backgroundColor: "#f9f9f9",
-        borderRadius: 4,
         border: "1px solid",
         borderColor: "divider",
         p: { xs: 3, md: 4 },
@@ -36,7 +35,6 @@ const FeaturedArticle = ({ post }) => {
               alt={post.coverImageAlt || title}
               sx={{
                 width: "100%",
-                borderRadius: 4,
               }}
             />
           </Grid>

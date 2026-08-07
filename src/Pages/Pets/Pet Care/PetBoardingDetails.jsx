@@ -130,7 +130,7 @@ const PetBoardingDetails = () => {
   if (isLoadingItem) {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper>
           <Typography sx={{ color: "text.secondary" }}>
             Loading boarding program...
           </Typography>
@@ -180,7 +180,7 @@ const PetBoardingDetails = () => {
 
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, md: 6 }}>
-            <Paper variant="outlined" sx={{ overflow: "hidden", borderRadius: 3 }}>
+            <Paper variant="outlined" sx={{ overflow: "hidden" }}>
               <Box
                 component="img"
                 src={item.picture}
@@ -191,7 +191,7 @@ const PetBoardingDetails = () => {
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+            <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
               <Stack spacing={2}>
                 <Typography variant="h5" sx={{ color: "success.main", fontWeight: 700 }}>
                   Service Overview
@@ -247,7 +247,7 @@ const PetBoardingDetails = () => {
           </Grid>
 
           <Grid size={{ xs: 12 }}>
-            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
+            <Paper variant="outlined" sx={{ p: 3 }}>
               <Typography variant="h5" sx={{ mb: 1, color: "primary.main", fontWeight: 700 }}>
                 Request This Boarding Service
               </Typography>

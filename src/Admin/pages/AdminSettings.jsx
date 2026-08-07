@@ -119,7 +119,7 @@ const AdminSettings = () => {
       </Typography>
 
       <Stack spacing={3} sx={{ maxWidth: 820 }}>
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper sx={{ p: 3 }}>
           <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
             Admin Credentials
           </Typography>
@@ -158,7 +158,7 @@ const AdminSettings = () => {
                   variant="contained"
                   color="success"
                   disabled={updateMutation.isPending}
-                  sx={{ borderRadius: 3, fontWeight: 800, py: 1.25 }}
+                  sx={{ fontWeight: 800, py: 1.25 }}
                 >
                   Save Credentials
                 </Button>
@@ -167,7 +167,7 @@ const AdminSettings = () => {
           </Stack>
         </Paper>
 
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper sx={{ p: 3 }}>
           <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
             Site Settings
           </Typography>
@@ -342,7 +342,7 @@ const AdminSettings = () => {
                   variant="contained"
                   color="success"
                   disabled={updateSiteMutation.isPending}
-                  sx={{ borderRadius: 3, fontWeight: 800, py: 1.25 }}
+                  sx={{ fontWeight: 800, py: 1.25 }}
                 >
                   Save Site Settings
                 </Button>

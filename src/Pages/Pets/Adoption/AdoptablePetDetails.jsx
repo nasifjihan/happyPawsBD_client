@@ -124,7 +124,6 @@ const AdoptablePetDetails = () => {
                 backgroundColor: "rgba(0, 0, 0, 0.6)",
                 color: "#fff",
                 padding: "5px 10px",
-                borderRadius: "8px",
                 zIndex: 1,
               }}
             >

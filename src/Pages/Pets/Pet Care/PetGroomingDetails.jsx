@@ -69,7 +69,8 @@ const PetGroomingDetails = () => {
 
         setItem(null);
         setLoadError(
-          error?.response?.data?.message || "Could not load this grooming program."
+          error?.response?.data?.message ||
+            "Could not load this grooming program.",
         );
       } finally {
         if (isActive) {
@@ -102,7 +103,7 @@ const PetGroomingDetails = () => {
           ...grooming,
           programId: item.id,
         },
-        item.id
+        item.id,
       );
 
       setGrooming({
@@ -120,7 +121,8 @@ const PetGroomingDetails = () => {
       setFeedback({
         open: true,
         severity: "error",
-        message: "Could not submit your grooming request right now. Please try again.",
+        message:
+          "Could not submit your grooming request right now. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -130,7 +132,7 @@ const PetGroomingDetails = () => {
   if (isLoadingItem) {
     return (
       <Box className="myContainer" sx={{ my: 5 }}>
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper>
           <Typography sx={{ color: "text.secondary" }}>
             Loading grooming program...
           </Typography>
@@ -160,19 +162,24 @@ const PetGroomingDetails = () => {
     <Box className="myContainer" sx={{ my: 5 }}>
       <Stack spacing={3}>
         <Stack spacing={1} sx={{ textAlign: "center" }}>
-          <Typography variant="h3" sx={{ color: "primary.headline", fontWeight: 800 }}>
+          <Typography
+            variant="h3"
+            sx={{ color: "primary.headline", fontWeight: 800 }}
+          >
             {item.title}
           </Typography>
           <Typography variant="body1" sx={{ color: "text.secondary" }}>
-            Review what&apos;s included, then submit your request to reserve this
-            grooming service for your pet.
+            Review what&apos;s included, then submit your request to reserve
+            this grooming service for your pet.
           </Typography>
         </Stack>
 
         {feedback.open ? (
           <Alert
             severity={feedback.severity}
-            onClose={() => setFeedback((current) => ({ ...current, open: false }))}
+            onClose={() =>
+              setFeedback((current) => ({ ...current, open: false }))
+            }
           >
             {feedback.message}
           </Alert>
@@ -180,7 +187,7 @@ const PetGroomingDetails = () => {
 
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, md: 6 }}>
-            <Paper variant="outlined" sx={{ overflow: "hidden", borderRadius: 3 }}>
+            <Paper variant="outlined" sx={{ overflow: "hidden" }}>
               <Box
                 component="img"
                 src={item.picture}
@@ -191,24 +198,34 @@ const PetGroomingDetails = () => {
           </Grid>
 
           <Grid size={{ xs: 12, md: 6 }}>
-            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+            <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
               <Stack spacing={2}>
-                <Typography variant="h5" sx={{ color: "success.main", fontWeight: 700 }}>
+                <Typography
+                  variant="h5"
+                  sx={{ color: "success.main", fontWeight: 700 }}
+                >
                   Service Overview
                 </Typography>
 
                 <List disablePadding>
-                  {[item.dis1, item.dis2, item.dis3].filter(Boolean).map((detail) => (
-                    <ListItem key={detail} sx={{ px: 0, alignItems: "flex-start" }}>
-                      <ListItemText primary={detail} />
-                    </ListItem>
-                  ))}
+                  {[item.dis1, item.dis2, item.dis3]
+                    .filter(Boolean)
+                    .map((detail) => (
+                      <ListItem
+                        key={detail}
+                        sx={{ px: 0, alignItems: "flex-start" }}
+                      >
+                        <ListItemText primary={detail} />
+                      </ListItem>
+                    ))}
                 </List>
 
                 <Box>
                   <Typography variant="body1" paragraph>
                     <strong>Duration:</strong>{" "}
-                    {item.duration || item.Duration || "Contact us for an estimated duration."}
+                    {item.duration ||
+                      item.Duration ||
+                      "Contact us for an estimated duration."}
                   </Typography>
                   <Typography variant="body1" paragraph>
                     <strong>Price:</strong>{" "}
@@ -216,7 +233,8 @@ const PetGroomingDetails = () => {
                   </Typography>
                   <Typography variant="body1">
                     <strong>Program Covers:</strong>{" "}
-                    {item.programCovers || "Contact us to confirm what is included."}
+                    {item.programCovers ||
+                      "Contact us to confirm what is included."}
                   </Typography>
                 </Box>
               </Stack>
@@ -224,11 +242,17 @@ const PetGroomingDetails = () => {
           </Grid>
 
           <Grid size={{ xs: 12 }}>
-            <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
-              <Typography variant="h5" sx={{ mb: 1, color: "primary.main", fontWeight: 700 }}>
+            <Paper variant="outlined" sx={{ p: 3 }}>
+              <Typography
+                variant="h5"
+                sx={{ mb: 1, color: "primary.main", fontWeight: 700 }}
+              >
                 Request This Grooming Service
               </Typography>
-              <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
+              <Typography
+                variant="body2"
+                sx={{ mb: 2, color: "text.secondary" }}
+              >
                 Share your details and we&apos;ll follow up about scheduling and
                 availability.
               </Typography>
@@ -290,7 +314,9 @@ const PetGroomingDetails = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting Request..." : "Request Grooming Service"}
+                  {isSubmitting
+                    ? "Submitting Request..."
+                    : "Request Grooming Service"}
                 </Button>
               </Box>
             </Paper>

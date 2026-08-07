@@ -103,7 +103,7 @@ const PetBoarding = () => {
       <Grid container spacing={4} sx={{ pt: 3 }}>
         {isLoading ? (
           <Grid size={{ xs: 12 }}>
-            <Paper sx={{ p: 3, borderRadius: 4 }}>
+            <Paper>
               <Typography sx={{ color: "text.secondary" }}>
                 Loading boarding programs...
               </Typography>
@@ -131,8 +131,8 @@ const PetBoarding = () => {
                   alt="Main Article"
                   sx={{ height: 420 }}
                 />
-                <CardContent sx={{ padding: "0 !important" }}>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, pt: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" sx={{ fontWeight: 700}}>
                     {item.title}
                   </Typography>
                   <Typography variant="body1" sx={{ color: "primary.para" }}>
@@ -165,10 +165,10 @@ const PetBoarding = () => {
                         borderRadius: "2%",
                       }}
                     />
-                    <CardContent sx={{ padding: "0 !important" }}>
+                    <CardContent>
                       <Typography
                         variant="body1"
-                        sx={{ fontWeight: 700, mb: 1, pt: 2 }}
+                        sx={{ fontWeight: 700 }}
                       >
                         {item.title}
                       </Typography>

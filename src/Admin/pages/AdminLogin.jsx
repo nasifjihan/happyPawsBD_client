@@ -97,7 +97,7 @@ const AdminLoginForm = () => {
                   variant="contained"
                   color="success"
                   disabled={isSubmitting}
-                  sx={{ py: 1.25, fontWeight: 800, borderRadius: 3 }}
+                  sx={{ py: 1.25, fontWeight: 800 }}
                 >
                   {isSubmitting ? (
                     <CircularProgress size={22} color="inherit" />

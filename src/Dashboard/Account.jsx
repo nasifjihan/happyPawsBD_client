@@ -43,7 +43,7 @@ const Account = () => {
 
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+          <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
               Sign-In Details
             </Typography>
@@ -59,7 +59,7 @@ const Account = () => {
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+          <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
               Quick Actions
             </Typography>
@@ -79,7 +79,7 @@ const Account = () => {
         </Grid>
 
         <Grid size={{ xs: 12 }}>
-          <Paper variant="outlined" sx={{ p: 3, borderRadius: 3 }}>
+          <Paper variant="outlined" sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ mb: 1, fontWeight: 700 }}>
               What This Area Covers
             </Typography>

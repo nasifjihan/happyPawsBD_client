@@ -58,7 +58,7 @@ const LostFoundRedesign = () => {
         elevation={0}
         sx={{
           p: { xs: 3, md: 4.5 },
-          borderRadius: 6,
+
           border: "1px solid rgba(122, 178, 89, 0.14)",
           background:
             "linear-gradient(135deg, rgba(122,178,89,0.18) 0%, rgba(255,255,255,1) 50%, rgba(167,209,142,0.18) 100%)",
@@ -81,12 +81,19 @@ const LostFoundRedesign = () => {
           <Typography variant="h2" sx={{ fontWeight: 800, color: "#333332" }}>
             Lost & Found Pets
           </Typography>
-          <Typography variant="h6" sx={{ maxWidth: 760, color: "text.secondary" }}>
+          <Typography
+            variant="h6"
+            sx={{ maxWidth: 760, color: "text.secondary" }}
+          >
             Browse the latest lost and found reports first, then submit a clear
             report in the right format when you are ready.
           </Typography>
 
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25} sx={{ pt: 1 }}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1.25}
+            sx={{ pt: 1 }}
+          >
             <Chip
               label={`${lostPetsTotal} lost reports`}
               sx={{
@@ -127,7 +134,7 @@ const LostFoundRedesign = () => {
             elevation={0}
             sx={{
               p: 3,
-              borderRadius: 5,
+
               height: "100%",
               border: "1px solid rgba(122, 178, 89, 0.14)",
               boxShadow: "0 18px 38px rgba(15, 23, 42, 0.06)",
@@ -135,7 +142,10 @@ const LostFoundRedesign = () => {
           >
             <Stack spacing={1.5}>
               <SearchOutlinedIcon sx={{ color: "#7AB259", fontSize: 30 }} />
-              <Typography variant="h5" sx={{ fontWeight: 800, color: "#333332" }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 800, color: "#333332" }}
+              >
                 Found a pet?
               </Typography>
               <Typography sx={{ color: "text.secondary" }}>
@@ -146,7 +156,10 @@ const LostFoundRedesign = () => {
               <Button
                 variant="outlined"
                 color="success"
-                sx={{ alignSelf: "flex-start", borderRadius: 3, textTransform: "none" }}
+                sx={{
+                  alignSelf: "flex-start",
+                  textTransform: "none",
+                }}
                 onClick={() => jumpToReport("found")}
               >
                 Open Found Pet Report
@@ -160,7 +173,7 @@ const LostFoundRedesign = () => {
             elevation={0}
             sx={{
               p: 3,
-              borderRadius: 5,
+
               height: "100%",
               border: "1px solid rgba(122, 178, 89, 0.14)",
               boxShadow: "0 18px 38px rgba(15, 23, 42, 0.06)",
@@ -168,7 +181,10 @@ const LostFoundRedesign = () => {
           >
             <Stack spacing={1.5}>
               <CampaignOutlinedIcon sx={{ color: "#7AB259", fontSize: 30 }} />
-              <Typography variant="h5" sx={{ fontWeight: 800, color: "#333332" }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 800, color: "#333332" }}
+              >
                 Lost a pet?
               </Typography>
               <Typography sx={{ color: "text.secondary" }}>
@@ -179,7 +195,10 @@ const LostFoundRedesign = () => {
               <Button
                 variant="outlined"
                 color="success"
-                sx={{ alignSelf: "flex-start", borderRadius: 3, textTransform: "none" }}
+                sx={{
+                  alignSelf: "flex-start",
+                  textTransform: "none",
+                }}
                 onClick={() => jumpToReport("lost")}
               >
                 Open Lost Pet Report

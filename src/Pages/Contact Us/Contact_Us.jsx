@@ -100,7 +100,6 @@ const Contact_Us = () => {
           elevation={2}
           sx={{
             p: { xs: 3, md: 5 },
-            borderRadius: 4,
             bgcolor: "background.paper",
           }}
         >
@@ -112,7 +111,6 @@ const Contact_Us = () => {
                 alt="Contact Happy Paws BD"
                 sx={{
                   width: "100%",
-                  borderRadius: "24px",
                   objectFit: "cover",
                 }}
               />

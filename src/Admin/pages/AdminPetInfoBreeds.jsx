@@ -1,25 +1,31 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Alert,
   Box,
   Button,
+  Chip,
   Divider,
   Grid,
+  IconButton,
   MenuItem,
   Pagination,
   Paper,
   Stack,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
+import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import {
   adminDeletePetInfoBreed,
   adminListPetInfoBreeds,
   adminListPetInfoAnimals,
-  adminUpsertPetInfoBreed,
+  adminUpsertPetInfoBreedWithImage,
 } from "../lib/adminApi";
 import { useAdminListQueryState } from "../lib/useAdminListQueryState";
 
@@ -43,6 +49,8 @@ const emptyBreed = {
   id: "",
   type: "",
   name: "",
+  imageUrl: "",
+  imageAlt: "",
   origin: "",
   size: "",
   lifespan: "",
@@ -52,12 +60,19 @@ const emptyBreed = {
   groomingNeeds: "",
   goodFor: "",
   highlights: "",
+  removeImage: false,
 };
+
+const MAX_IMAGE_SIZE_MB = 5;
+const ACCEPT_IMAGE = "image/jpeg,image/png,image/jpg";
 
 const AdminPetInfoBreeds = () => {
   const queryClient = useQueryClient();
   const [typeFilter, setTypeFilter] = useState("all");
   const [selected, setSelected] = useState(emptyBreed);
+  const [pendingImageFile, setPendingImageFile] = useState(null);
+  const [pendingImagePreview, setPendingImagePreview] = useState(null);
+  const fileInputRef = useRef(null);
 
   const staticParams = useMemo(
     () => ({
@@ -93,7 +108,8 @@ const AdminPetInfoBreeds = () => {
   });
 
   const upsertMutation = useMutation({
-    mutationFn: adminUpsertPetInfoBreed,
+    mutationFn: ({ payload, imageFile, breedId }) =>
+      adminUpsertPetInfoBreedWithImage({ payload, imageFile, breedId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin", "pet-info-breeds"] });
     },
@@ -104,6 +120,9 @@ const AdminPetInfoBreeds = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin", "pet-info-breeds"] });
       setSelected(emptyBreed);
+      setPendingImageFile(null);
+      setPendingImagePreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     },
   });
 
@@ -119,11 +138,17 @@ const AdminPetInfoBreeds = () => {
   };
 
   const handleSelect = (item) => {
+    setPendingImageFile(null);
+    setPendingImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
     setSelected({
       ...emptyBreed,
       ...item,
       id: item?.id ?? "",
+      imageUrl: item?.imageUrl || "",
+      imageAlt: item?.imageAlt || "",
       temperament: serializeListField(item?.temperament),
+      removeImage: false,
     });
   };
 
@@ -134,11 +159,56 @@ const AdminPetInfoBreeds = () => {
     }));
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > MAX_IMAGE_SIZE_MB * 1024 * 1024) {
+      alert(`Image must be smaller than ${MAX_IMAGE_SIZE_MB}MB.`);
+      event.target.value = "";
+      return;
+    }
+
+    setPendingImageFile(file);
+    setSelected((current) => ({ ...current, removeImage: false }));
+
+    const reader = new FileReader();
+    reader.onload = () => setPendingImagePreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  const handleClearPendingImage = () => {
+    setPendingImageFile(null);
+    setPendingImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleMarkRemoveExistingImage = () => {
+    handleClearPendingImage();
+    setSelected((current) => ({
+      ...current,
+      imageUrl: "",
+      removeImage: true,
+    }));
+  };
+
   const handleSave = async () => {
-    await upsertMutation.mutateAsync({
+    const finalId = normalizeNumber(selected.id);
+    const imageFile = pendingImageFile || null;
+
+    const payload = {
       ...selected,
-      id: normalizeNumber(selected.id),
+      id: finalId,
+      imageUrl: selected.removeImage ? "" : selected.imageUrl || "",
+      imageAlt: selected.imageAlt || "",
+      removeImage: Boolean(selected.removeImage),
       temperament: normalizeListField(selected.temperament),
+    };
+
+    await upsertMutation.mutateAsync({
+      payload,
+      imageFile,
+      breedId: finalId,
     });
   };
 
@@ -150,13 +220,18 @@ const AdminPetInfoBreeds = () => {
     await deleteMutation.mutateAsync(selected.id);
   };
 
+  const displayImage = pendingImagePreview || selected.imageUrl;
+  const effectiveImageAlt = selected.imageAlt || selected.name || "";
+
   return (
     <Box>
       <Typography variant="h3" sx={{ mb: 2, fontWeight: 900 }}>
         Pet Info Breeds
       </Typography>
       <Typography sx={{ mb: 2, color: "text.secondary" }}>
-        Manage breed records shown under each animal type in the Pet Library page.
+        Manage breed records and breed photos shown under each animal type in the
+        Pet Library page. Upload a clear JPG or PNG photo for every breed so
+        visitors can identify them visually.
       </Typography>
 
       {isError ? (
@@ -197,7 +272,7 @@ const AdminPetInfoBreeds = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               <Stack
                 direction="row"
@@ -210,8 +285,13 @@ const AdminPetInfoBreeds = () => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={() => setSelected(emptyBreed)}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  onClick={() => {
+                    setSelected(emptyBreed);
+                    setPendingImageFile(null);
+                    setPendingImagePreview(null);
+                    if (fileInputRef.current) fileInputRef.current.value = "";
+                  }}
+                  sx={{ fontWeight: 800 }}
                 >
                   New
                 </Button>
@@ -225,8 +305,7 @@ const AdminPetInfoBreeds = () => {
                     key={item._id || item.id}
                     variant="outlined"
                     sx={{
-                      p: 2,
-                      borderRadius: 3,
+                      p: 1.5,
                       cursor: "pointer",
                       borderColor:
                         selected?.id === item.id
@@ -235,11 +314,49 @@ const AdminPetInfoBreeds = () => {
                     }}
                     onClick={() => handleSelect(item)}
                   >
-                    <Stack spacing={0.5}>
-                      <Typography sx={{ fontWeight: 900 }}>{item.name || "Unnamed"}</Typography>
-                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                        ID {item.id} • {item.type || "Unknown type"} • {item.size || "N/A"}
-                      </Typography>
+                    <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                      <Box
+                        sx={{
+                          width: 80,
+                          height: 64,
+                          overflow: "hidden",
+                          flexShrink: 0,
+                          bgcolor: "rgba(122, 178, 89, 0.08)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          border: "1px solid rgba(0,0,0,0.06)",
+                        }}
+                      >
+                        {item.imageUrl ? (
+                          <Box
+                            component="img"
+                            src={item.imageUrl}
+                            alt={item.imageAlt || item.name || ""}
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        ) : (
+                          <ImageOutlinedIcon
+                            sx={{ fontSize: 30, color: "text.disabled" }}
+                          />
+                        )}
+                      </Box>
+                      <Stack spacing={0.3} sx={{ minWidth: 0, flex: 1 }}>
+                        <Typography sx={{ fontWeight: 900 }}>
+                          {item.name || "Unnamed"}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "text.secondary" }}
+                        >
+                          ID {item.id} • {item.type || "Unknown type"} •{" "}
+                          {item.size || "N/A"}
+                        </Typography>
+                      </Stack>
                     </Stack>
                   </Paper>
                 ))
@@ -262,13 +379,128 @@ const AdminPetInfoBreeds = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Breed
             </Typography>
             <Divider sx={{ mb: 2 }} />
 
             <Stack spacing={2}>
+              <Stack direction="row" spacing={2} sx={{ alignItems: "flex-start" }}>
+                <Box
+                  sx={{
+                    width: 180,
+                    height: 140,
+                    overflow: "hidden",
+                    flexShrink: 0,
+                    bgcolor: "rgba(122, 178, 89, 0.06)",
+                    border: "1px solid rgba(0,0,0,0.08)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative",
+                  }}
+                >
+                  {displayImage ? (
+                    <Box
+                      component="img"
+                      src={displayImage}
+                      alt={effectiveImageAlt}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    <Stack
+                      spacing={0.5}
+                      sx={{
+                        alignItems: "center",
+                        color: "text.disabled",
+                        px: 2,
+                      }}
+                    >
+                      <ImageOutlinedIcon sx={{ fontSize: 34 }} />
+                      <Typography variant="caption" sx={{ textAlign: "center" }}>
+                        No breed photo
+                      </Typography>
+                    </Stack>
+                  )}
+                  {displayImage && (
+                    <Tooltip
+                      title={pendingImagePreview ? "Clear selected file" : "Remove existing image"}
+                    >
+                      <IconButton
+                        size="small"
+                        sx={{
+                          position: "absolute",
+                          top: 4,
+                          right: 4,
+                          bgcolor: "rgba(0,0,0,0.55)",
+                          color: "#fff",
+                          "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
+                        }}
+                        onClick={
+                          pendingImagePreview
+                            ? handleClearPendingImage
+                            : handleMarkRemoveExistingImage
+                        }
+                      >
+                        <ClearOutlinedIcon fontSize="inherit" />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </Box>
+                <Stack spacing={1.5} sx={{ flex: 1, minWidth: 0 }}>
+                  <Box>
+                    <Button
+                      component="label"
+                      variant="outlined"
+                      color="success"
+                      startIcon={<UploadFileOutlinedIcon />}
+                      sx={{ fontWeight: 700 }}
+                    >
+                      Upload breed photo
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept={ACCEPT_IMAGE}
+                        hidden
+                        onChange={handleFileChange}
+                      />
+                    </Button>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        display: "block",
+                        mt: 0.75,
+                        color: "text.secondary",
+                      }}
+                    >
+                      JPG / PNG, max {MAX_IMAGE_SIZE_MB}MB.
+                    </Typography>
+                  </Box>
+                  {pendingImageFile && (
+                    <Chip
+                      label={pendingImageFile.name}
+                      size="small"
+                      onDelete={handleClearPendingImage}
+                      variant="outlined"
+                      sx={{ alignSelf: "flex-start" }}
+                    />
+                  )}
+                </Stack>
+              </Stack>
+
+              <TextField
+                name="imageAlt"
+                label="Image alt text"
+                value={selected.imageAlt}
+                onChange={handleFieldChange}
+                helperText="Short description for accessibility & SEO"
+              />
+
               <TextField
                 name="id"
                 label="ID"
@@ -296,42 +528,51 @@ const AdminPetInfoBreeds = () => {
                 onChange={handleFieldChange}
                 required
               />
-              <TextField
-                name="origin"
-                label="Origin"
-                value={selected.origin}
-                onChange={handleFieldChange}
-              />
-              <TextField
-                name="size"
-                label="Size"
-                value={selected.size}
-                onChange={handleFieldChange}
-              />
-              <TextField
-                name="lifespan"
-                label="Lifespan"
-                value={selected.lifespan}
-                onChange={handleFieldChange}
-              />
+              <Stack direction="row" spacing={1.5} useFlexGap flexWrap="wrap">
+                <TextField
+                  name="origin"
+                  label="Origin"
+                  value={selected.origin}
+                  onChange={handleFieldChange}
+                  sx={{ minWidth: 160, flex: 1 }}
+                />
+                <TextField
+                  name="size"
+                  label="Size"
+                  value={selected.size}
+                  onChange={handleFieldChange}
+                  sx={{ minWidth: 140, flex: 1 }}
+                />
+                <TextField
+                  name="lifespan"
+                  label="Lifespan"
+                  value={selected.lifespan}
+                  onChange={handleFieldChange}
+                  sx={{ minWidth: 140, flex: 1 }}
+                />
+              </Stack>
               <TextField
                 name="careLevel"
                 label="Care level"
                 value={selected.careLevel}
                 onChange={handleFieldChange}
               />
-              <TextField
-                name="exerciseNeeds"
-                label="Exercise needs"
-                value={selected.exerciseNeeds}
-                onChange={handleFieldChange}
-              />
-              <TextField
-                name="groomingNeeds"
-                label="Grooming needs"
-                value={selected.groomingNeeds}
-                onChange={handleFieldChange}
-              />
+              <Stack direction="row" spacing={1.5} useFlexGap flexWrap="wrap">
+                <TextField
+                  name="exerciseNeeds"
+                  label="Exercise needs"
+                  value={selected.exerciseNeeds}
+                  onChange={handleFieldChange}
+                  sx={{ minWidth: 180, flex: 1 }}
+                />
+                <TextField
+                  name="groomingNeeds"
+                  label="Grooming needs"
+                  value={selected.groomingNeeds}
+                  onChange={handleFieldChange}
+                  sx={{ minWidth: 180, flex: 1 }}
+                />
+              </Stack>
               <TextField
                 name="goodFor"
                 label="Good for"
@@ -379,7 +620,7 @@ const AdminPetInfoBreeds = () => {
                   color="error"
                   disabled={!selected?.id || deleteMutation.isPending}
                   onClick={handleDelete}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Delete
                 </Button>
@@ -388,7 +629,7 @@ const AdminPetInfoBreeds = () => {
                   color="success"
                   disabled={upsertMutation.isPending}
                   onClick={handleSave}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Save
                 </Button>

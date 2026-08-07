@@ -258,7 +258,6 @@ const ProductDetailDialog = ({
               variant="contained"
               color="primary"
               sx={{
-                borderRadius: "16px",
                 borderBottomLeftRadius: 0,
                 borderTopRightRadius: 0,
                 backgroundColor: "#f50057",

@@ -55,7 +55,13 @@ const AdminAdoptionRequestDetails = () => {
   const queryClient = useQueryClient();
   const [draftStatus, setDraftStatus] = useState(null);
 
-  const { data: application, isLoading, isError, error, refetch } = useQuery({
+  const {
+    data: application,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "adoption-request", id],
     queryFn: () => adminGetAdoptionApplication(id),
     enabled: Boolean(id),
@@ -145,8 +151,10 @@ const AdminAdoptionRequestDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
-          <Typography sx={{ color: "text.secondary" }}>Loading adoption request...</Typography>
+        <Paper sx={{ p: 3 }}>
+          <Typography sx={{ color: "text.secondary" }}>
+            Loading adoption request...
+          </Typography>
         </Paper>
       ) : null}
 
@@ -154,7 +162,7 @@ const AdminAdoptionRequestDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
@@ -194,19 +202,20 @@ const AdminAdoptionRequestDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Adoption Background
                   </Typography>
                   <Divider />
                   <Typography sx={{ color: "text.secondary" }}>
-                    {application.experience || "No adoption experience was shared."}
+                    {application.experience ||
+                      "No adoption experience was shared."}
                   </Typography>
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Applicant Contact
@@ -230,13 +239,17 @@ const AdminAdoptionRequestDetails = () => {
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Animal Request
                   </Typography>
                   <Divider />
-                  <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ alignItems: "center" }}
+                  >
                     <PetsOutlinedIcon color="success" fontSize="small" />
                     <Typography sx={{ fontWeight: 700 }}>
                       {application.animalCode || "No code"}
@@ -248,14 +261,15 @@ const AdminAdoptionRequestDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Timeline
                   </Typography>
                   <Divider />
                   <Typography>
-                    <strong>Created:</strong> {formatDateTime(application.createdAt)}
+                    <strong>Created:</strong>{" "}
+                    {formatDateTime(application.createdAt)}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
                     Updated {formatDateTime(application.updatedAt)}

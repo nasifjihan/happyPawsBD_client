@@ -71,7 +71,7 @@ const AdminBlogPosts = () => {
       category: categoryFilter.trim() || undefined,
       featured: featuredOnly ? "1" : undefined,
     }),
-    [categoryFilter, featuredOnly]
+    [categoryFilter, featuredOnly],
   );
 
   const {
@@ -121,7 +121,8 @@ const AdminBlogPosts = () => {
 
   const rows = useMemo(() => data?.items ?? [], [data?.items]);
   const totalPages = data?.totalPages ?? 1;
-  const errorMessage = error?.response?.data?.message || "Could not load blog posts.";
+  const errorMessage =
+    error?.response?.data?.message || "Could not load blog posts.";
 
   const selectedImage = sanitizeImageUrl(selected.coverImageUrl);
 
@@ -227,7 +228,7 @@ const AdminBlogPosts = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               <Stack
                 direction="row"
@@ -241,14 +242,16 @@ const AdminBlogPosts = () => {
                   variant="contained"
                   color="success"
                   onClick={() => setSelected(emptyPost)}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   New
                 </Button>
               </Stack>
 
               {isLoading ? (
-                <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  Loading...
+                </Typography>
               ) : rows.length ? (
                 rows.map((item) => (
                   <Paper
@@ -256,7 +259,6 @@ const AdminBlogPosts = () => {
                     variant="outlined"
                     sx={{
                       p: 2,
-                      borderRadius: 3,
                       cursor: "pointer",
                       borderColor:
                         selected?.id === item.id
@@ -274,9 +276,14 @@ const AdminBlogPosts = () => {
                         <Typography sx={{ fontWeight: 900 }}>
                           {item.title || "Untitled"}
                         </Typography>
-                        {item.status ? <AdminStatusChip status={item.status} /> : null}
+                        {item.status ? (
+                          <AdminStatusChip status={item.status} />
+                        ) : null}
                       </Stack>
-                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
                         ID {item.id} • {item.category || "Uncategorized"}
                         {item.featured ? " • Featured" : ""}
                       </Typography>
@@ -284,7 +291,9 @@ const AdminBlogPosts = () => {
                   </Paper>
                 ))
               ) : (
-                <Typography sx={{ color: "text.secondary" }}>No blog posts found.</Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  No blog posts found.
+                </Typography>
               )}
 
               {totalPages > 1 ? (
@@ -302,7 +311,7 @@ const AdminBlogPosts = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Post
             </Typography>
@@ -318,7 +327,6 @@ const AdminBlogPosts = () => {
                     width: "100%",
                     height: 220,
                     objectFit: "cover",
-                    borderRadius: 3,
                     border: "1px solid",
                     borderColor: "divider",
                   }}
@@ -453,7 +461,7 @@ const AdminBlogPosts = () => {
                   color="error"
                   disabled={!selected?.id || deleteMutation.isPending}
                   onClick={handleDelete}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Delete
                 </Button>
@@ -462,7 +470,7 @@ const AdminBlogPosts = () => {
                   color="success"
                   disabled={upsertMutation.isPending}
                   onClick={handleSave}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Save
                 </Button>

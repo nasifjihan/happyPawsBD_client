@@ -345,7 +345,7 @@ const VetFinder = () => {
     <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
       <Container className="myContainer">
         <Stack spacing={3}>
-          <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+          <Paper elevation={2} sx={{ p: { xs: 3, md: 5 } }}>
             <Stack spacing={2} sx={{ textAlign: "center", alignItems: "center" }}>
               <Typography variant="h4" sx={{ fontWeight: 800 }}>
                 Vet Finder
@@ -495,7 +495,7 @@ const VetFinder = () => {
           </Paper>
 
           {isLoadingData ? (
-            <Paper sx={{ p: 3, borderRadius: 4 }}>
+            <Paper sx={{ p: 3 }}>
               <Typography sx={{ color: "text.secondary" }}>Loading vet directory...</Typography>
             </Paper>
           ) : loadError ? (

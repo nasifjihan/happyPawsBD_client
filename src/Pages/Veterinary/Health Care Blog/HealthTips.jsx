@@ -60,7 +60,6 @@ const HealthTips = () => {
                 padding: 3,
                 textAlign: "left",
                 backgroundColor: "#ffffff",
-                borderRadius: 3,
                 boxShadow: "none",
                 height: "100%",
                 "&:hover": {

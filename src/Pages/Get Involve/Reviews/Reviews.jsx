@@ -122,7 +122,6 @@ const Reviews = () => {
             elevation={0}
             sx={{
               p: { xs: 3, md: 5 },
-              borderRadius: 4,
               border: "1px solid",
               borderColor: alpha("#2e7d32", 0.12),
               background:
@@ -184,7 +183,6 @@ const Reviews = () => {
                   variant="outlined"
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     bgcolor: "#fff",
                     borderColor: alpha("#2e7d32", 0.12),
                   }}
@@ -222,7 +220,6 @@ const Reviews = () => {
                 elevation={0}
                 sx={{
                   p: { xs: 3, md: 4 },
-                  borderRadius: 4,
                   border: "1px solid",
                   borderColor: alpha("#2e7d32", 0.1),
                 }}
@@ -315,7 +312,6 @@ const Reviews = () => {
                   elevation={0}
                   sx={{
                     p: { xs: 3, md: 4 },
-                    borderRadius: 4,
                     border: "1px solid",
                     borderColor: alpha("#2e7d32", 0.1),
                   }}
@@ -351,7 +347,6 @@ const Reviews = () => {
                       elevation={0}
                       sx={{
                         p: 3,
-                        borderRadius: 4,
                         border: "1px solid",
                         borderColor: alpha("#2e7d32", 0.1),
                       }}

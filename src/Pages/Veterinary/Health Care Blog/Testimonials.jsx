@@ -47,7 +47,6 @@ const Testimonials = () => {
               variant="outlined"
               sx={{
                 padding: "1.5rem",
-                borderRadius: 3,
                 backgroundColor: "#ffffff",
                 boxShadow: "none",
                 height: "100%",

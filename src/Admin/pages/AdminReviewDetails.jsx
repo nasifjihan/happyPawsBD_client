@@ -141,7 +141,7 @@ const AdminReviewDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper sx={{ p: 3 }}>
           <Typography sx={{ color: "text.secondary" }}>Loading review...</Typography>
         </Paper>
       ) : null}
@@ -150,7 +150,7 @@ const AdminReviewDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
@@ -195,7 +195,7 @@ const AdminReviewDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Review Message
@@ -207,7 +207,7 @@ const AdminReviewDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
@@ -227,7 +227,7 @@ const AdminReviewDetails = () => {
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Timeline

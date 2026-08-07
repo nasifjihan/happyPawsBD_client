@@ -215,7 +215,7 @@ const AdminStories = () => {
         submissions.
       </Typography>
 
-      <Paper sx={{ p: 1.5, borderRadius: 4, mb: 3 }}>
+      <Paper sx={{ p: 1.5, mb: 3 }}>
         <Tabs
           value={category}
           onChange={(_, nextCategory) => {
@@ -255,7 +255,7 @@ const AdminStories = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               <Stack
                 direction="row"
@@ -269,7 +269,7 @@ const AdminStories = () => {
                   variant="contained"
                   color="success"
                   onClick={() => setSelected({ ...emptyStory, category })}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   New
                 </Button>
@@ -284,7 +284,6 @@ const AdminStories = () => {
                     variant="outlined"
                     sx={{
                       p: 2,
-                      borderRadius: 3,
                       cursor: "pointer",
                       borderColor:
                         selected?.id === item.id
@@ -336,7 +335,7 @@ const AdminStories = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Story
             </Typography>
@@ -352,7 +351,6 @@ const AdminStories = () => {
                     width: "100%",
                     height: 200,
                     objectFit: "cover",
-                    borderRadius: 3,
                     border: "1px solid",
                     borderColor: "divider",
                   }}
@@ -466,7 +464,7 @@ const AdminStories = () => {
                   color="success"
                   onClick={handleSave}
                   disabled={upsertMutation.isPending || !selected.title || !selected.story}
-                  sx={{ borderRadius: 3, fontWeight: 800, flex: 1 }}
+                  sx={{ fontWeight: 800, flex: 1 }}
                 >
                   Save
                 </Button>
@@ -475,7 +473,7 @@ const AdminStories = () => {
                   color="error"
                   onClick={handleDelete}
                   disabled={deleteMutation.isPending || !selected.id}
-                  sx={{ borderRadius: 3, fontWeight: 800, flex: 1 }}
+                  sx={{ fontWeight: 800, flex: 1 }}
                 >
                   Delete
                 </Button>

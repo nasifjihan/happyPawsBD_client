@@ -128,7 +128,7 @@ const In_Person_Consultation = () => {
   return (
     <Box sx={{ backgroundColor: "#f9f9f9", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
-        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 } }}>
           <Stack
             spacing={2}
             sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
@@ -146,7 +146,7 @@ const In_Person_Consultation = () => {
           <Grid container spacing={2}>
             {visitBenefits.map((item) => (
               <Grid key={item.title} size={{ xs: 12, md: 4 }}>
-                <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, height: "100%" }}>
+                <Paper variant="outlined" sx={{ p: 3, height: "100%" }}>
                   <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     {item.title}
                   </Typography>
@@ -158,7 +158,7 @@ const In_Person_Consultation = () => {
             ))}
           </Grid>
 
-          <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, borderRadius: 4, mt: 3 }}>
+          <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, mt: 3 }}>
             <Stack spacing={2.5}>
               <Typography variant="h5" sx={{ fontWeight: 900 }}>
                 Request an Appointment
@@ -307,7 +307,7 @@ const In_Person_Consultation = () => {
                   color="success"
                   onClick={handleRequestAppointment}
                   disabled={submitting}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Submit Request
                 </Button>
@@ -316,7 +316,7 @@ const In_Person_Consultation = () => {
                   to="/vet_finder"
                   variant="outlined"
                   color="success"
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Browse Vet Finder
                 </Button>
@@ -324,7 +324,7 @@ const In_Person_Consultation = () => {
             </Stack>
           </Paper>
 
-          <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, mt: 3 }}>
+          <Paper variant="outlined" sx={{ p: 3, mt: 3 }}>
             <Stack spacing={2}>
               <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 What to Bring

@@ -144,7 +144,7 @@ const AdminOnlineConsultationDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper sx={{ p: 3 }}>
           <Typography sx={{ color: "text.secondary" }}>
             Loading consultation request...
           </Typography>
@@ -155,7 +155,7 @@ const AdminOnlineConsultationDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
@@ -195,7 +195,7 @@ const AdminOnlineConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Concern
@@ -206,7 +206,7 @@ const AdminOnlineConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
@@ -224,7 +224,7 @@ const AdminOnlineConsultationDetails = () => {
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Contact
@@ -239,7 +239,7 @@ const AdminOnlineConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Appointment
@@ -264,7 +264,7 @@ const AdminOnlineConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Metadata

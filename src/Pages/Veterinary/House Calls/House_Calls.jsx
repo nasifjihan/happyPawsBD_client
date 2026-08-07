@@ -139,7 +139,7 @@ const House_Calls = () => {
   return (
     <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
-        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 } }}>
           <Stack
             spacing={2}
             sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
@@ -164,7 +164,7 @@ const House_Calls = () => {
               <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   variant="outlined"
-                  sx={{ p: 3, borderRadius: 3, height: "100%" }}
+                  sx={{ p: 3, height: "100%" }}
                 >
                   <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     {item.title}
@@ -177,7 +177,7 @@ const House_Calls = () => {
             ))}
           </Grid>
 
-          <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, borderRadius: 4, mt: 3 }}>
+          <Paper variant="outlined" sx={{ p: { xs: 3, md: 4 }, mt: 3 }}>
             <Stack spacing={2.5}>
               <Typography variant="h5" sx={{ fontWeight: 900 }}>
                 Request a House Call
@@ -342,7 +342,7 @@ const House_Calls = () => {
                   color="success"
                   onClick={handleRequestHouseCall}
                   disabled={submitting}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Submit Request
                 </Button>
@@ -351,7 +351,7 @@ const House_Calls = () => {
                   to="/vet_finder"
                   variant="outlined"
                   color="success"
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Find a Clinic
                 </Button>
@@ -360,7 +360,7 @@ const House_Calls = () => {
                   to="/in_person_consultation"
                   variant="outlined"
                   color="success"
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   In-Person Consultation
                 </Button>
@@ -368,7 +368,7 @@ const House_Calls = () => {
             </Stack>
           </Paper>
 
-          <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, mt: 3 }}>
+          <Paper variant="outlined" sx={{ p: 3, mt: 3 }}>
             <Stack spacing={2}>
               <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 How to prepare

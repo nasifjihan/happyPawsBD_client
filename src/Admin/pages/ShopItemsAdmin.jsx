@@ -145,7 +145,7 @@ const ShopItemsAdmin = () => {
           variant="contained"
           color="success"
           onClick={() => setSelected(emptyItem)}
-          sx={{ borderRadius: 3, fontWeight: 800 }}
+          sx={{ fontWeight: 800 }}
         >
           New Item
         </Button>
@@ -174,7 +174,7 @@ const ShopItemsAdmin = () => {
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, lg: 7 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Stack spacing={1.5}>
               {isLoading ? (
                 <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
@@ -185,7 +185,6 @@ const ShopItemsAdmin = () => {
                     variant="outlined"
                     sx={{
                       p: 2,
-                      borderRadius: 3,
                       cursor: "pointer",
                       borderColor:
                         selected?.id === item.id
@@ -212,7 +211,6 @@ const ShopItemsAdmin = () => {
                             sx={{
                               width: 64,
                               height: 64,
-                              borderRadius: 2,
                               objectFit: "cover",
                               border: "1px solid",
                               borderColor: "divider",
@@ -255,7 +253,7 @@ const ShopItemsAdmin = () => {
         </Grid>
 
         <Grid size={{ xs: 12, lg: 5 }}>
-          <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+          <Paper sx={{ p: 2.5 }}>
             <Typography variant="h5" sx={{ mb: 2, fontWeight: 900 }}>
               Edit Item
             </Typography>
@@ -327,7 +325,7 @@ const ShopItemsAdmin = () => {
               {selectedImage ? (
                 <Paper
                   variant="outlined"
-                  sx={{ p: 1.5, borderRadius: 3, alignSelf: "flex-start" }}
+                  sx={{ p: 1.5, alignSelf: "flex-start" }}
                 >
                   <Typography variant="body2" sx={{ mb: 1, fontWeight: 700 }}>
                     Image Preview
@@ -340,7 +338,6 @@ const ShopItemsAdmin = () => {
                       width: 180,
                       height: 180,
                       objectFit: "cover",
-                      borderRadius: 2,
                       border: "1px solid",
                       borderColor: "divider",
                     }}
@@ -362,7 +359,7 @@ const ShopItemsAdmin = () => {
                   color="success"
                   onClick={handleSave}
                   disabled={upsertMutation.isPending}
-                  sx={{ flex: 1, borderRadius: 3, fontWeight: 800 }}
+                  sx={{ flex: 1, fontWeight: 800 }}
                 >
                   Save
                 </Button>
@@ -371,7 +368,7 @@ const ShopItemsAdmin = () => {
                   color="error"
                   onClick={handleDelete}
                   disabled={deleteMutation.isPending || !selected?.id}
-                  sx={{ borderRadius: 3, fontWeight: 800 }}
+                  sx={{ fontWeight: 800 }}
                 >
                   Delete
                 </Button>

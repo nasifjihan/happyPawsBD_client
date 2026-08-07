@@ -42,7 +42,6 @@ const Make_Difference = () => {
       sx={{
         backgroundColor: "primary.back",
         my: "10px",
-        borderRadius: ".3rem",
         textAlign: "center",
       }}
     >
@@ -77,7 +76,6 @@ const Make_Difference = () => {
                     sx={{
                       width: 100,
                       height: 100,
-                      borderRadius: "100%",
                       backgroundColor: item.iconBgColor,
                     }}
                   >

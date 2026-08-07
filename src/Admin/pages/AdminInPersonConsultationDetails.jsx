@@ -48,7 +48,13 @@ const AdminInPersonConsultationDetails = () => {
   const [draftStatus, setDraftStatus] = useState(null);
   const [draftNotes, setDraftNotes] = useState(null);
 
-  const { data: consultation, isLoading, isError, error, refetch } = useQuery({
+  const {
+    data: consultation,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
     queryKey: ["admin", "in-person-consultation", id],
     queryFn: () => adminGetInPersonConsultation(id),
     enabled: Boolean(id),
@@ -57,15 +63,21 @@ const AdminInPersonConsultationDetails = () => {
   const updateMutation = useMutation({
     mutationFn: adminUpdateInPersonConsultation,
     onSuccess: (updated) => {
-      queryClient.setQueryData(["admin", "in-person-consultation", id], updated);
-      queryClient.invalidateQueries({ queryKey: ["admin", "in-person-consultations"] });
+      queryClient.setQueryData(
+        ["admin", "in-person-consultation", id],
+        updated,
+      );
+      queryClient.invalidateQueries({
+        queryKey: ["admin", "in-person-consultations"],
+      });
       setDraftStatus(null);
       setDraftNotes(null);
     },
   });
 
   const effectiveStatus = draftStatus || consultation?.status || "new";
-  const effectiveNotes = draftNotes !== null ? draftNotes : consultation?.adminNotes || "";
+  const effectiveNotes =
+    draftNotes !== null ? draftNotes : consultation?.adminNotes || "";
 
   const handleSave = async () => {
     await updateMutation.mutateAsync({
@@ -143,7 +155,7 @@ const AdminInPersonConsultationDetails = () => {
       ) : null}
 
       {isLoading ? (
-        <Paper sx={{ p: 3, borderRadius: 4 }}>
+        <Paper sx={{ p: 3 }}>
           <Typography sx={{ color: "text.secondary" }}>
             Loading consultation request...
           </Typography>
@@ -154,7 +166,7 @@ const AdminInPersonConsultationDetails = () => {
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 8 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Stack
                     direction={{ xs: "column", md: "row" }}
@@ -170,7 +182,9 @@ const AdminInPersonConsultationDetails = () => {
                       </Typography>
                       <Typography sx={{ color: "text.secondary" }}>
                         {consultation.petType || "Pet"}{" "}
-                        {consultation.petName ? `• ${consultation.petName}` : ""}
+                        {consultation.petName
+                          ? `• ${consultation.petName}`
+                          : ""}
                       </Typography>
                     </Box>
                     <AdminStatusChip status={effectiveStatus} />
@@ -194,7 +208,7 @@ const AdminInPersonConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Concern
@@ -205,7 +219,7 @@ const AdminInPersonConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={2}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Admin Notes
@@ -223,7 +237,7 @@ const AdminInPersonConsultationDetails = () => {
 
           <Grid size={{ xs: 12, lg: 4 }}>
             <Stack spacing={3}>
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Contact
@@ -238,7 +252,7 @@ const AdminInPersonConsultationDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Visit Details
@@ -251,18 +265,21 @@ const AdminInPersonConsultationDetails = () => {
                     <strong>Address:</strong> {consultation.address || "—"}
                   </Typography>
                   <Typography>
-                    <strong>Preferred Date:</strong> {consultation.preferredDate || "—"}
+                    <strong>Preferred Date:</strong>{" "}
+                    {consultation.preferredDate || "—"}
                   </Typography>
                   <Typography>
-                    <strong>Preferred Time:</strong> {consultation.preferredTime || "—"}
+                    <strong>Preferred Time:</strong>{" "}
+                    {consultation.preferredTime || "—"}
                   </Typography>
                   <Typography sx={{ color: "text.secondary" }}>
-                    <strong>Pet age:</strong> {consultation.petAge || "Not provided"}
+                    <strong>Pet age:</strong>{" "}
+                    {consultation.petAge || "Not provided"}
                   </Typography>
                 </Stack>
               </Paper>
 
-              <Paper sx={{ p: 3, borderRadius: 4 }}>
+              <Paper sx={{ p: 3 }}>
                 <Stack spacing={1.25}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Metadata
@@ -285,4 +302,3 @@ const AdminInPersonConsultationDetails = () => {
 };
 
 export default AdminInPersonConsultationDetails;
-

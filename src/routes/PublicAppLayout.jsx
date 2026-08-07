@@ -21,7 +21,6 @@ const PublicAppLayout = () => {
           zIndex: 2000,
           px: 2,
           py: 1,
-          borderRadius: 1,
           backgroundColor: "success.main",
           color: "common.white",
           textDecoration: "none",

@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const AdoptionDetails = () => {
   return (
-    <Box className="myContainer" sx={{ mt: 5 }}>
+    <Box className="myContainer" sx={{ my: 5 }}>
       <Stack
         direction={{ xs: "column", md: "row" }}
         spacing={6}

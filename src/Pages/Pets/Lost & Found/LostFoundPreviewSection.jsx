@@ -68,7 +68,6 @@ const LostFoundPreviewSection = ({
     <Box
       sx={{
         p: { xs: 2.5, md: 3 },
-        borderRadius: 5,
         border: "1px solid",
         borderColor: "rgba(122, 178, 89, 0.14)",
         backgroundColor: "#fff",
@@ -103,7 +102,7 @@ const LostFoundPreviewSection = ({
                 sx={{
                   display: "flex",
                   flexDirection: { xs: "column", sm: "row" },
-                  borderRadius: 4,
+
                   border: "1px solid",
                   borderColor: "rgba(122, 178, 89, 0.14)",
                   boxShadow: "none",
@@ -126,10 +125,16 @@ const LostFoundPreviewSection = ({
                 <CardContent sx={{ flex: 1, p: 2.25 }}>
                   <Stack spacing={1.25}>
                     <Box>
-                      <Typography variant="h6" sx={{ fontWeight: 800, color: "#333332" }}>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: 800, color: "#333332" }}
+                      >
                         {meta.title(pet)}
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
                         {meta.personLabel(pet)}
                       </Typography>
                     </Box>
@@ -142,8 +147,14 @@ const LostFoundPreviewSection = ({
                           key={`${pet._id}-${item.label}`}
                           size={{ xs: 12, sm: 6 }}
                         >
-                          <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                            <Box component="span" sx={{ fontWeight: 700, color: "#333332" }}>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "text.secondary" }}
+                          >
+                            <Box
+                              component="span"
+                              sx={{ fontWeight: 700, color: "#333332" }}
+                            >
                               {item.label}:
                             </Box>{" "}
                             {item.value || "Not provided"}
@@ -175,7 +186,6 @@ const LostFoundPreviewSection = ({
         sx={{
           mt: 3,
           minHeight: 48,
-          borderRadius: 3,
           fontWeight: 700,
           textTransform: "none",
         }}

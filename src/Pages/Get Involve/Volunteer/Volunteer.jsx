@@ -164,7 +164,6 @@ const Volunteer = () => {
             elevation={0}
             sx={{
               p: { xs: 3, md: 5 },
-              borderRadius: 4,
               border: "1px solid",
               borderColor: alpha("#2e7d32", 0.12),
               background:
@@ -228,7 +227,6 @@ const Volunteer = () => {
                   variant="outlined"
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     bgcolor: "#fff",
                     borderColor: alpha("#2e7d32", 0.12),
                   }}
@@ -263,7 +261,6 @@ const Volunteer = () => {
                   elevation={0}
                   sx={{
                     p: 3,
-                    borderRadius: 4,
                     height: "100%",
                     border: "1px solid",
                     borderColor: alpha("#2e7d32", 0.1),
@@ -288,12 +285,11 @@ const Volunteer = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  p: { xs: 3, md: 4 },
-                  borderRadius: 4,
-                  height: "100%",
-                  border: "1px solid",
-                  borderColor: alpha("#2e7d32", 0.1),
-                }}
+                p: { xs: 3, md: 4 },
+                height: "100%",
+                border: "1px solid",
+                borderColor: alpha("#2e7d32", 0.1),
+              }}
               >
                 <Stack spacing={2}>
                   <Typography variant="h5" sx={{ fontWeight: 800 }}>
@@ -325,12 +321,11 @@ const Volunteer = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  p: { xs: 3, md: 4 },
-                  borderRadius: 4,
-                  height: "100%",
-                  border: "1px solid",
-                  borderColor: alpha("#2e7d32", 0.1),
-                }}
+                p: { xs: 3, md: 4 },
+                height: "100%",
+                border: "1px solid",
+                borderColor: alpha("#2e7d32", 0.1),
+              }}
               >
                 <Stack spacing={2}>
                   <Typography variant="h5" sx={{ fontWeight: 800 }}>
@@ -368,12 +363,11 @@ const Volunteer = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  p: { xs: 3, md: 4 },
-                  borderRadius: 4,
-                  height: "100%",
-                  border: "1px solid",
-                  borderColor: alpha("#2e7d32", 0.1),
-                }}
+                p: { xs: 3, md: 4 },
+                height: "100%",
+                border: "1px solid",
+                borderColor: alpha("#2e7d32", 0.1),
+              }}
               >
                 <Stack spacing={2}>
                   <Typography variant="h5" sx={{ fontWeight: 800 }}>
@@ -395,12 +389,11 @@ const Volunteer = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  p: { xs: 3, md: 4 },
-                  borderRadius: 4,
-                  height: "100%",
-                  border: "1px solid",
-                  borderColor: alpha("#2e7d32", 0.1),
-                }}
+                p: { xs: 3, md: 4 },
+                height: "100%",
+                border: "1px solid",
+                borderColor: alpha("#2e7d32", 0.1),
+              }}
               >
                 <Stack spacing={2}>
                   <Typography variant="h5" sx={{ fontWeight: 800 }}>

@@ -61,7 +61,7 @@ const Profile = () => {
     >
       {logoutError ? <Alert severity="error">{logoutError}</Alert> : null}
 
-      <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 }, borderRadius: 3 }}>
+      <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 } }}>
         <Grid container spacing={3} sx={{ alignItems: "center" }}>
           <Grid size={{ xs: 12, md: 3 }}>
             <Stack

@@ -30,7 +30,7 @@ const Covid19_Info = () => {
   return (
     <Box sx={{ bgcolor: "background.default", py: { xs: 4, md: 6 } }}>
       <Container maxWidth="lg">
-        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+        <Paper elevation={2} sx={{ p: { xs: 3, md: 5 } }}>
           <Stack
             spacing={2}
             sx={{ mb: 4, textAlign: "center", alignItems: "center" }}
@@ -54,7 +54,7 @@ const Covid19_Info = () => {
               <Grid key={item.title} size={{ xs: 12, md: 4 }}>
                 <Paper
                   variant="outlined"
-                  sx={{ p: 3, borderRadius: 3, height: "100%" }}
+                  sx={{ p: 3, height: "100%" }}
                 >
                   <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     {item.title}
@@ -67,7 +67,7 @@ const Covid19_Info = () => {
             ))}
           </Grid>
 
-          <Paper variant="outlined" sx={{ p: 3, borderRadius: 3, mt: 3 }}>
+          <Paper variant="outlined" sx={{ p: 3, mt: 3 }}>
             <Stack spacing={2}>
               <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 Quick safety checklist

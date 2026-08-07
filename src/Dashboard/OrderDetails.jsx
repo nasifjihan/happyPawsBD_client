@@ -156,7 +156,7 @@ const OrderDetails = () => {
       {!isLoading && order ? (
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, lg: 7 }}>
-            <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
+            <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 } }}>
               <Stack spacing={2.5}>
                 <Box>
                   <Typography variant="h5" sx={{ fontWeight: 900 }}>
@@ -206,7 +206,7 @@ const OrderDetails = () => {
                         <Paper
                           key={`${item.id || item.name || "item"}-${index}`}
                           variant="outlined"
-                          sx={{ p: 2, borderRadius: 3 }}
+                          sx={{ p: 2 }}
                         >
                           <Stack
                             direction={{ xs: "column", sm: "row" }}
@@ -241,7 +241,7 @@ const OrderDetails = () => {
 
           <Grid size={{ xs: 12, lg: 5 }}>
             <Stack spacing={3}>
-              <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
+              <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 } }}>
                 <Stack spacing={1.5}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Summary
@@ -265,7 +265,7 @@ const OrderDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
+              <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 } }}>
                 <Stack spacing={1.5}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Delivery Details
@@ -284,7 +284,7 @@ const OrderDetails = () => {
                 </Stack>
               </Paper>
 
-              <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 }, borderRadius: 4 }}>
+              <Paper variant="outlined" sx={{ p: { xs: 2.5, md: 3 } }}>
                 <Stack spacing={1.5}>
                   <Typography variant="h6" sx={{ fontWeight: 800 }}>
                     Tracking Token

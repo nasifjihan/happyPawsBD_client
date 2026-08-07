@@ -20,7 +20,6 @@ const ContentState = ({
       sx={{
         border: "1px solid",
         borderColor: "divider",
-        borderRadius: 3,
         px: 3,
         py: 5,
         textAlign: "center",

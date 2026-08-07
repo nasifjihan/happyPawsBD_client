@@ -151,13 +151,13 @@ const AdminRescueAlerts = () => {
         </TextField>
       </AdminFilterToolbar>
 
-      <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+      <Paper sx={{ p: 2.5 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
-              <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
+              <Paper key={item._id} variant="outlined" sx={{ p: 2 }}>
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   spacing={2}
@@ -190,7 +190,7 @@ const AdminRescueAlerts = () => {
                       component={RouterLink}
                       to={`/admin/requests/rescue-alerts/${item._id}`}
                       endIcon={<ArrowForwardOutlinedIcon />}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       View Details
                     </Button>
@@ -217,7 +217,7 @@ const AdminRescueAlerts = () => {
                       color="success"
                       onClick={() => handleSave(item)}
                       disabled={updateMutation.isPending}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       Save
                     </Button>

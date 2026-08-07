@@ -140,7 +140,6 @@ const PaymentMethod = ({
         sx={{
           mt: 3,
           minHeight: 52,
-          borderRadius: 3,
           fontWeight: 700,
           textTransform: "none",
           backgroundColor: "#7AB259",

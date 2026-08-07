@@ -182,7 +182,6 @@ const DataGrid = ({ data }) => {
                       sx={{
                         px: 1,
                         py: 0.5,
-                        borderRadius: 1,
                         backgroundColor: "rgba(46, 125, 50, 0.06)",
                         border: "1px solid rgba(46, 125, 50, 0.12)",
                       }}
@@ -222,7 +221,6 @@ const DataGrid = ({ data }) => {
                     fullWidth
                     sx={{
                       fontWeight: 700,
-                      borderRadius: 2.5,
                       textTransform: "none",
                       boxShadow: "none",
                     }}

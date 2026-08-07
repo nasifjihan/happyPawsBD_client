@@ -13,7 +13,6 @@ const VetCare = () => {
           padding: 4,
           display: "flex",
           justifyContent: "space-between",
-          borderRadius: ".6rem",
           flexDirection: { xs: "column", md: "row" },
         }}
       >

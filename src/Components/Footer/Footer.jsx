@@ -232,7 +232,6 @@ const Footer = () => {
                 borderColor: "transparent",
                 width: "100%",
                 height: "250px",
-                borderRadius: "10px",
               }}
             />
           </Grid>

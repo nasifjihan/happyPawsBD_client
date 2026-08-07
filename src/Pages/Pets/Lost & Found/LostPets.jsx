@@ -24,8 +24,7 @@ const LostPets = () => {
   const lostPets = useMemo(() => data?.items ?? [], [data]);
   const totalPages = data?.totalPages ?? 1;
   const errorMessage =
-    error?.response?.data?.message ||
-    "Could not load lost pets right now.";
+    error?.response?.data?.message || "Could not load lost pets right now.";
 
   if (isLoading) {
     return (
@@ -40,7 +39,7 @@ const LostPets = () => {
       <Box
         sx={{
           color: "white",
-          borderRadius: 3,
+
           p: { xs: 3, md: 4 },
           my: 5,
           backgroundColor: "primary.para",
@@ -81,7 +80,7 @@ const LostPets = () => {
                 sx={{
                   width: "100%",
                   backgroundColor: "#FBFBFB",
-                  borderRadius: 3,
+
                   border: "1px solid",
                   borderColor: "divider",
                   boxShadow: "none",
@@ -101,7 +100,9 @@ const LostPets = () => {
                   <Stack spacing={1.5}>
                     <Divider>Pet Info</Divider>
                     <Typography sx={{ fontWeight: 700, mb: 0 }}>
-                      {pet.petName ? `Pet Name: ${pet.petName}` : "Lost pet listing"}
+                      {pet.petName
+                        ? `Pet Name: ${pet.petName}`
+                        : "Lost pet listing"}
                     </Typography>
 
                     <Typography variant="body2" sx={{ color: "primary.para" }}>

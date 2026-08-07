@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Chip,
-  Paper,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Box, Chip, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
@@ -41,7 +33,6 @@ const LostFoundReportPanel = React.forwardRef(
         ref={ref}
         elevation={0}
         sx={{
-          borderRadius: 6,
           overflow: "hidden",
           border: "1px solid rgba(122, 178, 89, 0.16)",
           boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
@@ -116,15 +107,21 @@ const LostFoundReportPanel = React.forwardRef(
             sx={{
               mb: 3,
               p: 2,
-              borderRadius: 4,
+
               backgroundColor: "rgba(122, 178, 89, 0.05)",
               border: "1px solid rgba(122, 178, 89, 0.12)",
             }}
           >
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: "#333332" }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: 700, color: "#333332" }}
+            >
               {currentTab.label}
             </Typography>
-            <Typography variant="body2" sx={{ mt: 0.5, color: "text.secondary" }}>
+            <Typography
+              variant="body2"
+              sx={{ mt: 0.5, color: "text.secondary" }}
+            >
               {currentTab.description}
             </Typography>
           </Box>
@@ -137,7 +134,7 @@ const LostFoundReportPanel = React.forwardRef(
         </Box>
       </Paper>
     );
-  }
+  },
 );
 
 LostFoundReportPanel.displayName = "LostFoundReportPanel";

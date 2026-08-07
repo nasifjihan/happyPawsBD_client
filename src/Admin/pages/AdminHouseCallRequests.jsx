@@ -17,7 +17,10 @@ import { Link as RouterLink } from "react-router-dom";
 
 import AdminFilterToolbar from "../components/AdminFilterToolbar";
 import AdminStatusChip from "../components/AdminStatusChip";
-import { adminListHouseCallRequests, adminUpdateHouseCallRequest } from "../lib/adminApi";
+import {
+  adminListHouseCallRequests,
+  adminUpdateHouseCallRequest,
+} from "../lib/adminApi";
 import { useAdminListQueryState } from "../lib/useAdminListQueryState";
 
 const statuses = ["new", "reviewed", "dispatched", "completed", "cancelled"];
@@ -50,7 +53,7 @@ const formatDateTime = (value) => {
 const AdminHouseCallRequests = () => {
   const [searchParams] = useSearchParams();
   const [urgencyFilter, setUrgencyFilter] = useState(() =>
-    normalizeUrgencyFilter(searchParams.get("urgency"))
+    normalizeUrgencyFilter(searchParams.get("urgency")),
   );
   const queryClient = useQueryClient();
 
@@ -67,7 +70,7 @@ const AdminHouseCallRequests = () => {
       () => ({
         urgency: urgencyFilter === "all" ? undefined : urgencyFilter,
       }),
-      [urgencyFilter]
+      [urgencyFilter],
     ),
   });
 
@@ -173,13 +176,13 @@ const AdminHouseCallRequests = () => {
         </TextField>
       </AdminFilterToolbar>
 
-      <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+      <Paper sx={{ p: 2.5 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
           ) : items.length ? (
             items.map((item) => (
-              <Paper key={item._id} variant="outlined" sx={{ p: 2, borderRadius: 3 }}>
+              <Paper key={item._id} variant="outlined" sx={{ p: 2 }}>
                 <Stack
                   direction={{ xs: "column", md: "row" }}
                   spacing={2}
@@ -193,16 +196,27 @@ const AdminHouseCallRequests = () => {
                       {item.fullName || "Client"} • {item.petType || "Pet"}
                       {item.petName ? ` (${item.petName})` : ""}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
                       {item.contactPhone || ""}{" "}
                       {item.contactEmail ? `• ${item.contactEmail}` : ""}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
                       {[item.city, item.address].filter(Boolean).join(" • ")}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
                       {item.urgency ? `Urgency: ${item.urgency}` : ""}
-                      {item.createdAt ? ` • ${formatDateTime(item.createdAt)}` : ""}
+                      {item.createdAt
+                        ? ` • ${formatDateTime(item.createdAt)}`
+                        : ""}
                     </Typography>
                   </Box>
 
@@ -213,7 +227,7 @@ const AdminHouseCallRequests = () => {
                       component={RouterLink}
                       to={`/admin/requests/consultations/house-calls/${item._id}`}
                       endIcon={<ArrowForwardOutlinedIcon />}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       View Details
                     </Button>
@@ -240,7 +254,7 @@ const AdminHouseCallRequests = () => {
                       color="success"
                       onClick={() => handleSave(item)}
                       disabled={updateMutation.isPending}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       Save
                     </Button>
@@ -271,4 +285,3 @@ const AdminHouseCallRequests = () => {
 };
 
 export default AdminHouseCallRequests;
-

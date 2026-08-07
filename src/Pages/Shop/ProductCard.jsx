@@ -128,7 +128,6 @@ const ProductCard = ({ product, onAddToCart, onViewDetails, onBookmark }) => {
             minWidth: 0,
             p: 0.5,
             flexShrink: 0,
-            borderRadius: 1.5,
           }}
         >
           <VisibilityOutlinedIcon fontSize="small" />

@@ -17,7 +17,6 @@ const navBaseSx = {
   transform: "translateY(-50%)",
   backgroundColor: "rgba(0, 0, 0, 0.6)",
   color: "#fff",
-  borderRadius: "50%",
   width: "50px",
   height: "50px",
   display: "flex",
@@ -172,7 +171,6 @@ const Vets = () => {
                     sx={{
                       width: "100px",
                       height: "130px",
-                      borderRadius: ".6rem",
                       position: "absolute",
                       left: "-35px",
                       top: "10px",

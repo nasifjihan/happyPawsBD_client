@@ -102,7 +102,7 @@ const AdoptionRequestsAdmin = () => {
         }}
       />
 
-      <Paper sx={{ p: 2.5, borderRadius: 4 }}>
+      <Paper sx={{ p: 2.5 }}>
         <Stack spacing={2}>
           {isLoading ? (
             <Typography sx={{ color: "text.secondary" }}>Loading...</Typography>
@@ -111,7 +111,7 @@ const AdoptionRequestsAdmin = () => {
               <Paper
                 key={item._id}
                 variant="outlined"
-                sx={{ p: 2, borderRadius: 3 }}
+                sx={{ p: 2 }}
               >
                 <Stack
                   direction={{ xs: "column", md: "row" }}
@@ -141,7 +141,7 @@ const AdoptionRequestsAdmin = () => {
                       component={RouterLink}
                       to={`/admin/requests/adoptions/${item._id}`}
                       endIcon={<ArrowForwardOutlinedIcon />}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       View Details
                     </Button>
@@ -169,7 +169,7 @@ const AdoptionRequestsAdmin = () => {
                       color="success"
                       onClick={() => handleSave(item)}
                       disabled={updateMutation.isPending}
-                      sx={{ borderRadius: 3, fontWeight: 800 }}
+                      sx={{ fontWeight: 800 }}
                     >
                       Save
                     </Button>

@@ -50,10 +50,10 @@ const mergeDeliveryInfo = (...sources) =>
     (accumulator, source) => ({
       ...accumulator,
       ...Object.fromEntries(
-        Object.entries(source || {}).map(([key, value]) => [key, value ?? ""])
+        Object.entries(source || {}).map(([key, value]) => [key, value ?? ""]),
       ),
     }),
-    { ...initialDeliveryInfo }
+    { ...initialDeliveryInfo },
   );
 
 const trimDeliveryInfo = (deliveryInfo) =>
@@ -61,7 +61,7 @@ const trimDeliveryInfo = (deliveryInfo) =>
     Object.entries(mergeDeliveryInfo(deliveryInfo)).map(([key, value]) => [
       key,
       String(value || "").trim(),
-    ])
+    ]),
   );
 
 const createUserDeliveryInfo = (user) => ({
@@ -82,8 +82,8 @@ const Cart = () => {
     mergeDeliveryInfo(
       initialDeliveryInfo,
       getStoredCheckoutDeliveryInfo(),
-      createUserDeliveryInfo(null)
-    )
+      createUserDeliveryInfo(null),
+    ),
   );
   const [paymentMethod, setPaymentMethod] = useState("cash_on_delivery");
   const [feedback, setFeedback] = useState({
@@ -95,29 +95,31 @@ const Cart = () => {
   const [completedOrder, setCompletedOrder] = useState(null);
   const paymentStatus = useMemo(
     () => new URLSearchParams(location.search).get("payment"),
-    [location.search]
+    [location.search],
   );
   const hasCartItems = cartItems.length > 0;
   const cartItemCount = useMemo(
-    () => cartItems.reduce((total, item) => total + Number(item.quantity || 0), 0),
-    [cartItems]
+    () =>
+      cartItems.reduce((total, item) => total + Number(item.quantity || 0), 0),
+    [cartItems],
   );
   const cartTotal = useMemo(
     () =>
       cartItems
         .reduce(
-          (total, item) => total + Number(item.price || 0) * Number(item.quantity || 0),
-          0
+          (total, item) =>
+            total + Number(item.price || 0) * Number(item.quantity || 0),
+          0,
         )
         .toFixed(2),
-    [cartItems]
+    [cartItems],
   );
   const orderSummary = useMemo(
     () => ({
       items: cartItems,
       total: Number(cartTotal),
     }),
-    [cartItems, cartTotal]
+    [cartItems, cartTotal],
   );
 
   const handleRemoveItem = (productId) => {
@@ -173,7 +175,7 @@ const Cart = () => {
         ...current,
         name: current.name || userDeliveryInfo.name,
         email: current.email || userDeliveryInfo.email,
-      })
+      }),
     );
   }, [user]);
 
@@ -194,7 +196,9 @@ const Cart = () => {
         total: cartTotal,
         token: lastOrderToken,
       });
-      setDeliveryInfo(mergeDeliveryInfo(initialDeliveryInfo, createUserDeliveryInfo(user)));
+      setDeliveryInfo(
+        mergeDeliveryInfo(initialDeliveryInfo, createUserDeliveryInfo(user)),
+      );
       clearStoredCheckoutDeliveryInfo();
       clearCart();
       setPaymentMethod("cash_on_delivery");
@@ -269,7 +273,9 @@ const Cart = () => {
           message: "Order placed successfully! We will contact you soon.",
         });
 
-        setDeliveryInfo(mergeDeliveryInfo(initialDeliveryInfo, createUserDeliveryInfo(user)));
+        setDeliveryInfo(
+          mergeDeliveryInfo(initialDeliveryInfo, createUserDeliveryInfo(user)),
+        );
         clearStoredCheckoutDeliveryInfo();
         clearCart();
         setPaymentMethod("cash_on_delivery");
@@ -281,7 +287,7 @@ const Cart = () => {
         }
 
         const hasInvalidPrice = cartItems.some(
-          (item) => isNaN(item.price) || item.price <= 0
+          (item) => isNaN(item.price) || item.price <= 0,
         );
 
         if (hasInvalidPrice) {
@@ -291,7 +297,7 @@ const Cart = () => {
         const session = await createPaymentSession(
           cartItems,
           normalizedDeliveryInfo,
-          paymentMethod
+          paymentMethod,
         );
         const sessionId = session?.sessionId;
         const publicToken = session?.publicToken;
@@ -338,7 +344,7 @@ const Cart = () => {
         sx={{
           mb: 3,
           p: { xs: 2.5, md: 4 },
-          borderRadius: 6,
+
           color: "text.primary",
           border: "1px solid",
           borderColor: "rgba(122, 178, 89, 0.14)",
@@ -368,9 +374,15 @@ const Cart = () => {
             details, and secure payment.
           </Typography>
 
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.25} sx={{ pt: 1 }}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1.25}
+            sx={{ pt: 1 }}
+          >
             <Chip
-              icon={<ShoppingBagOutlinedIcon sx={{ color: "#7AB259 !important" }} />}
+              icon={
+                <ShoppingBagOutlinedIcon sx={{ color: "#7AB259 !important" }} />
+              }
               label={`${cartItemCount} item${cartItemCount === 1 ? "" : "s"} in cart`}
               sx={{
                 color: "text.primary",
@@ -409,7 +421,7 @@ const Cart = () => {
           elevation={0}
           sx={{
             p: { xs: 3, md: 4 },
-            borderRadius: 6,
+
             border: "1px solid rgba(122, 178, 89, 0.16)",
             boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
             background:
@@ -439,13 +451,16 @@ const Cart = () => {
                 ? "Your online payment was completed successfully."
                 : "Your order is saved as cash on delivery."}
             </Typography>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ pt: 1 }}>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={1.5}
+              sx={{ pt: 1 }}
+            >
               <Button
                 variant="contained"
                 component={RouterLink}
                 to="/shop"
                 sx={{
-                  borderRadius: 3,
                   textTransform: "none",
                   fontWeight: 700,
                   backgroundColor: "#7AB259",
@@ -457,7 +472,7 @@ const Cart = () => {
                 variant="outlined"
                 component={RouterLink}
                 to="/orders"
-                sx={{ borderRadius: 3, textTransform: "none", fontWeight: 700 }}
+                sx={{ textTransform: "none", fontWeight: 700 }}
               >
                 View Orders
               </Button>
@@ -465,7 +480,7 @@ const Cart = () => {
                 variant="text"
                 component={RouterLink}
                 to="/dashboard"
-                sx={{ borderRadius: 3, textTransform: "none", fontWeight: 700 }}
+                sx={{ textTransform: "none", fontWeight: 700 }}
               >
                 Open Dashboard
               </Button>
@@ -479,7 +494,6 @@ const Cart = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  borderRadius: 6,
                   overflow: "hidden",
                   border: "1px solid rgba(122, 178, 89, 0.14)",
                   boxShadow: "0 20px 44px rgba(15, 23, 42, 0.08)",
@@ -496,10 +510,16 @@ const Cart = () => {
                   }}
                 >
                   <Stack spacing={0.75}>
-                    <Typography variant="h5" sx={{ fontWeight: 800, color: "#333332" }}>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 800, color: "#333332" }}
+                    >
                       Complete Your Order
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
                       Fill in delivery details, choose how you want to pay, and
                       confirm everything from one place.
                     </Typography>
@@ -514,7 +534,9 @@ const Cart = () => {
                     setErrors={setErrors}
                   />
 
-                  <Divider sx={{ my: 3, borderColor: "rgba(122, 178, 89, 0.12)" }} />
+                  <Divider
+                    sx={{ my: 3, borderColor: "rgba(122, 178, 89, 0.12)" }}
+                  />
 
                   <PaymentMethod
                     paymentMethod={paymentMethod}

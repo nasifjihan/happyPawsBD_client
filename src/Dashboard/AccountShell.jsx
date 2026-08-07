@@ -18,7 +18,7 @@ const navItems = [
 const AccountShell = ({ activeSection, title, description, children }) => {
   return (
     <Container maxWidth="lg" sx={{ pt: { xs: 3, md: 5 } }}>
-      <Paper elevation={2} sx={{ p: { xs: 2.5, md: 4 }, borderRadius: 4 }}>
+      <Paper elevation={2} sx={{ p: { xs: 2.5, md: 4 } }}>
         <Stack spacing={3}>
           <Box>
             <Typography variant="h4" sx={{ mb: 1, fontWeight: 800 }}>
