@@ -53,8 +53,16 @@ const PaymentMethod = ({
         </Typography>
       </Stack>
 
-      <FormControl component="fieldset" disabled={disabled || isSubmitting} fullWidth>
-        <RadioGroup value={paymentMethod} onChange={handleChange} sx={{ gap: 1.5 }}>
+      <FormControl
+        component="fieldset"
+        disabled={disabled || isSubmitting}
+        fullWidth
+      >
+        <RadioGroup
+          value={paymentMethod}
+          onChange={handleChange}
+          sx={{ gap: 1.5 }}
+        >
           <FormControlLabel
             value="online_payment"
             control={<Radio />}
@@ -70,15 +78,24 @@ const PaymentMethod = ({
                 paymentMethod === "online_payment"
                   ? "rgba(122, 178, 89, 0.10)"
                   : "#fff",
-              borderRadius: 3,
+
               px: 1.5,
               py: 1.25,
             }}
             label={
               <Box sx={{ py: 0.25 }}>
-                <Stack direction="row" spacing={1} sx={{ mb: 0.5, alignItems: "center" }}>
-                  <CreditCardOutlinedIcon fontSize="small" sx={{ color: "#7AB259" }} />
-                  <Typography sx={{ fontWeight: 700 }}>Online Payment</Typography>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ mb: 0.5, alignItems: "center" }}
+                >
+                  <CreditCardOutlinedIcon
+                    fontSize="small"
+                    sx={{ color: "#7AB259" }}
+                  />
+                  <Typography sx={{ fontWeight: 700 }}>
+                    Online Payment
+                  </Typography>
                 </Stack>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   Pay securely with Stripe and complete checkout instantly.
@@ -101,18 +118,23 @@ const PaymentMethod = ({
                 paymentMethod === "cash_on_delivery"
                   ? "rgba(122, 178, 89, 0.10)"
                   : "#fff",
-              borderRadius: 3,
               px: 1.5,
               py: 1.25,
             }}
             label={
               <Box sx={{ py: 0.25 }}>
-                <Stack direction="row" spacing={1} sx={{ mb: 0.5, alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ mb: 0.5, alignItems: "center" }}
+                >
                   <LocalShippingOutlinedIcon
                     fontSize="small"
                     sx={{ color: "#7AB259" }}
                   />
-                  <Typography sx={{ fontWeight: 700 }}>Cash on Delivery</Typography>
+                  <Typography sx={{ fontWeight: 700 }}>
+                    Cash on Delivery
+                  </Typography>
                 </Stack>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   Pay when your order reaches your doorstep.

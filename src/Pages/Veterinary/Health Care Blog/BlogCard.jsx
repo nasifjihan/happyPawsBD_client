@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 const BlogCard = ({ title, excerpt, link, to, image }) => {
@@ -13,7 +7,6 @@ const BlogCard = ({ title, excerpt, link, to, image }) => {
     <Card
       sx={{
         height: "100%",
-        borderRadius: 3,
         border: "1px solid",
         borderColor: "divider",
         boxShadow: "none",
@@ -56,7 +49,10 @@ const BlogCard = ({ title, excerpt, link, to, image }) => {
         >
           {title}
         </Typography>
-        <Typography variant="body2" sx={{ flexGrow: 1, color: "text.secondary" }}>
+        <Typography
+          variant="body2"
+          sx={{ flexGrow: 1, color: "text.secondary" }}
+        >
           {excerpt}
         </Typography>
         <Box>

@@ -32,7 +32,7 @@ const AdoptionForm = ({ animalCode, animalType }) => {
         animalType,
         user,
       }),
-    [animalCode, animalType, user]
+    [animalCode, animalType, user],
   );
   const {
     control,
@@ -112,7 +112,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 focused
                 {...register("animalCode")}
                 sx={{
-                  borderRadius: "8px",
                   background: "#f8f9fa",
                 }}
               />
@@ -130,7 +129,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 focused
                 sx={{
                   background: "#f8f9fa",
-                  borderRadius: "8px",
                 }}
               >
                 <InputLabel id="animalType">Type of Animal</InputLabel>
@@ -182,7 +180,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 autoComplete="name"
                 {...register("adopterName")}
                 sx={{
-                  borderRadius: "8px",
                   background: "#f8f9fa",
                 }}
               />
@@ -204,7 +201,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 autoComplete="email"
                 {...register("contactEmail")}
                 sx={{
-                  borderRadius: "8px",
                   background: "#f8f9fa",
                 }}
               />
@@ -226,7 +222,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 autoComplete="tel"
                 {...register("contactPhone")}
                 sx={{
-                  borderRadius: "8px",
                   background: "#f8f9fa",
                 }}
               />
@@ -247,7 +242,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 autoComplete="street-address"
                 {...register("address")}
                 sx={{
-                  borderRadius: "8px",
                   background: "#f8f9fa",
                 }}
               />
@@ -268,7 +262,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
                 focused
                 {...register("experience")}
                 sx={{
-                  borderRadius: "8px",
                   background: "#f8f9fa",
                 }}
               />
@@ -308,7 +301,6 @@ const AdoptionForm = ({ animalCode, animalType }) => {
             Your application has been submitted successfully!
           </Alert>
         </Snackbar>
-
       </Box>
     </Box>
   );

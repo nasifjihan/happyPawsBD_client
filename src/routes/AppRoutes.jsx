@@ -8,6 +8,34 @@ import PublicAppLayout from "./PublicAppLayout";
 const Home = lazy(() => import("../Pages/Home/Home"));
 const AdminShell = lazy(() => import("../Admin/AdminShell"));
 const AdminLogin = lazy(() => import("../Admin/pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("../Admin/pages/AdminDashboard"));
+const AdoptableAnimalsAdmin = lazy(() => import("../Admin/pages/AdoptableAnimalsAdmin"));
+const AdminVetProviders = lazy(() => import("../Admin/pages/AdminVetProviders"));
+const AdminPrograms = lazy(() => import("../Admin/pages/AdminPrograms"));
+const AdminAdoptionRequestDetails = lazy(() => import("../Admin/pages/AdminAdoptionRequestDetails"));
+const AdminEnrollments = lazy(() => import("../Admin/pages/AdminEnrollments"));
+const AdminLostFound = lazy(() => import("../Admin/pages/AdminLostFound"));
+const AdminHouseCallRequestDetails = lazy(() => import("../Admin/pages/AdminHouseCallRequestDetails"));
+const AdminHouseCallRequests = lazy(() => import("../Admin/pages/AdminHouseCallRequests"));
+const AdminInPersonConsultationDetails = lazy(() => import("../Admin/pages/AdminInPersonConsultationDetails"));
+const AdminInPersonConsultations = lazy(() => import("../Admin/pages/AdminInPersonConsultations"));
+const AdminOnlineConsultationDetails = lazy(() => import("../Admin/pages/AdminOnlineConsultationDetails"));
+const AdminOnlineConsultations = lazy(() => import("../Admin/pages/AdminOnlineConsultations"));
+const AdminOrderDetails = lazy(() => import("../Admin/pages/AdminOrderDetails"));
+const AdminOrders = lazy(() => import("../Admin/pages/AdminOrders"));
+const AdminReviewDetails = lazy(() => import("../Admin/pages/AdminReviewDetails"));
+const AdminReviews = lazy(() => import("../Admin/pages/AdminReviews"));
+const AdminRescueAlertDetails = lazy(() => import("../Admin/pages/AdminRescueAlertDetails"));
+const AdminRescueAlerts = lazy(() => import("../Admin/pages/AdminRescueAlerts"));
+const AdminSettings = lazy(() => import("../Admin/pages/AdminSettings"));
+const AdminBlogPosts = lazy(() => import("../Admin/pages/AdminBlogPosts"));
+const AdminPetInfoAnimals = lazy(() => import("../Admin/pages/AdminPetInfoAnimals"));
+const AdminPetInfoBreeds = lazy(() => import("../Admin/pages/AdminPetInfoBreeds"));
+const AdminStories = lazy(() => import("../Admin/pages/AdminStories"));
+const AdminVolunteerRequestDetails = lazy(() => import("../Admin/pages/AdminVolunteerRequestDetails"));
+const AdminVolunteerRequests = lazy(() => import("../Admin/pages/AdminVolunteerRequests"));
+const AdoptionRequestsAdmin = lazy(() => import("../Admin/pages/AdoptionRequestsAdmin"));
+const ShopItemsAdmin = lazy(() => import("../Admin/pages/ShopItemsAdmin"));
 
 const Pet_Info = lazy(() => import("../Pages/Pets/Pet Info/Pet_Info"));
 const PetCare = lazy(() => import("../Pages/Pets/Pet Care/PetCare"));
@@ -114,7 +142,63 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/admin" element={<AdminAppLayout />}>
         <Route path="login" element={<AdminLogin />} />
-        <Route path="*" element={<AdminShell />} />
+        <Route element={<AdminShell />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="catalog/shop-items" element={<ShopItemsAdmin />} />
+          <Route path="catalog/vets" element={<AdminVetProviders />} />
+          <Route path="catalog/programs" element={<AdminPrograms />} />
+          <Route path="content/stories" element={<AdminStories />} />
+          <Route path="content/blog-posts" element={<AdminBlogPosts />} />
+          <Route path="content/pet-info/animals" element={<AdminPetInfoAnimals />} />
+          <Route path="content/pet-info/breeds" element={<AdminPetInfoBreeds />} />
+          <Route path="adoption/animals" element={<AdoptableAnimalsAdmin />} />
+          <Route path="requests/orders" element={<AdminOrders />} />
+          <Route path="requests/orders/:id" element={<AdminOrderDetails />} />
+          <Route
+            path="requests/consultations/online"
+            element={<AdminOnlineConsultations />}
+          />
+          <Route
+            path="requests/consultations/online/:id"
+            element={<AdminOnlineConsultationDetails />}
+          />
+          <Route
+            path="requests/consultations/in-person"
+            element={<AdminInPersonConsultations />}
+          />
+          <Route
+            path="requests/consultations/in-person/:id"
+            element={<AdminInPersonConsultationDetails />}
+          />
+          <Route
+            path="requests/consultations/house-calls"
+            element={<AdminHouseCallRequests />}
+          />
+          <Route
+            path="requests/consultations/house-calls/:id"
+            element={<AdminHouseCallRequestDetails />}
+          />
+          <Route path="requests/volunteers" element={<AdminVolunteerRequests />} />
+          <Route
+            path="requests/volunteers/:id"
+            element={<AdminVolunteerRequestDetails />}
+          />
+          <Route path="requests/adoptions" element={<AdoptionRequestsAdmin />} />
+          <Route
+            path="requests/adoptions/:id"
+            element={<AdminAdoptionRequestDetails />}
+          />
+          <Route path="requests/reviews" element={<AdminReviews />} />
+          <Route path="requests/reviews/:id" element={<AdminReviewDetails />} />
+          <Route path="requests/enrollments" element={<AdminEnrollments />} />
+          <Route path="requests/lost-found" element={<AdminLostFound />} />
+          <Route path="requests/rescue-alerts" element={<AdminRescueAlerts />} />
+          <Route
+            path="requests/rescue-alerts/:id"
+            element={<AdminRescueAlertDetails />}
+          />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
       </Route>
 
       <Route path="/" element={<PublicAppLayout />}>

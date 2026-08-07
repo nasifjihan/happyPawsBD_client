@@ -39,7 +39,12 @@ import { useAdoptableAnimalQuery } from "../../../features/adoption/hooks";
 const AdoptablePetDetails = () => {
   const [open, setOpen] = useState(false);
   const { code } = useParams();
-  const { data: pet, isLoading, isError, error } = useAdoptableAnimalQuery(code);
+  const {
+    data: pet,
+    isLoading,
+    isError,
+    error,
+  } = useAdoptableAnimalQuery(code);
 
   const errorMessage =
     error?.response?.data?.message ||
@@ -104,14 +109,19 @@ const AdoptablePetDetails = () => {
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography
             variant="h4"
-            sx={{ fontWeight: 900, my: 3, color: "primary.main", textAlign: "center", fontSize: { xs: "2rem", md: "3rem" } }}
+            sx={{
+              fontWeight: 900,
+              my: 3,
+              color: "primary.main",
+              textAlign: "center",
+              fontSize: { xs: "2rem", md: "3rem" },
+            }}
           >
             Meet "{pet.name}"
           </Typography>
 
           <Card
             sx={{
-              borderRadius: "15px",
               boxShadow: "10px 10px 30px rgba(0,0,0,0.15)",
               position: "relative",
             }}
@@ -137,7 +147,6 @@ const AdoptablePetDetails = () => {
               image={pet.photos}
               alt={pet.name}
               sx={{
-                borderRadius: "15px 15px 0 0",
                 objectFit: "cover",
               }}
             />
@@ -164,7 +173,6 @@ const AdoptablePetDetails = () => {
               py: 2,
               px: 4,
               backgroundColor: "#f3f3f3",
-              borderRadius: "15px",
             }}
           >
             <CardContent>
@@ -172,14 +180,21 @@ const AdoptablePetDetails = () => {
                 <Box sx={{ textAlign: "center" }}>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 700, color: "primary.dark", fontSize: { xs: "1.5rem", md: "2rem" } }}
+                    sx={{
+                      fontWeight: 700,
+                      color: "primary.dark",
+                      fontSize: { xs: "1.5rem", md: "2rem" },
+                    }}
                   >
                     {pet.breed}
                   </Typography>
 
                   <Typography
                     variant="body2"
-                    sx={{ color: "textSecondary", fontSize: { xs: "0.875rem", md: "1rem" } }}
+                    sx={{
+                      color: "textSecondary",
+                      fontSize: { xs: "0.875rem", md: "1rem" },
+                    }}
                   >
                     {pet.origin}
                   </Typography>
@@ -188,56 +203,88 @@ const AdoptablePetDetails = () => {
                 <Divider sx={{ mb: 2 }} />
 
                 {/* Pet Information */}
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Cake color="secondary" />
                   <Typography variant="body1">
                     <strong>Age:</strong> {pet.age} years
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Wc color="info" />
                   <Typography variant="body1">
                     <strong>Gender:</strong> {pet.gender}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Scale color="secondary" />
                   <Typography variant="body1">
                     <strong>Weight:</strong> {pet.weight}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Vaccines color="success" />
                   <Typography variant="body1">
                     <strong>Vaccine:</strong> {pet.vaccinationstatus}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Palette color="warning" />
                   <Typography variant="body1">
                     <strong>Color:</strong> {pet.color}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <MonitorHeart color="error" />
                   <Typography variant="body1">
                     <strong>Health Issue:</strong> {pet.healthconditions}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <AttachMoney color="success" />
                   <Typography variant="body1">
                     <strong>Adoption Fee:</strong> {pet.adoptionfee} BDT
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Pets color="primary" />
                   <Typography variant="body1">
                     <strong>Good with Other Pets:</strong>{" "}
@@ -245,21 +292,33 @@ const AdoptablePetDetails = () => {
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <ChildCare color="warning" />
                   <Typography variant="body1">
                     <strong>Good with Children:</strong> {pet.goodwithchildren}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Place color="primary" />
                   <Typography variant="body1">
                     <strong>Location:</strong> {pet.location}
                   </Typography>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ alignItems: "center" }}
+                >
                   <Event color="info" />
                   <Typography variant="body1">
                     <strong>Available Since:</strong> {pet.availablesince}
@@ -307,10 +366,7 @@ const AdoptablePetDetails = () => {
       </Grid>
 
       {/* Adoption Form Section */}
-      <Box
-        id="adoption-form"
-        sx={{ mt: 8 }}
-      >
+      <Box id="adoption-form" sx={{ mt: 8 }}>
         <Typography
           variant="h5"
           sx={{ fontWeight: 700, color: "green", mb: 2, textAlign: "center" }}

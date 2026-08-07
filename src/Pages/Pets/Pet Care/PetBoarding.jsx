@@ -49,7 +49,7 @@ const PetBoarding = () => {
         }
 
         setLoadError(
-          error?.response?.data?.message || "Could not load boarding programs."
+          error?.response?.data?.message || "Could not load boarding programs.",
         );
       } finally {
         if (isActive) {
@@ -66,7 +66,11 @@ const PetBoarding = () => {
   return (
     <Box sx={{ my: 6 }}>
       <Box
-        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
         <Typography variant="h4" sx={{ mb: 1, fontWeight: 900 }}>
           Boarding
@@ -115,43 +119,11 @@ const PetBoarding = () => {
           </Grid>
         ) : programs.length ? (
           <>
-        {/* Main Article */}
-        {programs.slice(0, 1).map((item) => (
-          <Grid key={item.id} size={{ xs: 12, md: 6 }}>
-            <Card
-              sx={{
-                borderRadius: "2%",
-                boxShadow: "none",
-              }}
-            >
-              <CardActionArea onClick={() => handledaycare(item.id)}>
-                <CardMedia
-                  component="img"
-                  image={item.picture}
-                  alt="Main Article"
-                  sx={{ height: 420 }}
-                />
-                <CardContent>
-                  <Typography variant="h6" sx={{ fontWeight: 700}}>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: "primary.para" }}>
-                    {item.shortDescription}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-
-        {/* Side Articles */}
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Grid container spacing={4}>
-            {programs.slice(1, 5).map((item) => (
-              <Grid key={item.id} size={{ xs: 6 }}>
+            {/* Main Article */}
+            {programs.slice(0, 1).map((item) => (
+              <Grid key={item.id} size={{ xs: 12, md: 6 }}>
                 <Card
                   sx={{
-                    borderRadius: "2%",
                     boxShadow: "none",
                   }}
                 >
@@ -159,20 +131,17 @@ const PetBoarding = () => {
                     <CardMedia
                       component="img"
                       image={item.picture}
-                      alt="Side Article 1"
-                      sx={{
-                        height: 150,
-                        borderRadius: "2%",
-                      }}
+                      alt="Main Article"
+                      sx={{ height: 420 }}
                     />
                     <CardContent>
-                      <Typography
-                        variant="body1"
-                        sx={{ fontWeight: 700 }}
-                      >
+                      <Typography variant="h6" sx={{ fontWeight: 700 }}>
                         {item.title}
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "primary.para" }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ color: "primary.para" }}
+                      >
                         {item.shortDescription}
                       </Typography>
                     </CardContent>
@@ -180,8 +149,43 @@ const PetBoarding = () => {
                 </Card>
               </Grid>
             ))}
-          </Grid>
-        </Grid>
+
+            {/* Side Articles */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Grid container spacing={4}>
+                {programs.slice(1, 5).map((item) => (
+                  <Grid key={item.id} size={{ xs: 6 }}>
+                    <Card
+                      sx={{
+                        boxShadow: "none",
+                      }}
+                    >
+                      <CardActionArea onClick={() => handledaycare(item.id)}>
+                        <CardMedia
+                          component="img"
+                          image={item.picture}
+                          alt="Side Article 1"
+                          sx={{
+                            height: 150,
+                          }}
+                        />
+                        <CardContent>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            {item.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "primary.para" }}
+                          >
+                            {item.shortDescription}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
           </>
         ) : (
           <Grid size={{ xs: 12 }}>

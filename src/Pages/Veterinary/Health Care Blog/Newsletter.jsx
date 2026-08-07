@@ -39,7 +39,6 @@ const Newsletter = () => {
           type="email"
           sx={{
             backgroundColor: "#fff",
-            borderRadius: 2,
           }}
         />
         <Button

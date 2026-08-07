@@ -86,8 +86,6 @@ const Adoptable_Animals = () => {
                 <Card
                   sx={{
                     boxShadow: "none",
-                   
-                    borderRadius: 1,
                     border: "1px solid",
                     borderColor: "divider",
                     height: "100%",
@@ -100,11 +98,18 @@ const Adoptable_Animals = () => {
                     onClick={() => handleCardClick(item.code)}
                     sx={{ height: "100%", alignItems: "stretch" }}
                   >
-                    <Box sx={{ width: "100%", height: 250, overflow: "hidden" }}>
+                    <Box
+                      sx={{ width: "100%", height: 250, overflow: "hidden" }}
+                    >
                       <OptimizedImage
                         src={item.photos}
                         alt={item.name}
-                        sx={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
                       />
                     </Box>
                     <CardContent>
@@ -136,10 +141,19 @@ const Adoptable_Animals = () => {
                       >
                         {item.breed} - {item.origin}
                       </Typography>
-                      <Typography variant="body2" sx={{ pt: 2, color: "primary.para" }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ pt: 2, color: "primary.para" }}
+                      >
                         {item.age} Year{" "}
-                        <Box component="span" sx={{ color: "green" }}>|</Box> {item.gender}{" "}
-                        <Box component="span" sx={{ color: "green" }}>|</Box> {item.weight}
+                        <Box component="span" sx={{ color: "green" }}>
+                          |
+                        </Box>{" "}
+                        {item.gender}{" "}
+                        <Box component="span" sx={{ color: "green" }}>
+                          |
+                        </Box>{" "}
+                        {item.weight}
                       </Typography>
 
                       <Typography
@@ -173,7 +187,11 @@ const Adoptable_Animals = () => {
                         </Typography>
                         <Typography
                           variant="body2"
-                          sx={{ textAlign: "right", fontWeight: 700, color: "primary.green" }}
+                          sx={{
+                            textAlign: "right",
+                            fontWeight: 700,
+                            color: "primary.green",
+                          }}
                         >
                           View Details
                         </Typography>

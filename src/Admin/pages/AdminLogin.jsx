@@ -26,7 +26,10 @@ const AdminLoginForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
-    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+    setForm((current) => ({
+      ...current,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSubmit = async (event) => {
@@ -39,7 +42,7 @@ const AdminLoginForm = () => {
       navigate(redirect, { replace: true });
     } catch (loginError) {
       setError(
-        loginError?.response?.data?.message || "Invalid admin credentials."
+        loginError?.response?.data?.message || "Invalid admin credentials.",
       );
     } finally {
       setIsSubmitting(false);
@@ -58,7 +61,7 @@ const AdminLoginForm = () => {
         px: 2,
       }}
     >
-      <Card sx={{ width: "100%", maxWidth: 420, borderRadius: 4 }}>
+      <Card sx={{ width: "100%", maxWidth: 420 }}>
         <CardContent sx={{ p: 4 }}>
           <Stack spacing={2.5}>
             <Box sx={{ textAlign: "center" }}>
