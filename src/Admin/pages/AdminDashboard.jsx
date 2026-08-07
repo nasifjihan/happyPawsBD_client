@@ -336,11 +336,6 @@ const AdminDashboard = () => {
           <StatCard
             label="Enrollments (New)"
             value={newCounts?.enrollments ?? 0}
-            helper={
-              (newCounts?.enrollments ?? 0) > 0
-                ? "Needs follow-up"
-                : "All caught up"
-            }
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
@@ -353,14 +348,11 @@ const AdminDashboard = () => {
           <StatCard
             label="Lost & Found (New)"
             value={newCounts?.lostFound ?? 0}
-            helper={
-              (newCounts?.lostFound ?? 0) > 0 ? "Needs review" : "All caught up"
-            }
           />
         </Grid>
       </Grid>
 
-      <Grid container spacing={2.5} sx={{ mt: 1 }}>
+      <Grid container spacing={2.5} sx={{ mt: 4 }}>
         <Grid size={{ xs: 12, lg: 7 }}>
           <Card>
             <CardContent>
@@ -463,7 +455,7 @@ const AdminDashboard = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2.5} sx={{ mt: 1 }}>
+      <Grid container spacing={2.5} sx={{ mt: 4 }}>
         <Grid size={{ xs: 12 }}>
           <Card>
             <CardContent>
@@ -858,7 +850,7 @@ const AdminDashboard = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2.5} sx={{ mt: 1 }}>
+      <Grid container spacing={2.5} sx={{ mt: 4 }}>
         <Grid size={{ xs: 12 }}>
           <Card>
             <CardContent>
