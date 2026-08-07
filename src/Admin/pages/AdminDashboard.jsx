@@ -220,11 +220,11 @@ const AdminDashboard = () => {
 
   return (
     <Box>
-      <Typography variant="h3" sx={{ mb: 3, fontWeight: 900 }}>
+      <Typography variant="h3" sx={{ mb: 3, fontWeight: 700 }}>
         Overview
       </Typography>
 
-      <Grid container spacing={2.5}>
+      <Grid container spacing={2}>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard label="Shop Items" value={data?.shopItems ?? 0} />
         </Grid>

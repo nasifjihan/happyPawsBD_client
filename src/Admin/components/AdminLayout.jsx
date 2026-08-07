@@ -39,8 +39,14 @@ const navItems = [
   { label: "Adoptable Animals", to: "/admin/adoption/animals" },
   { label: "Orders", to: "/admin/requests/orders" },
   { label: "Online Consultations", to: "/admin/requests/consultations/online" },
-  { label: "In-Person Consultations", to: "/admin/requests/consultations/in-person" },
-  { label: "House Call Requests", to: "/admin/requests/consultations/house-calls" },
+  {
+    label: "In-Person Consultations",
+    to: "/admin/requests/consultations/in-person",
+  },
+  {
+    label: "House Call Requests",
+    to: "/admin/requests/consultations/house-calls",
+  },
   { label: "Volunteer Requests", to: "/admin/requests/volunteers" },
   { label: "Adoption Requests", to: "/admin/requests/adoptions" },
   { label: "Reviews", to: "/admin/requests/reviews" },
@@ -149,7 +155,7 @@ const AdminLayout = () => {
         }}
       >
         <Box sx={{ p: 2.5 }}>
-          <Typography variant="h6" sx={{ fontWeight: 800 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Happy Paws Admin
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
@@ -174,8 +180,6 @@ const AdminLayout = () => {
                     : location.pathname.startsWith(item.to)
                 }
                 sx={{
-                  borderRadius: 2,
-                  my: 0.5,
                   "&.Mui-selected": {
                     backgroundColor: (theme) =>
                       alpha(theme.palette.success.main, 0.14),
@@ -189,7 +193,7 @@ const AdminLayout = () => {
                     label={badgeCount}
                     size="small"
                     color="success"
-                    sx={{ ml: 1, fontWeight: 800 }}
+                    sx={{ ml: 1, fontWeight: 600 }}
                   />
                 ) : null}
               </ListItemButton>
@@ -218,20 +222,19 @@ const AdminLayout = () => {
           sx={{
             borderBottom: "1px solid",
             borderColor: "divider",
-            backgroundColor: (theme) => alpha(theme.palette.background.paper, 0.9),
+            backgroundColor: (theme) =>
+              alpha(theme.palette.background.paper, 0.9),
             color: "text.primary",
             backdropFilter: "blur(12px)",
           }}
         >
           <Toolbar>
-            <Typography variant="h6" sx={{ fontWeight: 800 }}>
-              {
-                navItems.find((item) =>
-                  item.to === "/admin"
-                    ? location.pathname === "/admin"
-                    : location.pathname.startsWith(item.to)
-                )?.label || "Admin Panel"
-              }
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              {navItems.find((item) =>
+                item.to === "/admin"
+                  ? location.pathname === "/admin"
+                  : location.pathname.startsWith(item.to),
+              )?.label || "Admin Panel"}
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Tooltip
@@ -254,7 +257,7 @@ const AdminLayout = () => {
           </Toolbar>
         </AppBar>
 
-        <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Container maxWidth="2xl" sx={{ py: 4 }}>
           <Outlet />
         </Container>
       </Box>

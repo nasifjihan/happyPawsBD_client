@@ -132,160 +132,169 @@ const Contact_Us = () => {
                   We aim to make it easy for pet families and animal lovers to
                   find the right next step quickly.
                 </Typography>
-
-                <Divider />
-
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
-                    Contact Information
-                  </Typography>
-
-                  <List disablePadding>
-                    {contactItems.map((item) => (
-                      <ListItem
-                        key={item.label}
-                        component="a"
-                        href={item.href}
-                        target={item.label === "Address" ? "_blank" : undefined}
-                        rel={
-                          item.label === "Address"
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                        sx={{
-                          padding: 0,
-                          alignItems: "center",
-                          textDecoration: "none",
-                          color: "inherit",
-                        }}
-                      >
-                        <ListItemIcon
-                          sx={{ minWidth: 40, color: "success.main" }}
-                        >
-                          {item.icon}
-                        </ListItemIcon>
-                        <ListItemText
-                          primary={item.label}
-                          secondary={item.value}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Box>
-
-                <Divider />
-
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
-                    What do you need help with?
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary", mb: 1.5 }}>
-                    Use these quick links to reach the right page faster.
-                  </Typography>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ flexWrap: "wrap" }}
-                  >
-                    <Button
-                      component={RouterLink}
-                      to="/adoption"
-                      variant="contained"
-                      color="success"
-                      sx={{ textTransform: "none", fontWeight: 700 }}
-                    >
-                      Adoption
-                    </Button>
-                    <Button
-                      component={RouterLink}
-                      to="/lost_found"
-                      variant="outlined"
-                      color="success"
-                      sx={{ textTransform: "none", fontWeight: 700 }}
-                    >
-                      Lost & Found
-                    </Button>
-                    <Button
-                      component={RouterLink}
-                      to="/volunteer"
-                      variant="outlined"
-                      color="success"
-                      sx={{ textTransform: "none", fontWeight: 700 }}
-                    >
-                      Volunteer
-                    </Button>
-                    <Button
-                      component={RouterLink}
-                      to="/make_donation"
-                      variant="outlined"
-                      color="success"
-                      sx={{ textTransform: "none", fontWeight: 700 }}
-                    >
-                      Donate
-                    </Button>
-                  </Stack>
-                </Box>
-
-                <Divider />
-
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
-                    Response expectations
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary", mb: 1.5 }}>
-                    If your message is urgent, please call directly.
-                  </Typography>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    useFlexGap
-                    sx={{ flexWrap: "wrap" }}
-                  >
-                    <Chip
-                      label="Replies: 24–48 hours"
-                      color="success"
-                      variant="outlined"
-                      sx={{ fontWeight: 700 }}
-                    />
-                    <Chip
-                      label="Urgent: Phone call"
-                      color="success"
-                      variant="outlined"
-                      sx={{ fontWeight: 700 }}
-                    />
-                  </Stack>
-                </Box>
-
-                <Divider />
-
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
-                    Connect with Us
-                  </Typography>
-
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    useFlexGap
-                    sx={{ flexWrap: "wrap" }}
-                  >
-                    {socialLinks.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={item.label}
-                      >
-                        <Avatar sx={{ bgcolor: "success.main" }} variant="rounded">
-                          {item.icon}
-                        </Avatar>
-                      </a>
-                    ))}
-                  </Stack>
-                </Box>
               </Stack>
+            </Grid>
+          </Grid>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Grid container spacing={5}>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
+                  Contact Information
+                </Typography>
+
+                <List disablePadding>
+                  {contactItems.map((item) => (
+                    <ListItem
+                      key={item.label}
+                      component="a"
+                      href={item.href}
+                      target={item.label === "Address" ? "_blank" : undefined}
+                      rel={
+                        item.label === "Address"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      sx={{
+                        padding: 0,
+                        alignItems: "center",
+                        textDecoration: "none",
+                        color: "inherit",
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{ minWidth: 40, color: "success.main" }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={item.label}
+                        secondary={item.value}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+
+              <Box>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
+                  Connect with Us
+                </Typography>
+
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  useFlexGap
+                  sx={{ flexWrap: "wrap" }}
+                >
+                  {socialLinks.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.label}
+                    >
+                      <Avatar
+                        sx={{ bgcolor: "success.main" }}
+                        variant="rounded"
+                      >
+                        {item.icon}
+                      </Avatar>
+                    </a>
+                  ))}
+                </Stack>
+              </Box>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
+                  Response expectations
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary", mb: 1.5 }}
+                >
+                  If your message is urgent, please call directly.
+                </Typography>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  sx={{ flexWrap: "wrap" }}
+                >
+                  <Chip
+                    label="Replies: 24–48 hours"
+                    color="success"
+                    variant="outlined"
+                    sx={{ fontWeight: 700 }}
+                  />
+                  <Chip
+                    label="Urgent: Phone call"
+                    color="success"
+                    variant="outlined"
+                    sx={{ fontWeight: 700 }}
+                  />
+                </Stack>
+              </Box>
+
+              <Box>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: "0.35em" }}>
+                  What do you need help with?
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary", mb: 1.5 }}
+                >
+                  Use these quick links to reach the right page faster.
+                </Typography>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  sx={{ flexWrap: "wrap" }}
+                >
+                  <Button
+                    component={RouterLink}
+                    to="/adoption"
+                    variant="contained"
+                    color="success"
+                    sx={{ textTransform: "none", fontWeight: 700 }}
+                  >
+                    Adoption
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/lost_found"
+                    variant="outlined"
+                    color="success"
+                    sx={{ textTransform: "none", fontWeight: 700 }}
+                  >
+                    Lost & Found
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/volunteer"
+                    variant="outlined"
+                    color="success"
+                    sx={{ textTransform: "none", fontWeight: 700 }}
+                  >
+                    Volunteer
+                  </Button>
+                  <Button
+                    component={RouterLink}
+                    to="/make_donation"
+                    variant="outlined"
+                    color="success"
+                    sx={{ textTransform: "none", fontWeight: 700 }}
+                  >
+                    Donate
+                  </Button>
+                </Stack>
+              </Box>
             </Grid>
           </Grid>
         </Paper>

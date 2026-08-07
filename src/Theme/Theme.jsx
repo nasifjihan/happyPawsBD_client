@@ -36,7 +36,7 @@ const common = {
     },
   },
   shape: {
-    borderRadius: 0,
+    // borderRadius: 0,
   },
   typography: {
     fontFamily: '"Poppins","Roboto","Helvetica","Arial",sans-serif',
@@ -94,7 +94,6 @@ export const getAppTheme = (mode = "light") =>
         },
         styleOverrides: {
           root: {
-            borderRadius: 0,
             paddingInline: 18,
           },
         },
@@ -103,14 +102,12 @@ export const getAppTheme = (mode = "light") =>
         styleOverrides: {
           root: {
             backgroundImage: "none",
-            borderRadius: 0,
           },
         },
       },
       MuiCard: {
         styleOverrides: {
           root: ({ theme }) => ({
-            borderRadius: 16,
             border: "1px solid",
             borderColor: theme.palette.divider,
           }),
